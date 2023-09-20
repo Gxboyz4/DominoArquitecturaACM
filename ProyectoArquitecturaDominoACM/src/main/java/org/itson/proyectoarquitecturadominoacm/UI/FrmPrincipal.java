@@ -1,20 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+/**
+ * FrmPrincipal.java creado el 19/09/2023.
  */
 package org.itson.proyectoarquitecturadominoacm.UI;
+
+import javax.swing.ImageIcon;
+import org.itson.proyectoarquitecturadominoacm.Utileria.Avatares;
 
 /**
  *
  * @author Gabriel Mancinas
  */
 public class FrmPrincipal extends javax.swing.JFrame {
-
+Avatares avatares;
     /**
      * Creates new form FrmPrincipal
      */
-    public FrmPrincipal() {
+    public FrmPrincipal() {  
         initComponents();
+        this.setVisible(true);
+        setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
+        setTitle("Dominó");
+        avatares = new Avatares();
     }
 
     /**
@@ -27,23 +33,54 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lbl = new javax.swing.JLabel();
-        btnTest = new javax.swing.JButton();
+        lblAvatares = new javax.swing.JLabel();
+        btnCambiarAvatar = new javax.swing.JButton();
+        txtApodo = new javax.swing.JTextField();
+        btnJugar = new javax.swing.JButton();
+        lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setMinimumSize(new java.awt.Dimension(736, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(736, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(lblAvatares, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 240, 230));
 
-        lbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/fondoFrmPrincipal.png"))); // NOI18N
-        jPanel1.add(lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 470));
-
-        btnTest.setText("jButton1");
-        btnTest.addActionListener(new java.awt.event.ActionListener() {
+        btnCambiarAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoCambiarAvatar.png"))); // NOI18N
+        btnCambiarAvatar.setBorderPainted(false);
+        btnCambiarAvatar.setContentAreaFilled(false);
+        btnCambiarAvatar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTestActionPerformed(evt);
+                btnCambiarAvatarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, -1, -1));
+        jPanel1.add(btnCambiarAvatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 280, 130, 130));
+
+        txtApodo.setBackground(new java.awt.Color(227, 25, 55));
+        txtApodo.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        txtApodo.setForeground(new java.awt.Color(255, 255, 255));
+        txtApodo.setBorder(null);
+        txtApodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApodoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtApodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 350, 30));
+
+        btnJugar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoJugar.png"))); // NOI18N
+        btnJugar.setBorderPainted(false);
+        btnJugar.setContentAreaFilled(false);
+        btnJugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJugarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnJugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 140, 130));
+
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/fondoFrmPrincipal.png"))); // NOI18N
+        lblFondo.setMaximumSize(new java.awt.Dimension(700, 500));
+        lblFondo.setMinimumSize(new java.awt.Dimension(700, 500));
+        jPanel1.add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,48 +97,26 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
-        System.out.println("Pablo");
-    }//GEN-LAST:event_btnTestActionPerformed
+    private void txtApodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApodoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApodoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
+        FrmMenu frmMenu = new FrmMenu();
+        this.setVisible(false);
+    }//GEN-LAST:event_btnJugarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmPrincipal().setVisible(true);
-            }
-        });
-    }
+    private void btnCambiarAvatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarAvatarActionPerformed
+    avatares.actualizarAvatar(lblAvatares);
+
+    }//GEN-LAST:event_btnCambiarAvatarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnTest;
+    private javax.swing.JButton btnCambiarAvatar;
+    private javax.swing.JButton btnJugar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lbl;
+    private javax.swing.JLabel lblAvatares;
+    private javax.swing.JLabel lblFondo;
+    private javax.swing.JTextField txtApodo;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,8 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+/**
+ * ProyectoArquitecturaDominoACM.java creado el 19/09/2023.
  */
 
 package org.itson.proyectoarquitecturadominoacm;
+
+import org.itson.proyectoarquitecturadominoacm.UI.FrmPrincipal;
 
 /**
  *
@@ -11,6 +13,6 @@ package org.itson.proyectoarquitecturadominoacm;
 public class ProyectoArquitecturaDominoACM {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+       FrmPrincipal frmPrincipal= new FrmPrincipal();
     }
 }
