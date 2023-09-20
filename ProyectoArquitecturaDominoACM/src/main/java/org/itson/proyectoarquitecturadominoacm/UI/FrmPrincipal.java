@@ -3,15 +3,19 @@
  */
 package org.itson.proyectoarquitecturadominoacm.UI;
 
+import java.awt.Color;
 import javax.swing.ImageIcon;
-import org.itson.proyectoarquitecturadominoacm.Utileria.Avatares;
+import javax.swing.JLabel;
+import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarControlador;
+import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarModelo;
+import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarVista;
 
 /**
  *
  * @author Gabriel Mancinas
  */
 public class FrmPrincipal extends javax.swing.JFrame {
-Avatares avatares;
+
     /**
      * Creates new form FrmPrincipal
      */
@@ -20,7 +24,17 @@ Avatares avatares;
         this.setVisible(true);
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
-        avatares = new Avatares();
+        AvatarModelo modelo= new AvatarModelo();
+        AvatarVista vista = new AvatarVista(modelo);
+        
+        AvatarControlador contralador = new AvatarControlador(modelo,vista);
+        this.btnCambiarAvatar.addActionListener(contralador);
+        vista.setOpaque(false);
+        this.jPanel1.add(vista, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 240, 230),0);
+        
+        
+        
+        
     }
 
     /**
@@ -33,7 +47,6 @@ Avatares avatares;
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblAvatares = new javax.swing.JLabel();
         btnCambiarAvatar = new javax.swing.JButton();
         txtApodo = new javax.swing.JTextField();
         btnJugar = new javax.swing.JButton();
@@ -41,19 +54,15 @@ Avatares avatares;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(736, 500));
+        jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(736, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(lblAvatares, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 240, 230));
 
         btnCambiarAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoCambiarAvatar.png"))); // NOI18N
         btnCambiarAvatar.setBorderPainted(false);
         btnCambiarAvatar.setContentAreaFilled(false);
-        btnCambiarAvatar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCambiarAvatarActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnCambiarAvatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 280, 130, 130));
 
         txtApodo.setBackground(new java.awt.Color(227, 25, 55));
@@ -80,6 +89,7 @@ Avatares avatares;
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/fondoFrmPrincipal.png"))); // NOI18N
         lblFondo.setMaximumSize(new java.awt.Dimension(700, 500));
         lblFondo.setMinimumSize(new java.awt.Dimension(700, 500));
+        lblFondo.setOpaque(true);
         jPanel1.add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -106,16 +116,10 @@ Avatares avatares;
         this.setVisible(false);
     }//GEN-LAST:event_btnJugarActionPerformed
 
-    private void btnCambiarAvatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarAvatarActionPerformed
-    avatares.actualizarAvatar(lblAvatares);
-
-    }//GEN-LAST:event_btnCambiarAvatarActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCambiarAvatar;
     private javax.swing.JButton btnJugar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblAvatares;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JTextField txtApodo;
     // End of variables declaration//GEN-END:variables

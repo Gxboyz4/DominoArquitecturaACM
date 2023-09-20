@@ -27,6 +27,7 @@ public class Avatares {
         int numero = (int) (Math.random() * 22 + 0);
         return avatares.get(numero);
     }
+    
     public void actualizarAvatar(javax.swing.JLabel label){
         label.setIcon(generarAvatar());
     }
