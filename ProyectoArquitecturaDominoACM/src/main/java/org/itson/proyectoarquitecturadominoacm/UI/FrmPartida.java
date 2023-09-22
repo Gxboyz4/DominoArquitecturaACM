@@ -4,22 +4,18 @@
 package org.itson.proyectoarquitecturadominoacm.UI;
 
 import javax.swing.ImageIcon;
-import org.itson.proyectoarquitecturadominoacm.logicaAplicacion.logicaAplicacion;
 
 /**
  *
  * @author Gabriel Mancinas,Julio Chon,Luis Ayon
  */
-public class FrmLobby extends javax.swing.JFrame {
-    private logicaAplicacion lAplicacion;
+public class FrmPartida extends javax.swing.JFrame {
+
     /**
      * Creates new form FrmLobby
      */
-    public FrmLobby(logicaAplicacion lAplicacion) {
-        this.lAplicacion = lAplicacion;
-        
+    public FrmPartida() {
         initComponents();
-        lAplicacion.dibujarUsuario(lblApodo, lblAvatar);
         this.setVisible(true);
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
@@ -36,11 +32,8 @@ public class FrmLobby extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnRegresar = new javax.swing.JButton();
-        btnListo = new javax.swing.JButton();
-        lblApodo = new javax.swing.JLabel();
-        lblAvatar = new javax.swing.JLabel();
-        lblSlots = new javax.swing.JLabel();
+        btnTomarFicha = new javax.swing.JButton();
+        btnAcabarPartida = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -51,33 +44,27 @@ public class FrmLobby extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(736, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgIconosGenerales/iconoRegresar.png"))); // NOI18N
-        btnRegresar.setBorderPainted(false);
-        btnRegresar.setContentAreaFilled(false);
-        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 410, 100, 80));
-
-        btnListo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmLobby/iconoListo.png"))); // NOI18N
-        btnListo.setBorderPainted(false);
-        btnListo.setContentAreaFilled(false);
-        btnListo.addActionListener(new java.awt.event.ActionListener() {
+        btnTomarFicha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoTomarFicha.png"))); // NOI18N
+        btnTomarFicha.setBorderPainted(false);
+        btnTomarFicha.setContentAreaFilled(false);
+        btnTomarFicha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListoActionPerformed(evt);
+                btnTomarFichaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnListo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 190, 70));
+        jPanel1.add(btnTomarFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, 70));
 
-        lblApodo.setFont(new java.awt.Font("UD Digi Kyokasho N-B", 0, 18)); // NOI18N
-        lblApodo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblApodo.setText("jLabel1");
-        jPanel1.add(lblApodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 120, -1));
-        jPanel1.add(lblAvatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 150, 140));
+        btnAcabarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoAcabarPartida.png"))); // NOI18N
+        btnAcabarPartida.setBorderPainted(false);
+        btnAcabarPartida.setContentAreaFilled(false);
+        btnAcabarPartida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcabarPartidaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAcabarPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 430, -1, 70));
 
-        lblSlots.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmLobby/iconoSlots.png"))); // NOI18N
-        lblSlots.setMaximumSize(new java.awt.Dimension(700, 500));
-        lblSlots.setMinimumSize(new java.awt.Dimension(700, 500));
-        jPanel1.add(lblSlots, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 690, 240));
-
-        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmLobby/imgFondoLobby.png"))); // NOI18N
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/imgFondoPartida.png"))); // NOI18N
         lblFondo.setMaximumSize(new java.awt.Dimension(700, 500));
         lblFondo.setMinimumSize(new java.awt.Dimension(700, 500));
         lblFondo.setOpaque(true);
@@ -98,19 +85,19 @@ public class FrmLobby extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnListoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListoActionPerformed
-        FrmMenu frmMenu = new FrmMenu(lAplicacion);
+    private void btnTomarFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarFichaActionPerformed
         this.setVisible(false);
-    }//GEN-LAST:event_btnListoActionPerformed
+    }//GEN-LAST:event_btnTomarFichaActionPerformed
+
+    private void btnAcabarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcabarPartidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAcabarPartidaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnListo;
-    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnAcabarPartida;
+    private javax.swing.JButton btnTomarFicha;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblApodo;
-    private javax.swing.JLabel lblAvatar;
     private javax.swing.JLabel lblFondo;
-    private javax.swing.JLabel lblSlots;
     // End of variables declaration//GEN-END:variables
 }

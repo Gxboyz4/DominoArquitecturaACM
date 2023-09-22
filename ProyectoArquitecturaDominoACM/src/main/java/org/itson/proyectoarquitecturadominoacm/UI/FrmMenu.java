@@ -5,17 +5,19 @@ package org.itson.proyectoarquitecturadominoacm.UI;
 
 import javax.swing.ImageIcon;
 import org.itson.proyectoarquitecturadominoacm.Utileria.Avatar;
+import org.itson.proyectoarquitecturadominoacm.logicaAplicacion.logicaAplicacion;
 
 /**
  *
- * @author Gabriel Mancinas
+ * @author Gabriel Mancinas,Julio Chon,Luis Ayon
  */
 public class FrmMenu extends javax.swing.JFrame {
-
+    private logicaAplicacion lAplicacion;
     /**
      * Creates new form FrmPrincipal
      */
-    public FrmMenu() {
+    public FrmMenu(logicaAplicacion lAplicacion) {
+        this.lAplicacion = lAplicacion;
         initComponents();
         this.setVisible(true);
         this.setSize(750, 540); //736 x 500
@@ -61,9 +63,14 @@ public class FrmMenu extends javax.swing.JFrame {
         btnCrearPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmMenu/iconoCrearPartida.png"))); // NOI18N
         btnCrearPartida.setBorderPainted(false);
         btnCrearPartida.setContentAreaFilled(false);
+        btnCrearPartida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearPartidaActionPerformed(evt);
+            }
+        });
         jpnFondo.add(btnCrearPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 360, 130));
 
-        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmMenu/fondoFrmMenu.png"))); // NOI18N
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgIconosGenerales/fondoFrmMenu.png"))); // NOI18N
         jpnFondo.add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -89,6 +96,11 @@ public class FrmMenu extends javax.swing.JFrame {
        FrmPrincipal frmPrincipal = new FrmPrincipal();
        this.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnCrearPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPartidaActionPerformed
+        FrmLobby frmLobby = new FrmLobby(lAplicacion);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCrearPartidaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearPartida;

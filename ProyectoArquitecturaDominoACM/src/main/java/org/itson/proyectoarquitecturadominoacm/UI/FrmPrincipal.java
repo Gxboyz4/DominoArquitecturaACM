@@ -6,18 +6,21 @@ package org.itson.proyectoarquitecturadominoacm.UI;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import org.itson.proyectoarquitecturadominoacm.Usuario.Usuario;
 import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarControlador;
 import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarModelo;
 import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarVista;
 import org.itson.proyectoarquitecturadominoacm.Utileria.Avatar;
+import org.itson.proyectoarquitecturadominoacm.logicaAplicacion.logicaAplicacion;
 
 /**
  *
- * @author Gabriel Mancinas
+ * @author Gabriel Mancinas,Julio Chon,Luis Ayon
  */
 public class FrmPrincipal extends javax.swing.JFrame {
 
     private Avatar avatar;
+    private Usuario usuario;
     /**
      * Creates new form FrmPrincipal
      */
@@ -27,6 +30,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
         avatar = new Avatar(btnCambiarAvatar, jPanel1);
+        
     }
 
     /**
@@ -55,6 +59,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnCambiarAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoCambiarAvatar.png"))); // NOI18N
         btnCambiarAvatar.setBorderPainted(false);
         btnCambiarAvatar.setContentAreaFilled(false);
+        btnCambiarAvatar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarAvatarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCambiarAvatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 280, 130, 130));
 
         txtApodo.setBackground(new java.awt.Color(227, 25, 55));
@@ -78,7 +87,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         jPanel1.add(btnJugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 140, 130));
 
-        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/fondoFrmPrincipal.png"))); // NOI18N
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/imgFondoPrincipal.png"))); // NOI18N
         lblFondo.setMaximumSize(new java.awt.Dimension(700, 500));
         lblFondo.setMinimumSize(new java.awt.Dimension(700, 500));
         lblFondo.setOpaque(true);
@@ -104,9 +113,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtApodoActionPerformed
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
-        FrmMenu frmMenu = new FrmMenu();
+        logicaAplicacion lAplicacion = new logicaAplicacion(new Usuario(txtApodo.getText(), avatar));
+        FrmMenu frmMenu = new FrmMenu(lAplicacion);
         this.setVisible(false);
     }//GEN-LAST:event_btnJugarActionPerformed
+
+    private void btnCambiarAvatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarAvatarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCambiarAvatarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCambiarAvatar;
