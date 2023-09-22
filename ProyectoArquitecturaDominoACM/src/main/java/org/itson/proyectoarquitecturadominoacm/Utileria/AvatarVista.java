@@ -4,9 +4,7 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Utileria;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -20,8 +18,8 @@ public class AvatarVista extends JPanel {
     public AvatarVista(AvatarModelo modelo) {
         this.modelo= modelo;
         labelAvatar = new JLabel();
-        labelAvatar.setOpaque(false);
         add(labelAvatar);
+        this.actualizarAvatar();
     }
     
     public void actualizarAvatar(){

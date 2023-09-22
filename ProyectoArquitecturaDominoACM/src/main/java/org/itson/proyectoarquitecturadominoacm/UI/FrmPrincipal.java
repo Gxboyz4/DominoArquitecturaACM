@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarControlador;
 import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarModelo;
 import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarVista;
+import org.itson.proyectoarquitecturadominoacm.Utileria.Avatar;
 
 /**
  *
@@ -16,6 +17,7 @@ import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarVista;
  */
 public class FrmPrincipal extends javax.swing.JFrame {
 
+    private Avatar avatar;
     /**
      * Creates new form FrmPrincipal
      */
@@ -24,17 +26,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.setVisible(true);
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
-        AvatarModelo modelo= new AvatarModelo();
-        AvatarVista vista = new AvatarVista(modelo);
-        
-        AvatarControlador contralador = new AvatarControlador(modelo,vista);
-        this.btnCambiarAvatar.addActionListener(contralador);
-        vista.setOpaque(false);
-        this.jPanel1.add(vista, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 240, 230),0);
-        
-        
-        
-        
+        avatar = new Avatar(btnCambiarAvatar, jPanel1);
     }
 
     /**

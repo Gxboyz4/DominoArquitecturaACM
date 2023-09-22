@@ -4,7 +4,7 @@
 package org.itson.proyectoarquitecturadominoacm.UI;
 
 import javax.swing.ImageIcon;
-import org.itson.proyectoarquitecturadominoacm.Utileria.Avatares;
+import org.itson.proyectoarquitecturadominoacm.Utileria.Avatar;
 
 /**
  *
