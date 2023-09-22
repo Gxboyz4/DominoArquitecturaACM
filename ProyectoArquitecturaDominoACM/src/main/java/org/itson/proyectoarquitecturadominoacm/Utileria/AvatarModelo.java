@@ -36,6 +36,10 @@ public class AvatarModelo {
     public ImageIcon getAvatarEstado() {
         return avatarEstado;
     }
-    
-    
+
+    public void setAvatarEstado(ImageIcon avatarEstado) {
+        this.avatarEstado = avatarEstado;
+    }
+
+
 }
