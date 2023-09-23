@@ -18,8 +18,7 @@ public class AvatarVista extends JPanel {
     public AvatarVista(AvatarModelo modelo) {
         this.modelo= modelo;
         labelAvatar = new JLabel();
-        add(labelAvatar);
-        
+        this.add(labelAvatar);
     }
     
     public void actualizarAvatar(){

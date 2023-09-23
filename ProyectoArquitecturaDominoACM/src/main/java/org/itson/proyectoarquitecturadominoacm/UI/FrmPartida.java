@@ -32,6 +32,7 @@ public class FrmPartida extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         btnTomarFicha = new javax.swing.JButton();
         btnAcabarPartida = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
@@ -43,6 +44,19 @@ public class FrmPartida extends javax.swing.JFrame {
         jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(736, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 330, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 330, 70));
 
         btnTomarFicha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoTomarFicha.png"))); // NOI18N
         btnTomarFicha.setBorderPainted(false);
@@ -98,6 +112,7 @@ public class FrmPartida extends javax.swing.JFrame {
     private javax.swing.JButton btnAcabarPartida;
     private javax.swing.JButton btnTomarFicha;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFondo;
     // End of variables declaration//GEN-END:variables
 }

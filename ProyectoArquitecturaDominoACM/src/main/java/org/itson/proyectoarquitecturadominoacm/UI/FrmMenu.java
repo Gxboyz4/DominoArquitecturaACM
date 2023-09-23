@@ -58,11 +58,13 @@ public class FrmMenu extends javax.swing.JFrame {
         btnUnirse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmMenu/iconoUnirse.png"))); // NOI18N
         btnUnirse.setBorderPainted(false);
         btnUnirse.setContentAreaFilled(false);
+        btnUnirse.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmMenu/iconoUnirse_2.png"))); // NOI18N
         jpnFondo.add(btnUnirse, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 360, 130));
 
         btnCrearPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmMenu/iconoCrearPartida.png"))); // NOI18N
         btnCrearPartida.setBorderPainted(false);
         btnCrearPartida.setContentAreaFilled(false);
+        btnCrearPartida.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmMenu/iconoCrearPartida_2.png"))); // NOI18N
         btnCrearPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearPartidaActionPerformed(evt);

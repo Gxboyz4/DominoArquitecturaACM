@@ -75,7 +75,7 @@ public class FrmLobby extends javax.swing.JFrame {
         lblSlots.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmLobby/iconoSlots.png"))); // NOI18N
         lblSlots.setMaximumSize(new java.awt.Dimension(700, 500));
         lblSlots.setMinimumSize(new java.awt.Dimension(700, 500));
-        jPanel1.add(lblSlots, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 690, 240));
+        jPanel1.add(lblSlots, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 690, 240));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmLobby/imgFondoLobby.png"))); // NOI18N
         lblFondo.setMaximumSize(new java.awt.Dimension(700, 500));

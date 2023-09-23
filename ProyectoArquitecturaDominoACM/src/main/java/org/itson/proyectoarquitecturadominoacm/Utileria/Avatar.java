@@ -31,6 +31,7 @@ public class Avatar {
 
         this.jPanel1.add(vista, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 240, 230), 0);
         this.btnCambiarAvatar.addActionListener(contralador);
+        
     }
     
     public ImageIcon getAvatar(){

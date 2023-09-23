@@ -29,7 +29,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.setVisible(true);
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
-        avatar = new Avatar(btnCambiarAvatar, jPanel1);
+        avatar = new Avatar(btnCambiarAvatar, jpnGeneral);
         
     }
 
@@ -42,7 +42,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jpnGeneral = new javax.swing.JPanel();
         btnCambiarAvatar = new javax.swing.JButton();
         txtApodo = new javax.swing.JTextField();
         btnJugar = new javax.swing.JButton();
@@ -50,24 +50,25 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 0, 0));
-        jPanel1.setMinimumSize(new java.awt.Dimension(736, 500));
-        jPanel1.setOpaque(false);
-        jPanel1.setPreferredSize(new java.awt.Dimension(736, 500));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpnGeneral.setBackground(new java.awt.Color(255, 0, 0));
+        jpnGeneral.setMinimumSize(new java.awt.Dimension(736, 500));
+        jpnGeneral.setOpaque(false);
+        jpnGeneral.setPreferredSize(new java.awt.Dimension(736, 500));
+        jpnGeneral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCambiarAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoCambiarAvatar.png"))); // NOI18N
         btnCambiarAvatar.setBorderPainted(false);
         btnCambiarAvatar.setContentAreaFilled(false);
+        btnCambiarAvatar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoCambiarAvatar_2.png"))); // NOI18N
         btnCambiarAvatar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCambiarAvatarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCambiarAvatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 280, 130, 130));
+        jpnGeneral.add(btnCambiarAvatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 280, 130, 130));
 
         txtApodo.setBackground(new java.awt.Color(227, 25, 55));
-        txtApodo.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        txtApodo.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         txtApodo.setForeground(new java.awt.Color(255, 255, 255));
         txtApodo.setBorder(null);
         txtApodo.addActionListener(new java.awt.event.ActionListener() {
@@ -75,33 +76,36 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 txtApodoActionPerformed(evt);
             }
         });
-        jPanel1.add(txtApodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 350, 30));
+        jpnGeneral.add(txtApodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 350, 30));
 
-        btnJugar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoJugar.png"))); // NOI18N
+        btnJugar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoJugar_2.png"))); // NOI18N
         btnJugar.setBorderPainted(false);
         btnJugar.setContentAreaFilled(false);
+        btnJugar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoJugar.png"))); // NOI18N
+        btnJugar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        btnJugar.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         btnJugar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnJugarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnJugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 140, 130));
+        jpnGeneral.add(btnJugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 190, 150));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/imgFondoPrincipal.png"))); // NOI18N
         lblFondo.setMaximumSize(new java.awt.Dimension(700, 500));
         lblFondo.setMinimumSize(new java.awt.Dimension(700, 500));
         lblFondo.setOpaque(true);
-        jPanel1.add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 500));
+        jpnGeneral.add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jpnGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpnGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -125,7 +129,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCambiarAvatar;
     private javax.swing.JButton btnJugar;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jpnGeneral;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JTextField txtApodo;
     // End of variables declaration//GEN-END:variables
