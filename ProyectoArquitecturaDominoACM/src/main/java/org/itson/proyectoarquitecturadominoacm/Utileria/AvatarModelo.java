@@ -22,7 +22,7 @@ public class AvatarModelo {
         avatares = new ArrayList();
         for (int i = 0; i < 22; i++) {
             String rutaImagen = "/imgAvatar/avatar_" + i + ".png";  // La barra diagonal (/) es importante
-            ImageIcon avatar = new javax.swing.ImageIcon(getClass().getResource(rutaImagen));
+            ImageIcon avatar = new ImageIcon(getClass().getResource(rutaImagen));
             avatares.add(avatar);
 
         }

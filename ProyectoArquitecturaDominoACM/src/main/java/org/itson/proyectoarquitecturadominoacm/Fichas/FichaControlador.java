@@ -4,10 +4,47 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Fichas;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 /**
  *
  * @author Zaurus
  */
-public class FichaControlador {
+public class FichaControlador implements MouseListener{
+    FichaModelo fichaModelo;
+    FichaVista fichaVista;
+    
+    public FichaControlador(FichaModelo fichaModelo, FichaVista fichaVista){
+        this.fichaModelo=fichaModelo;
+        this.fichaVista=fichaVista;
+    }
+    public void dibujarFicha(){
+        this.fichaModelo.dibujar();
+        this.fichaVista.actualizar();
+    }
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

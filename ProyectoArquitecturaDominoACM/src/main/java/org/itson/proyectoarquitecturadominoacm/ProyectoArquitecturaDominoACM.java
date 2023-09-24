@@ -4,6 +4,7 @@
 
 package org.itson.proyectoarquitecturadominoacm;
 
+import org.itson.proyectoarquitecturadominoacm.UI.FrmPartida;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPrincipal;
 
 /**
@@ -13,6 +14,7 @@ import org.itson.proyectoarquitecturadominoacm.UI.FrmPrincipal;
 public class ProyectoArquitecturaDominoACM {
 
     public static void main(String[] args) {
-       FrmPrincipal frmPrincipal= new FrmPrincipal();
+      FrmPartida frmPartida = new FrmPartida();
+     // FrmPrincipal frmPrincipal= new FrmPrincipal();
     }
 }

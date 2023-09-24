@@ -3,6 +3,7 @@ package org.itson.proyectoarquitecturadominoacm.Utileria;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 /**
  *
@@ -10,11 +11,11 @@ import javax.swing.JPanel;
  */
 public class Avatar {
 
-    private javax.swing.JButton btnCambiarAvatar;
-    private javax.swing.JPanel jPanel1;
+    private JButton btnCambiarAvatar;
+    private JPanel jPanel1;
     AvatarModelo modelo;
     AvatarVista vista;
-    AvatarControlador contralador;
+    AvatarControlador controlador;
 
     public Avatar(JButton btnCambiarAvatar, JPanel jPanel1) {
         this.btnCambiarAvatar = btnCambiarAvatar;
@@ -24,13 +25,11 @@ public class Avatar {
 
     public void actualizar() {
         modelo = new AvatarModelo();
-
         vista = new AvatarVista(modelo);
-        contralador = new AvatarControlador(modelo, vista);
+        controlador = new AvatarControlador(modelo, vista);
         vista.setOpaque(false);
-
-        this.jPanel1.add(vista, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 240, 230), 0);
-        this.btnCambiarAvatar.addActionListener(contralador);
+        this.jPanel1.add(vista, new AbsoluteConstraints(480, 50, 240, 230), 0);
+        this.btnCambiarAvatar.addActionListener(controlador);
         
     }
     

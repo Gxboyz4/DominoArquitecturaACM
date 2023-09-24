@@ -4,6 +4,8 @@
 package org.itson.proyectoarquitecturadominoacm.UI;
 
 import javax.swing.ImageIcon;
+import org.itson.proyectoarquitecturadominoacm.Fichas.FichaModelo;
+import org.itson.proyectoarquitecturadominoacm.Fichas.FichaVista;
 
 /**
  *
@@ -20,6 +22,12 @@ public class FrmPartida extends javax.swing.JFrame {
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
+       
+        FichaVista fv= new FichaVista(jpnFichas);
+        fv.actualizar();
+        fv.actualizar();
+        fv.actualizar();
+        
     }
 
     /**
@@ -32,10 +40,11 @@ public class FrmPartida extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        jpnTablero = new javax.swing.JPanel();
+        jpnFichas = new javax.swing.JPanel();
         btnTomarFicha = new javax.swing.JButton();
         btnAcabarPartida = new javax.swing.JButton();
-        lblFondo = new javax.swing.JLabel();
+        lblTableroFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,18 +54,21 @@ public class FrmPartida extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(736, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
+        javax.swing.GroupLayout jpnTableroLayout = new javax.swing.GroupLayout(jpnTablero);
+        jpnTablero.setLayout(jpnTableroLayout);
+        jpnTableroLayout.setHorizontalGroup(
+            jpnTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 340, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+        jpnTableroLayout.setVerticalGroup(
+            jpnTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 240, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 330, 70));
+        jPanel1.add(jpnTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 340, 240));
+
+        jpnFichas.setLayout(new java.awt.GridBagLayout());
+        jPanel1.add(jpnFichas, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 280, 70));
 
         btnTomarFicha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoTomarFicha.png"))); // NOI18N
         btnTomarFicha.setBorderPainted(false);
@@ -66,7 +78,7 @@ public class FrmPartida extends javax.swing.JFrame {
                 btnTomarFichaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnTomarFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, 70));
+        jPanel1.add(btnTomarFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, -1, 70));
 
         btnAcabarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoAcabarPartida.png"))); // NOI18N
         btnAcabarPartida.setBorderPainted(false);
@@ -76,13 +88,13 @@ public class FrmPartida extends javax.swing.JFrame {
                 btnAcabarPartidaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAcabarPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 430, -1, 70));
+        jPanel1.add(btnAcabarPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 430, -1, 70));
 
-        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/imgFondoPartida.png"))); // NOI18N
-        lblFondo.setMaximumSize(new java.awt.Dimension(700, 500));
-        lblFondo.setMinimumSize(new java.awt.Dimension(700, 500));
-        lblFondo.setOpaque(true);
-        jPanel1.add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 500));
+        lblTableroFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/imgFondoPartida.png"))); // NOI18N
+        lblTableroFondo.setMaximumSize(new java.awt.Dimension(700, 500));
+        lblTableroFondo.setMinimumSize(new java.awt.Dimension(700, 500));
+        lblTableroFondo.setOpaque(true);
+        jPanel1.add(lblTableroFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,7 +112,7 @@ public class FrmPartida extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTomarFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarFichaActionPerformed
-        this.setVisible(false);
+       // this.setVisible(false);
     }//GEN-LAST:event_btnTomarFichaActionPerformed
 
     private void btnAcabarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcabarPartidaActionPerformed
@@ -112,7 +124,8 @@ public class FrmPartida extends javax.swing.JFrame {
     private javax.swing.JButton btnAcabarPartida;
     private javax.swing.JButton btnTomarFicha;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lblFondo;
+    private javax.swing.JPanel jpnFichas;
+    private javax.swing.JPanel jpnTablero;
+    private javax.swing.JLabel lblTableroFondo;
     // End of variables declaration//GEN-END:variables
 }

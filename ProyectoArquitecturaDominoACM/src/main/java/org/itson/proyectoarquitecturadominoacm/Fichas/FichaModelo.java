@@ -4,7 +4,9 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Fichas;
 
+import java.awt.Graphics;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 /**
  *
@@ -95,5 +97,8 @@ public class FichaModelo {
         this.ficha = ficha;
     }
     
+    public void dibujar(){
+        
+    }
     
 }
