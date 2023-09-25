@@ -4,8 +4,10 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Fichas;
 
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JPanel;
 
 /**
  *
@@ -19,32 +21,32 @@ public class FichaControlador implements MouseListener{
         this.fichaModelo=fichaModelo;
         this.fichaVista=fichaVista;
     }
-    public void dibujarFicha(){
-        this.fichaModelo.dibujar();
-        this.fichaVista.actualizar();
+    public void dibujarFicha(JPanel fichas){
+        System.out.println("XD");
+        this.fichaVista.actualizarVistaPanel(fichas);
+    }
+    public void dibujarFichaTablero(float x, float y){
+        
     }
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.out.println("Ficha: "+ fichaModelo.getNumeroInferior()+", "+fichaModelo.getNumeroSuperior());
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

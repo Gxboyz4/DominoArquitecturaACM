@@ -21,7 +21,13 @@ public class FichaModelo {
     private int numeroInferior;
     private String estado;
     private ImageIcon ficha;
-
+    public FichaModelo(int sup, int inf){
+       String dir = "/imgFrmPartidaFichas/ficha1_1.png";
+       ImageIcon imagen = new ImageIcon(getClass().getResource(dir));
+       this.ficha = imagen;
+       numeroSuperior=sup;
+       numeroInferior=inf;
+    }
     public FichaModelo(float posicionX, float posiciony, float ancho, float alto, int numeroSuperior, int numeroInferior, String estado, ImageIcon ficha) {
         this.posicionX = posicionX;
         this.posiciony = posiciony;
@@ -32,7 +38,7 @@ public class FichaModelo {
         this.estado = estado;
         this.ficha = ficha;
     }
-
+   
     public float getPosicionX() {
         return posicionX;
     }
@@ -98,6 +104,12 @@ public class FichaModelo {
     }
     
     public void dibujar(){
+        
+    }
+    
+    
+    
+    public void dibujar(float x, float y){
         
     }
     

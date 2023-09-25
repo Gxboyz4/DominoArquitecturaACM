@@ -4,6 +4,7 @@
 package org.itson.proyectoarquitecturadominoacm.UI;
 
 import javax.swing.ImageIcon;
+import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Fichas.FichaModelo;
 import org.itson.proyectoarquitecturadominoacm.Fichas.FichaVista;
 
@@ -18,16 +19,16 @@ public class FrmPartida extends javax.swing.JFrame {
      */
     public FrmPartida() {
         initComponents();
+        
         this.setVisible(true);
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
-       
-        FichaVista fv= new FichaVista(jpnFichas);
-        fv.actualizar();
-        fv.actualizar();
-        fv.actualizar();
         
+        Ficha ficha= new Ficha(jpnFichas,1,1);
+        ficha.dibujarEnPanelUsuario();
+        Ficha ficha2= new Ficha(jpnFichas,2,2);
+        ficha.dibujarEnPanelUsuario();
     }
 
     /**
@@ -39,46 +40,25 @@ public class FrmPartida extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jpnTablero = new javax.swing.JPanel();
         jpnFichas = new javax.swing.JPanel();
-        btnTomarFicha = new javax.swing.JButton();
         btnAcabarPartida = new javax.swing.JButton();
         lblTableroFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 0, 0));
-        jPanel1.setMinimumSize(new java.awt.Dimension(736, 500));
-        jPanel1.setOpaque(false);
-        jPanel1.setPreferredSize(new java.awt.Dimension(736, 500));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         javax.swing.GroupLayout jpnTableroLayout = new javax.swing.GroupLayout(jpnTablero);
         jpnTablero.setLayout(jpnTableroLayout);
         jpnTableroLayout.setHorizontalGroup(
             jpnTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 340, Short.MAX_VALUE)
+            .addGap(0, 344, Short.MAX_VALUE)
         );
         jpnTableroLayout.setVerticalGroup(
             jpnTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 240, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jpnTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 340, 240));
-
         jpnFichas.setLayout(new java.awt.GridBagLayout());
-        jPanel1.add(jpnFichas, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 280, 70));
-
-        btnTomarFicha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoTomarFicha.png"))); // NOI18N
-        btnTomarFicha.setBorderPainted(false);
-        btnTomarFicha.setContentAreaFilled(false);
-        btnTomarFicha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTomarFichaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnTomarFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, -1, 70));
 
         btnAcabarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoAcabarPartida.png"))); // NOI18N
         btnAcabarPartida.setBorderPainted(false);
@@ -88,32 +68,53 @@ public class FrmPartida extends javax.swing.JFrame {
                 btnAcabarPartidaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAcabarPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 430, -1, 70));
 
         lblTableroFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/imgFondoPartida.png"))); // NOI18N
         lblTableroFondo.setMaximumSize(new java.awt.Dimension(700, 500));
         lblTableroFondo.setMinimumSize(new java.awt.Dimension(700, 500));
         lblTableroFondo.setOpaque(true);
-        jPanel1.add(lblTableroFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(189, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jpnFichas, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAcabarPartida)
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jpnTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(193, 193, 193))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(lblTableroFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(127, Short.MAX_VALUE)
+                .addComponent(jpnTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAcabarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpnFichas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(lblTableroFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnTomarFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarFichaActionPerformed
-       // this.setVisible(false);
-    }//GEN-LAST:event_btnTomarFichaActionPerformed
 
     private void btnAcabarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcabarPartidaActionPerformed
         // TODO add your handling code here:
@@ -122,8 +123,6 @@ public class FrmPartida extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcabarPartida;
-    private javax.swing.JButton btnTomarFicha;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jpnFichas;
     private javax.swing.JPanel jpnTablero;
     private javax.swing.JLabel lblTableroFondo;

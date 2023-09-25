@@ -24,7 +24,6 @@ public class AvatarModelo {
             String rutaImagen = "/imgAvatar/avatar_" + i + ".png";  // La barra diagonal (/) es importante
             ImageIcon avatar = new ImageIcon(getClass().getResource(rutaImagen));
             avatares.add(avatar);
-
         }
     }
     
