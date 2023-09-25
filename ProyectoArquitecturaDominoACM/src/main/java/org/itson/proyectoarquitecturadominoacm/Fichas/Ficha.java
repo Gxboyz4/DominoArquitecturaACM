@@ -32,6 +32,7 @@ public class Ficha {
     }
     public void dibujarEnPanelUsuario(int x){
         fichaModelo= new FichaModelo(sup,inf);
+        fichaModelo.setEstado("Otro");
         fichaVista = new FichaVista(fichaModelo, panelFichasUsuario,x);
         fichaControlador = new FichaControlador(fichaModelo,fichaVista);
          fichaControlador.dibujarFicha(panelFichasUsuario);

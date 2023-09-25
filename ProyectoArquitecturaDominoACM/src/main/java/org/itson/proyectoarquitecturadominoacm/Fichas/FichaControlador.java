@@ -23,7 +23,7 @@ public class FichaControlador implements MouseListener{
     }
     public void dibujarFicha(JPanel fichas){
         System.out.println("XD");
-        this.fichaVista.actualizarVistaPanel(fichas);
+        this.fichaVista.actualizarVistaPanel();
     }
     public void dibujarFichaTablero(float x, float y){
         
@@ -31,6 +31,9 @@ public class FichaControlador implements MouseListener{
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.println("Ficha: "+ fichaModelo.getNumeroInferior()+", "+fichaModelo.getNumeroSuperior());
+        fichaModelo.setEstado("Clickeado");
+        fichaVista.actualizarVistaPanel();
+        System.out.println(fichaModelo.getEstado());
     }
 
     @Override

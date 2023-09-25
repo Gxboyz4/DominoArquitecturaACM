@@ -27,16 +27,16 @@ import javax.swing.JPanel;
  */
 public class FichaVista extends JLabel{
     FichaModelo modelo;
-    
+    public int x;
     public FichaVista(FichaModelo modelo,JPanel fichas,int x){
         this.modelo=modelo;
-        
+        this.x = x;
         //this.ficha.setIcon(modelo.getFicha());getScaledInstance(lblAvatar.getWidth(), lblAvatar.getHeight(), Image.SCALE_DEFAULT);
         
-        this.setBounds(x, 5, 25,25);
+        this.setBounds(x, 0, 25,25);
         Icon icon = new ImageIcon(modelo.getFicha().getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
       
-        this.setIcon(icon);
+        //this.setIcon(icon);
         //this.setOpaque(true);
         fichas.add(this);
         
@@ -44,20 +44,34 @@ public class FichaVista extends JLabel{
         
     }
     
-    public void actualizarVistaPanel(JPanel fichas){
+    public void actualizarVistaPanel(){
          repaint();
     }
     
     @Override
-        public void paint(Graphics g) {
-            System.out.println("pintado");
-            super.paint(g);
+    public void paint(Graphics g) {
+        System.out.println("pintado");
+        super.paint(g);
+
+        // Verificar si hay un ícono antes de intentar dibujarlo
+//        if(modelo.getEstado() != null && modelo.getEstado().equalsIgnoreCase("Clickeado"))
+//        {
+//            ImageIcon ficha = modelo.getFicha();
+//            g.drawImage(ficha.getImage(), 0, 5, getWidth(), getHeight(), this);
+//            System.out.println("LOCAMBIOOO");
+//        }else
+        if (modelo.getFicha() != null) {
             ImageIcon ficha = modelo.getFicha();
-            //g.drawImage(ficha.getImage(), 5, -5, getWidth(), getHeight(), this);
-            
-            setOpaque(false);
+            g.drawImage(ficha.getImage(), 0, 0, getWidth(), getHeight(), this);
+            System.out.println(this.getBounds());
+            System.out.println(modelo.getEstado());
             
         }
+        
+        
+
+        setOpaque(false);
+    }
     
 
 
