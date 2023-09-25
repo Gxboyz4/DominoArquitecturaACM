@@ -25,32 +25,27 @@ import javax.swing.JPanel;
  *
  * @author Zaurus
  */
-public class FichaVista extends JPanel{
-    JLabel ficha;
+public class FichaVista extends JLabel{
     FichaModelo modelo;
-    JPanel panelFichasUsuario;
-    JPanel panelFicha;
     
-    public FichaVista(FichaModelo modelo){
-        this.panelFicha=this;
+    public FichaVista(FichaModelo modelo,JPanel fichas,int x){
         this.modelo=modelo;
-        this.ficha = new JLabel();
-        this.setLayout(new BorderLayout());
-        this.add(ficha);
-        this.setVisible(true);
-        this.setBackground(Color.MAGENTA);
-        this.setSize(20,25 );
-        //this.ficha.setIcon(modelo.getFicha());getScaledInstance(lblAvatar.getWidth(), lblAvatar.getHeight(), Image.SCALE_DEFAULT);
-        this.ficha.setSize(20,25);
-        Icon icon = new ImageIcon(modelo.getFicha().getImage().getScaledInstance(ficha.getWidth(), ficha.getHeight(), Image.SCALE_DEFAULT));
         
-        this.ficha.setIcon(icon);
-        this.ficha.setOpaque(true);
-       
+        //this.ficha.setIcon(modelo.getFicha());getScaledInstance(lblAvatar.getWidth(), lblAvatar.getHeight(), Image.SCALE_DEFAULT);
+        
+        this.setBounds(x, 5, 25,25);
+        Icon icon = new ImageIcon(modelo.getFicha().getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
+      
+        this.setIcon(icon);
+        //this.setOpaque(true);
+        fichas.add(this);
+        
+        System.out.println(this);
+        
     }
     
     public void actualizarVistaPanel(JPanel fichas){
-         //repaint();
+         repaint();
     }
     
     @Override
@@ -58,18 +53,13 @@ public class FichaVista extends JPanel{
             System.out.println("pintado");
             super.paint(g);
             ImageIcon ficha = modelo.getFicha();
-            g.drawImage(ficha.getImage(), 0, 0, getWidth(), getHeight(), null);
+            //g.drawImage(ficha.getImage(), 5, -5, getWidth(), getHeight(), this);
             
             setOpaque(false);
             
         }
     
-    public JPanel getPanelFicha() {
-        return panelFicha;
-    }
 
-    public void setPanelFicha(JPanel panelFicha) {
-        this.panelFicha = panelFicha;
-    }
+
     
 }
