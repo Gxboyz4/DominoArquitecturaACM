@@ -70,7 +70,7 @@ public class FrmLobby extends javax.swing.JFrame {
         lblApodo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblApodo.setText("jLabel1");
         jPanel1.add(lblApodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 120, -1));
-        jPanel1.add(lblAvatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 150, 140));
+        jPanel1.add(lblAvatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 150, 140));
 
         lblSlots.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmLobby/iconoSlots.png"))); // NOI18N
         lblSlots.setMaximumSize(new java.awt.Dimension(700, 500));

@@ -28,7 +28,7 @@ public class FrmPartida extends javax.swing.JFrame {
         Ficha ficha= new Ficha(jpnFichas,1,1);
         ficha.dibujarEnPanelUsuario();
         Ficha ficha2= new Ficha(jpnFichas,2,2);
-        ficha.dibujarEnPanelUsuario();
+        ficha2.dibujarEnPanelUsuario();
     }
 
     /**

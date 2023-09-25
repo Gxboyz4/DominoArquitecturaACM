@@ -9,12 +9,14 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,22 +40,30 @@ public class FichaVista extends JPanel{
         this.setVisible(true);
         this.setBackground(Color.MAGENTA);
         this.setSize(20,25 );
-       // this.ficha.setIcon(modelo.getFicha());
+        //this.ficha.setIcon(modelo.getFicha());getScaledInstance(lblAvatar.getWidth(), lblAvatar.getHeight(), Image.SCALE_DEFAULT);
+        this.ficha.setSize(20,25);
+        Icon icon = new ImageIcon(modelo.getFicha().getImage().getScaledInstance(ficha.getWidth(), ficha.getHeight(), Image.SCALE_DEFAULT));
+        
+        this.ficha.setIcon(icon);
+        this.ficha.setOpaque(true);
+       
     }
     
     public void actualizarVistaPanel(JPanel fichas){
-         repaint();
+         //repaint();
     }
+    
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        public void paint(Graphics g) {
+            System.out.println("pintado");
+            super.paint(g);
             ImageIcon ficha = modelo.getFicha();
-            g.drawImage(ficha.getImage(), 0,0, 20, 25, null);
-            //this.ficha.setIcon(ficha);
-            System.out.println("Paintcomponent");
+            g.drawImage(ficha.getImage(), 0, 0, getWidth(), getHeight(), null);
             
-    }
-
+            setOpaque(false);
+            
+        }
+    
     public JPanel getPanelFicha() {
         return panelFicha;
     }
