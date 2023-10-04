@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
@@ -21,24 +22,72 @@ public class Ficha {
     FichaModelo fichaModelo;
     FichaVista fichaVista;
     JPanel panelFichasUsuario;
+    int numeroSuperior;
+    int numeroInferior;
+    ImageIcon imagenFicha;
+    int posicionX;
+    int posicionY;
     
     int sup;
     int inf;
     
-    public Ficha(JPanel panelFicha,int sup, int inf){
+    public Ficha(JPanel panelFicha,int sup, int inf,ImageIcon imagenFicha,int posicionX,int posicionY){
         this.sup=sup;
         this.inf=inf;
+        this.imagenFicha=imagenFicha;
+        this.posicionX=posicionX;
+        this.posicionY=posicionY;
         this.panelFichasUsuario=panelFicha;
     }
-    public void dibujarEnPanelUsuario(int x){
-        fichaModelo= new FichaModelo(sup,inf);
-        fichaModelo.setEstado("Otro");
-        fichaVista = new FichaVista(fichaModelo, panelFichasUsuario,x);
+    public void dibujarEnPanelUsuario(){
+        fichaModelo = new FichaModelo(numeroSuperior,numeroInferior,imagenFicha,posicionX,posicionY); 
+        fichaVista = new FichaVista(fichaModelo, panelFichasUsuario);
         fichaControlador = new FichaControlador(fichaModelo,fichaVista);
-         fichaControlador.dibujarFicha(panelFichasUsuario);
-         
+        fichaControlador.dibujarFicha();  
        // this.panelFichasUsuario.add(fichaVista, 0);
-        
         fichaVista.addMouseListener(fichaControlador);
     }
+
+    public JPanel getPanelFichasUsuario() {
+        return panelFichasUsuario;
+    }
+
+    public void setPanelFichasUsuario(JPanel panelFichasUsuario) {
+        this.panelFichasUsuario = panelFichasUsuario;
+    }
+
+    public int getNumeroSuperior() {
+        return numeroSuperior;
+    }
+
+    public void setNumeroSuperior(int numeroSuperior) {
+        this.numeroSuperior = numeroSuperior;
+    }
+
+    public int getNumeroInferior() {
+        return numeroInferior;
+    }
+
+    public void setNumeroInferior(int numeroInferior) {
+        this.numeroInferior = numeroInferior;
+    }
+
+    public int getPosicionX() {
+        return posicionX;
+    }
+
+    public void setPosicionX(int posicionX) {
+        this.posicionX = posicionX;
+    }
+
+    public int getPosicionY() {
+        return posicionY;
+    }
+
+    public void setPosicionY(int posicionY) {
+        this.posicionY = posicionY;
+    }
+    
+    
 }
+

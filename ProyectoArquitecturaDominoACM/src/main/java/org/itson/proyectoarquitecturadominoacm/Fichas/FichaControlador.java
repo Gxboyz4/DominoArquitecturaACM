@@ -21,35 +21,36 @@ public class FichaControlador implements MouseListener{
         this.fichaModelo=fichaModelo;
         this.fichaVista=fichaVista;
     }
-    public void dibujarFicha(JPanel fichas){
-        System.out.println("XD");
-        this.fichaVista.actualizarVistaPanel();
+    public void dibujarFicha(){
+        this.fichaVista.dibujar();
     }
     public void dibujarFichaTablero(float x, float y){
         
     }
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Ficha: "+ fichaModelo.getNumeroInferior()+", "+fichaModelo.getNumeroSuperior());
+        System.out.println("Clickeado" + fichaModelo.getImagenFicha().getDescription());
         fichaModelo.setEstado("Clickeado");
-        fichaVista.actualizarVistaPanel();
-        System.out.println(fichaModelo.getEstado());
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+   
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+   
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
+    
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+    
     }
     
 }

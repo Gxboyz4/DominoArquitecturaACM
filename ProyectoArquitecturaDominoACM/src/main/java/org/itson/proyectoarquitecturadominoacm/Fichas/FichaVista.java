@@ -27,52 +27,20 @@ import javax.swing.JPanel;
  */
 public class FichaVista extends JLabel{
     FichaModelo modelo;
-    public int x;
-    public FichaVista(FichaModelo modelo,JPanel fichas,int x){
-        this.modelo=modelo;
-        this.x = x;
-        //this.ficha.setIcon(modelo.getFicha());getScaledInstance(lblAvatar.getWidth(), lblAvatar.getHeight(), Image.SCALE_DEFAULT);
-        
-        this.setBounds(x, 0, 25,25);
-        Icon icon = new ImageIcon(modelo.getFicha().getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
-      
-        //this.setIcon(icon);
-        //this.setOpaque(true);
+    JPanel fichas;
+    public FichaVista(FichaModelo modelo,JPanel fichas){
+        this.modelo=modelo;    
+        this.fichas=fichas;
+    }
+
+    public void dibujar(){
         fichas.add(this);
-        
-        System.out.println(this);
+        this.setBounds(modelo.getPosicionX(), modelo.getPosicionY(), this.modelo.getAncho(),this.modelo.getAlto());
+        Icon icon = new ImageIcon(modelo.getImagenFicha().getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
+        this.setIcon(icon);
         
     }
-    
-    public void actualizarVistaPanel(){
-         repaint();
-    }
-    
-    @Override
-    public void paint(Graphics g) {
-        System.out.println("pintado");
-        super.paint(g);
 
-        // Verificar si hay un ícono antes de intentar dibujarlo
-//        if(modelo.getEstado() != null && modelo.getEstado().equalsIgnoreCase("Clickeado"))
-//        {
-//            ImageIcon ficha = modelo.getFicha();
-//            g.drawImage(ficha.getImage(), 0, 5, getWidth(), getHeight(), this);
-//            System.out.println("LOCAMBIOOO");
-//        }else
-        if (modelo.getFicha() != null) {
-            ImageIcon ficha = modelo.getFicha();
-            g.drawImage(ficha.getImage(), 0, 0, getWidth(), getHeight(), this);
-            System.out.println(this.getBounds());
-            System.out.println(modelo.getEstado());
-            
-        }
-        
-        
-
-        setOpaque(false);
-    }
-    
 
 
     

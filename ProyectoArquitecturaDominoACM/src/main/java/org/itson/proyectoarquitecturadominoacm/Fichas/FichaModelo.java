@@ -13,64 +13,45 @@ import javax.swing.JPanel;
  * @author Zaurus
  */
 public class FichaModelo {
-    private float posicionX;
-    private float posiciony;
-    private float ancho;
-    private float alto;
+    private int posicionX;
+    private int posicionY;
+    private int ancho;
+    private int alto;
     private int numeroSuperior;
     private int numeroInferior;
     private String estado;
-    private ImageIcon ficha;
-    public FichaModelo(int sup, int inf){
-       String dir = "/imgFrmPartidaFichas/ficha1_1.png";
-       ImageIcon imagen = new ImageIcon(getClass().getResource(dir));
-       this.ficha = imagen;
-       numeroSuperior=sup;
-       numeroInferior=inf;
+    private ImageIcon imagenFicha;
+//    public FichaModelo(int numeroSuperior, int numeroInferior){
+//       String dir = "/imgFrmPartidaFichas/ficha1_1.png";
+//       ImageIcon imagen = new ImageIcon(getClass().getResource(dir));
+//       this.imagenFicha = imagen;
+//       this.numeroSuperior=numeroSuperior;
+//       this.numeroInferior=numeroInferior;
+//    }
+    public FichaModelo(){
+        
     }
-    public FichaModelo(float posicionX, float posiciony, float ancho, float alto, int numeroSuperior, int numeroInferior, String estado, ImageIcon ficha) {
+    public FichaModelo(int numeroSuperior, int numeroInferior, ImageIcon imagen,int posicionX,int posicionY){
+        this.numeroSuperior=numeroSuperior;
+        this.numeroInferior=numeroInferior;
+        this.imagenFicha = imagen;
+        this.estado="En pozo";
+        this.alto=35;
+        this.ancho=35;
+        this.posicionX=posicionX;
+        this.posicionY=posicionY;
+    }
+    public FichaModelo(int posicionX, int posiciony,int  ancho,int alto, int numeroSuperior, int numeroInferior, String estado, ImageIcon ficha) {
         this.posicionX = posicionX;
-        this.posiciony = posiciony;
+        this.posicionY = posiciony;
         this.ancho = ancho;
         this.alto = alto;
         this.numeroSuperior = numeroSuperior;
         this.numeroInferior = numeroInferior;
         this.estado = estado;
-        this.ficha = ficha;
+        this.imagenFicha = ficha;
     }
    
-    public float getPosicionX() {
-        return posicionX;
-    }
-
-    public void setPosicionX(float posicionX) {
-        this.posicionX = posicionX;
-    }
-
-    public float getPosiciony() {
-        return posiciony;
-    }
-
-    public void setPosiciony(float posiciony) {
-        this.posiciony = posiciony;
-    }
-
-    public float getAncho() {
-        return ancho;
-    }
-
-    public void setAncho(float ancho) {
-        this.ancho = ancho;
-    }
-
-    public float getAlto() {
-        return alto;
-    }
-
-    public void setAlto(float alto) {
-        this.alto = alto;
-    }
-
     public int getNumeroSuperior() {
         return numeroSuperior;
     }
@@ -95,22 +76,45 @@ public class FichaModelo {
         this.estado = estado;
     }
 
-    public ImageIcon getFicha() {
-        return ficha;
+    public ImageIcon getImagenFicha() {
+        return imagenFicha;
     }
 
-    public void setFicha(ImageIcon ficha) {
-        this.ficha = ficha;
+    public void setImagenFicha(ImageIcon imagenFicha) {
+        this.imagenFicha = imagenFicha;
     }
-    
-    public void dibujar(){
-        
+
+
+    public int getPosicionX() {
+        return posicionX;
     }
-    
-    
-    
-    public void dibujar(float x, float y){
-        
+
+    public void setPosicionX(int posicionX) {
+        this.posicionX = posicionX;
+    }
+
+    public int getPosicionY() {
+        return posicionY;
+    }
+
+    public void setPosicionY(int posicionY) {
+        this.posicionY = posicionY;
+    }
+
+    public int getAncho() {
+        return ancho;
+    }
+
+    public void setAncho(int ancho) {
+        this.ancho = ancho;
+    }
+
+    public int getAlto() {
+        return alto;
+    }
+
+    public void setAlto(int alto) {
+        this.alto = alto;
     }
     
 }
