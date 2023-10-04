@@ -21,13 +21,7 @@ public class FichaModelo {
     private int numeroInferior;
     private String estado;
     private ImageIcon imagenFicha;
-//    public FichaModelo(int numeroSuperior, int numeroInferior){
-//       String dir = "/imgFrmPartidaFichas/ficha1_1.png";
-//       ImageIcon imagen = new ImageIcon(getClass().getResource(dir));
-//       this.imagenFicha = imagen;
-//       this.numeroSuperior=numeroSuperior;
-//       this.numeroInferior=numeroInferior;
-//    }
+
     public FichaModelo(){
         
     }

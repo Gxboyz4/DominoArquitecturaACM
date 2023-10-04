@@ -27,24 +27,22 @@ public class Ficha {
     ImageIcon imagenFicha;
     int posicionX;
     int posicionY;
+
     
-    int sup;
-    int inf;
-    
-    public Ficha(JPanel panelFicha,int sup, int inf,ImageIcon imagenFicha,int posicionX,int posicionY){
-        this.sup=sup;
-        this.inf=inf;
+    public Ficha(JPanel panelFicha,int numeroSuperior, int numeroInferior,ImageIcon imagenFicha,int posicionX,int posicionY){
+        this.numeroSuperior=numeroSuperior;
+        this.numeroInferior=numeroInferior;
         this.imagenFicha=imagenFicha;
         this.posicionX=posicionX;
         this.posicionY=posicionY;
         this.panelFichasUsuario=panelFicha;
     }
+    
     public void dibujarEnPanelUsuario(){
         fichaModelo = new FichaModelo(numeroSuperior,numeroInferior,imagenFicha,posicionX,posicionY); 
         fichaVista = new FichaVista(fichaModelo, panelFichasUsuario);
         fichaControlador = new FichaControlador(fichaModelo,fichaVista);
         fichaControlador.dibujarFicha();  
-       // this.panelFichasUsuario.add(fichaVista, 0);
         fichaVista.addMouseListener(fichaControlador);
     }
 
