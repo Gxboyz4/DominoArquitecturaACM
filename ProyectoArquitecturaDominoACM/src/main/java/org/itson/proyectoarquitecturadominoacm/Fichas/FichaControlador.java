@@ -27,6 +27,9 @@ public class FichaControlador implements MouseListener{
     public void dibujarFichaTablero(float x, float y){
         
     }
+    public void dibujarFichaRotada(int grados){
+        this.fichaVista.dibujarRotada(grados);
+    }
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.println("Clickeado" + fichaModelo.getImagenFicha().getDescription());

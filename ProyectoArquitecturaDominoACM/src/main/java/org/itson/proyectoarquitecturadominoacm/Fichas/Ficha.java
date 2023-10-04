@@ -51,6 +51,13 @@ public class Ficha {
         fichaControlador.dibujarFicha();  
         fichaVista.addMouseListener(fichaControlador);
     }
+    public void dibujarEnPanelUsuarioRotada(int grados){
+        fichaModelo = new FichaModelo(numeroSuperior,numeroInferior,imagenFicha,posicionX,posicionY); 
+        fichaVista = new FichaVista(fichaModelo, panelFichasUsuario);
+        fichaControlador = new FichaControlador(fichaModelo,fichaVista);
+        fichaControlador.dibujarFichaRotada(grados);
+        fichaVista.addMouseListener(fichaControlador);
+    }
 
     public JPanel getPanelFichasUsuario() {
         return panelFichasUsuario;

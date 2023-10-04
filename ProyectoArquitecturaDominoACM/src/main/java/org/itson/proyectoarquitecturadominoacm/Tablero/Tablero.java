@@ -5,21 +5,29 @@
 package org.itson.proyectoarquitecturadominoacm.Tablero;
 
 import javax.swing.JPanel;
+import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 
 /**
  *
  * @author Gabriel Mancinas
  */
 public class Tablero {
-     private JPanel lienzo;
-     TableroModelo modelo;
-     TableroVista vista;
-     TableroControlador controlador;
-     
-     public Tablero(JPanel lienzo){
-         this.lienzo=lienzo;
-     }
-     public void actualizar(){
-         
-     }
+
+    private JPanel lienzo;
+    TableroModelo modelo;
+    TableroVista vista;
+    TableroControlador controlador;
+
+    public Tablero(JPanel lienzo) {
+        this.lienzo = lienzo;
+        modelo = new TableroModelo(lienzo);
+    }
+
+    public void agregarFichaDerecha(Ficha ficha) {
+        modelo.agregarFichaDerecha(ficha);
+    }
+
+    public void agregarFichaIzquierda(Ficha ficha) {
+
+    }
 }
