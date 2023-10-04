@@ -25,6 +25,7 @@ public class FrmPartida extends javax.swing.JFrame {
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
+
         
         Pozo pozo = new Pozo(btnAcabarPartida);
         Ficha fichaRandom = pozo.devolverFicha();
