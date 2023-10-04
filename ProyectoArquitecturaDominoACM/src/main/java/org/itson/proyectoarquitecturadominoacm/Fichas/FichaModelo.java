@@ -30,7 +30,7 @@ public class FichaModelo {
         this.numeroInferior=numeroInferior;
         this.imagenFicha = imagen;
         this.estado="En pozo";
-        this.alto=35;
+        this.alto=45;
         this.ancho=35;
         this.posicionX=posicionX;
         this.posicionY=posicionY;

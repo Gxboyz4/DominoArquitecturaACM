@@ -26,7 +26,7 @@ public class FrmPartida extends javax.swing.JFrame {
         setTitle("Dominó");
    
         String dir = "/imgFrmPartidaFichas/ficha1_1.png";
-   ImageIcon imagen = new ImageIcon(getClass().getResource(dir));
+       ImageIcon imagen = new ImageIcon(getClass().getResource(dir));
         Ficha ficha = new Ficha(jpnFichas,1,1,imagen,0,0);
         ficha.dibujarEnPanelUsuario();
         
