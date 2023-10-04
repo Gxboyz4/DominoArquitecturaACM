@@ -38,6 +38,12 @@ public class Ficha {
         this.panelFichasUsuario=panelFicha;
     }
     
+    public Ficha(int numeroSuperior, int numeroInferior,ImageIcon imagenFicha){
+        this.numeroSuperior=numeroSuperior;
+        this.numeroInferior=numeroInferior;
+        this.imagenFicha=imagenFicha;
+    }
+    
     public void dibujarEnPanelUsuario(){
         fichaModelo = new FichaModelo(numeroSuperior,numeroInferior,imagenFicha,posicionX,posicionY); 
         fichaVista = new FichaVista(fichaModelo, panelFichasUsuario);

@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Fichas.FichaModelo;
 import org.itson.proyectoarquitecturadominoacm.Fichas.FichaVista;
+import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
 
 /**
  *
@@ -24,16 +25,12 @@ public class FrmPartida extends javax.swing.JFrame {
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
-   
-        String dir = "/imgFrmPartidaFichas/ficha1_1.png";
-   ImageIcon imagen = new ImageIcon(getClass().getResource(dir));
-        Ficha ficha = new Ficha(jpnFichas,1,1,imagen,0,0);
-        ficha.dibujarEnPanelUsuario();
         
-        String dir2 = "/imgFrmPartidaFichas/ficha6_6.png";
-        ImageIcon imagen2 = new ImageIcon(getClass().getResource(dir2));
-        Ficha ficha2 = new Ficha(jpnFichas,6,6,imagen2,30,0);
-        ficha2.dibujarEnPanelUsuario();
+        Pozo pozo = new Pozo(btnAcabarPartida);
+        Ficha fichaRandom = pozo.devolverFicha();
+        System.out.println(fichaRandom.getNumeroSuperior()+"_"+fichaRandom.getNumeroInferior());
+        fichaRandom.setPanelFichasUsuario(jpnFichas);
+        fichaRandom.dibujarEnPanelUsuario();
       
     }
 
@@ -85,11 +82,11 @@ public class FrmPartida extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(161, Short.MAX_VALUE)
+                .addContainerGap(167, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jpnFichas, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAcabarPartida)
                         .addGap(12, 12, 12))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
