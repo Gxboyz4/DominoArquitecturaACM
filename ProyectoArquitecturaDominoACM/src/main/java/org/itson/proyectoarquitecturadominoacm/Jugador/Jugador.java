@@ -44,5 +44,7 @@ public class Jugador {
     public void eliminarFicha(Ficha ficha){
         controlador.eliminarFicha(ficha);
     }
+    
+    
 
 }

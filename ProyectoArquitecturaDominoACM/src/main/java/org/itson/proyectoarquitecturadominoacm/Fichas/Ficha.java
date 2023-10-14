@@ -11,6 +11,7 @@ import java.awt.Insets;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.itson.proyectoarquitecturadominoacm.Observadores.FichaObserver;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 /**
@@ -38,25 +39,35 @@ public class Ficha {
         this.panelFichasUsuario=panelFicha;
     }
     
-    public Ficha(int numeroSuperior, int numeroInferior,ImageIcon imagenFicha){
-        this.numeroSuperior=numeroSuperior;
-        this.numeroInferior=numeroInferior;
-        this.imagenFicha=imagenFicha;
+    public Ficha(FichaControlador fichaControlador, FichaModelo fichaModelo, FichaVista fichaVista){
+        this.fichaControlador = fichaControlador;
+        this.fichaModelo= fichaModelo;
+        this.fichaVista = fichaVista;
+        
     }
+
+    public Ficha(FichaControlador fichaControlador) {
+        this.fichaControlador = fichaControlador;
+        this.fichaModelo = this.fichaControlador.getFichaModelo();
+        this.fichaVista = this.fichaControlador.getFichaVista();
+    }
+
+    
+    
+    
     
     public void dibujarEnPanelUsuario(){
-        fichaModelo = new FichaModelo(numeroSuperior,numeroInferior,imagenFicha,posicionX,posicionY); 
-        fichaVista = new FichaVista(fichaModelo, panelFichasUsuario);
-        fichaControlador = new FichaControlador(fichaModelo,fichaVista);
         fichaControlador.dibujarFicha();  
         fichaVista.addMouseListener(fichaControlador);
     }
     public void dibujarEnPanelUsuarioRotada(int grados){
-        fichaModelo = new FichaModelo(numeroSuperior,numeroInferior,imagenFicha,posicionX,posicionY); 
-        fichaVista = new FichaVista(fichaModelo, panelFichasUsuario);
-        fichaControlador = new FichaControlador(fichaModelo,fichaVista);
+
         fichaControlador.dibujarFichaRotada(grados);
         fichaVista.addMouseListener(fichaControlador);
+    }
+    
+    public void agregarObservador(FichaObserver observador){
+        fichaControlador.getFichaObservable().agregarObservador(observador);
     }
 
     public JPanel getPanelFichasUsuario() {
@@ -65,10 +76,12 @@ public class Ficha {
 
     public void setPanelFichasUsuario(JPanel panelFichasUsuario) {
         this.panelFichasUsuario = panelFichasUsuario;
+        this.fichaVista.setFichas(panelFichasUsuario);;
     }
 
     public int getNumeroSuperior() {
-        return numeroSuperior;
+        return fichaModelo.getNumeroSuperior();
+                
     }
 
     public void setNumeroSuperior(int numeroSuperior) {
@@ -76,7 +89,7 @@ public class Ficha {
     }
 
     public int getNumeroInferior() {
-        return numeroInferior;
+        return fichaModelo.getNumeroInferior();
     }
 
     public void setNumeroInferior(int numeroInferior) {
@@ -88,7 +101,7 @@ public class Ficha {
     }
 
     public void setPosicionX(int posicionX) {
-        this.posicionX = posicionX;
+        this.fichaModelo.setPosicionX(posicionX);
     }
 
     public int getPosicionY() {
@@ -96,7 +109,7 @@ public class Ficha {
     }
 
     public void setPosicionY(int posicionY) {
-        this.posicionY = posicionY;
+       this.fichaModelo.setPosicionY(posicionY);
     }
     
     

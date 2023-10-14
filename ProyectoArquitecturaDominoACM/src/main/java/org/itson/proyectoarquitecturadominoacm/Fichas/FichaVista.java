@@ -76,4 +76,14 @@ public class FichaVista extends JLabel {
         return new ImageIcon(bi);
     }
 
+    public JPanel getFichas() {
+        return fichas;
+    }
+
+    public void setFichas(JPanel fichas) {
+        this.fichas = fichas;
+    }
+    
+    
+
 }

@@ -63,9 +63,9 @@ public class JugadorModelo {
             x=0;
             
         }
+        System.out.println(x);
         ficha.setPosicionY(y);
         ficha.setPosicionX(x);
-        System.out.println(y);
         ficha.dibujarEnPanelUsuario();
         x = x + 25;
     }

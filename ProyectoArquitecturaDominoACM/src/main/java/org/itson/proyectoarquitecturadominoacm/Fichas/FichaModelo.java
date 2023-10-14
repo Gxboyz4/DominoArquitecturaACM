@@ -22,8 +22,12 @@ public class FichaModelo {
     private String estado;
     private ImageIcon imagenFicha;
 
-    public FichaModelo(){
-        
+    public FichaModelo(int numeroSuperior, int numeroInferior, ImageIcon imagen){
+        this.numeroSuperior=numeroSuperior;
+        this.numeroInferior=numeroInferior;
+        this.imagenFicha = imagen;
+        this.alto=45;
+        this.ancho=46;
     }
     public FichaModelo(int numeroSuperior, int numeroInferior, ImageIcon imagen,int posicionX,int posicionY){
         this.numeroSuperior=numeroSuperior;

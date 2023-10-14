@@ -5,11 +5,15 @@ package org.itson.proyectoarquitecturadominoacm.UI;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Fichas.FichaModelo;
 import org.itson.proyectoarquitecturadominoacm.Fichas.FichaVista;
+import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
+import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
 import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
 import org.itson.proyectoarquitecturadominoacm.Tablero.Tablero;
 
@@ -24,47 +28,54 @@ public class FrmPartida extends javax.swing.JFrame {
      */
     public FrmPartida() {
         initComponents();
-        
+
         this.setVisible(true);
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
+        
+      
+
+        Jugador jugador = new Jugador(jpnFichas);
 
         
         Pozo pozo = new Pozo(btnAcabarPartida);
+        Partida partida = new Partida(pozo,jugador);
         Ficha fichaRandom = pozo.devolverFicha();
-        System.out.println(fichaRandom.getNumeroSuperior()+"_"+fichaRandom.getNumeroInferior());
-        fichaRandom.setPanelFichasUsuario(jpnFichas);
-        fichaRandom.dibujarEnPanelUsuario();
+        Ficha fichaRandom2 = pozo.devolverFicha();
+        jugador.agregarFicha(fichaRandom);
+        jugador.agregarFicha(fichaRandom2);
         
+
+        /*
         String dir = "/imgFrmPartidaFichas/ficha1_1.png";
         ImageIcon imagen = new ImageIcon(getClass().getResource(dir));
-        Ficha ficha = new Ficha(jpnTablero,1,1,imagen,0,0);
-        
+        Ficha ficha = new Ficha(jpnTablero, 1, 1, imagen, 0, 0);
+
         String dir2 = "/imgFrmPartidaFichas/ficha1_6.png";
         ImageIcon imagen2 = new ImageIcon(getClass().getResource(dir2));
-        Ficha ficha2 = new Ficha(jpnTablero,6,1,imagen2,30,0);
-        
+        Ficha ficha2 = new Ficha(jpnTablero, 6, 1, imagen2, 30, 0);
+
         String dir3 = "/imgFrmPartidaFichas/ficha2_6.png";
         ImageIcon imagen3 = new ImageIcon(getClass().getResource(dir3));
-        Ficha ficha3 = new Ficha(jpnTablero,6,2,imagen3,30,0);
-        
+        Ficha ficha3 = new Ficha(jpnTablero, 6, 2, imagen3, 30, 0);
+
         String dir4 = "/imgFrmPartidaFichas/ficha2_4.png";
         ImageIcon imagen4 = new ImageIcon(getClass().getResource(dir4));
-        Ficha ficha4 = new Ficha(jpnTablero,4,2,imagen4,30,0);
-        
+        Ficha ficha4 = new Ficha(jpnTablero, 4, 2, imagen4, 30, 0);
+
         String dir5 = "/imgFrmPartidaFichas/ficha3_4.png";
         ImageIcon imagen5 = new ImageIcon(getClass().getResource(dir5));
-        Ficha ficha5 = new Ficha(jpnTablero,4,3,imagen5,30,0);
-        
+        Ficha ficha5 = new Ficha(jpnTablero, 4, 3, imagen5, 30, 0);
+
         String dir6 = "/imgFrmPartidaFichas/ficha6_6.png";
         ImageIcon imagen6 = new ImageIcon(getClass().getResource(dir6));
-        Ficha ficha6 = new Ficha(jpnTablero,6,6,imagen6,30,0);
-        
+        Ficha ficha6 = new Ficha(jpnTablero, 6, 6, imagen6, 30, 0);
+
         String dir7 = "/imgFrmPartidaFichas/ficha1_4.png";
         ImageIcon imagen7 = new ImageIcon(getClass().getResource(dir7));
-        Ficha ficha7 = new Ficha(jpnTablero,4,1,imagen7,0,0);
-        
+        Ficha ficha7 = new Ficha(jpnTablero, 4, 1, imagen7, 0, 0);
+
         Tablero tablero = new Tablero(jpnTablero);
         this.addKeyListener(tablero.obtenerKeyListener());
         tablero.agregarFichaDerecha(ficha);
@@ -74,8 +85,9 @@ public class FrmPartida extends javax.swing.JFrame {
         tablero.agregarFichaDerecha(ficha4);
         tablero.agregarFichaDerecha(ficha5);
         tablero.agregarFichaIzquierda(ficha7);
+        */
         setFocusable(true);
-      requestFocusInWindow();
+        requestFocusInWindow();
     }
 
     /**
@@ -194,5 +206,4 @@ public class FrmPartida extends javax.swing.JFrame {
     private javax.swing.JLabel lblTableroFondo;
     // End of variables declaration//GEN-END:variables
 
- 
 }

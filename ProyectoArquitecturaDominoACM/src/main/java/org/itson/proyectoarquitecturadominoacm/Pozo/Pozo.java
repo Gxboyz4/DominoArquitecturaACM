@@ -4,6 +4,7 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Pozo;
 
+import java.util.List;
 import javax.swing.JButton;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 
@@ -34,6 +35,10 @@ public class Pozo {
     }
     public PozoModelo getPozoModelo() {
         return pozoModelo;
+    }
+    
+    public List<Ficha> obtenerTodasFichas(){
+        return this.pozoModelo.getListaFichas();
     }
     
 }
