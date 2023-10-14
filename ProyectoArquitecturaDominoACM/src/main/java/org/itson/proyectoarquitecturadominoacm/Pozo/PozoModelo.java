@@ -56,5 +56,9 @@ public class PozoModelo {
      int numeroRandom = (int) (Math.random() * getListaFichas().size() + 0);
      return listaFichas.get(numeroRandom);
     }
+    
+    public void eliminarFicha(Ficha ficha){
+        listaFichas.remove(ficha);
+    }
 
 }

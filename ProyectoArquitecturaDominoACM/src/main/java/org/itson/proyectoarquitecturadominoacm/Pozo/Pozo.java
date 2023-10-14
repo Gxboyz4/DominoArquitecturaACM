@@ -46,4 +46,8 @@ public class Pozo {
         pozoControlador.getPozoObservable().agregarObservador(observador);
     }
     
+    public void eliminarFicha (Ficha ficha){
+        pozoModelo.eliminarFicha(ficha);
+    }
+    
 }
