@@ -3,11 +3,15 @@
  */
 package org.itson.proyectoarquitecturadominoacm.UI;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Fichas.FichaModelo;
 import org.itson.proyectoarquitecturadominoacm.Fichas.FichaVista;
 import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
+import org.itson.proyectoarquitecturadominoacm.Tablero.Tablero;
 
 /**
  *
@@ -32,7 +36,46 @@ public class FrmPartida extends javax.swing.JFrame {
         System.out.println(fichaRandom.getNumeroSuperior()+"_"+fichaRandom.getNumeroInferior());
         fichaRandom.setPanelFichasUsuario(jpnFichas);
         fichaRandom.dibujarEnPanelUsuario();
-      
+        
+        String dir = "/imgFrmPartidaFichas/ficha1_1.png";
+        ImageIcon imagen = new ImageIcon(getClass().getResource(dir));
+        Ficha ficha = new Ficha(jpnTablero,1,1,imagen,0,0);
+        
+        String dir2 = "/imgFrmPartidaFichas/ficha1_6.png";
+        ImageIcon imagen2 = new ImageIcon(getClass().getResource(dir2));
+        Ficha ficha2 = new Ficha(jpnTablero,6,1,imagen2,30,0);
+        
+        String dir3 = "/imgFrmPartidaFichas/ficha2_6.png";
+        ImageIcon imagen3 = new ImageIcon(getClass().getResource(dir3));
+        Ficha ficha3 = new Ficha(jpnTablero,6,2,imagen3,30,0);
+        
+        String dir4 = "/imgFrmPartidaFichas/ficha2_4.png";
+        ImageIcon imagen4 = new ImageIcon(getClass().getResource(dir4));
+        Ficha ficha4 = new Ficha(jpnTablero,4,2,imagen4,30,0);
+        
+        String dir5 = "/imgFrmPartidaFichas/ficha3_4.png";
+        ImageIcon imagen5 = new ImageIcon(getClass().getResource(dir5));
+        Ficha ficha5 = new Ficha(jpnTablero,4,3,imagen5,30,0);
+        
+        String dir6 = "/imgFrmPartidaFichas/ficha6_6.png";
+        ImageIcon imagen6 = new ImageIcon(getClass().getResource(dir6));
+        Ficha ficha6 = new Ficha(jpnTablero,6,6,imagen6,30,0);
+        
+        String dir7 = "/imgFrmPartidaFichas/ficha1_4.png";
+        ImageIcon imagen7 = new ImageIcon(getClass().getResource(dir7));
+        Ficha ficha7 = new Ficha(jpnTablero,4,1,imagen7,0,0);
+        
+        Tablero tablero = new Tablero(jpnTablero);
+        this.addKeyListener(tablero.obtenerKeyListener());
+        tablero.agregarFichaDerecha(ficha);
+        tablero.agregarFichaDerecha(ficha2);
+        tablero.agregarFichaDerecha(ficha6);
+        tablero.agregarFichaDerecha(ficha3);
+        tablero.agregarFichaDerecha(ficha4);
+        tablero.agregarFichaDerecha(ficha5);
+        tablero.agregarFichaIzquierda(ficha7);
+        setFocusable(true);
+      requestFocusInWindow();
     }
 
     /**
@@ -44,24 +87,20 @@ public class FrmPartida extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jpnTablero = new javax.swing.JPanel();
         jpnFichas = new javax.swing.JPanel();
         btnAcabarPartida = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jpnTablero = new javax.swing.JPanel();
         lblTableroFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jpnTableroLayout = new javax.swing.GroupLayout(jpnTablero);
-        jpnTablero.setLayout(jpnTableroLayout);
-        jpnTableroLayout.setHorizontalGroup(
-            jpnTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 344, Short.MAX_VALUE)
-        );
-        jpnTableroLayout.setVerticalGroup(
-            jpnTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 240, Short.MAX_VALUE)
-        );
-
+        jpnFichas.setBackground(new java.awt.Color(8, 78, 171));
         jpnFichas.setLayout(null);
 
         btnAcabarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoAcabarPartida.png"))); // NOI18N
@@ -73,6 +112,27 @@ public class FrmPartida extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        jpnTablero.setBackground(new java.awt.Color(8, 78, 171));
+        jpnTablero.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jpnTablero.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        javax.swing.GroupLayout jpnTableroLayout = new javax.swing.GroupLayout(jpnTablero);
+        jpnTablero.setLayout(jpnTableroLayout);
+        jpnTableroLayout.setHorizontalGroup(
+            jpnTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 729, Short.MAX_VALUE)
+        );
+        jpnTableroLayout.setVerticalGroup(
+            jpnTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 275, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(jpnTablero);
+
         lblTableroFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/imgFondoPartida.png"))); // NOI18N
         lblTableroFondo.setMaximumSize(new java.awt.Dimension(700, 500));
         lblTableroFondo.setMinimumSize(new java.awt.Dimension(700, 500));
@@ -82,17 +142,14 @@ public class FrmPartida extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(167, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jpnFichas, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAcabarPartida)
-                        .addGap(12, 12, 12))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jpnTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(193, 193, 193))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(193, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jpnFichas, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAcabarPartida)
+                .addGap(12, 12, 12))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -102,16 +159,13 @@ public class FrmPartida extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(127, Short.MAX_VALUE)
-                .addComponent(jpnTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(btnAcabarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jpnFichas, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
+                    .addComponent(btnAcabarPartida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpnFichas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -127,11 +181,18 @@ public class FrmPartida extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAcabarPartidaActionPerformed
 
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcabarPartida;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpnFichas;
     private javax.swing.JPanel jpnTablero;
     private javax.swing.JLabel lblTableroFondo;
     // End of variables declaration//GEN-END:variables
+
+ 
 }

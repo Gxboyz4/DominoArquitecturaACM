@@ -31,7 +31,7 @@ public class FichaModelo {
         this.imagenFicha = imagen;
         this.estado="En pozo";
         this.alto=45;
-        this.ancho=35;
+        this.ancho=46;
         this.posicionX=posicionX;
         this.posicionY=posicionY;
     }

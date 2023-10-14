@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -48,25 +49,31 @@ public class FichaVista extends JLabel {
         fichas.add(this);
         this.setBounds(modelo.getPosicionX(), modelo.getPosicionY(), this.modelo.getAncho(), this.modelo.getAlto());
         ImageIcon imagen = new ImageIcon(modelo.getImagenFicha().getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
-        System.out.println("este es el rotar   " + imagen.getIconWidth());
         imagen = rotarImagen(imagen, grados);
-        System.out.println("este ya toar   " + imagen.getIconWidth());
         Icon icon = imagen;
         this.setIcon(icon);
 
     }
 
-    public ImageIcon rotarImagen(ImageIcon imagenOriginal, int grados) {
-        int anchoOriginal = imagenOriginal.getIconWidth();
-        int altoOriginal = imagenOriginal.getIconHeight();
+    public ImageIcon rotarImagen(ImageIcon icon, double grados) {
+        Image img = icon.getImage();
+        int ancho = img.getWidth(null);
+        int alto = img.getHeight(null);
 
-        BufferedImage imagenBuffered = new BufferedImage(altoOriginal, anchoOriginal, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = (Graphics2D) imagenBuffered.getGraphics();
+        double radianes = Math.toRadians(grados);
+        double nuevoAncho = Math.abs(Math.cos(radianes) * ancho) + Math.abs(Math.sin(radianes) * alto);
+        double nuevoAlto = Math.abs(Math.sin(radianes) * ancho) + Math.abs(Math.cos(radianes) * alto);
 
-        g2d.rotate(Math.toRadians(grados), altoOriginal / 2, anchoOriginal / 2);
-        g2d.drawImage(imagenOriginal.getImage(), 0, 0, null);
+        BufferedImage bi = new BufferedImage((int) nuevoAncho, (int) nuevoAlto, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = bi.createGraphics();
 
-        return new ImageIcon(imagenBuffered);
+        AffineTransform transformacion = AffineTransform.getRotateInstance(radianes, nuevoAncho / 2, nuevoAlto / 2);
+        transformacion.translate((nuevoAncho - ancho) / 2, (nuevoAlto - alto) / 2); 
+
+        g2d.setTransform(transformacion);
+        g2d.drawImage(img, 0, 0, null);
+
+        return new ImageIcon(bi);
     }
 
 }
