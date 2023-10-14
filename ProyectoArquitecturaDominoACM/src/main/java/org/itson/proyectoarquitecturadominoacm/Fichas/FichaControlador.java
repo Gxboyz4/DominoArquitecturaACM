@@ -63,7 +63,6 @@ public class FichaControlador implements MouseListener{
     }
     @Override
     public void mouseClicked(MouseEvent e) {
-
        this.fichaObservable.notificar(new Ficha(this));
     }
 
@@ -95,8 +94,8 @@ public class FichaControlador implements MouseListener{
         }
         
         public void notificar(Ficha ficha){
-            for (FichaObserver observadore : observadores) {
-                observadore.fichaSeleccionada(ficha);
+            for (FichaObserver observador : observadores) {
+                observador.fichaSeleccionada(ficha);
             }
         }
         

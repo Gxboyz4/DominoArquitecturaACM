@@ -7,13 +7,14 @@ package org.itson.proyectoarquitecturadominoacm.Partida;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Observadores.FichaObserver;
+import org.itson.proyectoarquitecturadominoacm.Observadores.PozoObserver;
 import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
 
 /**
  *
  * @author julio
  */
-public class Partida implements FichaObserver{
+public class Partida implements FichaObserver, PozoObserver{
     
     Pozo pozo;
     Ficha ficha;
@@ -31,20 +32,25 @@ public class Partida implements FichaObserver{
         this.pozo = pozo;
         this.jugador = jugador;
         this.suscribirse();
+        this.suscribirPozo();
     }
 
     public void suscribirse(){
-
         for (Ficha ficha : pozo.obtenerTodasFichas()) {
             ficha.agregarObservador(this);
         }
-        
     }
-    
+    public void suscribirPozo(){
+       pozo.agregarObservador(this);
+    }
     @Override
     public void fichaSeleccionada(Ficha ficha) {
          System.out.println(ficha.getNumeroInferior() +" "+ " "+ficha.getNumeroSuperior());  
+    }
 
+    @Override
+    public void fichaElegida(Ficha ficha) {
+         System.out.println("La ficha elegida por el pozo fue: "+ficha.getNumeroInferior() +" "+ " "+ficha.getNumeroSuperior());  
     }
     
     

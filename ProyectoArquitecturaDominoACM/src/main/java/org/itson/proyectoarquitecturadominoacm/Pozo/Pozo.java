@@ -7,6 +7,7 @@ package org.itson.proyectoarquitecturadominoacm.Pozo;
 import java.util.List;
 import javax.swing.JButton;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
+import org.itson.proyectoarquitecturadominoacm.Observadores.PozoObserver;
 
 /**
  *
@@ -22,7 +23,8 @@ public class Pozo {
         pozoModelo = new PozoModelo();
         pozoVista = new PozoVista(botonPozo,pozoModelo);
         pozoControlador = new PozoControlador(pozoModelo, pozoVista);
-        this.botonPozo=botonPozo; 
+        this.botonPozo=botonPozo;
+        this.botonPozo.addActionListener(pozoControlador);
         devolverFicha();
         mostrarPozo();
     
@@ -39,6 +41,9 @@ public class Pozo {
     
     public List<Ficha> obtenerTodasFichas(){
         return this.pozoModelo.getListaFichas();
+    }
+    public void agregarObservador(PozoObserver observador){
+        pozoControlador.getPozoObservable().agregarObservador(observador);
     }
     
 }
