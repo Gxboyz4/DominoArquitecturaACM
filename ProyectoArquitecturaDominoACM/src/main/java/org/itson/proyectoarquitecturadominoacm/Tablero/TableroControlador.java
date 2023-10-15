@@ -13,7 +13,7 @@ import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
  *
  * @author Gabriel Mancinas
  */
-public class TableroControlador implements KeyListener{
+public class TableroControlador {
     TableroModelo modelo;
     TableroVista vista;
     
@@ -29,39 +29,5 @@ public class TableroControlador implements KeyListener{
         
     }
     
-    @Override
-    public void keyTyped(KeyEvent e) {
-        if (e.getKeyCode() == e.VK_A) {
-            System.out.println("A");
-            
-        }
-        if (e.getKeyCode() == e.VK_D) {
-            System.out.println("E");
-            modelo.moverDerecha();
-        }
-    }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == e.VK_A) {
-            System.out.println("A");
-            
-        }
-        if (e.getKeyCode() == e.VK_D) {
-            System.out.println("E");
-            modelo.moverDerecha();
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == e.VK_A) {
-            System.out.println("A");
-            
-        }
-        if (e.getKeyCode() == e.VK_D) {
-            System.out.println("E");
-            modelo.moverDerecha();
-        }
-    }
 }

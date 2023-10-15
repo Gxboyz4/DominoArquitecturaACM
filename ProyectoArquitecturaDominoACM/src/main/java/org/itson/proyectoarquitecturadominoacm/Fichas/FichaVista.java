@@ -30,15 +30,15 @@ import javax.swing.JPanel;
 public class FichaVista extends JLabel {
 
     FichaModelo modelo;
-    JPanel fichas;
+    JPanel panel;
 
     public FichaVista(FichaModelo modelo, JPanel fichas) {
         this.modelo = modelo;
-        this.fichas = fichas;
+        this.panel = fichas;
     }
 
     public void dibujar() {
-        fichas.add(this);
+        panel.add(this);
         this.setBounds(modelo.getPosicionX(), modelo.getPosicionY(), this.modelo.getAncho(), this.modelo.getAlto());
         Icon icon = new ImageIcon(modelo.getImagenFicha().getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(icon);
@@ -46,7 +46,7 @@ public class FichaVista extends JLabel {
     }
 
     public void dibujarRotada(int grados) {
-        fichas.add(this);
+        panel.add(this);
         this.setBounds(modelo.getPosicionX(), modelo.getPosicionY(), this.modelo.getAncho(), this.modelo.getAlto());
         ImageIcon imagen = new ImageIcon(modelo.getImagenFicha().getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
         imagen = rotarImagen(imagen, grados);
@@ -76,12 +76,12 @@ public class FichaVista extends JLabel {
         return new ImageIcon(bi);
     }
 
-    public JPanel getFichas() {
-        return fichas;
+    public JPanel getPanel() {
+        return panel;
     }
 
-    public void setFichas(JPanel fichas) {
-        this.fichas = fichas;
+    public void setPanel(JPanel fichas) {
+        this.panel = fichas;
     }
     
     

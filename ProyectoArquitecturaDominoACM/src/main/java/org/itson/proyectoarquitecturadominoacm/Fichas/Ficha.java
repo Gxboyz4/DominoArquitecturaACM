@@ -22,7 +22,7 @@ public class Ficha {
     FichaControlador fichaControlador;
     FichaModelo fichaModelo;
     FichaVista fichaVista;
-    JPanel panelFichasUsuario;
+    JPanel panel;
     int numeroSuperior;
     int numeroInferior;
     ImageIcon imagenFicha;
@@ -36,7 +36,7 @@ public class Ficha {
         this.imagenFicha=imagenFicha;
         this.posicionX=posicionX;
         this.posicionY=posicionY;
-        this.panelFichasUsuario=panelFicha;
+        this.panel=panelFicha;
     }
     
     public Ficha(FichaControlador fichaControlador, FichaModelo fichaModelo, FichaVista fichaVista){
@@ -53,15 +53,17 @@ public class Ficha {
     }
 
     
+    public void escalado(int escala)
+    {
+        this.fichaModelo.escalado(escala);
+    }
     
     
-    
-    public void dibujarEnPanelUsuario(){
+    public void dibujarEnPanel(){
         fichaControlador.dibujarFicha();  
         fichaVista.addMouseListener(fichaControlador);
     }
-    public void dibujarEnPanelUsuarioRotada(int grados){
-
+    public void dibujarEnPanelRotada(int grados){
         fichaControlador.dibujarFichaRotada(grados);
         fichaVista.addMouseListener(fichaControlador);
     }
@@ -70,13 +72,13 @@ public class Ficha {
         fichaControlador.getFichaObservable().agregarObservador(observador);
     }
 
-    public JPanel getPanelFichasUsuario() {
-        return panelFichasUsuario;
+    public JPanel getPanelFichas() {
+        return panel;
     }
 
-    public void setPanelFichasUsuario(JPanel panelFichasUsuario) {
-        this.panelFichasUsuario = panelFichasUsuario;
-        this.fichaVista.setFichas(panelFichasUsuario);;
+    public void setPanelFichas(JPanel panelFichas) {
+        this.panel = panelFichas;
+        this.fichaVista.setPanel(panelFichas);;
     }
 
     public int getNumeroSuperior() {

@@ -5,6 +5,7 @@
 package org.itson.proyectoarquitecturadominoacm.Jugador;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JPanel;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
@@ -45,28 +46,31 @@ public class JugadorModelo {
 
     public void eliminarFicha(Ficha ficha) {
         fichas.remove(ficha);
+        System.out.println(fichas);
         x = 0;
         for (Ficha ficha1 : fichas) {
             this.dibujar(ficha1);
         }
+        
     }
 
     public void agregarFicha(Ficha ficha) {
+        
         fichas.add(ficha);
         this.dibujar(ficha);
     }
 
     public void dibujar(Ficha ficha) {
-        ficha.setPanelFichasUsuario(panelFichas);
+        ficha.escalado(37);
+        ficha.setPanelFichas(panelFichas);
         if(x+20>panelFichas.getWidth()){
             y = y +42;
             x=0;
             
         }
-        System.out.println(x);
         ficha.setPosicionY(y);
         ficha.setPosicionX(x);
-        ficha.dibujarEnPanelUsuario();
-        x = x + 25;
+        ficha.dibujarEnPanel();
+        x = x + 26;
     }
 }

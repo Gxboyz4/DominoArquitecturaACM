@@ -38,7 +38,8 @@ public class FrmPartida extends javax.swing.JFrame {
                 
         Pozo pozo = new Pozo(btnPozo);
         
-        Partida partida = new Partida(pozo,jugador);
+        Tablero tablero = new Tablero(jpnTablero);
+        Partida partida = new Partida(pozo,jugador,tablero);
 //        Ficha fichaRandom = pozo.devolverFicha();
 //        Ficha fichaRandom2 = pozo.devolverFicha();
 //        jugador.agregarFicha(fichaRandom);

@@ -25,10 +25,7 @@ public class Tablero {
         
         controlador = new TableroControlador(modelo,vista);
     }
-    public KeyListener obtenerKeyListener()
-    {
-        return controlador;
-    }
+    
     public void agregarFichaDerecha(Ficha ficha) {
         modelo.agregarFichaDerecha(ficha);
     }

@@ -56,63 +56,59 @@ public class TableroModelo {
         ficha.setPosicionX(x+desplazamientoX);
         ficha.setPosicionY(y+desplazamientoY);
     }
-    public void moverDerecha()
-    {
-        
-        for (Iterator<Ficha> iterator = fichas.iterator(); iterator.hasNext();) {
-            iterator.next().setPosicionX(10);
-            iterator.next().dibujarEnPanelUsuario();
-            System.out.println("si entra aqi");
-            
-            Ficha next = iterator.next();
-            
-        }
-    }
-    
+ 
     public void agregarFichaDerecha(Ficha ficha){
+        System.out.println("Entro");
         int distancia = 15;
         if(!fichas.isEmpty()){
             switch (validarColocacionDerecha(ficha)) {
                 case 1 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaDer(34,0,ficha);
                     fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelUsuarioRotada(-90);
+                    fichas.getLast().dibujarEnPanelRotada(-90);
                     break;
                 }
                 case 2 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaDer(43,0,ficha);
                     fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelUsuarioRotada(-90);
+                    fichas.getLast().dibujarEnPanelRotada(-90);
                     break;
                 }
                 case 3 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaDer(34,0,ficha);
                     fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelUsuarioRotada(90);
+                    fichas.getLast().dibujarEnPanelRotada(90);
                     break;
                 }
                 case 4 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaDer(43,0,ficha);
                     fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelUsuarioRotada(90);
+                    fichas.getLast().dibujarEnPanelRotada(90);
                     break;
                 }
                 case 5 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaDer(34,0,ficha);
                     fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelUsuario();
+                    fichas.getLast().dibujarEnPanel();
                     break;
                 }
                 case 6 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaDer(34,0,ficha);
                     fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelUsuario();
+                    fichas.getLast().dibujarEnPanel();
                     break;
                 }
                 case 7 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaDer(-294,-50,ficha);
                     fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelUsuarioRotada(-90);
+                    fichas.getLast().dibujarEnPanelRotada(-90);
                     break;
                 }
                 default -> {
@@ -123,10 +119,13 @@ public class TableroModelo {
             
         }else 
         if(fichas.isEmpty()){
+            ficha.setPanelFichas(lienzo);
+            System.out.println("Entra baisio");
             ficha.setPosicionX(171-22);
             ficha.setPosicionY(120-22);
             fichas.addLast(ficha);
-            fichas.getLast().dibujarEnPanelUsuario();
+            fichas.getLast().dibujarEnPanel();
+            
         }
         
         
@@ -137,45 +136,52 @@ public class TableroModelo {
         if(!fichas.isEmpty()){
             switch (validarColocacionIzquierda(ficha)) {
                 case 1 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaIzq(-34,0,ficha);
                     fichas.addFirst(ficha);
-                    fichas.getFirst().dibujarEnPanelUsuarioRotada(90);
+                    fichas.getFirst().dibujarEnPanelRotada(90);
                     break;
                 }
                 case 2 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaIzq(-43,0,ficha);
                     fichas.addFirst(ficha);
-                    fichas.getFirst().dibujarEnPanelUsuarioRotada(90);
+                    fichas.getFirst().dibujarEnPanelRotada(90);
                     break;
                 }
                 case 3 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaIzq(-34,0,ficha);
                     fichas.addFirst(ficha);
-                    fichas.getFirst().dibujarEnPanelUsuarioRotada(-90);
+                    fichas.getFirst().dibujarEnPanelRotada(-90);
                     break;
                 }
                 case 4 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaIzq(-43,0,ficha);
                     fichas.addFirst(ficha);
-                    fichas.getFirst().dibujarEnPanelUsuarioRotada(-90);
+                    fichas.getFirst().dibujarEnPanelRotada(-90);
                     break;
                 }
                 case 5 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaIzq(-34,0,ficha);
                     fichas.addFirst(ficha);
-                    fichas.getFirst().dibujarEnPanelUsuario();
+                    fichas.getFirst().dibujarEnPanel();
                     break;
                 }
                 case 6 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaIzq(-34,0,ficha);
                     fichas.addFirst(ficha);
-                    fichas.getFirst().dibujarEnPanelUsuario();
+                    fichas.getFirst().dibujarEnPanel();
                     break;
                 }
                 case 7 -> {
+                    ficha.setPanelFichas(lienzo);
                     colocarPosicionFichaIzq(-294,-50,ficha);
                     fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelUsuarioRotada(-90);
+                    fichas.getLast().dibujarEnPanelRotada(-90);
                     break;
                 }
                 default -> {
@@ -186,10 +192,11 @@ public class TableroModelo {
             
         }else 
         if(fichas.isEmpty()){
+            ficha.setPanelFichas(lienzo);
             ficha.setPosicionX(171-22);
             ficha.setPosicionY(120-22);
             fichas.addFirst(ficha);
-            fichas.getFirst().dibujarEnPanelUsuario();
+            fichas.getFirst().dibujarEnPanel();
         }
         
         

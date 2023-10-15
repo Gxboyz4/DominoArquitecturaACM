@@ -9,6 +9,7 @@ import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Observadores.FichaObserver;
 import org.itson.proyectoarquitecturadominoacm.Observadores.PozoObserver;
 import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
+import org.itson.proyectoarquitecturadominoacm.Tablero.Tablero;
 
 /**
  *
@@ -19,7 +20,7 @@ public class Partida implements FichaObserver, PozoObserver{
     Pozo pozo;
     Ficha ficha;
     Jugador jugador;
-
+    Tablero tablero;
     public Partida(Jugador jugador) {
         this.jugador = jugador;
     }
@@ -27,10 +28,12 @@ public class Partida implements FichaObserver, PozoObserver{
     public Partida(Pozo pozo) {
         this.pozo = pozo;
     }
+    
 
-    public Partida(Pozo pozo, Jugador jugador) {
+    public Partida(Pozo pozo, Jugador jugador,Tablero tablero) {
         this.pozo = pozo;
         this.jugador = jugador;
+        this.tablero = tablero;
         this.suscribirse();
         this.suscribirPozo();
     }
@@ -45,7 +48,8 @@ public class Partida implements FichaObserver, PozoObserver{
     }
     @Override
     public void fichaSeleccionada(Ficha ficha) {
-         System.out.println(ficha.getNumeroInferior() +" "+ " "+ficha.getNumeroSuperior());  
+        jugador.eliminarFicha(ficha);
+        tablero.agregarFichaDerecha(ficha);
     }
 
     @Override

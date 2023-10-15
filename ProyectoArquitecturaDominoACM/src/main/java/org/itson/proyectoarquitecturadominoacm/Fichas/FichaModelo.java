@@ -27,7 +27,7 @@ public class FichaModelo {
         this.numeroInferior=numeroInferior;
         this.imagenFicha = imagen;
         this.alto=45;
-        this.ancho=46;
+        this.ancho=45;
     }
     public FichaModelo(int numeroSuperior, int numeroInferior, ImageIcon imagen,int posicionX,int posicionY){
         this.numeroSuperior=numeroSuperior;
@@ -49,7 +49,12 @@ public class FichaModelo {
         this.estado = estado;
         this.imagenFicha = ficha;
     }
-   
+    
+    public void escalado(int escala)
+    {
+        this.alto = escala;
+        this.ancho = escala;
+    }
     public int getNumeroSuperior() {
         return numeroSuperior;
     }
