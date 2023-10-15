@@ -4,22 +4,18 @@
 package org.itson.proyectoarquitecturadominoacm.UI;
 
 import javax.swing.ImageIcon;
+import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 import org.itson.proyectoarquitecturadominoacm.Utileria.Avatar;
-import org.itson.proyectoarquitecturadominoacm.logicaAplicacion.logicaAplicacion;
-
 /**
  *
  * @author Gabriel Mancinas,Julio Chon,Luis Ayon
  */
 public class FrmMenu extends javax.swing.JFrame {
-    private logicaAplicacion lAplicacion;
     /**
      * Creates new form FrmPrincipal
      */
-    public FrmMenu(logicaAplicacion lAplicacion) {
-        this.lAplicacion = lAplicacion;
+    public FrmMenu() {
         initComponents();
-        this.setVisible(true);
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
@@ -60,6 +56,11 @@ public class FrmMenu extends javax.swing.JFrame {
         btnUnirse.setBorderPainted(false);
         btnUnirse.setContentAreaFilled(false);
         btnUnirse.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmMenu/iconoUnirse_2.png"))); // NOI18N
+        btnUnirse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUnirseActionPerformed(evt);
+            }
+        });
         jpnFondo.add(btnUnirse, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 360, 130));
 
         btnCrearPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmMenu/iconoCrearPartida.png"))); // NOI18N
@@ -96,14 +97,19 @@ public class FrmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-       FrmPrincipal frmPrincipal = new FrmPrincipal();
-       this.setVisible(false);
+    mediador.getFrmMenu().setVisible(false);
+    mediador.getFrmPrincipal().setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnCrearPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPartidaActionPerformed
-        FrmLobby frmLobby = new FrmLobby(lAplicacion);
-        this.setVisible(false);
+    mediador.getFrmMenu().setVisible(false);
+    mediador.getFrmLobby().setVisible(true);
+    mediador.getFrmLobby().asignarInformacionJugadores();
     }//GEN-LAST:event_btnCrearPartidaActionPerformed
+
+    private void btnUnirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirseActionPerformed
+        
+    }//GEN-LAST:event_btnUnirseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearPartida;

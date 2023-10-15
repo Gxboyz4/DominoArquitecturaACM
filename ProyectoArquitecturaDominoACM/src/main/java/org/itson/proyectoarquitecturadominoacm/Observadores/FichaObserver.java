@@ -10,7 +10,6 @@ import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
  *
  * @author julio
  */
-public interface FichaObserver {
-    
+public interface FichaObserver {  
     public void fichaSeleccionada(Ficha ficha);
 }

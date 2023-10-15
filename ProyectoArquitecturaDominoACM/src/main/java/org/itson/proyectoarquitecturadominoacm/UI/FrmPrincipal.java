@@ -6,33 +6,39 @@ package org.itson.proyectoarquitecturadominoacm.UI;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import org.itson.proyectoarquitecturadominoacm.Usuario.Usuario;
+import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
+import org.itson.proyectoarquitecturadominoacm.Mediador.IMediador;
+import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarControlador;
 import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarModelo;
 import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarVista;
 import org.itson.proyectoarquitecturadominoacm.Utileria.Avatar;
-import org.itson.proyectoarquitecturadominoacm.logicaAplicacion.logicaAplicacion;
+
 
 /**
  *
  * @author Gabriel Mancinas,Julio Chon,Luis Ayon
  */
 public class FrmPrincipal extends javax.swing.JFrame {
-
+    private String nombreJugador;
+    private ImageIcon avatarJugador;
     private Avatar avatar;
-    private Usuario usuario;
     /**
      * Creates new form FrmPrincipal
      */
     public FrmPrincipal() {  
         initComponents();
-        this.setVisible(true);
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
         avatar = new Avatar(btnCambiarAvatar, jpnGeneral);
-        
     }
-
+    public void obtenerDatosJugador(){
+        nombreJugador = txtApodo.getText();
+        avatarJugador = avatar.getAvatar();
+    }
+    public void registrarJugador(){
+    mediador.registrarJugador(new Jugador(nombreJugador,avatarJugador));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +55,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jpnGeneral.setBackground(new java.awt.Color(255, 0, 0));
         jpnGeneral.setMinimumSize(new java.awt.Dimension(736, 500));
@@ -111,15 +118,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+   
     private void txtApodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApodoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApodoActionPerformed
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
-        logicaAplicacion lAplicacion = new logicaAplicacion(new Usuario(txtApodo.getText(), avatar));
-        FrmMenu frmMenu = new FrmMenu(lAplicacion);
-        this.setVisible(false);
+    registrarJugador();
+    mediador.getFrmPrincipal().setVisible(false);
+    mediador.getFrmMenu().setVisible(true);
     }//GEN-LAST:event_btnJugarActionPerformed
 
     private void btnCambiarAvatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarAvatarActionPerformed

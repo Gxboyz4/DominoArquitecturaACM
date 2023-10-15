@@ -6,6 +6,7 @@ package org.itson.proyectoarquitecturadominoacm.Jugador;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 
@@ -19,7 +20,15 @@ public class Jugador {
     JugadorControlador controlador;
     JugadorModelo modelo;
     JugadorVista vista;
+    ImageIcon avatar;
+    String nombre;
 
+    public Jugador(String nombre,ImageIcon avatar){
+        this.nombre=nombre;
+        this.avatar=avatar;
+        this.setearResponsabilidades();
+    }
+    
     public Jugador(JPanel panelFichas) {
         this.panelFichas = panelFichas;
         this.setearResponsabilidades();
@@ -32,7 +41,7 @@ public class Jugador {
     }
     
     private void setearResponsabilidades(){
-        this.modelo = new JugadorModelo(fichas, panelFichas);
+        this.modelo = new JugadorModelo(nombre,avatar);
         this.vista = new JugadorVista();
         this.controlador = new JugadorControlador(modelo, vista);
     }
@@ -43,6 +52,38 @@ public class Jugador {
     
     public void eliminarFicha(Ficha ficha){
         controlador.eliminarFicha(ficha);
+    }
+
+    public List<Ficha> getFichas() {
+        return fichas;
+    }
+
+    public void setFichas(List<Ficha> fichas) {
+        this.fichas = fichas;
+    }
+
+    public JPanel getPanelFichas() {
+        return panelFichas;
+    }
+
+    public void setPanelFichas(JPanel panelFichas) {
+        this.panelFichas = panelFichas;
+    }
+
+    public ImageIcon getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(ImageIcon avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
     

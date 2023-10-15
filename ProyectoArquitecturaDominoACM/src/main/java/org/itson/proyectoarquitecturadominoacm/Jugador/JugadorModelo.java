@@ -7,6 +7,7 @@ package org.itson.proyectoarquitecturadominoacm.Jugador;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 
@@ -15,12 +16,18 @@ import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
  * @author julio
  */
 public class JugadorModelo {
-
+    String nombre;
+    ImageIcon avatar;
     List<Ficha> fichas = new ArrayList<>();
     JPanel panelFichas;
     int x;
     int y;
-
+    
+    public JugadorModelo(String nombre, ImageIcon avatar){
+        this.nombre=nombre;
+        this.avatar=avatar;
+    }
+    
     public JugadorModelo(List<Ficha> fichas, JPanel panelFichas) {
         this.fichas = fichas;
         this.panelFichas = panelFichas;
@@ -75,4 +82,38 @@ public class JugadorModelo {
         ficha.dibujarEnPanel();
         x = x + 26;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public ImageIcon getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(ImageIcon avatar) {
+        this.avatar = avatar;
+    }
+
+    public List<Ficha> getFichas() {
+        return fichas;
+    }
+
+    public void setFichas(List<Ficha> fichas) {
+        this.fichas = fichas;
+    }
+
+    public JPanel getPanelFichas() {
+        return panelFichas;
+    }
+
+    public void setPanelFichas(JPanel panelFichas) {
+        this.panelFichas = panelFichas;
+    }
+    
+    
 }

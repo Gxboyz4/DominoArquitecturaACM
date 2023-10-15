@@ -4,6 +4,10 @@
 
 package org.itson.proyectoarquitecturadominoacm;
 
+import org.itson.proyectoarquitecturadominoacm.Mediador.IMediador;
+import org.itson.proyectoarquitecturadominoacm.Mediador.Mediador;
+import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
+import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPartida;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPrincipal;
 
@@ -12,9 +16,15 @@ import org.itson.proyectoarquitecturadominoacm.UI.FrmPrincipal;
  * @author Gabriel Mancinas
  */
 public class ProyectoArquitecturaDominoACM {
+    public static IMediador mediador;
 
     public static void main(String[] args) {
-      FrmPartida frmPartida = new FrmPartida();
+      mediador = new Mediador();
+      mediador.registrarPantallaPrincipal(new FrmPrincipal());
+      mediador.registrarPantallaMenu(new FrmMenu());
+      mediador.registrarPantallaLobby(new FrmLobby());
+      mediador.registrarPantallaPartida(new FrmPartida());
+      mediador.iniciarPrograma();
      // FrmPrincipal frmPrincipal= new FrmPrincipal();
     }
 }

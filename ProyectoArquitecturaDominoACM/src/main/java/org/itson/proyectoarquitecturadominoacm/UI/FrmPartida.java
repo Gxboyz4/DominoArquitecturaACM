@@ -28,8 +28,6 @@ public class FrmPartida extends javax.swing.JFrame {
      */
     public FrmPartida() {
         initComponents();
-
-        this.setVisible(true);
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");

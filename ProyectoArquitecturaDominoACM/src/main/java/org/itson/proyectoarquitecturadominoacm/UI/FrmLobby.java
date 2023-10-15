@@ -4,28 +4,26 @@
 package org.itson.proyectoarquitecturadominoacm.UI;
 
 import javax.swing.ImageIcon;
-import org.itson.proyectoarquitecturadominoacm.logicaAplicacion.logicaAplicacion;
+import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 
 /**
  *
  * @author Gabriel Mancinas,Julio Chon,Luis Ayon
  */
 public class FrmLobby extends javax.swing.JFrame {
-    private logicaAplicacion lAplicacion;
     /**
      * Creates new form FrmLobby
      */
-    public FrmLobby(logicaAplicacion lAplicacion) {
-        this.lAplicacion = lAplicacion;
-        
+    public FrmLobby() {
         initComponents();
-        lAplicacion.dibujarUsuario(lblApodo, lblAvatar);
-        this.setVisible(true);
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
     }
-
+    public void asignarInformacionJugadores(){
+    lblApodoP1.setText(mediador.getJugador().getNombre());
+    lblAvatarP1.setIcon(mediador.getJugador().getAvatar());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,12 +36,13 @@ public class FrmLobby extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
         btnListo = new javax.swing.JButton();
-        lblApodo = new javax.swing.JLabel();
-        lblAvatar = new javax.swing.JLabel();
+        lblApodoP1 = new javax.swing.JLabel();
+        lblAvatarP1 = new javax.swing.JLabel();
         lblSlots = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(736, 500));
@@ -54,7 +53,13 @@ public class FrmLobby extends javax.swing.JFrame {
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgIconosGenerales/iconoRegresar.png"))); // NOI18N
         btnRegresar.setBorderPainted(false);
         btnRegresar.setContentAreaFilled(false);
-        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 410, 100, 80));
+        btnRegresar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imgIconosGenerales/iconoRegresar_2.png"))); // NOI18N
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, 100, 80));
 
         btnListo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmLobby/iconoListo.png"))); // NOI18N
         btnListo.setBorderPainted(false);
@@ -66,11 +71,10 @@ public class FrmLobby extends javax.swing.JFrame {
         });
         jPanel1.add(btnListo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 190, 70));
 
-        lblApodo.setFont(new java.awt.Font("UD Digi Kyokasho N-B", 0, 18)); // NOI18N
-        lblApodo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblApodo.setText("jLabel1");
-        jPanel1.add(lblApodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 120, -1));
-        jPanel1.add(lblAvatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 150, 140));
+        lblApodoP1.setFont(new java.awt.Font("UD Digi Kyokasho N-B", 0, 18)); // NOI18N
+        lblApodoP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(lblApodoP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 120, 40));
+        jPanel1.add(lblAvatarP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 150, 140));
 
         lblSlots.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmLobby/iconoSlots.png"))); // NOI18N
         lblSlots.setMaximumSize(new java.awt.Dimension(700, 500));
@@ -99,17 +103,22 @@ public class FrmLobby extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListoActionPerformed
-        FrmMenu frmMenu = new FrmMenu(lAplicacion);
-        this.setVisible(false);
+    mediador.getFrmLobby().setVisible(false);
+    mediador.getFrmPartida().setVisible(true);
     }//GEN-LAST:event_btnListoActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        mediador.getFrmLobby().setVisible(false);
+        mediador.getFrmMenu().setVisible(true);
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListo;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblApodo;
-    private javax.swing.JLabel lblAvatar;
+    private javax.swing.JLabel lblApodoP1;
+    private javax.swing.JLabel lblAvatarP1;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblSlots;
     // End of variables declaration//GEN-END:variables
