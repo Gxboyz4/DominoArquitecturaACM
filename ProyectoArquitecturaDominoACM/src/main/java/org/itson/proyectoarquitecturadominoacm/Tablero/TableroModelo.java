@@ -46,6 +46,7 @@ public class TableroModelo {
     {
         int x = fichas.getLast().getPosicionX();
         int y = fichas.getLast().getPosicionY();
+
         ficha.setPosicionX(x+desplazamientoX);
         ficha.setPosicionY(y+desplazamientoY);
     }
@@ -58,7 +59,6 @@ public class TableroModelo {
     }
  
     public void agregarFichaDerecha(Ficha ficha){
-        System.out.println("Entro");
         int distancia = 15;
         if(!fichas.isEmpty()){
             switch (validarColocacionDerecha(ficha)) {
@@ -67,6 +67,7 @@ public class TableroModelo {
                     colocarPosicionFichaDer(34,0,ficha);
                     fichas.addLast(ficha);
                     fichas.getLast().dibujarEnPanelRotada(-90);
+                    System.out.println(fichas);
                     break;
                 }
                 case 2 -> {
@@ -74,6 +75,7 @@ public class TableroModelo {
                     colocarPosicionFichaDer(43,0,ficha);
                     fichas.addLast(ficha);
                     fichas.getLast().dibujarEnPanelRotada(-90);
+                    System.out.println(fichas);
                     break;
                 }
                 case 3 -> {
@@ -81,6 +83,8 @@ public class TableroModelo {
                     colocarPosicionFichaDer(34,0,ficha);
                     fichas.addLast(ficha);
                     fichas.getLast().dibujarEnPanelRotada(90);
+                    this.numeroDerecha = ficha.getNumeroSuperior();
+                    System.out.println(fichas);
                     break;
                 }
                 case 4 -> {
@@ -88,6 +92,8 @@ public class TableroModelo {
                     colocarPosicionFichaDer(43,0,ficha);
                     fichas.addLast(ficha);
                     fichas.getLast().dibujarEnPanelRotada(90);
+                    this.numeroDerecha = ficha.getNumeroSuperior();
+                    System.out.println(fichas);
                     break;
                 }
                 case 5 -> {
@@ -95,6 +101,8 @@ public class TableroModelo {
                     colocarPosicionFichaDer(34,0,ficha);
                     fichas.addLast(ficha);
                     fichas.getLast().dibujarEnPanel();
+                    System.out.println(fichas);
+                    this.numeroDerecha = ficha.getNumeroSuperior();
                     break;
                 }
                 case 6 -> {
@@ -102,15 +110,11 @@ public class TableroModelo {
                     colocarPosicionFichaDer(34,0,ficha);
                     fichas.addLast(ficha);
                     fichas.getLast().dibujarEnPanel();
+                    this.numeroDerecha = ficha.getNumeroSuperior();
+                    System.out.println(fichas);
                     break;
                 }
-                case 7 -> {
-                    ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaDer(-294,-50,ficha);
-                    fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelRotada(-90);
-                    break;
-                }
+                
                 default -> {
                     //Declaraciones ejecutadas cuando ninguno de los valores coincide con el valor de la expresión
                     break;
@@ -119,12 +123,14 @@ public class TableroModelo {
             
         }else 
         if(fichas.isEmpty()){
+            this.numeroDerecha = ficha.getNumeroInferior();
+            this.numeroIzquierda = ficha.getNumeroInferior();
             ficha.setPanelFichas(lienzo);
-            System.out.println("Entra baisio");
             ficha.setPosicionX(171-22);
             ficha.setPosicionY(120-22);
             fichas.addLast(ficha);
             fichas.getLast().dibujarEnPanel();
+            
             
         }
         
@@ -132,7 +138,6 @@ public class TableroModelo {
      }
     public void agregarFichaIizquierda(Ficha ficha){
         int distancia = 15;
-        System.out.println("aa");
         if(!fichas.isEmpty()){
             switch (validarColocacionIzquierda(ficha)) {
                 case 1 -> {
@@ -177,13 +182,7 @@ public class TableroModelo {
                     fichas.getFirst().dibujarEnPanel();
                     break;
                 }
-                case 7 -> {
-                    ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaIzq(-294,-50,ficha);
-                    fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelRotada(-90);
-                    break;
-                }
+                
                 default -> {
                     //Declaraciones ejecutadas cuando ninguno de los valores coincide con el valor de la expresión
                     break;
@@ -203,16 +202,11 @@ public class TableroModelo {
      }
     public int validarColocacionDerecha(Ficha ficha)
     {
-        
-        if(fichas.get(fichas.size()-1).getNumeroInferior() == fichas.getLast().getNumeroInferior()||fichas.get(fichas.size()-1).getNumeroSuperior()== fichas.getLast().getNumeroInferior())
-        {
-            
+        //eesta es para saber si se puede utilizar el numero inferior del ultima ficha
+        if(fichas.size() == 1){
             if( fichas.getLast().getNumeroSuperior() == ficha.getNumeroSuperior()  )
             { 
-//                if(fichas.getLast().getPosicionX()+90>= lienzo.getWidth()){
-//                    System.out.println("sesalio"+ fichas.getLast().getPosicionX());
-//                     return 7;
-//                }
+//              
                 if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
                 {
                     if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
@@ -222,12 +216,67 @@ public class TableroModelo {
                     return 1;
                     
                 }
+                
                 if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
                 {
                     return 6;
                 }
                 return 2;
             }
+            if( fichas.getLast().getNumeroInferior() == ficha.getNumeroSuperior()  )
+            {
+
+                if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
+                {
+                    return 1;
+                }
+                return 2;
+            }
+            if(fichas.getLast().getNumeroInferior() == ficha.getNumeroInferior())
+            {
+                if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
+                {
+                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                    {
+                        return 5;
+                    }
+                    return 3;
+                }
+                if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                {
+                    return 6;
+                }
+                return 4;
+            }
+        }
+        else
+        if(fichas.get(fichas.size()-2).getNumeroInferior() == fichas.getLast().getNumeroInferior()||fichas.get(fichas.size()-2).getNumeroSuperior()== fichas.getLast().getNumeroInferior())
+        {
+           //este no entra
+            if( fichas.getLast().getNumeroSuperior() == ficha.getNumeroSuperior()  )
+            { 
+//                if(fichas.getLast().getPosicionX()+90>= lienzo.getWidth()){
+//                    System.out.println("sesalio"+ fichas.getLast().getPosicionX());
+//                     return 7;
+//                }
+                //esta es pa la mula
+                if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
+                {
+                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                    {
+                        return 5;
+                    }
+                    return 1;
+                    
+                }
+                
+                if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                {
+                    return 6;
+                }
+                return 2;
+            }
+            //este no entra
             if(fichas.getLast().getNumeroSuperior() == ficha.getNumeroInferior())
             {
 //                 if(fichas.getLast().getPosicionX()+90>= lienzo.getWidth()){
@@ -248,8 +297,8 @@ public class TableroModelo {
                 }
                 return 4;
             }
-        } 
-        if( fichas.get(fichas.size()-1).getNumeroInferior() == fichas.getLast().getNumeroSuperior()||fichas.get(fichas.size()-1).getNumeroSuperior()== fichas.getLast().getNumeroSuperior())
+        }else
+        if( fichas.get(fichas.size()-2).getNumeroInferior() == fichas.getLast().getNumeroSuperior()||fichas.get(fichas.size()-2).getNumeroSuperior()== fichas.getLast().getNumeroSuperior())
             {
             if( fichas.getLast().getNumeroInferior() == ficha.getNumeroSuperior()  )
             {

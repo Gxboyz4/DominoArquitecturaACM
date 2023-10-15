@@ -27,7 +27,7 @@ public class PozoModelo {
             for (int j = i; j <= 6; j++) {
                 String rutaImagen = String.format("/imgFrmPartidaFichas/ficha%d_%d.png", i, j);
                 ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
-                FichaModelo fichaModelo = new FichaModelo(i, j, imagen);
+                FichaModelo fichaModelo = new FichaModelo(j, i, imagen);
                 FichaVista fichaVista = new FichaVista(fichaModelo,null);
                 FichaControlador fichaControlador = new FichaControlador(fichaModelo, fichaVista);
                 Ficha ficha = new Ficha(fichaControlador, fichaModelo, fichaVista);

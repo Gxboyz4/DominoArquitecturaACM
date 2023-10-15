@@ -26,16 +26,12 @@ public class Ficha {
     int numeroSuperior;
     int numeroInferior;
     ImageIcon imagenFicha;
-    int posicionX;
-    int posicionY;
 
     
-    public Ficha(JPanel panelFicha,int numeroSuperior, int numeroInferior,ImageIcon imagenFicha,int posicionX,int posicionY){
+    public Ficha(JPanel panelFicha,int numeroSuperior, int numeroInferior,ImageIcon imagenFicha){
         this.numeroSuperior=numeroSuperior;
         this.numeroInferior=numeroInferior;
         this.imagenFicha=imagenFicha;
-        this.posicionX=posicionX;
-        this.posicionY=posicionY;
         this.panel=panelFicha;
     }
     
@@ -43,13 +39,16 @@ public class Ficha {
         this.fichaControlador = fichaControlador;
         this.fichaModelo= fichaModelo;
         this.fichaVista = fichaVista;
-        
+        this.numeroSuperior = fichaModelo.getNumeroSuperior();
+        this.numeroInferior = fichaModelo.getNumeroInferior();
     }
 
     public Ficha(FichaControlador fichaControlador) {
         this.fichaControlador = fichaControlador;
         this.fichaModelo = this.fichaControlador.getFichaModelo();
         this.fichaVista = this.fichaControlador.getFichaVista();
+        this.numeroSuperior = fichaModelo.getNumeroSuperior();
+        this.numeroInferior = fichaModelo.getNumeroInferior();
     }
 
     
@@ -64,6 +63,7 @@ public class Ficha {
         fichaVista.addMouseListener(fichaControlador);
     }
     public void dibujarEnPanelRotada(int grados){
+        System.out.println(grados);
         fichaControlador.dibujarFichaRotada(grados);
         fichaVista.addMouseListener(fichaControlador);
     }
@@ -82,24 +82,16 @@ public class Ficha {
     }
 
     public int getNumeroSuperior() {
-        return fichaModelo.getNumeroSuperior();
+        return numeroSuperior;
                 
     }
 
-    public void setNumeroSuperior(int numeroSuperior) {
-        this.numeroSuperior = numeroSuperior;
-    }
-
     public int getNumeroInferior() {
-        return fichaModelo.getNumeroInferior();
+        return numeroInferior;
     }
-
-    public void setNumeroInferior(int numeroInferior) {
-        this.numeroInferior = numeroInferior;
-    }
-
+    
     public int getPosicionX() {
-        return posicionX;
+        return fichaModelo.getPosicionX();
     }
 
     public void setPosicionX(int posicionX) {
@@ -107,12 +99,47 @@ public class Ficha {
     }
 
     public int getPosicionY() {
-        return posicionY;
+        return fichaModelo.getPosicionY();
     }
 
     public void setPosicionY(int posicionY) {
        this.fichaModelo.setPosicionY(posicionY);
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + this.numeroSuperior;
+        hash = 19 * hash + this.numeroInferior;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Ficha other = (Ficha) obj;
+        if (this.numeroSuperior != other.numeroSuperior) {
+            return false;
+        }
+        if (this.numeroInferior != other.numeroInferior) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Ficha{" + "numeroSuperior=" + numeroSuperior + ", numeroInferior=" + numeroInferior + '}';
+    }
+
     
     
 }

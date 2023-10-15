@@ -45,9 +45,11 @@ public class JugadorModelo {
     }
 
     public void eliminarFicha(Ficha ficha) {
+       
+        panelFichas.removeAll();
         fichas.remove(ficha);
-        System.out.println(fichas);
         x = 0;
+        panelFichas.repaint();
         for (Ficha ficha1 : fichas) {
             this.dibujar(ficha1);
         }
@@ -55,9 +57,9 @@ public class JugadorModelo {
     }
 
     public void agregarFicha(Ficha ficha) {
-        
         fichas.add(ficha);
         this.dibujar(ficha);
+        
     }
 
     public void dibujar(Ficha ficha) {

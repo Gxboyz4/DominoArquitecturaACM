@@ -54,7 +54,7 @@ public class Partida implements FichaObserver, PozoObserver{
 
     @Override
     public void fichaElegida(Ficha ficha) {
-         System.out.println("La ficha elegida por el pozo fue: "+ficha.getNumeroInferior() +" "+ " "+ficha.getNumeroSuperior());  
+         //System.out.println("La ficha elegida por el pozo fue: "+ficha.getNumeroInferior() +" "+ " "+ficha.getNumeroSuperior());  
          jugador.agregarFicha(ficha);
          pozo.eliminarFicha(ficha);
     }
