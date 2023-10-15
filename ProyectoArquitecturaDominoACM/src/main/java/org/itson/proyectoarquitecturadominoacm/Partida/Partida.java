@@ -48,8 +48,8 @@ public class Partida implements FichaObserver, PozoObserver{
     }
     @Override
     public void fichaSeleccionada(Ficha ficha) {
+        if(tablero.agregarFicha(ficha))
         jugador.eliminarFicha(ficha);
-        tablero.agregarFichaDerecha(ficha);
     }
 
     @Override

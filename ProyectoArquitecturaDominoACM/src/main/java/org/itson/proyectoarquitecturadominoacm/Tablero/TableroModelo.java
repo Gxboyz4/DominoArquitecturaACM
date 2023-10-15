@@ -20,6 +20,13 @@ public class TableroModelo {
     private LinkedList<Ficha> fichas;
     private int numeroDerecha;
     private int numeroIzquierda;
+    private final int falso = 0;
+    private final int primerCaso = 1;
+    private final int segundoCaso = 2;
+    private final int tercerCaso = 3;
+    private final int cuartoCaso = 4;
+    private final int quintoCaso = 5;
+    private final int sextoCaso = 6;
 //    private List<Ficha> fichasDibujadas;
 
     public int getNumeroDerecha() {
@@ -42,76 +49,51 @@ public class TableroModelo {
         this.lienzo = lienzo;
         fichas = new LinkedList<Ficha>();
     }
-    public void colocarPosicionFichaDer(int desplazamientoX,int desplazamientoY,Ficha ficha)
+    public void colocarPosicionFichaDer(int desplazamientoX,int desplazamientoY,Ficha ficha,int grados)
     {
+        ficha.setPanelFichas(lienzo);
         int x = fichas.getLast().getPosicionX();
         int y = fichas.getLast().getPosicionY();
+        ficha.setPosicionX(x+desplazamientoX);
+        ficha.setPosicionY(y+desplazamientoY);
+        fichas.addLast(ficha);
+        fichas.getLast().dibujarEnPanelRotada(grados);
+        
+    }
 
-        ficha.setPosicionX(x+desplazamientoX);
-        ficha.setPosicionY(y+desplazamientoY);
-    }
-    public void colocarPosicionFichaIzq(int desplazamientoX,int desplazamientoY,Ficha ficha)
-    {
-        int x = fichas.getFirst().getPosicionX();
-        int y = fichas.getFirst().getPosicionY();
-        ficha.setPosicionX(x+desplazamientoX);
-        ficha.setPosicionY(y+desplazamientoY);
-    }
- 
     public void agregarFichaDerecha(Ficha ficha){
         int distancia = 15;
+        
         if(!fichas.isEmpty()){
             switch (validarColocacionDerecha(ficha)) {
                 case 1 -> {
-                    ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaDer(34,0,ficha);
-                    fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelRotada(-90);
-                    System.out.println(fichas);
+                    colocarPosicionFichaDer(34,0,ficha,-90);
+                    this.numeroDerecha = ficha.getNumeroInferior();
                     break;
                 }
                 case 2 -> {
-                    ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaDer(43,0,ficha);
-                    fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelRotada(-90);
-                    System.out.println(fichas);
+                    colocarPosicionFichaDer(43,0,ficha,-90);
+                    this.numeroDerecha = ficha.getNumeroInferior();
                     break;
                 }
                 case 3 -> {
-                    ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaDer(34,0,ficha);
-                    fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelRotada(90);
+                    colocarPosicionFichaDer(34,0,ficha,90);
                     this.numeroDerecha = ficha.getNumeroSuperior();
-                    System.out.println(fichas);
                     break;
                 }
                 case 4 -> {
-                    ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaDer(43,0,ficha);
-                    fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanelRotada(90);
+                    colocarPosicionFichaDer(43,0,ficha,90);
                     this.numeroDerecha = ficha.getNumeroSuperior();
-                    System.out.println(fichas);
                     break;
                 }
                 case 5 -> {
-                    ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaDer(34,0,ficha);
-                    fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanel();
-                    System.out.println(fichas);
+                    colocarPosicionFichaDer(34,0,ficha,0);
                     this.numeroDerecha = ficha.getNumeroSuperior();
                     break;
                 }
                 case 6 -> {
-                    ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaDer(34,0,ficha);
-                    fichas.addLast(ficha);
-                    fichas.getLast().dibujarEnPanel();
+                    colocarPosicionFichaDer(34,0,ficha,0);
                     this.numeroDerecha = ficha.getNumeroSuperior();
-                    System.out.println(fichas);
                     break;
                 }
                 
@@ -123,7 +105,7 @@ public class TableroModelo {
             
         }else 
         if(fichas.isEmpty()){
-            this.numeroDerecha = ficha.getNumeroInferior();
+            this.numeroDerecha = ficha.getNumeroSuperior();
             this.numeroIzquierda = ficha.getNumeroInferior();
             ficha.setPanelFichas(lienzo);
             ficha.setPosicionX(171-22);
@@ -133,53 +115,55 @@ public class TableroModelo {
             
             
         }
-        
+        System.out.println(numeroDerecha);
         
      }
-    public void agregarFichaIizquierda(Ficha ficha){
+        public void colocarPosicionFichaIzq(int desplazamientoX,int desplazamientoY,Ficha ficha,int grados)
+    {
+        ficha.setPanelFichas(lienzo);
+        int x = fichas.getFirst().getPosicionX();
+        int y = fichas.getFirst().getPosicionY();
+        ficha.setPosicionX(x+desplazamientoX);
+        ficha.setPosicionY(y+desplazamientoY);
+        fichas.addFirst(ficha);
+        fichas.getFirst().dibujarEnPanelRotada(grados);
+    }
+ 
+    public void agregarFichaIzquierda(Ficha ficha){
+
         int distancia = 15;
         if(!fichas.isEmpty()){
             switch (validarColocacionIzquierda(ficha)) {
                 case 1 -> {
                     ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaIzq(-34,0,ficha);
-                    fichas.addFirst(ficha);
-                    fichas.getFirst().dibujarEnPanelRotada(90);
+                    colocarPosicionFichaIzq(-34,0,ficha,90);
+                    this.numeroIzquierda = ficha.getNumeroInferior();
                     break;
                 }
                 case 2 -> {
-                    ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaIzq(-43,0,ficha);
-                    fichas.addFirst(ficha);
-                    fichas.getFirst().dibujarEnPanelRotada(90);
+                    colocarPosicionFichaIzq(-43,0,ficha,90);
+                    this.numeroIzquierda = ficha.getNumeroInferior();
                     break;
                 }
                 case 3 -> {
                     ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaIzq(-34,0,ficha);
-                    fichas.addFirst(ficha);
-                    fichas.getFirst().dibujarEnPanelRotada(-90);
+                    colocarPosicionFichaIzq(-34,0,ficha,-90);
+                    this.numeroIzquierda = ficha.getNumeroSuperior();
                     break;
                 }
                 case 4 -> {
-                    ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaIzq(-43,0,ficha);
-                    fichas.addFirst(ficha);
-                    fichas.getFirst().dibujarEnPanelRotada(-90);
+                    colocarPosicionFichaIzq(-43,0,ficha,-90);
+                    this.numeroIzquierda = ficha.getNumeroSuperior();
                     break;
                 }
                 case 5 -> {
-                    ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaIzq(-34,0,ficha);
-                    fichas.addFirst(ficha);
-                    fichas.getFirst().dibujarEnPanel();
+                    colocarPosicionFichaIzq(-34,0,ficha,0);
+                    this.numeroIzquierda = ficha.getNumeroSuperior();
                     break;
                 }
                 case 6 -> {
-                    ficha.setPanelFichas(lienzo);
-                    colocarPosicionFichaIzq(-34,0,ficha);
-                    fichas.addFirst(ficha);
-                    fichas.getFirst().dibujarEnPanel();
+                    colocarPosicionFichaIzq(-34,0,ficha,0);
+                    this.numeroIzquierda = ficha.getNumeroSuperior();
                     break;
                 }
                 
@@ -191,238 +175,255 @@ public class TableroModelo {
             
         }else 
         if(fichas.isEmpty()){
+            this.numeroDerecha = ficha.getNumeroSuperior();
+            this.numeroIzquierda = ficha.getNumeroInferior();
             ficha.setPanelFichas(lienzo);
             ficha.setPosicionX(171-22);
             ficha.setPosicionY(120-22);
-            fichas.addFirst(ficha);
-            fichas.getFirst().dibujarEnPanel();
+            fichas.addLast(ficha);
+            fichas.getLast().dibujarEnPanel();
+            
+            //No pongan nada aqui 😎
         }
         
-        
+                System.out.println(numeroIzquierda+"IZQUIERDAAAAAAA");
+               System.out.println(fichas);
      }
     public int validarColocacionDerecha(Ficha ficha)
     {
-        //eesta es para saber si se puede utilizar el numero inferior del ultima ficha
-        if(fichas.size() == 1){
-            if( fichas.getLast().getNumeroSuperior() == ficha.getNumeroSuperior()  )
-            { 
-//              
+        if(fichas.size() == 0)
+        {
+            return sextoCaso;
+        }
+        if(fichas.getLast().equals(ficha))
+        {
+            return falso;
+        }
+        if(fichas.size() == 1)
+        {
+            if(this.numeroDerecha == ficha.getNumeroInferior())
+            {
                 if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
-                {
+                    {
+                        if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                        {
+                            return quintoCaso;
+                        }
+                        return tercerCaso;
+                    }
                     if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
                     {
-                        return 5;
+                        return sextoCaso;
                     }
-                    return 1;
-                    
-                }
-                
-                if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
-                {
-                    return 6;
-                }
-                return 2;
+                    return cuartoCaso;
             }
-            if( fichas.getLast().getNumeroInferior() == ficha.getNumeroSuperior()  )
+            if(this.numeroDerecha == ficha.getNumeroSuperior())
             {
+                if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
+                    {
+                        if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                        {
+                            return quintoCaso;
+                        }
+                        return primerCaso;
 
-                if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
-                {
-                    return 1;
-                }
-                return 2;
-            }
-            if(fichas.getLast().getNumeroInferior() == ficha.getNumeroInferior())
-            {
-                if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
-                {
+                    }
+
                     if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
                     {
-                        return 5;
+                        return sextoCaso;
                     }
-                    return 3;
-                }
-                if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
-                {
-                    return 6;
-                }
-                return 4;
+                    return segundoCaso;
+            }
+            if(this.numeroIzquierda == ficha.getNumeroInferior())
+            {
+                if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
+                    {
+                        if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                        {
+                            return quintoCaso;
+                        }
+                        return tercerCaso;
+                    }
+                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                    {
+                        return sextoCaso;
+                    }
+                    return cuartoCaso;
+            }
+            if(this.numeroIzquierda == ficha.getNumeroSuperior())
+            {
+                if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
+                    {
+                        if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                        {
+                            return quintoCaso;
+                        }
+                        return primerCaso;
+
+                    }
+
+                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                    {
+                        return sextoCaso;
+                    }
+                    return segundoCaso;
             }
         }
-        else
-        if(fichas.get(fichas.size()-2).getNumeroInferior() == fichas.getLast().getNumeroInferior()||fichas.get(fichas.size()-2).getNumeroSuperior()== fichas.getLast().getNumeroInferior())
+        if(this.numeroDerecha == ficha.getNumeroInferior())
         {
-           //este no entra
-            if( fichas.getLast().getNumeroSuperior() == ficha.getNumeroSuperior()  )
-            { 
-//                if(fichas.getLast().getPosicionX()+90>= lienzo.getWidth()){
-//                    System.out.println("sesalio"+ fichas.getLast().getPosicionX());
-//                     return 7;
-//                }
-                //esta es pa la mula
-                if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
+            if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
                 {
                     if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
                     {
-                        return 5;
+                        return quintoCaso;
                     }
-                    return 1;
+                    return tercerCaso;
+                }
+                if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                {
+                    return sextoCaso;
+                }
+                return cuartoCaso;
+        }
+        if(this.numeroDerecha == ficha.getNumeroSuperior())
+        {
+            if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
+                {
+                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                    {
+                        return quintoCaso;
+                    }
+                    return segundoCaso;
                     
                 }
                 
                 if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
                 {
-                    return 6;
+                    return sextoCaso;
                 }
-                return 2;
-            }
-            //este no entra
-            if(fichas.getLast().getNumeroSuperior() == ficha.getNumeroInferior())
-            {
-//                 if(fichas.getLast().getPosicionX()+90>= lienzo.getWidth()){
-//                    System.out.println("sesalio"+ fichas.getLast().getPosicionX());
-//                    return 7;
-//                }
-                if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
-                {
-                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
-                    {
-                        return 5;
-                    }
-                    return 3;
-                }
-                if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
-                {
-                    return 6;
-                }
-                return 4;
-            }
-        }else
-        if( fichas.get(fichas.size()-2).getNumeroInferior() == fichas.getLast().getNumeroSuperior()||fichas.get(fichas.size()-2).getNumeroSuperior()== fichas.getLast().getNumeroSuperior())
-            {
-            if( fichas.getLast().getNumeroInferior() == ficha.getNumeroSuperior()  )
-            {
-//                 if(fichas.getLast().getPosicionX()+90>= lienzo.getWidth()){
-//                    System.out.println("sesalio"+ fichas.getLast().getPosicionX());
-//                    return 7;
-//                }
-                if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
-                {
-                    return 1;
-                }
-                return 2;
-            }
-            if(fichas.getLast().getNumeroInferior() == ficha.getNumeroInferior())
-            {
-//                 if(fichas.getLast().getPosicionX()+90>= lienzo.getWidth()){
-//                    System.out.println("sesalio"+ fichas.getLast().getPosicionX());
-//                    return 7;
-//                }
-                if( fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior())
-                {
-                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
-                    {
-                        return 5;
-                    }
-                    return 3;
-                }
-                if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
-                {
-                    return 6;
-                }
-                return 4;
-            }
-            }
+                return segundoCaso;
+        }
         System.out.println("cago"+fichas.get(fichas.size()-1).getNumeroSuperior()+fichas.getLast().getNumeroSuperior());
-        return 0;
+        return falso;
     }
     public int validarColocacionIzquierda(Ficha ficha)
     {
-        
-        if(fichas.get(1).getNumeroInferior() == fichas.getFirst().getNumeroInferior()||fichas.get(1).getNumeroSuperior()== fichas.getFirst().getNumeroInferior())
+        if(fichas.size() == 0)
         {
-            System.out.println("entroaaa");
-            if( fichas.getFirst().getNumeroSuperior() == ficha.getNumeroSuperior()  )
-            { 
-//                if(fichas.getLast().getPosicionX()+90>= lienzo.getWidth()){
-//                    System.out.println("sesalio"+ fichas.getLast().getPosicionX());
-//                     return 7;
-//                }
+            return sextoCaso;
+        }
+        if(fichas.getFirst().equals(ficha))
+        {
+            return falso;
+        }
+        if(fichas.size() == 1)
+        {
+            if(this.numeroDerecha == ficha.getNumeroInferior())
+            {
                 if( fichas.getFirst().getNumeroSuperior() == fichas.getFirst().getNumeroInferior())
+                    {
+                        if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                        {
+                            return quintoCaso;
+                        }
+                        return tercerCaso;
+                    }
+                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                    {
+                        return sextoCaso;
+                    }
+                    return cuartoCaso;
+            }
+            if(this.numeroDerecha == ficha.getNumeroSuperior())
+            {
+                if( fichas.getFirst().getNumeroSuperior() == fichas.getFirst().getNumeroInferior())
+                    {
+                        if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                        {
+                            return quintoCaso;
+                        }
+                        return primerCaso;
+
+                    }
+
+                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                    {
+                        return sextoCaso;
+                    }
+                    return segundoCaso;
+            }
+            if(this.numeroIzquierda == ficha.getNumeroInferior())
+            {
+                if( fichas.getFirst().getNumeroSuperior() == fichas.getFirst().getNumeroInferior())
+                    {
+                        if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                        {
+                            return quintoCaso;
+                        }
+                        return tercerCaso;
+                    }
+                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                    {
+                        return sextoCaso;
+                    }
+                    return cuartoCaso;
+            }
+            if(this.numeroIzquierda == ficha.getNumeroSuperior())
+            {
+                if( fichas.getFirst().getNumeroSuperior() == fichas.getFirst().getNumeroInferior())
+                    {
+                        if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                        {
+                            return quintoCaso;
+                        }
+                        return primerCaso;
+
+                    }
+
+                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                    {
+                        return sextoCaso;
+                    }
+                    return segundoCaso;
+            }
+        }
+        if(this.numeroIzquierda == ficha.getNumeroInferior())
+        {
+            if( fichas.getFirst().getNumeroSuperior() == fichas.getFirst().getNumeroInferior())
                 {
                     if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
                     {
-                        return 5;
+                        return quintoCaso;
                     }
-                    return 1;
+                    return tercerCaso;
+                }
+                if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                {
+                    return sextoCaso;
+                }
+                return cuartoCaso;
+        }
+        if(this.numeroIzquierda == ficha.getNumeroSuperior())
+        {
+            if( fichas.getFirst().getNumeroSuperior() == fichas.getFirst().getNumeroInferior())
+                {
+                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
+                    {
+                        return quintoCaso;
+                    }
+                    return primerCaso;
                     
                 }
+                
                 if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
                 {
-                    return 6;
+                    return sextoCaso;
                 }
-                return 2;
-            }
-            if(fichas.getFirst().getNumeroSuperior() == ficha.getNumeroInferior())
-            {
-//                 if(fichas.getLast().getPosicionX()+90>= lienzo.getWidth()){
-//                    System.out.println("sesalio"+ fichas.getLast().getPosicionX());
-//                    return 7;
-//                }
-                if( fichas.getFirst().getNumeroSuperior() == fichas.getFirst().getNumeroInferior())
-                {
-                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
-                    {
-                        return 5;
-                    }
-                    return 3;
-                }
-                if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
-                {
-                    return 6;
-                }
-                return 4;
-            }
-        } 
-        if( fichas.get(1).getNumeroInferior() == fichas.getFirst().getNumeroSuperior()||fichas.get(1).getNumeroSuperior()== fichas.getFirst().getNumeroSuperior())
-            {
-            if( fichas.getLast().getNumeroInferior() == ficha.getNumeroSuperior()  )
-            {
-//                 if(fichas.getLast().getPosicionX()+90>= lienzo.getWidth()){
-//                    System.out.println("sesalio"+ fichas.getLast().getPosicionX());
-//                    return 7;
-//                }
-                if( fichas.getFirst().getNumeroSuperior() == fichas.getFirst().getNumeroInferior())
-                {
-                    return 1;
-                }
-                return 2;
-            }
-            if(fichas.getLast().getNumeroInferior() == ficha.getNumeroInferior())
-            {
-//                 if(fichas.getLast().getPosicionX()+90>= lienzo.getWidth()){
-//                    System.out.println("sesalio"+ fichas.getLast().getPosicionX());
-//                    return 7;
-//                }
-                if( fichas.getFirst().getNumeroSuperior() == fichas.getFirst().getNumeroInferior())
-                {
-                    if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
-                    {
-                        return 5;
-                    }
-                    return 3;
-                }
-                if( ficha.getNumeroSuperior() == ficha.getNumeroInferior())
-                {
-                    return 6;
-                }
-                return 4;
-            }
-            }
+                return segundoCaso;
+        }
         System.out.println("cago"+fichas.get(fichas.size()-1).getNumeroSuperior()+fichas.getLast().getNumeroSuperior());
-        return 0;
+        return falso;
     }
-    public void agregarFichaIzquierda(Ficha ficha){
-         
-    }
+
 }
