@@ -47,7 +47,10 @@ public class Pozo {
     }
     
     public void eliminarFicha (Ficha ficha){
-        pozoModelo.eliminarFicha(ficha);
+        pozoControlador.eliminarFicha(ficha);
     }
     
+    public List<Ficha> repartirFichas(int numFichas){
+        return pozoModelo.repartirFichas(numFichas);
+    }
 }

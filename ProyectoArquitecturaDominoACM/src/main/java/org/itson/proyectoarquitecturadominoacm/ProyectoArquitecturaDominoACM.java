@@ -4,6 +4,7 @@
 
 package org.itson.proyectoarquitecturadominoacm;
 
+import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Mediador.IMediador;
 import org.itson.proyectoarquitecturadominoacm.Mediador.Mediador;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
@@ -20,10 +21,7 @@ public class ProyectoArquitecturaDominoACM {
 
     public static void main(String[] args) {
       mediador = new Mediador();
-      mediador.registrarPantallaPrincipal(new FrmPrincipal());
-      mediador.registrarPantallaMenu(new FrmMenu());
-      mediador.registrarPantallaLobby(new FrmLobby());
-      mediador.registrarPantallaPartida(new FrmPartida());
+      mediador.registrarJugador(new Jugador());
       mediador.iniciarPrograma();
      // FrmPrincipal frmPrincipal= new FrmPrincipal();
     }

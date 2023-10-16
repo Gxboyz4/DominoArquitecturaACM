@@ -6,6 +6,7 @@ package org.itson.proyectoarquitecturadominoacm.UI;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Mediador.IMediador;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
@@ -37,7 +38,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
         avatarJugador = avatar.getAvatar();
     }
     public void registrarJugador(){
-    mediador.registrarJugador(new Jugador(nombreJugador,avatarJugador));
+    mediador.getJugador().setNombre(nombreJugador);
+    mediador.getJugador().setAvatar(avatarJugador);
+    }
+    public boolean validarNombre(){
+    return nombreJugador.isBlank();
+    }
+    public boolean validarAvatar(){
+    return avatarJugador.getImage()==null;
+    }
+    public void mostrarMensaje(String mensaje){
+    JOptionPane.showMessageDialog(this,mensaje, "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
+    public Boolean validar(){
+    if((validarNombre() || validarAvatar())){
+        mostrarMensaje("Debes de tener al menos un avatar seleccionado y un nombre");
+        return false;
+    }
+    return true;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,6 +101,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 txtApodoActionPerformed(evt);
             }
         });
+        txtApodo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApodoKeyTyped(evt);
+            }
+        });
         jpnGeneral.add(txtApodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 350, 30));
 
         btnJugar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoJugar_2.png"))); // NOI18N
@@ -124,14 +147,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtApodoActionPerformed
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
+    obtenerDatosJugador();
+        if(!validar()){
+        return;
+    }
     registrarJugador();
-    mediador.getFrmPrincipal().setVisible(false);
-    mediador.getFrmMenu().setVisible(true);
+    this.setVisible(false);
+    mediador.abrirPantallaMenu();
     }//GEN-LAST:event_btnJugarActionPerformed
 
     private void btnCambiarAvatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarAvatarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCambiarAvatarActionPerformed
+
+    private void txtApodoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApodoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApodoKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCambiarAvatar;

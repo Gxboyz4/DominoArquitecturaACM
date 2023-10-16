@@ -97,14 +97,13 @@ public class FrmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-    mediador.getFrmMenu().setVisible(false);
-    mediador.getFrmPrincipal().setVisible(true);
+    this.setVisible(false);
+    mediador.abrirPantallaPrincipal();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnCrearPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPartidaActionPerformed
-    mediador.getFrmMenu().setVisible(false);
-    mediador.getFrmLobby().setVisible(true);
-    mediador.getFrmLobby().asignarInformacionJugadores();
+    this.setVisible(false);
+    mediador.abrirPantallaLobby();
     }//GEN-LAST:event_btnCrearPartidaActionPerformed
 
     private void btnUnirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirseActionPerformed

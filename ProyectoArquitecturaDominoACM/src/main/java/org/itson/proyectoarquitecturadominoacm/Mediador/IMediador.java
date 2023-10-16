@@ -5,6 +5,7 @@
 package org.itson.proyectoarquitecturadominoacm.Mediador;
 
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
+import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPartida;
@@ -17,13 +18,11 @@ import org.itson.proyectoarquitecturadominoacm.UI.FrmPrincipal;
 public interface IMediador {
     public void iniciarPrograma();
     public void registrarJugador(Jugador jugador);
-    public void registrarPantallaPrincipal(FrmPrincipal frmPrincpal);
-    public void registrarPantallaMenu(FrmMenu frmMenu);
-    public void registrarPantallaLobby(FrmLobby frmLobby);
-    public void registrarPantallaPartida(FrmPartida frmPartida);
+    public void abrirPantallaPrincipal();
+    public void abrirPantallaMenu();
+    public void abrirPantallaLobby();
+    public void abrirPantallaPartida();
     public Jugador getJugador();
-    public FrmPrincipal getFrmPrincipal();
-    public FrmMenu getFrmMenu();
-    public FrmLobby getFrmLobby();
-    public FrmPartida getFrmPartida();
+    public void crearPartida(Jugador jugador, int fichas);
+    public Partida getPartida();
 }

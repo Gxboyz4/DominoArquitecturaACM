@@ -35,12 +35,12 @@ public class Tablero {
                 modelo.agregarFichaIzquierda(ficha);
                 return true;
             }
-            if(opcion == 2)
+            if(opcion == 2) //else if
             {
                 modelo.agregarFichaDerecha(ficha);
                 return true;
             }
-            if(opcion == 3){
+            if(opcion == 3){ //else if
                 return false;
             }
         }else
@@ -73,7 +73,6 @@ public class Tablero {
             JOptionPane.showMessageDialog(null, "Presionaste derecha 2");
             return 2;
         } else {
-            
             JOptionPane.showMessageDialog(null, "Cerraste la ventana");
             return 3;
         }

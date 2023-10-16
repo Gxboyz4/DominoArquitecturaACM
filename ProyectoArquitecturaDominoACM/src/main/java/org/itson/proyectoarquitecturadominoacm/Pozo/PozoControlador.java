@@ -32,7 +32,7 @@ public class PozoControlador implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       System.out.println("Entro al action de botón pozo");
+     //  System.out.println("Entro al action de botón pozo");
        Ficha ficha = pozoModelo.devolverFicha();
        pozoObservable.notificar(ficha);
      //  pozoModelo.getListaFichas().get(0);
@@ -48,7 +48,10 @@ public class PozoControlador implements ActionListener{
     public void setPozoObservable(PozoObservable pozoObservable) {
         this.pozoObservable = pozoObservable;
     }
-    
+    public void eliminarFicha(Ficha ficha){
+        pozoModelo.eliminarFicha(ficha);
+        pozoVista.mostrarPozo();
+    }
     public class PozoObservable{
         List<PozoObserver> observadores = new ArrayList<>();
         public void agregarObservador(PozoObserver observador){
@@ -60,5 +63,4 @@ public class PozoControlador implements ActionListener{
             }
         }
     }
-    
 }

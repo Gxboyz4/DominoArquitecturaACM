@@ -3,18 +3,24 @@
  */
 package org.itson.proyectoarquitecturadominoacm.UI;
 
+import java.awt.BorderLayout;
+import java.awt.ComponentOrientation;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.SwingConstants;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Fichas.FichaModelo;
 import org.itson.proyectoarquitecturadominoacm.Fichas.FichaVista;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
 import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
+import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 import org.itson.proyectoarquitecturadominoacm.Tablero.Tablero;
 
 /**
@@ -22,71 +28,39 @@ import org.itson.proyectoarquitecturadominoacm.Tablero.Tablero;
  * @author Gabriel Mancinas,Julio Chon,Luis Ayon
  */
 public class FrmPartida extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form FrmLobby
      */
     public FrmPartida() {
         initComponents();
-        this.setSize(750, 540); //736 x 500
+        //this.setSize(850, 575); //800 x 550
+        this.setLayout(new BorderLayout());
+        this.pack();
+
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
-
-        Jugador jugador = new Jugador(jpnFichas);
-                
-        Pozo pozo = new Pozo(btnPozo);
-        
-        Tablero tablero = new Tablero(jpnTablero);
-        Partida partida = new Partida(pozo,jugador,tablero);
-//        Ficha fichaRandom = pozo.devolverFicha();
-//        Ficha fichaRandom2 = pozo.devolverFicha();
-//        jugador.agregarFicha(fichaRandom);
-//        jugador.agregarFicha(fichaRandom2);
-        
-
-        /*
-        String dir = "/imgFrmPartidaFichas/ficha1_1.png";
-        ImageIcon imagen = new ImageIcon(getClass().getResource(dir));
-        Ficha ficha = new Ficha(jpnTablero, 1, 1, imagen, 0, 0);
-
-        String dir2 = "/imgFrmPartidaFichas/ficha1_6.png";
-        ImageIcon imagen2 = new ImageIcon(getClass().getResource(dir2));
-        Ficha ficha2 = new Ficha(jpnTablero, 6, 1, imagen2, 30, 0);
-
-        String dir3 = "/imgFrmPartidaFichas/ficha2_6.png";
-        ImageIcon imagen3 = new ImageIcon(getClass().getResource(dir3));
-        Ficha ficha3 = new Ficha(jpnTablero, 6, 2, imagen3, 30, 0);
-
-        String dir4 = "/imgFrmPartidaFichas/ficha2_4.png";
-        ImageIcon imagen4 = new ImageIcon(getClass().getResource(dir4));
-        Ficha ficha4 = new Ficha(jpnTablero, 4, 2, imagen4, 30, 0);
-
-        String dir5 = "/imgFrmPartidaFichas/ficha3_4.png";
-        ImageIcon imagen5 = new ImageIcon(getClass().getResource(dir5));
-        Ficha ficha5 = new Ficha(jpnTablero, 4, 3, imagen5, 30, 0);
-
-        String dir6 = "/imgFrmPartidaFichas/ficha6_6.png";
-        ImageIcon imagen6 = new ImageIcon(getClass().getResource(dir6));
-        Ficha ficha6 = new Ficha(jpnTablero, 6, 6, imagen6, 30, 0);
-
-        String dir7 = "/imgFrmPartidaFichas/ficha1_4.png";
-        ImageIcon imagen7 = new ImageIcon(getClass().getResource(dir7));
-        Ficha ficha7 = new Ficha(jpnTablero, 4, 1, imagen7, 0, 0);
-
-        Tablero tablero = new Tablero(jpnTablero);
-        this.addKeyListener(tablero.obtenerKeyListener());
-        tablero.agregarFichaDerecha(ficha);
-        tablero.agregarFichaDerecha(ficha2);
-        tablero.agregarFichaDerecha(ficha6);
-        tablero.agregarFichaDerecha(ficha3);
-        tablero.agregarFichaDerecha(ficha4);
-        tablero.agregarFichaDerecha(ficha5);
-        tablero.agregarFichaIzquierda(ficha7);
-        */
+        this.crearPartida();
+        this.setearInformacionJugador();
+        mediador.getJugador().setPanelFichas(jpnFichas);
+        mediador.getPartida().repartirFichas();
         setFocusable(true);
         requestFocusInWindow();
     }
-
+    public void setearInformacionJugador(){
+    Icon icon;
+    icon = new ImageIcon(mediador.getJugador().getAvatar().getImage().getScaledInstance(lblAvatar.getWidth(), lblAvatar.getHeight(), Image.SCALE_DEFAULT));
+    lblAvatar.setIcon(icon);
+    lblNombreJugador.setText(mediador.getJugador().getNombre());
+    lblNombreJugador.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+    public void crearPartida(){
+    Pozo pozo = new Pozo(btnPozo);
+    Tablero tablero = new Tablero(jpnTablero);    
+    mediador.getPartida().setPozo(pozo);
+    mediador.getPartida().setTablero(tablero);
+    mediador.getPartida().suscribirse();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,18 +74,22 @@ public class FrmPartida extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jpnTablero = new javax.swing.JPanel();
         jpnFichas = new javax.swing.JPanel();
+        lblNombreJugador = new javax.swing.JLabel();
+        lblAvatar = new javax.swing.JLabel();
         btnAcabarPartida = new javax.swing.JButton();
         btnPozo = new javax.swing.JButton();
         lblTableroFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
-            }
-        });
+        setMaximumSize(new java.awt.Dimension(800, 550));
+        setMinimumSize(new java.awt.Dimension(800, 550));
+        setPreferredSize(new java.awt.Dimension(800, 550));
+        setSize(new java.awt.Dimension(800, 550));
 
-        jpnFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpnFondo.setMaximumSize(new java.awt.Dimension(800, 550));
+        jpnFondo.setMinimumSize(new java.awt.Dimension(800, 550));
+        jpnFondo.setPreferredSize(new java.awt.Dimension(800, 550));
+        jpnFondo.setLayout(null);
 
         jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -134,11 +112,19 @@ public class FrmPartida extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jpnTablero);
 
-        jpnFondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 368, 260));
+        jpnFondo.add(jScrollPane1);
+        jScrollPane1.setBounds(220, 130, 368, 260);
 
         jpnFichas.setBackground(new java.awt.Color(8, 78, 171));
         jpnFichas.setLayout(null);
-        jpnFondo.add(jpnFichas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 368, 88));
+        jpnFondo.add(jpnFichas);
+        jpnFichas.setBounds(220, 410, 368, 88);
+
+        lblNombreJugador.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jpnFondo.add(lblNombreJugador);
+        lblNombreJugador.setBounds(90, 480, 130, 20);
+        jpnFondo.add(lblAvatar);
+        lblAvatar.setBounds(110, 400, 100, 90);
 
         btnAcabarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoAcabarPartida.png"))); // NOI18N
         btnAcabarPartida.setBorderPainted(false);
@@ -148,33 +134,35 @@ public class FrmPartida extends javax.swing.JFrame {
                 btnAcabarPartidaActionPerformed(evt);
             }
         });
-        jpnFondo.add(btnAcabarPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 420, 180, 60));
+        jpnFondo.add(btnAcabarPartida);
+        btnAcabarPartida.setBounds(600, 430, 180, 60);
 
         btnPozo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoTomarFicha.png"))); // NOI18N
         btnPozo.setBorderPainted(false);
         btnPozo.setContentAreaFilled(false);
-        btnPozo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPozoActionPerformed(evt);
-            }
-        });
-        jpnFondo.add(btnPozo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, -1, 70));
+        jpnFondo.add(btnPozo);
+        btnPozo.setBounds(600, 360, 180, 70);
 
-        lblTableroFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/imgFondoPartida.png"))); // NOI18N
-        lblTableroFondo.setMaximumSize(new java.awt.Dimension(700, 500));
-        lblTableroFondo.setMinimumSize(new java.awt.Dimension(700, 500));
+        lblTableroFondo.setBackground(new java.awt.Color(102, 153, 255));
+        lblTableroFondo.setAlignmentY(0.0F);
+        lblTableroFondo.setMaximumSize(new java.awt.Dimension(800, 550));
+        lblTableroFondo.setMinimumSize(new java.awt.Dimension(800, 550));
         lblTableroFondo.setOpaque(true);
-        jpnFondo.add(lblTableroFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 740, 500));
+        lblTableroFondo.setPreferredSize(new java.awt.Dimension(800, 550));
+        jpnFondo.add(lblTableroFondo);
+        lblTableroFondo.setBounds(0, 0, 800, 550);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jpnFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpnFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -182,16 +170,10 @@ public class FrmPartida extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAcabarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcabarPartidaActionPerformed
-        // TODO add your handling code here:
+        
+        this.dispose();
+        mediador.abrirPantallaMenu();
     }//GEN-LAST:event_btnAcabarPartidaActionPerformed
-
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formKeyPressed
-
-    private void btnPozoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPozoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPozoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -201,6 +183,8 @@ public class FrmPartida extends javax.swing.JFrame {
     private javax.swing.JPanel jpnFichas;
     private javax.swing.JPanel jpnFondo;
     private javax.swing.JPanel jpnTablero;
+    private javax.swing.JLabel lblAvatar;
+    private javax.swing.JLabel lblNombreJugador;
     private javax.swing.JLabel lblTableroFondo;
     // End of variables declaration//GEN-END:variables
 

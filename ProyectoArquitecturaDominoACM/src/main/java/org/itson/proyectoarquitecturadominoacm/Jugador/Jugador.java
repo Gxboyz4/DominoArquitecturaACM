@@ -15,14 +15,18 @@ import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
  * @author julio
  */
 public class Jugador {
-     List<Ficha> fichas = new ArrayList<>();
+    List<Ficha> fichas = new ArrayList<>();
     JPanel panelFichas; 
     JugadorControlador controlador;
     JugadorModelo modelo;
     JugadorVista vista;
     ImageIcon avatar;
     String nombre;
-
+    
+    public Jugador(){
+        this.setearResponsabilidades();
+    }
+    
     public Jugador(String nombre,ImageIcon avatar){
         this.nombre=nombre;
         this.avatar=avatar;
@@ -55,35 +59,35 @@ public class Jugador {
     }
 
     public List<Ficha> getFichas() {
-        return fichas;
+       return modelo.getFichas();
     }
 
     public void setFichas(List<Ficha> fichas) {
-        this.fichas = fichas;
+        this.modelo.setFichas(fichas);
     }
 
     public JPanel getPanelFichas() {
-        return panelFichas;
+        return modelo.getPanelFichas();
     }
 
     public void setPanelFichas(JPanel panelFichas) {
-        this.panelFichas = panelFichas;
+        modelo.setPanelFichas(panelFichas);
     }
 
     public ImageIcon getAvatar() {
-        return avatar;
+        return modelo.getAvatar();
     }
 
     public void setAvatar(ImageIcon avatar) {
-        this.avatar = avatar;
+        modelo.setAvatar(avatar);
     }
 
     public String getNombre() {
-        return nombre;
+        return modelo.getNombre();
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        modelo.setNombre(nombre);
     }
     
     

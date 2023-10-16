@@ -19,7 +19,7 @@ import org.itson.proyectoarquitecturadominoacm.Fichas.FichaVista;
 public class PozoModelo {
 
     List<Ficha> listaFichas;
-    String estado="Visible";
+    Boolean estadoVisible=true;
 
     public PozoModelo() {
         listaFichas = new ArrayList();        
@@ -45,13 +45,15 @@ public class PozoModelo {
         this.listaFichas = listaFichas;
     }
 
-    public String getEstado() {
-        return estado;
+    public Boolean getEstadoVisible() {
+        return estadoVisible;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEstadoVisible(Boolean estadoVisible) {
+        this.estadoVisible = estadoVisible;
     }
+
+   
     public Ficha devolverFicha(){
      int numeroRandom = (int) (Math.random() * getListaFichas().size() + 0);
      return listaFichas.get(numeroRandom);
@@ -59,6 +61,22 @@ public class PozoModelo {
     
     public void eliminarFicha(Ficha ficha){
         listaFichas.remove(ficha);
+        verificarNumFichas();
+    }
+    public void verificarNumFichas(){
+        if(listaFichas.size()==0){
+            this.estadoVisible=false;
+        }
+    }
+    public List<Ficha> repartirFichas(int numFichas){
+    List<Ficha> fichas = new ArrayList();
+            for (int j = 0; j < numFichas; j++) {
+                Ficha ficha;
+                ficha=devolverFicha();
+                eliminarFicha(ficha);
+                fichas.add(ficha);
+            }
+            return fichas;
     }
 
 }

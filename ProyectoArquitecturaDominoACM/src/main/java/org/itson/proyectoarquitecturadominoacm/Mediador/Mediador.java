@@ -5,6 +5,7 @@
 package org.itson.proyectoarquitecturadominoacm.Mediador;
 
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
+import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPartida;
@@ -20,34 +21,21 @@ public class Mediador implements IMediador{
     FrmMenu frmMenu;
     FrmLobby frmLobby;
     FrmPartida frmPartida;
-    
+    Partida partida;
     @Override
     public void registrarJugador(Jugador jugador) {
     this.jugador=jugador;
     }
 
     @Override
-    public void registrarPantallaPrincipal(FrmPrincipal frmPrincipal) {
-        this.frmPrincipal=frmPrincipal;
-    }
-
-    @Override
-    public void registrarPantallaMenu(FrmMenu frmMenu) {
-        this.frmMenu=frmMenu;
-    }
-
-    @Override
-    public void registrarPantallaLobby(FrmLobby frmLobby) {
-        this.frmLobby=frmLobby;
-    }
-
-    @Override
-    public void registrarPantallaPartida(FrmPartida frmPartida) {
-        this.frmPartida=frmPartida;
+    public void abrirPantallaPartida(){
+    FrmPartida frmPartida= new FrmPartida();
+    frmPartida.setVisible(true);
     }
     
     @Override
     public void iniciarPrograma(){
+    FrmPrincipal frmPrincipal = new FrmPrincipal();
     frmPrincipal.setVisible(true);
     }
 
@@ -57,24 +45,34 @@ public class Mediador implements IMediador{
     }
 
     @Override
-    public FrmPrincipal getFrmPrincipal() {
-        return frmPrincipal;
+    public void crearPartida(Jugador jugador, int fichas) {
+    this.partida = new Partida(jugador,fichas);
+    }
+    @Override
+    public Partida getPartida() {
+        return partida;
     }
 
     @Override
-    public FrmMenu getFrmMenu() {
-        return frmMenu;
+    public void abrirPantallaPrincipal() {
+    FrmPrincipal frmPrincipal= new FrmPrincipal();
+    frmPrincipal.setVisible(true);
     }
 
     @Override
-    public FrmLobby getFrmLobby() {
-        return frmLobby;
+    public void abrirPantallaMenu() {
+    FrmMenu frmMenu = new FrmMenu();
+    frmMenu.setVisible(true);
     }
 
     @Override
-    public FrmPartida getFrmPartida() {
-        return frmPartida;
+    public void abrirPantallaLobby() {
+    FrmLobby frmLobby = new FrmLobby();
+    frmLobby.setVisible(true);
     }
+    
+    
+    
 
    
 

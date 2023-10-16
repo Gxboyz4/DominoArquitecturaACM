@@ -18,11 +18,10 @@ public class PozoVista{
         this.botonPozo = botonPozo;
     }
     public void mostrarPozo(){
-        if(pozoModelo.getEstado().equalsIgnoreCase("Visible")){
+        if(pozoModelo.getEstadoVisible()){
             this.botonPozo.setVisible(true);
         }else{
             this.botonPozo.setVisible(false);
-        }
-            
+        }        
     }
 }

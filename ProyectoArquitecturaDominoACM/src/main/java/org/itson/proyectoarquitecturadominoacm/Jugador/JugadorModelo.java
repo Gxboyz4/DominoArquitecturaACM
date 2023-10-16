@@ -52,10 +52,10 @@ public class JugadorModelo {
     }
 
     public void eliminarFicha(Ficha ficha) {
-       
         panelFichas.removeAll();
         fichas.remove(ficha);
         x = 0;
+        y = 0;
         panelFichas.repaint();
         for (Ficha ficha1 : fichas) {
             this.dibujar(ficha1);
@@ -64,9 +64,14 @@ public class JugadorModelo {
     }
 
     public void agregarFicha(Ficha ficha) {
+        if(fichas.isEmpty()){
+            panelFichas.removeAll();
+            panelFichas.repaint();
+            x=0;
+            y=0;
+        }
         fichas.add(ficha);
-        this.dibujar(ficha);
-        
+        this.dibujar(ficha);    
     }
 
     public void dibujar(Ficha ficha) {
@@ -104,7 +109,7 @@ public class JugadorModelo {
     }
 
     public void setFichas(List<Ficha> fichas) {
-        this.fichas = fichas;
+        this.fichas = new ArrayList<>();
     }
 
     public JPanel getPanelFichas() {

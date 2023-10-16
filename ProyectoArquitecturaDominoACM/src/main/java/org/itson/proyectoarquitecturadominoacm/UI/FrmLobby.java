@@ -3,7 +3,10 @@
  */
 package org.itson.proyectoarquitecturadominoacm.UI;
 
+import java.awt.Image;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 
 /**
@@ -19,10 +22,18 @@ public class FrmLobby extends javax.swing.JFrame {
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
+        asignarInformacionJugadores();
     }
     public void asignarInformacionJugadores(){
-    lblApodoP1.setText(mediador.getJugador().getNombre());
-    lblAvatarP1.setIcon(mediador.getJugador().getAvatar());
+    Icon icon;
+    icon = new ImageIcon(mediador.getJugador().getAvatar().getImage().getScaledInstance(lblAvatarP1.getWidth(), lblAvatarP1.getHeight(), Image.SCALE_DEFAULT));
+    lblAvatarP1.setIcon(icon);
+    lblNombreJugadorP1.setText(mediador.getJugador().getNombre());
+    lblNombreJugadorP1.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+    public int obtenerNumFichas(){
+        String numFichas = cbxFichasPorJugador.getSelectedItem().toString();
+        return Integer.parseInt(numFichas);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,10 +44,11 @@ public class FrmLobby extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jpnFondo = new javax.swing.JPanel();
+        cbxFichasPorJugador = new javax.swing.JComboBox<>();
         btnRegresar = new javax.swing.JButton();
         btnListo = new javax.swing.JButton();
-        lblApodoP1 = new javax.swing.JLabel();
+        lblNombreJugadorP1 = new javax.swing.JLabel();
         lblAvatarP1 = new javax.swing.JLabel();
         lblSlots = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
@@ -44,11 +56,14 @@ public class FrmLobby extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 0, 0));
-        jPanel1.setMinimumSize(new java.awt.Dimension(736, 500));
-        jPanel1.setOpaque(false);
-        jPanel1.setPreferredSize(new java.awt.Dimension(736, 500));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpnFondo.setBackground(new java.awt.Color(255, 0, 0));
+        jpnFondo.setMinimumSize(new java.awt.Dimension(736, 500));
+        jpnFondo.setOpaque(false);
+        jpnFondo.setPreferredSize(new java.awt.Dimension(736, 500));
+        jpnFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cbxFichasPorJugador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2", "3", "4", "5", "6", "7" }));
+        jpnFondo.add(cbxFichasPorJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, 150, -1));
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgIconosGenerales/iconoRegresar.png"))); // NOI18N
         btnRegresar.setBorderPainted(false);
@@ -59,7 +74,7 @@ public class FrmLobby extends javax.swing.JFrame {
                 btnRegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, 100, 80));
+        jpnFondo.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, 100, 80));
 
         btnListo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmLobby/iconoListo.png"))); // NOI18N
         btnListo.setBorderPainted(false);
@@ -69,33 +84,33 @@ public class FrmLobby extends javax.swing.JFrame {
                 btnListoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnListo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 190, 70));
+        jpnFondo.add(btnListo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 190, 70));
 
-        lblApodoP1.setFont(new java.awt.Font("UD Digi Kyokasho N-B", 0, 18)); // NOI18N
-        lblApodoP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(lblApodoP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 120, 40));
-        jPanel1.add(lblAvatarP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 150, 140));
+        lblNombreJugadorP1.setFont(new java.awt.Font("UD Digi Kyokasho N-B", 0, 18)); // NOI18N
+        lblNombreJugadorP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jpnFondo.add(lblNombreJugadorP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 130, 30));
+        jpnFondo.add(lblAvatarP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 130, 110));
 
         lblSlots.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmLobby/iconoSlots.png"))); // NOI18N
         lblSlots.setMaximumSize(new java.awt.Dimension(700, 500));
         lblSlots.setMinimumSize(new java.awt.Dimension(700, 500));
-        jPanel1.add(lblSlots, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 690, 240));
+        jpnFondo.add(lblSlots, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 690, 240));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmLobby/imgFondoLobby.png"))); // NOI18N
         lblFondo.setMaximumSize(new java.awt.Dimension(700, 500));
         lblFondo.setMinimumSize(new java.awt.Dimension(700, 500));
         lblFondo.setOpaque(true);
-        jPanel1.add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 500));
+        jpnFondo.add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jpnFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpnFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -103,23 +118,26 @@ public class FrmLobby extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListoActionPerformed
-    mediador.getFrmLobby().setVisible(false);
-    mediador.getFrmPartida().setVisible(true);
+    this.setVisible(false);
+    mediador.getJugador().setFichas(null);
+    mediador.crearPartida(mediador.getJugador(),obtenerNumFichas());
+    mediador.abrirPantallaPartida();
     }//GEN-LAST:event_btnListoActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        mediador.getFrmLobby().setVisible(false);
-        mediador.getFrmMenu().setVisible(true);
+    this.setVisible(false);
+    mediador.abrirPantallaMenu();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListo;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblApodoP1;
+    private javax.swing.JComboBox<String> cbxFichasPorJugador;
+    private javax.swing.JPanel jpnFondo;
     private javax.swing.JLabel lblAvatarP1;
     private javax.swing.JLabel lblFondo;
+    private javax.swing.JLabel lblNombreJugadorP1;
     private javax.swing.JLabel lblSlots;
     // End of variables declaration//GEN-END:variables
 }
