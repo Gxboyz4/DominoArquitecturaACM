@@ -33,11 +33,12 @@ public class FrmPartida extends javax.swing.JFrame {
      * Creates new form FrmLobby
      */
     public FrmPartida() {
+        
         initComponents();
         //this.setSize(850, 575); //800 x 550
         this.setLayout(new BorderLayout());
         this.pack();
-
+        
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         setTitle("Dominó");
         this.crearPartida();
@@ -46,6 +47,9 @@ public class FrmPartida extends javax.swing.JFrame {
         mediador.getPartida().repartirFichas();
         setFocusable(true);
         requestFocusInWindow();
+        
+        scrollPanel.getHorizontalScrollBar().setValue((scrollPanel.getHorizontalScrollBar().getMaximum() - scrollPanel.getHorizontalScrollBar().getVisibleAmount())/2);
+        
     }
     public void setearInformacionJugador(){
     Icon icon;
@@ -61,6 +65,12 @@ public class FrmPartida extends javax.swing.JFrame {
     mediador.getPartida().setTablero(tablero);
     mediador.getPartida().suscribirse();
     }
+    public void acabarPartida()
+    {
+        mediador.abrirPantallaMenu();
+        this.dispose();
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,7 +81,7 @@ public class FrmPartida extends javax.swing.JFrame {
     private void initComponents() {
 
         jpnFondo = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollPanel = new javax.swing.JScrollPane();
         jpnTablero = new javax.swing.JPanel();
         jpnFichas = new javax.swing.JPanel();
         lblNombreJugador = new javax.swing.JLabel();
@@ -91,9 +101,9 @@ public class FrmPartida extends javax.swing.JFrame {
         jpnFondo.setPreferredSize(new java.awt.Dimension(800, 550));
         jpnFondo.setLayout(null);
 
-        jScrollPane1.setBorder(null);
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        scrollPanel.setBorder(null);
+        scrollPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPanel.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         jpnTablero.setBackground(new java.awt.Color(8, 78, 171));
         jpnTablero.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -103,17 +113,17 @@ public class FrmPartida extends javax.swing.JFrame {
         jpnTablero.setLayout(jpnTableroLayout);
         jpnTableroLayout.setHorizontalGroup(
             jpnTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 794, Short.MAX_VALUE)
+            .addGap(0, 1201, Short.MAX_VALUE)
         );
         jpnTableroLayout.setVerticalGroup(
             jpnTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 554, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jpnTablero);
+        scrollPanel.setViewportView(jpnTablero);
 
-        jpnFondo.add(jScrollPane1);
-        jScrollPane1.setBounds(220, 130, 368, 260);
+        jpnFondo.add(scrollPanel);
+        scrollPanel.setBounds(220, 130, 368, 260);
 
         jpnFichas.setBackground(new java.awt.Color(8, 78, 171));
         jpnFichas.setLayout(null);
@@ -179,13 +189,13 @@ public class FrmPartida extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcabarPartida;
     private javax.swing.JButton btnPozo;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpnFichas;
     private javax.swing.JPanel jpnFondo;
     private javax.swing.JPanel jpnTablero;
     private javax.swing.JLabel lblAvatar;
     private javax.swing.JLabel lblNombreJugador;
     private javax.swing.JLabel lblTableroFondo;
+    private javax.swing.JScrollPane scrollPanel;
     // End of variables declaration//GEN-END:variables
 
 }

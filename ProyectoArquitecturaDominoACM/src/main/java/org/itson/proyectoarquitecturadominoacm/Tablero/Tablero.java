@@ -5,6 +5,7 @@
 package org.itson.proyectoarquitecturadominoacm.Tablero;
 
 import java.awt.event.KeyListener;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
@@ -28,7 +29,12 @@ public class Tablero {
     }
     public boolean agregarFicha(Ficha ficha)
     {
-        if(modelo.validarColocacionDerecha(ficha) !=0 && modelo.validarColocacionIzquierda(ficha) !=0){
+        if(modelo.validarColocacionDerecha(ficha) !=0 && modelo.validarColocacionIzquierda(ficha) !=0 ){
+            if(modelo.getFichas().size()==0)
+            {
+                modelo.agregarFichaDerecha(ficha);
+                return true;
+            }
             int opcion = desplegarOpcion();
             if(opcion == 1)
             {
@@ -67,13 +73,10 @@ public class Tablero {
         );
 
         if (opcion == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, "Presionaste izquierda 1");
             return 1;
         } else if (opcion == JOptionPane.NO_OPTION) {
-            JOptionPane.showMessageDialog(null, "Presionaste derecha 2");
             return 2;
         } else {
-            JOptionPane.showMessageDialog(null, "Cerraste la ventana");
             return 3;
         }
     }
@@ -83,5 +86,16 @@ public class Tablero {
     
     public void agregarFichaIzquierda(Ficha ficha) {
         modelo.agregarFichaIzquierda(ficha);
+    }
+    public LinkedList<Ficha> getFichas() {
+        return modelo.getFichas();
+    }
+    public int getNumeroDerecha()
+    {
+        return modelo.getNumeroDerecha();
+    }
+    public int getNumeroIzquierda()
+    {
+        return modelo.getNumeroIzquierda();
     }
 }

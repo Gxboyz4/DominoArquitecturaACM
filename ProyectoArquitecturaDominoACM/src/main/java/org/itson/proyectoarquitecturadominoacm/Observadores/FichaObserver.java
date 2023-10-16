@@ -5,6 +5,7 @@
 package org.itson.proyectoarquitecturadominoacm.Observadores;
 
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
+import org.itson.proyectoarquitecturadominoacm.excepciones.PartidaTerminadaException;
 
 /**
  *
