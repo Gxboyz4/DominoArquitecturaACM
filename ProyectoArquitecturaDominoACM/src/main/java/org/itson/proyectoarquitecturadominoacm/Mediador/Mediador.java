@@ -6,6 +6,7 @@ package org.itson.proyectoarquitecturadominoacm.Mediador;
 
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
+import org.itson.proyectoarquitecturadominoacm.Proxy.ProxyCliente;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPartida;
@@ -22,7 +23,9 @@ public class Mediador implements IMediador{
     FrmMenu frmMenu;
     FrmLobby frmLobby;
     FrmPartida frmPartida;
+    FrmUnirse frmUnirse;
     Partida partida;
+    ProxyCliente proxyCliente = new ProxyCliente();
     @Override
     public void registrarJugador(Jugador jugador) {
     this.jugador=jugador;
@@ -80,7 +83,21 @@ public class Mediador implements IMediador{
     public void abrirPantallaUnirse(){
         FrmUnirse frmUnirse = new FrmUnirse();
         frmUnirse.setVisible(true);
+        this.frmUnirse=frmUnirse;
+        
     }
+    public void iniciarHiloConexion(){
+        proxyCliente.iniciarSocket();
+        proxyCliente.iniciarHilo();
+    }
+
+    public ProxyCliente getProxyCliente() {
+        return proxyCliente;
+    }
+    public FrmUnirse getFrmUnirse(){
+        return frmUnirse;
+    }
+    
     
     
     

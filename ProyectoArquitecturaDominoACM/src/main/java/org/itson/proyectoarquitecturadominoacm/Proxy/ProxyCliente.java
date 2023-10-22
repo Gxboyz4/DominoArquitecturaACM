@@ -6,6 +6,8 @@ package org.itson.proyectoarquitecturadominoacm.Proxy;
 
 import java.util.Map;
 import org.itson.proyectoarquitecturadominoacm.Conexiones.Conexion;
+import org.itson.proyectoarquitecturadominoacm.DTOs.JugadorDTO;
+import org.itson.proyectoarquitecturadominoacm.DTOs.PartidaDTO;
 import org.itson.proyectoarquitecturadominoacm.DTOs.TipoPaquete;
 
 /**
@@ -29,22 +31,33 @@ public class ProxyCliente implements IProxyCliente{
         conexionCliente.cerrarSocket();
     }
     
-//    @Override
-//    public void recibirDatos() {
-//        conexionCliente.recibirDatos();
-//    }
+    @Override
+    public void recibirDatos() {
+        conexionCliente.recibirDatos();
+    }
         @Override
     public void enviarDatos() {
         conexionCliente.enviarDatos();
-//    }
-//    @Override
-//    public void desempaquetarDatos() {
-//        conexionCliente.desempaquetarDatos();
-//    }
-//    
-//    @Override
-//    public void iniciarHilo(){
-//        conexionCliente.iniciarHilo();
-//    }
+    }
+    @Override
+    public void desempaquetarDatos() {
+        conexionCliente.desempaquetarDatos();
+    }
+    
+    @Override
+    public void iniciarHilo(){
+        conexionCliente.iniciarHilo();
+    }
+
+    @Override
+    public JugadorDTO getJugadorDTO() {
+       return conexionCliente.getJugadorDTO();
+    }
+
+    @Override
+    public PartidaDTO getPartidaDTO() {
+     return conexionCliente.getPartidaDTO();
+    }
+    
 }
-}
+

@@ -20,9 +20,13 @@ public class FrmUnirse extends javax.swing.JFrame {
         initComponents();
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
-        
+        mediador.iniciarHiloConexion();
     }
-
+    public void colocarPartida(){
+        if(mediador.getProxyCliente().getPartidaDTO()!=null){
+        lblPartida.setText(mediador.getProxyCliente().getPartidaDTO().getJugadores().get(0).getNombre());
+    }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,17 +37,15 @@ public class FrmUnirse extends javax.swing.JFrame {
     private void initComponents() {
 
         jpnFondo = new javax.swing.JPanel();
+        lblPartida = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         lblUnirseA = new javax.swing.JLabel();
-        jpnPartidas = new javax.swing.JPanel();
-        scbPartidas = new javax.swing.JScrollBar();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dominó");
         setMaximumSize(new java.awt.Dimension(733, 500));
         setMinimumSize(new java.awt.Dimension(733, 500));
-        setPreferredSize(new java.awt.Dimension(733, 500));
         setResizable(false);
         setSize(new java.awt.Dimension(733, 500));
 
@@ -51,6 +53,7 @@ public class FrmUnirse extends javax.swing.JFrame {
         jpnFondo.setMinimumSize(new java.awt.Dimension(733, 500));
         jpnFondo.setPreferredSize(new java.awt.Dimension(733, 500));
         jpnFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpnFondo.add(lblPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 450, 30));
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgIconosGenerales/iconoRegresar.png"))); // NOI18N
         btnRegresar.setBorderPainted(false);
@@ -65,21 +68,6 @@ public class FrmUnirse extends javax.swing.JFrame {
 
         lblUnirseA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmUnirse/textoUnirseA.png"))); // NOI18N
         jpnFondo.add(lblUnirseA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 200, 20));
-
-        javax.swing.GroupLayout jpnPartidasLayout = new javax.swing.GroupLayout(jpnPartidas);
-        jpnPartidas.setLayout(jpnPartidasLayout);
-        jpnPartidasLayout.setHorizontalGroup(
-            jpnPartidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnPartidasLayout.createSequentialGroup()
-                .addGap(0, 600, Short.MAX_VALUE)
-                .addComponent(scbPartidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jpnPartidasLayout.setVerticalGroup(
-            jpnPartidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scbPartidas, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-        );
-
-        jpnFondo.add(jpnPartidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 610, 170));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmUnirse/fondoFrmUnirse.png"))); // NOI18N
         jpnFondo.add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 500));
@@ -108,9 +96,8 @@ public class FrmUnirse extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;
     private javax.swing.JPanel jpnFondo;
-    private javax.swing.JPanel jpnPartidas;
     private javax.swing.JLabel lblFondo;
+    private javax.swing.JLabel lblPartida;
     private javax.swing.JLabel lblUnirseA;
-    private javax.swing.JScrollBar scbPartidas;
     // End of variables declaration//GEN-END:variables
 }

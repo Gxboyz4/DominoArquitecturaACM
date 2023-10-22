@@ -19,4 +19,13 @@ public class PartidaDTO implements Serializable{
     public PartidaDTO(List<JugadorDTO> jugadores){
         this.jugadores=jugadores;
     }  
+
+    public List<JugadorDTO> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(List<JugadorDTO> jugadores) {
+        this.jugadores = jugadores;
+    }
+    
 }

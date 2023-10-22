@@ -10,16 +10,15 @@ import java.io.Serializable;
  *
  * @author Gabriel Mancinas
  */
-public class PaqueteDatos <E> implements Serializable{
+public class PaqueteDatos implements Serializable{
    TipoPaquete tipo;
-    Object objecto;
+    Object objeto;
 
-    public PaqueteDatos(TipoPaquete tipo, Object objecto) {
+    public PaqueteDatos(TipoPaquete tipo, Object objeto) {
         this.tipo = tipo;
-        this.objecto = objecto;
+        this.objeto = objeto;
     }
-
-    public TipoPaquete getTipo() {
+     public TipoPaquete getTipo() {
         return tipo;
     }
 
@@ -27,12 +26,12 @@ public class PaqueteDatos <E> implements Serializable{
         this.tipo = tipo;
     }
 
-    public Object getObjecto() {
-        return objecto;
+    public Object getObjeto() {
+        return objeto;
     }
 
-    public void setObjecto(Object objecto) {
-        this.objecto = objecto;
+    public void setObjeto(Object objecto) {
+        this.objeto = objecto;
     }
     
     

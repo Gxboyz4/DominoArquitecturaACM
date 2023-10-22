@@ -6,10 +6,12 @@ package org.itson.proyectoarquitecturadominoacm.Mediador;
 
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
+import org.itson.proyectoarquitecturadominoacm.Proxy.ProxyCliente;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPartida;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPrincipal;
+import org.itson.proyectoarquitecturadominoacm.UI.FrmUnirse;
 
 /**
  *
@@ -27,4 +29,7 @@ public interface IMediador {
     public void crearPartida(Jugador jugador, int fichas);
     public void crearPartida(Jugador jugador);
     public Partida getPartida();
+    public void iniciarHiloConexion();
+    public ProxyCliente getProxyCliente();
+     public FrmUnirse getFrmUnirse();
 }

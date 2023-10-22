@@ -91,7 +91,6 @@ public class Partida implements FichaObserver, PozoObserver, Serializable{
                JOptionPane.showMessageDialog(null, "Gano el jugador(este mensaje es momentaneo no se vaya a creer que quede asi profe)", "Jugador Gano OwO", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-
         
     }
     public boolean finalizacionJugador()
@@ -126,7 +125,6 @@ public class Partida implements FichaObserver, PozoObserver, Serializable{
        //  System.out.println(jugador.getFichas());
          pozo.eliminarFicha(ficha);
     }
- 
     public void exponerPartida(){
         List<JugadorDTO> listaJugadores = new ArrayList<JugadorDTO>();
         JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar());
