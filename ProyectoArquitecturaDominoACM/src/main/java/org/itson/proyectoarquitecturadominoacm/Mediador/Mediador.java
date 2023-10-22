@@ -50,6 +50,10 @@ public class Mediador implements IMediador{
     this.partida = new Partida(jugador,fichas);
     }
     @Override
+    public void crearPartida(Jugador jugador) {
+    this.partida = new Partida(jugador);
+    }
+    @Override
     public Partida getPartida() {
         return partida;
     }

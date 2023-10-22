@@ -4,6 +4,7 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Jugador;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -14,7 +15,7 @@ import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
  *
  * @author julio
  */
-public class Jugador {
+public class Jugador implements Serializable{
     List<Ficha> fichas = new ArrayList<>();
     JPanel panelFichas; 
     JugadorControlador controlador;

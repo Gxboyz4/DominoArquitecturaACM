@@ -4,14 +4,23 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Partida;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
+import org.itson.proyectoarquitecturadominoacm.DTOs.JugadorDTO;
+import org.itson.proyectoarquitecturadominoacm.DTOs.PartidaDTO;
+import org.itson.proyectoarquitecturadominoacm.DTOs.TipoPaquete;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Observadores.FichaObserver;
 import org.itson.proyectoarquitecturadominoacm.Observadores.PozoObserver;
 import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
+import org.itson.proyectoarquitecturadominoacm.Proxy.IProxyCliente;
+import org.itson.proyectoarquitecturadominoacm.Proxy.ProxyCliente;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 import org.itson.proyectoarquitecturadominoacm.Tablero.Tablero;
 import org.itson.proyectoarquitecturadominoacm.excepciones.PartidaTerminadaException;
@@ -20,25 +29,31 @@ import org.itson.proyectoarquitecturadominoacm.excepciones.PartidaTerminadaExcep
  *
  * @author julio
  */
-public class Partida implements FichaObserver, PozoObserver{
+public class Partida implements FichaObserver, PozoObserver, Serializable{
     
     Pozo pozo;
     Ficha ficha;
+    List<Jugador> jugadores;
     Jugador jugador;
     Tablero tablero;
     int numFichas;
     int numJugadores;
+    
+    public Partida(List<Jugador> jugadores){
+        this.jugadores=jugadores;
+    }
     public Partida(Jugador jugador, int numFichas) {
         this.jugador = jugador;
         this.numFichas=numFichas;
- 
+    }
+    public Partida(Jugador jugador){
+        this.jugador=jugador;
     }
  
     public Partida(Pozo pozo) {
         this.pozo = pozo;
     }
     
-
     public Partida(Pozo pozo, Jugador jugador,Tablero tablero) {
         this.pozo = pozo;
         this.jugador = jugador;
@@ -46,15 +61,18 @@ public class Partida implements FichaObserver, PozoObserver{
         this.suscribirFichas();
         this.suscribirPozo();
     }
+    
     public void suscribirse(){
         this.suscribirFichas();
         this.suscribirPozo();
     }
+    
     public void suscribirFichas(){
         for (Ficha ficha : pozo.obtenerTodasFichas()) {
             ficha.agregarObservador(this);
         }
     }
+    
     public void suscribirPozo(){
        pozo.agregarObservador(this);
     }
@@ -108,7 +126,17 @@ public class Partida implements FichaObserver, PozoObserver{
        //  System.out.println(jugador.getFichas());
          pozo.eliminarFicha(ficha);
     }
-
+ 
+    public void exponerPartida(){
+        List<JugadorDTO> listaJugadores = new ArrayList<JugadorDTO>();
+        JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar());
+        listaJugadores.add(jugadorDTO);
+        IProxyCliente proxyCliente = new ProxyCliente();
+        proxyCliente.iniciarSocket();
+        PartidaDTO partidaDTO = new PartidaDTO(listaJugadores);
+        proxyCliente.empaquetarParametros(TipoPaquete.PARTIDA,partidaDTO);
+        proxyCliente.enviarDatos();
+    }
     public Pozo getPozo() {
         return pozo;
     }

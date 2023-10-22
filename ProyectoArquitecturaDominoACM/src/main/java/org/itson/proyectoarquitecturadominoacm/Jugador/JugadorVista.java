@@ -4,10 +4,12 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Jugador;
 
+import java.io.Serializable;
+
 /**
  *
  * @author julio
  */
-public class JugadorVista {
+public class JugadorVista implements Serializable{
     
 }

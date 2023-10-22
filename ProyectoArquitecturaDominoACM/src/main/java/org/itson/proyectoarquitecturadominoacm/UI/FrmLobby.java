@@ -124,7 +124,8 @@ public class FrmLobby extends javax.swing.JFrame {
     private void btnListoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListoActionPerformed
     this.setVisible(false);
     mediador.getJugador().setFichas(null);
-    mediador.crearPartida(mediador.getJugador(),obtenerNumFichas());
+    //mediador.crearPartida(mediador.getJugador(),obtenerNumFichas());
+    mediador.getPartida().setNumFichas(obtenerNumFichas());
     mediador.abrirPantallaPartida();
     }//GEN-LAST:event_btnListoActionPerformed
 

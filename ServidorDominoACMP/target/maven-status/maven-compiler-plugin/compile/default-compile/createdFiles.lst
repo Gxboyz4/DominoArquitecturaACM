@@ -1,0 +1,6 @@
+org\itson\servidordominoacmp\Dominio\Partida.class
+org\itson\servidordominoacmp\Conexion.class
+org\itson\servidordominoacmp\IProxyServidor.class
+org\itson\servidordominoacmp\ProxyServidor.class
+org\itson\servidordominoacmp\ServidorDominoACMP.class
+org\itson\servidordominoacmp\Dominio\Jugador.class

@@ -25,5 +25,6 @@ public interface IMediador {
     public void abrirPantallaUnirse();
     public Jugador getJugador();
     public void crearPartida(Jugador jugador, int fichas);
+    public void crearPartida(Jugador jugador);
     public Partida getPartida();
 }

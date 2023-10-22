@@ -4,6 +4,7 @@
  */
 package org.itson.proyectoarquitecturadominoacm.socket;
 
+import java.io.IOException;
 import java.net.Socket;
 
 /**
@@ -21,9 +22,36 @@ public class SocketJugador extends Socket {
      *
      * @param ip Ip del socket
      * @param puerto Puerto en el que se encuentra el socket.
+     * @throws java.io.IOException
      */
-    public SocketJugador(String ip, int puerto) {
+    public SocketJugador(String ip, int puerto) throws IOException {
+        super(ip,puerto);
         this.puerto = puerto;
         this.ip = ip;
     }
+
+    public boolean isEstaEnPartida() {
+        return estaEnPartida;
+    }
+
+    public void setEstaEnPartida(boolean estaEnPartida) {
+        this.estaEnPartida = estaEnPartida;
+    }
+
+    public int getPuerto() {
+        return puerto;
+    }
+
+    public void setPuerto(int puerto) {
+        this.puerto = puerto;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+    
 }

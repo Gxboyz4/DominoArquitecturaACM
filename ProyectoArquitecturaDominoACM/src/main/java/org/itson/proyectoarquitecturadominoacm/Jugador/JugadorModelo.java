@@ -4,6 +4,7 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Jugador;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,7 +16,7 @@ import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
  *
  * @author julio
  */
-public class JugadorModelo {
+public class JugadorModelo implements Serializable{
     String nombre;
     ImageIcon avatar;
     List<Ficha> fichas = new ArrayList<>();
