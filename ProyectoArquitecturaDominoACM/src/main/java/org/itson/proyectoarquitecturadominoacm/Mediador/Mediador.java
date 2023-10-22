@@ -10,6 +10,7 @@ import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPartida;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPrincipal;
+import org.itson.proyectoarquitecturadominoacm.UI.FrmUnirse;
 
 /**
  *
@@ -58,7 +59,7 @@ public class Mediador implements IMediador{
     FrmPrincipal frmPrincipal= new FrmPrincipal();
     frmPrincipal.setVisible(true);
     }
-
+    
     @Override
     public void abrirPantallaMenu() {
     FrmMenu frmMenu = new FrmMenu();
@@ -69,6 +70,12 @@ public class Mediador implements IMediador{
     public void abrirPantallaLobby() {
     FrmLobby frmLobby = new FrmLobby();
     frmLobby.setVisible(true);
+    }
+    
+    @Override
+    public void abrirPantallaUnirse(){
+        FrmUnirse frmUnirse = new FrmUnirse();
+        frmUnirse.setVisible(true);
     }
     
     

@@ -21,7 +21,6 @@ public class FrmLobby extends javax.swing.JFrame {
         initComponents();
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
-        setTitle("Dominó");
         asignarInformacionJugadores();
     }
     public void asignarInformacionJugadores(){
@@ -54,6 +53,10 @@ public class FrmLobby extends javax.swing.JFrame {
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Dominó");
+        setMaximumSize(new java.awt.Dimension(755, 540));
+        setMinimumSize(new java.awt.Dimension(755, 540));
+        setPreferredSize(new java.awt.Dimension(755, 540));
         setResizable(false);
 
         jpnFondo.setBackground(new java.awt.Color(255, 0, 0));
@@ -98,8 +101,9 @@ public class FrmLobby extends javax.swing.JFrame {
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmLobby/imgFondoLobby.png"))); // NOI18N
         lblFondo.setMaximumSize(new java.awt.Dimension(700, 500));
-        lblFondo.setMinimumSize(new java.awt.Dimension(700, 500));
+        lblFondo.setMinimumSize(new java.awt.Dimension(755, 540));
         lblFondo.setOpaque(true);
+        lblFondo.setPreferredSize(new java.awt.Dimension(755, 540));
         jpnFondo.add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

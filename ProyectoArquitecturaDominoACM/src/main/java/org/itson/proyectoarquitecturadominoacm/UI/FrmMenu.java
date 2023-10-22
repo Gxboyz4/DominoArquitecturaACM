@@ -18,7 +18,6 @@ public class FrmMenu extends javax.swing.JFrame {
         initComponents();
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
-        setTitle("Dominó");
 
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -31,6 +30,7 @@ public class FrmMenu extends javax.swing.JFrame {
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Dominó");
         setMaximumSize(new java.awt.Dimension(733, 500));
         setMinimumSize(new java.awt.Dimension(733, 500));
         setPreferredSize(new java.awt.Dimension(733, 510));
@@ -107,7 +107,8 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearPartidaActionPerformed
 
     private void btnUnirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirseActionPerformed
-        
+    this.setVisible(false);
+    mediador.abrirPantallaUnirse();
     }//GEN-LAST:event_btnUnirseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -30,7 +30,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {  
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
-        setTitle("Dominó");
         avatar = new Avatar(btnCambiarAvatar, jpnGeneral);
     }
     public void obtenerDatosJugador(){
@@ -73,6 +72,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Dominó");
         setResizable(false);
 
         jpnGeneral.setBackground(new java.awt.Color(255, 0, 0));

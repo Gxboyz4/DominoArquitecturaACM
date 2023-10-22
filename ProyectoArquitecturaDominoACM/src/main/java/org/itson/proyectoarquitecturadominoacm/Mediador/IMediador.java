@@ -22,6 +22,7 @@ public interface IMediador {
     public void abrirPantallaMenu();
     public void abrirPantallaLobby();
     public void abrirPantallaPartida();
+    public void abrirPantallaUnirse();
     public Jugador getJugador();
     public void crearPartida(Jugador jugador, int fichas);
     public Partida getPartida();

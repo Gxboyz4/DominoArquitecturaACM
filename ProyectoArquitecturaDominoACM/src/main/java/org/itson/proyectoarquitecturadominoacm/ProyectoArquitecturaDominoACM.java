@@ -18,7 +18,7 @@ import org.itson.proyectoarquitecturadominoacm.UI.FrmPrincipal;
  */
 public class ProyectoArquitecturaDominoACM {
     public static IMediador mediador;
-
+    
     public static void main(String[] args) {
       mediador = new Mediador();
       mediador.registrarJugador(new Jugador());

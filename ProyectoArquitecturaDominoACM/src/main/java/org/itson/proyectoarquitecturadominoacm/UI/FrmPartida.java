@@ -40,7 +40,6 @@ public class FrmPartida extends javax.swing.JFrame {
         this.pack();
         
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
-        setTitle("Dominó");
         this.crearPartida();
         this.setearInformacionJugador();
         mediador.getJugador().setPanelFichas(jpnFichas);
@@ -91,6 +90,7 @@ public class FrmPartida extends javax.swing.JFrame {
         lblTableroFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("¡Partida en curso!");
         setMaximumSize(new java.awt.Dimension(800, 550));
         setMinimumSize(new java.awt.Dimension(800, 550));
         setPreferredSize(new java.awt.Dimension(800, 550));
@@ -99,7 +99,7 @@ public class FrmPartida extends javax.swing.JFrame {
         jpnFondo.setMaximumSize(new java.awt.Dimension(800, 550));
         jpnFondo.setMinimumSize(new java.awt.Dimension(800, 550));
         jpnFondo.setPreferredSize(new java.awt.Dimension(800, 550));
-        jpnFondo.setLayout(null);
+        jpnFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         scrollPanel.setBorder(null);
         scrollPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -122,19 +122,15 @@ public class FrmPartida extends javax.swing.JFrame {
 
         scrollPanel.setViewportView(jpnTablero);
 
-        jpnFondo.add(scrollPanel);
-        scrollPanel.setBounds(220, 130, 368, 260);
+        jpnFondo.add(scrollPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 368, 260));
 
         jpnFichas.setBackground(new java.awt.Color(8, 78, 171));
         jpnFichas.setLayout(null);
-        jpnFondo.add(jpnFichas);
-        jpnFichas.setBounds(220, 410, 368, 88);
+        jpnFondo.add(jpnFichas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, 368, 88));
 
         lblNombreJugador.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        jpnFondo.add(lblNombreJugador);
-        lblNombreJugador.setBounds(90, 480, 130, 20);
-        jpnFondo.add(lblAvatar);
-        lblAvatar.setBounds(110, 400, 100, 90);
+        jpnFondo.add(lblNombreJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, 130, 20));
+        jpnFondo.add(lblAvatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, 100, 90));
 
         btnAcabarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoAcabarPartida.png"))); // NOI18N
         btnAcabarPartida.setBorderPainted(false);
@@ -144,23 +140,20 @@ public class FrmPartida extends javax.swing.JFrame {
                 btnAcabarPartidaActionPerformed(evt);
             }
         });
-        jpnFondo.add(btnAcabarPartida);
-        btnAcabarPartida.setBounds(600, 430, 180, 60);
+        jpnFondo.add(btnAcabarPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 430, 180, 60));
 
         btnPozo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoTomarFicha.png"))); // NOI18N
         btnPozo.setBorderPainted(false);
         btnPozo.setContentAreaFilled(false);
-        jpnFondo.add(btnPozo);
-        btnPozo.setBounds(600, 360, 180, 70);
+        jpnFondo.add(btnPozo, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 360, 180, 70));
 
-        lblTableroFondo.setBackground(new java.awt.Color(102, 153, 255));
+        lblTableroFondo.setBackground(new java.awt.Color(1, 114, 171));
         lblTableroFondo.setAlignmentY(0.0F);
         lblTableroFondo.setMaximumSize(new java.awt.Dimension(800, 550));
         lblTableroFondo.setMinimumSize(new java.awt.Dimension(800, 550));
         lblTableroFondo.setOpaque(true);
         lblTableroFondo.setPreferredSize(new java.awt.Dimension(800, 550));
-        jpnFondo.add(lblTableroFondo);
-        lblTableroFondo.setBounds(0, 0, 800, 550);
+        jpnFondo.add(lblTableroFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 550));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,9 +163,7 @@ public class FrmPartida extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jpnFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jpnFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
         );
 
         pack();
