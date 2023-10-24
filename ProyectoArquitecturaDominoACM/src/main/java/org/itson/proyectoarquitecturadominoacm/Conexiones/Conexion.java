@@ -39,7 +39,11 @@ public class Conexion implements IProxyCliente, Runnable{
 
     @Override
     public void empaquetarParametros(TipoPaquete tipo,Object objeto) {
-       paqueteEnvioDatos = new PaqueteDatos(tipo,objeto);
+        if(objeto!=null){
+        paqueteEnvioDatos = new PaqueteDatos(tipo,objeto);
+        }else{
+        paqueteEnvioDatos = new PaqueteDatos(tipo);
+        }
     }
 
     @Override
@@ -89,18 +93,22 @@ public class Conexion implements IProxyCliente, Runnable{
 
     @Override
     public void desempaquetarDatos() {
-        if(paqueteReciboDatos.getTipo().equals(TipoPaquete.PARTIDA)){
+        if(paqueteReciboDatos.getTipo()==(TipoPaquete.PARTIDA)){
         PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
-        System.out.println( partida.getJugadores().get(0));
+//      System.out.println( partida.getJugadores().get(0));
         partidaDTO = partida;
-        }else if(paqueteReciboDatos.getTipo().equals(TipoPaquete.JUGADOR)){
+        mediador.getFrmUnirse().colocarPartida();
+        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.JUGADOR)){
         JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
         System.out.println(jugador.getNombre());
         jugadorDTO = jugador;
-        }else if(paqueteReciboDatos.getTipo().equals(TipoPaquete.FICHA)){
+        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.FICHA)){
 //        FichaDTO ficha = (FichaDTO) paqueteReciboDatos.getObjecto();
 //        System.out.println(ficha);
-        
+    }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.RECUPERAR_PARTIDA)){ 
+        PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
+        partidaDTO = partida;
+        mediador.getFrmUnirse().colocarPartida();
     }
     }
     
@@ -114,7 +122,6 @@ public class Conexion implements IProxyCliente, Runnable{
     @Override
     public void run() {
         recibirDatos();
-        mediador.getFrmUnirse().colocarPartida();
     }
 
     @Override

@@ -125,16 +125,6 @@ public class Partida implements FichaObserver, PozoObserver, Serializable{
        //  System.out.println(jugador.getFichas());
          pozo.eliminarFicha(ficha);
     }
-    public void exponerPartida(){
-        List<JugadorDTO> listaJugadores = new ArrayList<JugadorDTO>();
-        JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar());
-        listaJugadores.add(jugadorDTO);
-        IProxyCliente proxyCliente = new ProxyCliente();
-        proxyCliente.iniciarSocket();
-        PartidaDTO partidaDTO = new PartidaDTO(listaJugadores);
-        proxyCliente.empaquetarParametros(TipoPaquete.PARTIDA,partidaDTO);
-        proxyCliente.enviarDatos();
-    }
     public Pozo getPozo() {
         return pozo;
     }

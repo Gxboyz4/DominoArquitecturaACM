@@ -32,4 +32,6 @@ public interface IMediador {
     public void iniciarHiloConexion();
     public ProxyCliente getProxyCliente();
      public FrmUnirse getFrmUnirse();
+      public void exponerPartida();
+      public void recuperarPartidas();
 }

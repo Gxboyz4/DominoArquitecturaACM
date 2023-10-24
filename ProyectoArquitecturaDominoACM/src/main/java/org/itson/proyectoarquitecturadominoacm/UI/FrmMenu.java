@@ -104,7 +104,7 @@ public class FrmMenu extends javax.swing.JFrame {
     private void btnCrearPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPartidaActionPerformed
     this.setVisible(false);
     mediador.crearPartida(mediador.getJugador());
-    mediador.getPartida().exponerPartida();
+    mediador.exponerPartida();
     mediador.abrirPantallaLobby();
     }//GEN-LAST:event_btnCrearPartidaActionPerformed
 

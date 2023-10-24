@@ -48,7 +48,13 @@ public class FrmLobby extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnListo = new javax.swing.JButton();
         lblNombreJugadorP1 = new javax.swing.JLabel();
+        lblNombreJugadorP2 = new javax.swing.JLabel();
+        lblNombreJugadorP3 = new javax.swing.JLabel();
+        lblNombreJugadorP4 = new javax.swing.JLabel();
         lblAvatarP1 = new javax.swing.JLabel();
+        lblAvatarP2 = new javax.swing.JLabel();
+        lblAvatarP3 = new javax.swing.JLabel();
+        lblAvatarP4 = new javax.swing.JLabel();
         lblSlots = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
 
@@ -91,8 +97,27 @@ public class FrmLobby extends javax.swing.JFrame {
 
         lblNombreJugadorP1.setFont(new java.awt.Font("UD Digi Kyokasho N-B", 0, 18)); // NOI18N
         lblNombreJugadorP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombreJugadorP1.setText("Creador");
         jpnFondo.add(lblNombreJugadorP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 130, 30));
-        jpnFondo.add(lblAvatarP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 130, 110));
+
+        lblNombreJugadorP2.setFont(new java.awt.Font("UD Digi Kyokasho N-B", 0, 18)); // NOI18N
+        lblNombreJugadorP2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombreJugadorP2.setText("Esperando...");
+        jpnFondo.add(lblNombreJugadorP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 130, 30));
+
+        lblNombreJugadorP3.setFont(new java.awt.Font("UD Digi Kyokasho N-B", 0, 18)); // NOI18N
+        lblNombreJugadorP3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombreJugadorP3.setText("Esperando...");
+        jpnFondo.add(lblNombreJugadorP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, 130, 30));
+
+        lblNombreJugadorP4.setFont(new java.awt.Font("UD Digi Kyokasho N-B", 0, 18)); // NOI18N
+        lblNombreJugadorP4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombreJugadorP4.setText("Esperando...");
+        jpnFondo.add(lblNombreJugadorP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 130, 30));
+        jpnFondo.add(lblAvatarP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 130, 110));
+        jpnFondo.add(lblAvatarP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, 130, 110));
+        jpnFondo.add(lblAvatarP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 130, 110));
+        jpnFondo.add(lblAvatarP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 240, 130, 110));
 
         lblSlots.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmLobby/iconoSlots.png"))); // NOI18N
         lblSlots.setMaximumSize(new java.awt.Dimension(700, 500));
@@ -131,6 +156,7 @@ public class FrmLobby extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
     this.setVisible(false);
+    mediador.getProxyCliente().cerrarSocket();
     mediador.abrirPantallaMenu();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
@@ -141,8 +167,14 @@ public class FrmLobby extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxFichasPorJugador;
     private javax.swing.JPanel jpnFondo;
     private javax.swing.JLabel lblAvatarP1;
+    private javax.swing.JLabel lblAvatarP2;
+    private javax.swing.JLabel lblAvatarP3;
+    private javax.swing.JLabel lblAvatarP4;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblNombreJugadorP1;
+    private javax.swing.JLabel lblNombreJugadorP2;
+    private javax.swing.JLabel lblNombreJugadorP3;
+    private javax.swing.JLabel lblNombreJugadorP4;
     private javax.swing.JLabel lblSlots;
     // End of variables declaration//GEN-END:variables
 }

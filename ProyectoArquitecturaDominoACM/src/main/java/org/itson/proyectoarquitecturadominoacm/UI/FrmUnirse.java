@@ -20,12 +20,12 @@ public class FrmUnirse extends javax.swing.JFrame {
         initComponents();
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
+        mediador.recuperarPartidas();
         mediador.iniciarHiloConexion();
     }
     public void colocarPartida(){
-        if(mediador.getProxyCliente().getPartidaDTO()!=null){
+        System.out.println("colocar partida");
         lblPartida.setText(mediador.getProxyCliente().getPartidaDTO().getJugadores().get(0).getNombre());
-    }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,6 +90,7 @@ public class FrmUnirse extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.setVisible(false);
         mediador.abrirPantallaMenu();
+        mediador.getProxyCliente().cerrarSocket();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
 

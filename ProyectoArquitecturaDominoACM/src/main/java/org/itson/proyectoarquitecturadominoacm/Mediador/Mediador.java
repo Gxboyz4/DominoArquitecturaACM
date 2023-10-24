@@ -4,8 +4,14 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Mediador;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.itson.libreriatiposdominoacmp.JugadorDTO;
+import org.itson.libreriatiposdominoacmp.PartidaDTO;
+import org.itson.libreriatiposdominoacmp.TipoPaquete;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
+import org.itson.proyectoarquitecturadominoacm.Proxy.IProxyCliente;
 import org.itson.proyectoarquitecturadominoacm.Proxy.ProxyCliente;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
@@ -87,7 +93,6 @@ public class Mediador implements IMediador{
         
     }
     public void iniciarHiloConexion(){
-        proxyCliente.iniciarSocket();
         proxyCliente.iniciarHilo();
     }
 
@@ -97,6 +102,24 @@ public class Mediador implements IMediador{
     public FrmUnirse getFrmUnirse(){
         return frmUnirse;
     }
+    @Override
+    public void exponerPartida(){
+        List<JugadorDTO> listaJugadores = new ArrayList<JugadorDTO>();
+        JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar());
+        listaJugadores.add(jugadorDTO);
+        proxyCliente.iniciarSocket();
+        PartidaDTO partidaDTO = new PartidaDTO(listaJugadores);
+        proxyCliente.empaquetarParametros(TipoPaquete.PARTIDA,partidaDTO);
+        proxyCliente.enviarDatos();
+    }
+
+    @Override
+    public void recuperarPartidas() {
+        proxyCliente.iniciarSocket();
+        proxyCliente.empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA, null);
+        proxyCliente.enviarDatos();
+    }
+    
     
     
     
