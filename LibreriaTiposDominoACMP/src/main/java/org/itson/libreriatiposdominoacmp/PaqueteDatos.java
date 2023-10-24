@@ -13,10 +13,14 @@ import java.io.Serializable;
 public class PaqueteDatos implements Serializable{
    TipoPaquete tipo;
    Object objeto;
-
+    
+    
     public PaqueteDatos(TipoPaquete tipo, Object objeto) {
         this.tipo = tipo;
         this.objeto = objeto;
+    }
+     public PaqueteDatos(TipoPaquete tipo) {
+        this.tipo = tipo;
     }
      public TipoPaquete getTipo() {
         return tipo;

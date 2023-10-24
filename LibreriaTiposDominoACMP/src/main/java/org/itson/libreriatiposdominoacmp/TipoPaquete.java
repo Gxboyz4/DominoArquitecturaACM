@@ -11,5 +11,5 @@ import java.io.Serializable;
  * @author Gabriel Mancinas
  */
 public enum TipoPaquete implements Serializable {
-    PARTIDA,JUGADOR,FICHA
+    PARTIDA,JUGADOR,FICHA,RECUPERAR_PARTIDA
 }
