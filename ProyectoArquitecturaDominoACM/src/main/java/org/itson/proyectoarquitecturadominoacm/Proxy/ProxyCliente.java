@@ -5,10 +5,10 @@
 package org.itson.proyectoarquitecturadominoacm.Proxy;
 
 import java.util.Map;
+import org.itson.libreriatiposdominoacmp.JugadorDTO;
+import org.itson.libreriatiposdominoacmp.PartidaDTO;
+import org.itson.libreriatiposdominoacmp.TipoPaquete;
 import org.itson.proyectoarquitecturadominoacm.Conexiones.Conexion;
-import org.itson.proyectoarquitecturadominoacm.DTOs.JugadorDTO;
-import org.itson.proyectoarquitecturadominoacm.DTOs.PartidaDTO;
-import org.itson.proyectoarquitecturadominoacm.DTOs.TipoPaquete;
 
 /**
  *

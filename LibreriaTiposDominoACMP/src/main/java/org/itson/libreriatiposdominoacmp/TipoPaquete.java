@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
  */
-package org.itson.proyectoarquitecturadominoacm.DTOs;
+package org.itson.libreriatiposdominoacmp;
 
 import java.io.Serializable;
 
@@ -10,6 +10,6 @@ import java.io.Serializable;
  *
  * @author Gabriel Mancinas
  */
-public enum TipoPaquete implements Serializable{
+public enum TipoPaquete implements Serializable {
     PARTIDA,JUGADOR,FICHA
 }

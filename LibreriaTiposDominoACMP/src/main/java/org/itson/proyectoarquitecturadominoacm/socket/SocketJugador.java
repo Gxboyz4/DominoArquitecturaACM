@@ -16,7 +16,10 @@ public class SocketJugador extends Socket {
     private boolean estaEnPartida;
     private int puerto;
     private String ip;
-
+    
+    public SocketJugador(){
+        
+    }
     /**
      * Constructor para iniciar el socket del jugador.
      *

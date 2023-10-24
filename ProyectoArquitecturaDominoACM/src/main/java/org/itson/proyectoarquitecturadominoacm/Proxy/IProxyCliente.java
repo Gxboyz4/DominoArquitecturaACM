@@ -5,9 +5,10 @@
 package org.itson.proyectoarquitecturadominoacm.Proxy;
 
 import java.util.Map;
-import org.itson.proyectoarquitecturadominoacm.DTOs.JugadorDTO;
-import org.itson.proyectoarquitecturadominoacm.DTOs.PartidaDTO;
-import org.itson.proyectoarquitecturadominoacm.DTOs.TipoPaquete;
+import org.itson.libreriatiposdominoacmp.JugadorDTO;
+import org.itson.libreriatiposdominoacmp.PartidaDTO;
+import org.itson.libreriatiposdominoacmp.TipoPaquete;
+
 
 /**
  *
@@ -29,5 +30,6 @@ public interface IProxyCliente {
     public void iniciarHilo();
     
     public JugadorDTO getJugadorDTO();
+    
     public PartidaDTO getPartidaDTO();
 }

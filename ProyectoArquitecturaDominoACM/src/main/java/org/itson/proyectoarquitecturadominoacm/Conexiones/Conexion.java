@@ -11,10 +11,10 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-import org.itson.proyectoarquitecturadominoacm.DTOs.JugadorDTO;
-import org.itson.proyectoarquitecturadominoacm.DTOs.PaqueteDatos;
-import org.itson.proyectoarquitecturadominoacm.DTOs.PartidaDTO;
-import org.itson.proyectoarquitecturadominoacm.DTOs.TipoPaquete;
+import org.itson.libreriatiposdominoacmp.JugadorDTO;
+import org.itson.libreriatiposdominoacmp.PaqueteDatos;
+import org.itson.libreriatiposdominoacmp.PartidaDTO;
+import org.itson.libreriatiposdominoacmp.TipoPaquete;
 import org.itson.proyectoarquitecturadominoacm.Proxy.IProxyCliente;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 import org.itson.proyectoarquitecturadominoacm.socket.SocketJugador;
@@ -30,7 +30,7 @@ public class Conexion implements IProxyCliente, Runnable{
     JugadorDTO jugadorDTO;
     PartidaDTO partidaDTO;
     int puerto = 9091;
-    SocketJugador clienteSocket;
+    Socket clienteSocket;
     final String ip = "localhost";
 
     public Conexion() {
@@ -45,7 +45,7 @@ public class Conexion implements IProxyCliente, Runnable{
     @Override
     public void iniciarSocket() {
         try {
-            clienteSocket = new SocketJugador(ip, puerto);
+            clienteSocket = new Socket(ip, puerto);
             clienteSocket.connect(new InetSocketAddress(ip,puerto));
         } catch (IOException ex) {
             ex.getStackTrace();
@@ -104,9 +104,7 @@ public class Conexion implements IProxyCliente, Runnable{
     }
     }
     
-     public void cambiarEstadoSocket(Boolean estado){
-       clienteSocket.setEstaEnPartida(estado);
-    }
+    
     @Override
     public void iniciarHilo() {
     Thread conexion = new Thread(this);

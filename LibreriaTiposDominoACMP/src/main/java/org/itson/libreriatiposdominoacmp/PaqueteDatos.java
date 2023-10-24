@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package org.itson.proyectoarquitecturadominoacm.DTOs;
+package org.itson.libreriatiposdominoacmp;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public class PaqueteDatos implements Serializable{
    TipoPaquete tipo;
-    Object objeto;
+   Object objeto;
 
     public PaqueteDatos(TipoPaquete tipo, Object objeto) {
         this.tipo = tipo;
@@ -33,7 +33,5 @@ public class PaqueteDatos implements Serializable{
     public void setObjeto(Object objecto) {
         this.objeto = objecto;
     }
-    
-    
     
 }
