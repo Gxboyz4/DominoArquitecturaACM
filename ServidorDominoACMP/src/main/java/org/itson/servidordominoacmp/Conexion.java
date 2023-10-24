@@ -11,8 +11,10 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-import org.itson.proyectoarquitecturadominoacm.DTOs.PaqueteDatos;
-import org.itson.proyectoarquitecturadominoacm.DTOs.TipoPaquete;
+import org.itson.libreriatiposdominoacmp.PaqueteDatos;
+import org.itson.libreriatiposdominoacmp.PartidaDTO;
+import org.itson.libreriatiposdominoacmp.TipoPaquete;
+
 
 
 /**
@@ -26,7 +28,7 @@ public class Conexion implements IProxyServidor, Runnable{
     int puerto = 9090;
     Socket servidorSocket;
     final String ip = "localhost";
-
+    PartidaDTO partidaDTO;
     public Conexion() {
     
     }
@@ -34,6 +36,7 @@ public class Conexion implements IProxyServidor, Runnable{
     @Override
     public void empaquetarParametros(TipoPaquete tipo,Object objeto) {
        paqueteEnvioDatos = new PaqueteDatos(tipo,objeto);
+       enviarDatos();
     }
 
     @Override
@@ -49,6 +52,7 @@ public class Conexion implements IProxyServidor, Runnable{
     @Override
     public void enviarDatos() {
         try {
+            System.out.println("Servidor: Envio datos al cliente");
             ObjectOutputStream paqueteDatos = new ObjectOutputStream(servidorSocket.getOutputStream());
             paqueteDatos.writeObject(paqueteEnvioDatos);
         } catch (IOException ex) {
@@ -72,6 +76,7 @@ public class Conexion implements IProxyServidor, Runnable{
                 ObjectInputStream paqueteDatos = new ObjectInputStream(servidorSocket.getInputStream());
                 paqueteReciboDatos = (PaqueteDatos) paqueteDatos.readObject();
                 desempaquetarDatos();
+                paqueteEnvioDatos = paqueteReciboDatos;
             }
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
@@ -81,7 +86,15 @@ public class Conexion implements IProxyServidor, Runnable{
 
     @Override
     public void desempaquetarDatos() {
-        System.out.println(paqueteReciboDatos.getTipo());
+        if(paqueteReciboDatos.getTipo()==TipoPaquete.PARTIDA){
+        this.partidaDTO = (PartidaDTO) paqueteReciboDatos.getObjeto();
+        empaquetarParametros(TipoPaquete.PARTIDA,this.partidaDTO);
+        System.out.println(partidaDTO.getJugadores().get(0).getNombre());
+        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.RECUPERAR_PARTIDA)){
+        System.out.println("JCHO SERVER");
+        empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA,this.partidaDTO);
+        }
+        
     }
     
 //     public void cambiarEstadoSocket(Boolean estado){

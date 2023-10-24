@@ -9,7 +9,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static org.itson.brokerdominoacmp.Broker.Broker.puertoServidor;
+import org.itson.libreriatiposdominoacmp.PaqueteDatos;
+import org.itson.proyectoarquitecturadominoacm.socket.SocketJugador;
 
 /**
  *
@@ -17,7 +21,7 @@ import static org.itson.brokerdominoacmp.Broker.Broker.puertoServidor;
  */
 public class BrokerServidor implements Runnable {
     static Socket servidorSocket;
-    static Socket socketRemitente = new Socket();
+    static Socket socketRemitente;
 
     public static Socket getServidorSocket() {
         return servidorSocket;
@@ -31,7 +35,7 @@ public class BrokerServidor implements Runnable {
         return socketRemitente;
     }
 
-    public void setSocketRemitente(Socket socketRemitente) {
+    public void setSocketRemitente(SocketJugador socketRemitente) {
         this.socketRemitente = socketRemitente;
     }
     
@@ -45,9 +49,9 @@ public class BrokerServidor implements Runnable {
             servidorSocket = socketServer.accept();
             System.out.println("Aceptó conexión servidor");
             Broker.direccionesServerSocket.add(servidorSocket);
-//            while (true) {
-//                this.enviarInformacionCliente(servidorSocket);
-//            }
+            while (true) {
+                this.enviarInformacionCliente(servidorSocket);
+            }
             //socketServidor.close();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -56,24 +60,28 @@ public class BrokerServidor implements Runnable {
 
     public  void enviarInformacionCliente(Socket socketServidor) {
         try {
-//            PaqueteDatos paqueteDatosRecibido;
+           PaqueteDatos paqueteDatosRecibido;
             ObjectInputStream paqueteDatos = new ObjectInputStream(socketServidor.getInputStream());
-//            paqueteDatosRecibido = (PaqueteDatos) paqueteDatos.readObject();
+             paqueteDatosRecibido = (PaqueteDatos) paqueteDatos.readObject();
 //            if (paqueteDatosRecibido.getPara() == Mensaje.CLIENTE) {
                 //String ipRemitente = paqueteDatosRecibido.getIp();
                 for (int i = 0; i < Broker.direccionesClienteSocket.size(); i++) {
-                    if (!socketRemitente.equals(Broker.direccionesClienteSocket.get(i))) {
+                    //if (!socketRemitente.equals(Broker.direccionesClienteSocket.get(i))) {
+                        System.out.println("Envio los paquetes a cada cliente");
                         Socket socketEnviarCliente = Broker.direccionesClienteSocket.get(i);
+                        System.out.println(Broker.direccionesClienteSocket.size());
                         ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarCliente.getOutputStream());
-                        paqueteDatosEnvio.writeObject(paqueteDatos);
-                    }
+                        paqueteDatosEnvio.writeObject(paqueteDatosRecibido);
+                    //}
                 }
 //            }
         } catch (IOException ex) {
             ex.printStackTrace();
             System.out.println(ex.getMessage());
 
-        }
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+            System.out.println(ex.getMessage());        }
     }
 
     @Override

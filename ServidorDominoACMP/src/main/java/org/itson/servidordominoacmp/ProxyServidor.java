@@ -5,7 +5,7 @@
 package org.itson.servidordominoacmp;
 
 import java.util.Map;
-import org.itson.proyectoarquitecturadominoacm.DTOs.TipoPaquete;
+import org.itson.libreriatiposdominoacmp.TipoPaquete;
 
 /**
  *

@@ -13,7 +13,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.itson.brokerdominoacmp.Broker.Broker.puertoCliente;
-import org.itson.proyectoarquitecturadominoacm.DTOs.PaqueteDatos;
+import org.itson.libreriatiposdominoacmp.PaqueteDatos;
+import org.itson.proyectoarquitecturadominoacm.socket.SocketJugador;
 
 /**
  *
@@ -26,7 +27,6 @@ public class BrokerCliente implements Runnable {
             ServerSocket socketBroker = new ServerSocket(puertoCliente);
             while (true) {
                 Socket socketCliente;
-                //String direccionCliente;
                 socketCliente = socketBroker.accept();
                 System.out.println("Aceptó conexión de jugador");
                 //direccionCliente = socketCliente.getInetAddress().getHostAddress();
@@ -36,6 +36,7 @@ public class BrokerCliente implements Runnable {
                 hilo.start();
             }
         } catch (IOException ex) {
+            ex.printStackTrace();
             System.out.println(ex.getMessage());
         }
     }
@@ -45,6 +46,8 @@ public class BrokerCliente implements Runnable {
         this.iniciarSocketCliente();
     }
 
+    
+    
     public class enviarInformacionCliente implements Runnable {
 
         Socket socketCliente;
@@ -54,22 +57,19 @@ public class BrokerCliente implements Runnable {
 
         }
 
-        public void enviarInformacionServidor(Socket socketCliente) throws IOException {
+        public void enviarInformacionServidor(Socket socketCliente) {
             try {
-                while (true) {
+                while (true) {  
                     BrokerServidor.socketRemitente = socketCliente;
                     ObjectInputStream paqueteDatos = new ObjectInputStream(socketCliente.getInputStream());
-//                    PaqueteDatos paqueteReciboDatos = (PaqueteDatos) paqueteDatos.readObject();
-                    System.out.println("Después de paqueteReciboDatos");
+                    PaqueteDatos paqueteReciboDatos = (PaqueteDatos) paqueteDatos.readObject();
                     Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
-                    //paqueteDatosRecibido = paqueteDatos.readObject();
                     ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
-                    paqueteDatosEnvio.writeObject(paqueteDatos.readObject());
+                    paqueteDatosEnvio.writeObject(paqueteReciboDatos);
+                    System.out.println("Final delmetodo enviar info al server");
                 }
             } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-                ex.printStackTrace();
-                this.eliminarConexion();
+               this.eliminarConexion();
         }   catch (ClassNotFoundException ex) {
                 ex.printStackTrace();            
         }
@@ -86,12 +86,7 @@ public class BrokerCliente implements Runnable {
 
         @Override
         public void run() {
-
-            try {
-                enviarInformacionServidor(socketCliente);
-            } catch (IOException ex) {
-                Logger.getLogger(BrokerCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            enviarInformacionServidor(socketCliente);
         }
 
     }
