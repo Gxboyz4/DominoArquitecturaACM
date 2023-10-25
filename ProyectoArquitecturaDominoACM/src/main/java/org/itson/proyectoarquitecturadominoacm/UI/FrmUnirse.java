@@ -4,7 +4,11 @@
  */
 package org.itson.proyectoarquitecturadominoacm.UI;
 
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+import org.itson.libreriatiposdominoacmp.PartidaDTO;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 
 /**
@@ -12,6 +16,8 @@ import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDomino
  * @author Gabriel Mancinas
  */
 public class FrmUnirse extends javax.swing.JFrame {
+    
+    List<PartidaDTO> partidas;
 
     /**
      * Creates new form FrmUnirse
@@ -22,10 +28,46 @@ public class FrmUnirse extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         mediador.recuperarPartidas();
         mediador.iniciarHiloConexion();
+        this.partidas = new LinkedList<>();
+        
     }
+    
+    public void cargarListaPartidas(){
+        
+        //Debería obtener un conjunto de partidas y así añadirlas todas
+        PartidaDTO partida = mediador.getProxyCliente().getPartidaDTO();
+        //En todo caso que fueran varias
+        this.partidas.add(partida);
+    }
+    
+    public void cargarTabla(){
+        
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblPartidas.getModel();
+        modeloTabla.setRowCount(0);
+        
+        for (PartidaDTO partida : partidas) {
+            Object[] row = {
+                //Debería haber un método para traer al dueño de la partida
+                partida.getJugadores().get(0).getNombre(),
+                //partida.getCantidadFichasConfiguradas(),
+                //partida.getCantidadJugadoresEnSala()
+            };
+            modeloTabla.addRow(row);
+        }
+//        this.partidas.forEach(partida -> {
+//            Object[] fila = {
+//                //Debería haber un método para traer al dueño de la partida
+//                partida.getJugadores().get(0).getNombre(),
+//                //partida.getCantidadFichasConfiguradas(),
+//                //partida.getCantidadJugadoresEnSala()
+//            };
+//            modeloTabla.addColumn(fila);
+//        });
+        
+    }
+    
     public void colocarPartida(){
         System.out.println("colocar partida");
-        lblPartida.setText(mediador.getProxyCliente().getPartidaDTO().getJugadores().get(0).getNombre());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,8 +79,10 @@ public class FrmUnirse extends javax.swing.JFrame {
     private void initComponents() {
 
         jpnFondo = new javax.swing.JPanel();
-        lblPartida = new javax.swing.JLabel();
+        scrollPanelPartidas = new javax.swing.JScrollPane();
+        tblPartidas = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
         lblUnirseA = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
 
@@ -53,7 +97,29 @@ public class FrmUnirse extends javax.swing.JFrame {
         jpnFondo.setMinimumSize(new java.awt.Dimension(733, 500));
         jpnFondo.setPreferredSize(new java.awt.Dimension(733, 500));
         jpnFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jpnFondo.add(lblPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 450, 30));
+
+        tblPartidas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Creador", "Fichas Configuradas", "Cantidad Jugadores", "Unirse"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrollPanelPartidas.setViewportView(tblPartidas);
+
+        jpnFondo.add(scrollPanelPartidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 610, 180));
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgIconosGenerales/iconoRegresar.png"))); // NOI18N
         btnRegresar.setBorderPainted(false);
@@ -65,6 +131,14 @@ public class FrmUnirse extends javax.swing.JFrame {
             }
         });
         jpnFondo.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, 100, 80));
+
+        jToggleButton1.setText("Actualizar");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        jpnFondo.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
 
         lblUnirseA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmUnirse/textoUnirseA.png"))); // NOI18N
         jpnFondo.add(lblUnirseA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 200, 20));
@@ -93,12 +167,18 @@ public class FrmUnirse extends javax.swing.JFrame {
         mediador.getProxyCliente().cerrarSocket();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        this.cargarTabla();
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JPanel jpnFondo;
     private javax.swing.JLabel lblFondo;
-    private javax.swing.JLabel lblPartida;
     private javax.swing.JLabel lblUnirseA;
+    private javax.swing.JScrollPane scrollPanelPartidas;
+    private javax.swing.JTable tblPartidas;
     // End of variables declaration//GEN-END:variables
 }

@@ -108,7 +108,8 @@ public class Conexion implements IProxyCliente, Runnable{
     }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.RECUPERAR_PARTIDA)){ 
         PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
         partidaDTO = partida;
-        mediador.getFrmUnirse().colocarPartida();
+        mediador.getFrmUnirse().cargarListaPartidas();
+        mediador.getFrmUnirse().cargarTabla();
     }
     }
     
