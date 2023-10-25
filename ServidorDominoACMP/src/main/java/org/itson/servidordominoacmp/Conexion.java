@@ -11,6 +11,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.libreriatiposdominoacmp.PaqueteDatos;
 import org.itson.libreriatiposdominoacmp.PartidaDTO;
 import org.itson.libreriatiposdominoacmp.TipoPaquete;
@@ -22,13 +23,13 @@ import org.itson.libreriatiposdominoacmp.TipoPaquete;
  * @author Gabriel Mancinas
  */
 public class Conexion implements IProxyServidor, Runnable{
-    
+    InformacionServidor infoServer = new InformacionServidor();
     PaqueteDatos paqueteEnvioDatos;
     PaqueteDatos paqueteReciboDatos;
     int puerto = 9090;
     Socket servidorSocket;
     final String ip = "localhost";
-    PartidaDTO partidaDTO;
+    //PartidaDTO partidaDTO;
     public Conexion() {
     
     }
@@ -86,15 +87,29 @@ public class Conexion implements IProxyServidor, Runnable{
 
     @Override
     public void desempaquetarDatos() {
-        if(paqueteReciboDatos.getTipo()==TipoPaquete.PARTIDA){
-        this.partidaDTO = (PartidaDTO) paqueteReciboDatos.getObjeto();
-        empaquetarParametros(TipoPaquete.PARTIDA,this.partidaDTO);
-        System.out.println(partidaDTO.getJugadores().get(0).getNombre());
+        System.out.println("Desempaquetar en server: "+paqueteReciboDatos.getTipo());
+        if(paqueteReciboDatos.getTipo()==(TipoPaquete.PARTIDA)){
+        this.infoServer.setPartidaEnServidor((PartidaDTO) paqueteReciboDatos.getObjeto());
+        empaquetarParametros(TipoPaquete.PARTIDA,infoServer.getPartidaEnServidor());
+       // System.out.println(infoServer.getPartidaEnServidor().getJugadores().get(0).getNombre());
         }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.RECUPERAR_PARTIDA)){
-        System.out.println("JCHO SERVER");
-        empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA,this.partidaDTO);
+        empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA,infoServer.getPartidaEnServidor());
+        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.UNIRSE_PARTIDA)){
+        JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
+        infoServer.getPartidaEnServidor().agregarJugador(jugadorDTO);
+            System.out.println("Lista de jugadores en unirse partida server: "+infoServer.getPartidaEnServidor().getJugadores());
+        empaquetarParametros(TipoPaquete.PARTIDA_UNIRSE,infoServer.getPartidaEnServidor());
+        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.ELIMINAR_JUGADOR)){
+        System.out.println("Else if eliminarJugador");
+        JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
+        infoServer.getPartidaEnServidor().eliminarJugador(jugadorDTO);
+            System.out.println("Tamaño lista partida server"+infoServer.getPartidaEnServidor().getJugadores().size());
+        if(infoServer.getPartidaEnServidor().getJugadores().size()==0){
+        infoServer.eliminarPartida();
+            System.out.println("Partida eliminada: "+infoServer.getPartidaEnServidor());
         }
-        
+        empaquetarParametros(TipoPaquete.PARTIDA,infoServer.getPartidaEnServidor());
+        }
     }
     
 //     public void cambiarEstadoSocket(Boolean estado){

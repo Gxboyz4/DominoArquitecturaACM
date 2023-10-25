@@ -13,6 +13,7 @@ import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
 import org.itson.proyectoarquitecturadominoacm.Proxy.IProxyCliente;
 import org.itson.proyectoarquitecturadominoacm.Proxy.ProxyCliente;
+import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPartida;
@@ -63,10 +64,14 @@ public class Mediador implements IMediador{
     this.partida = new Partida(jugador);
     }
     @Override
+    public void crearPartida() {
+    this.partida = new Partida();
+    }
+    @Override
     public Partida getPartida() {
         return partida;
     }
-
+   
     @Override
     public void abrirPantallaPrincipal() {
     FrmPrincipal frmPrincipal= new FrmPrincipal();
@@ -83,6 +88,8 @@ public class Mediador implements IMediador{
     public void abrirPantallaLobby() {
     FrmLobby frmLobby = new FrmLobby();
     frmLobby.setVisible(true);
+    this.frmLobby=frmLobby;
+    mediador.getFrmLobby().asignarInformacionJugadores();
     }
     
     @Override
@@ -96,11 +103,17 @@ public class Mediador implements IMediador{
         proxyCliente.iniciarHilo();
     }
 
+    @Override
     public ProxyCliente getProxyCliente() {
         return proxyCliente;
     }
+    @Override
     public FrmUnirse getFrmUnirse(){
         return frmUnirse;
+    }
+    @Override
+    public FrmLobby getFrmLobby(){
+        return frmLobby;
     }
     @Override
     public void exponerPartida(){
@@ -118,6 +131,15 @@ public class Mediador implements IMediador{
         proxyCliente.iniciarSocket();
         proxyCliente.empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA, null);
         proxyCliente.enviarDatos();
+    }
+    public void unirsePartida(){
+        System.out.println("Entra al unirsePartida del mediador");
+        JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar());
+        proxyCliente.empaquetarParametros(TipoPaquete.UNIRSE_PARTIDA, jugadorDTO);
+        proxyCliente.enviarDatos();
+    }
+    public void dibujarJugadoresLobby(){
+        frmLobby.asignarInformacionJugadores();
     }
     
     

@@ -15,7 +15,7 @@ public class ServidorDominoACMP {
 
     static final int puerto = 9090;
     static ProxyServidor proxyServidor;
-   // static List<PaqueteDatos> historialChat = new ArrayList();
+    
 
     
     public static void main(String[] args) {

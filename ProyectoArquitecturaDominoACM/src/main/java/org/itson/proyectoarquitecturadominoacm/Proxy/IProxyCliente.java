@@ -18,8 +18,10 @@ public interface IProxyCliente {
     public void empaquetarParametros(TipoPaquete tipo,Object objeto);
 
     public void iniciarSocket();
-
+    
     public void cerrarSocket();
+   
+    public void cerrarSocket(JugadorDTO jugador);
 
     public void recibirDatos();
     

@@ -28,10 +28,13 @@ public interface IMediador {
     public Jugador getJugador();
     public void crearPartida(Jugador jugador, int fichas);
     public void crearPartida(Jugador jugador);
+    public void crearPartida();
     public Partida getPartida();
     public void iniciarHiloConexion();
     public ProxyCliente getProxyCliente();
      public FrmUnirse getFrmUnirse();
+      public FrmLobby getFrmLobby();
       public void exponerPartida();
       public void recuperarPartidas();
+      public void unirsePartida();
 }

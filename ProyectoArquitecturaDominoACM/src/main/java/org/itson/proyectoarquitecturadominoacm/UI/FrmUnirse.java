@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import org.itson.libreriatiposdominoacmp.PartidaDTO;
+import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 
 /**
@@ -17,7 +18,7 @@ import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDomino
  */
 public class FrmUnirse extends javax.swing.JFrame {
     
-    List<PartidaDTO> partidas;
+    List<Partida> partidas;
 
     /**
      * Creates new form FrmUnirse
@@ -29,25 +30,24 @@ public class FrmUnirse extends javax.swing.JFrame {
         mediador.recuperarPartidas();
         mediador.iniciarHiloConexion();
         this.partidas = new LinkedList<>();
-        
     }
     
     public void cargarListaPartidas(){
-        
-        //Debería obtener un conjunto de partidas y así añadirlas todas
-        PartidaDTO partida = mediador.getProxyCliente().getPartidaDTO();
+        //PartidaDTO partida = mediador.getProxyCliente().getPartidaDTO();
+        Partida partida = mediador.getPartida();
         //En todo caso que fueran varias
         this.partidas.add(partida);
     }
     
     public void cargarTabla(){
-        
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblPartidas.getModel();
         modeloTabla.setRowCount(0);
-        
-        for (PartidaDTO partida : partidas) {
+        this.tblPartidas.removeAll();
+        if(mediador.getPartida()!=null){
+        for (Partida partida : partidas) {
             Object[] row = {
                 //Debería haber un método para traer al dueño de la partida
+                
                 partida.getJugadores().get(0).getNombre(),
                 //partida.getCantidadFichasConfiguradas(),
                 //partida.getCantidadJugadoresEnSala()
@@ -63,9 +63,11 @@ public class FrmUnirse extends javax.swing.JFrame {
 //            };
 //            modeloTabla.addColumn(fila);
 //        });
-        
+        }
     }
-    
+    public void vaciarListaPartidas(){
+        partidas.clear();
+    }
     public void colocarPartida(){
         System.out.println("colocar partida");
     }
@@ -83,6 +85,7 @@ public class FrmUnirse extends javax.swing.JFrame {
         tblPartidas = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
+        btnUnirse = new javax.swing.JButton();
         lblUnirseA = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
 
@@ -140,6 +143,14 @@ public class FrmUnirse extends javax.swing.JFrame {
         });
         jpnFondo.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
 
+        btnUnirse.setText("Unirse");
+        btnUnirse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUnirseActionPerformed(evt);
+            }
+        });
+        jpnFondo.add(btnUnirse, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, -1, -1));
+
         lblUnirseA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmUnirse/textoUnirseA.png"))); // NOI18N
         jpnFondo.add(lblUnirseA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 200, 20));
 
@@ -162,7 +173,7 @@ public class FrmUnirse extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        this.setVisible(false);
+        this.dispose();
         mediador.abrirPantallaMenu();
         mediador.getProxyCliente().cerrarSocket();
     }//GEN-LAST:event_btnRegresarActionPerformed
@@ -171,9 +182,15 @@ public class FrmUnirse extends javax.swing.JFrame {
         this.cargarTabla();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
+    private void btnUnirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirseActionPerformed
+    this.dispose();
+    mediador.unirsePartida();
+    }//GEN-LAST:event_btnUnirseActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnUnirse;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JPanel jpnFondo;
     private javax.swing.JLabel lblFondo;

@@ -33,8 +33,8 @@ public class Partida implements FichaObserver, PozoObserver, Serializable{
     
     Pozo pozo;
     Ficha ficha;
-    List<Jugador> jugadores;
-    Jugador jugador;
+    List<Jugador> jugadores = new ArrayList();
+    Jugador jugadorCreador;
     Tablero tablero;
     int numFichas;
     int numJugadores;
@@ -43,11 +43,12 @@ public class Partida implements FichaObserver, PozoObserver, Serializable{
         this.jugadores=jugadores;
     }
     public Partida(Jugador jugador, int numFichas) {
-        this.jugador = jugador;
+        this.jugadorCreador = jugador;
         this.numFichas=numFichas;
     }
     public Partida(Jugador jugador){
-        this.jugador=jugador;
+        this.jugadorCreador=jugador;
+        this.jugadores.add(jugador);
     }
  
     public Partida(Pozo pozo) {
@@ -56,12 +57,14 @@ public class Partida implements FichaObserver, PozoObserver, Serializable{
     
     public Partida(Pozo pozo, Jugador jugador,Tablero tablero) {
         this.pozo = pozo;
-        this.jugador = jugador;
+        this.jugadorCreador = jugador;
         this.tablero = tablero;
         this.suscribirFichas();
         this.suscribirPozo();
     }
-    
+    public Partida(){
+        
+    }
     public void suscribirse(){
         this.suscribirFichas();
         this.suscribirPozo();
@@ -85,7 +88,7 @@ public class Partida implements FichaObserver, PozoObserver, Serializable{
                JOptionPane.showMessageDialog(null, "Se ha bloqueado el tablero (este mensaje es momentaneo no se vaya a creer que quede asi profe)", "Tablero UnU", JOptionPane.INFORMATION_MESSAGE);
                
             }
-            jugador.eliminarFicha(ficha);
+            jugadorCreador.eliminarFicha(ficha);
             if(finalizacionJugador())
             {
                JOptionPane.showMessageDialog(null, "Gano el jugador(este mensaje es momentaneo no se vaya a creer que quede asi profe)", "Jugador Gano OwO", JOptionPane.INFORMATION_MESSAGE);
@@ -95,7 +98,7 @@ public class Partida implements FichaObserver, PozoObserver, Serializable{
     }
     public boolean finalizacionJugador()
     {
-        if(jugador.getFichas().size() == 0)
+        if(jugadorCreador.getFichas().size() == 0)
         {
             return true;
         }
@@ -121,8 +124,8 @@ public class Partida implements FichaObserver, PozoObserver, Serializable{
     @Override
     public void fichaElegida(Ficha ficha) {
          //System.out.println("La ficha elegida por el pozo fue: "+ficha.getNumeroInferior() +" "+ " "+ficha.getNumeroSuperior());  
-         jugador.agregarFicha(ficha);
-       //  System.out.println(jugador.getFichas());
+         jugadorCreador.agregarFicha(ficha);
+       //  System.out.println(jugadorCreador.getFichas());
          pozo.eliminarFicha(ficha);
     }
     public Pozo getPozo() {
@@ -141,12 +144,12 @@ public class Partida implements FichaObserver, PozoObserver, Serializable{
         this.ficha = ficha;
     }
 
-    public Jugador getJugador() {
-        return jugador;
+    public Jugador getJugadorCreador() {
+        return jugadorCreador;
     }
 
-    public void setJugador(Jugador jugador) {
-        this.jugador = jugador;
+    public void setJugadorCreador(Jugador jugador) {
+        this.jugadorCreador = jugador;
     }
 
     public Tablero getTablero() {
@@ -164,10 +167,27 @@ public class Partida implements FichaObserver, PozoObserver, Serializable{
     public void setNumFichas(int numFichas) {
         this.numFichas = numFichas;
     }
+
+    public List<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public int getNumJugadores() {
+        return numJugadores;
+    }
+
+    public void setNumJugadores(int numJugadores) {
+        this.numJugadores = numJugadores;
+    }
+    
     public void repartirFichas(){
     List<Ficha> fichas = pozo.repartirFichas(numFichas);
         for (Ficha ficha1 : fichas) {
-            jugador.agregarFicha(ficha1);
+            jugadorCreador.agregarFicha(ficha1);
         }
     }
     

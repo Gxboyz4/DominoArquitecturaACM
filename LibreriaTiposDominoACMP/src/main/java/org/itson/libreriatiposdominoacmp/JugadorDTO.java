@@ -5,6 +5,7 @@
 package org.itson.libreriatiposdominoacmp;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.swing.ImageIcon;
 
 /**
@@ -12,6 +13,7 @@ import javax.swing.ImageIcon;
  * @author Gabriel Mancinas
  */
 public class JugadorDTO implements Serializable{
+    
     ImageIcon avatar;
     String nombre;
     int cantidadFichas;
@@ -44,5 +46,36 @@ public class JugadorDTO implements Serializable{
     public void setCantidadFichas(int cantidadFichas) {
         this.cantidadFichas = cantidadFichas;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 71 * hash + Objects.hashCode(this.nombre);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final JugadorDTO other = (JugadorDTO) obj;
+        return Objects.equals(this.nombre, other.nombre);
+    }
+
+    @Override
+    public String toString() {
+        return "JugadorDTO{" + "nombre=" + nombre + '}';
+    }
+    
+   
+    
+    
     
 }

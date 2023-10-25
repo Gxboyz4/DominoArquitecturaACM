@@ -5,6 +5,7 @@
 package org.itson.libreriatiposdominoacmp;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +15,8 @@ import java.util.List;
 public class PartidaDTO implements Serializable{
     
 
-    List<JugadorDTO> jugadores;
+    private List<JugadorDTO> jugadores = new ArrayList();
+    private int numFichas;
     
     public PartidaDTO(List<JugadorDTO> jugadores){
         this.jugadores=jugadores;
@@ -25,5 +27,20 @@ public class PartidaDTO implements Serializable{
 
     public void setJugadores(List<JugadorDTO> jugadores) {
         this.jugadores = jugadores;
+    }
+
+    public int getNumFichas() {
+        return numFichas;
+    }
+
+    public void setNumFichas(int numFichas) {
+        this.numFichas = numFichas;
+    }
+    
+    public void agregarJugador(JugadorDTO jugador){
+        jugadores.add(jugador);
+    }
+    public void eliminarJugador(JugadorDTO jugador){
+        jugadores.remove(jugador);
     }
 }

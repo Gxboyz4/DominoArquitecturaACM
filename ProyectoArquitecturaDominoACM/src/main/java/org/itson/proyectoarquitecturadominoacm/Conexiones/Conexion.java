@@ -9,12 +9,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.libreriatiposdominoacmp.PaqueteDatos;
 import org.itson.libreriatiposdominoacmp.PartidaDTO;
 import org.itson.libreriatiposdominoacmp.TipoPaquete;
+import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Proxy.IProxyCliente;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 import org.itson.proyectoarquitecturadominoacm.socket.SocketJugador;
@@ -67,10 +70,20 @@ public class Conexion implements IProxyCliente, Runnable{
             System.out.println(ex.getMessage());
         }
     }
-
     @Override
     public void cerrarSocket() {
         try {
+            clienteSocket.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    @Override
+    public void cerrarSocket(JugadorDTO jugador) {
+        try {
+            empaquetarParametros(TipoPaquete.ELIMINAR_JUGADOR,jugador);
+            enviarDatos();
+           // System.out.println(clienteSocket.isConnected());
             clienteSocket.close();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -93,11 +106,30 @@ public class Conexion implements IProxyCliente, Runnable{
 
     @Override
     public void desempaquetarDatos() {
+        System.out.println(paqueteReciboDatos.getTipo());
+        System.out.println("");
         if(paqueteReciboDatos.getTipo()==(TipoPaquete.PARTIDA)){
         PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
-//      System.out.println( partida.getJugadores().get(0));
-        partidaDTO = partida;
-        mediador.getFrmUnirse().colocarPartida();
+        //      System.out.println( partida.getJugadores().get(0));
+         //partidaDTO = partida;
+            System.out.println(partida);
+            if(partida!=null){
+            System.out.println("Lista jugadores (Desempaquetar PARTIDA cliente): "+partida.getJugadores());
+            List<Jugador> jugadores = new ArrayList();
+            for (JugadorDTO jugadorDTO : partida.getJugadores()) {
+            Jugador jugador = new Jugador(jugadorDTO.getNombre(),jugadorDTO.getAvatar());
+            jugadores.add(jugador);
+            }
+            mediador.getPartida().setJugadores(jugadores);
+            System.out.println("DesempaquetarDatos PARTIDA: "+mediador.getPartida().getJugadores());
+            
+            mediador.getFrmUnirse().cargarListaPartidas();
+            mediador.getFrmUnirse().cargarTabla();
+            }else{
+                mediador.getFrmUnirse().vaciarListaPartidas();
+                mediador.getFrmUnirse().cargarTabla();
+            }
+      //  mediador.getPartida().setJugadores();
         }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.JUGADOR)){
         JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
         System.out.println(jugador.getNombre());
@@ -108,8 +140,27 @@ public class Conexion implements IProxyCliente, Runnable{
     }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.RECUPERAR_PARTIDA)){ 
         PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
         partidaDTO = partida;
+        if(partida!=null){
+        System.out.println("Lista jugadores (Desempaquetar RECUPERAR_PARTIDA cliente): "+partida.getJugadores());
+        Jugador jugador = new Jugador(partida.getJugadores().get(0).getNombre(),partida.getJugadores().get(0).getAvatar());
+        mediador.crearPartida(jugador);
         mediador.getFrmUnirse().cargarListaPartidas();
         mediador.getFrmUnirse().cargarTabla();
+        }
+    }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.PARTIDA_UNIRSE)){
+        PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
+            System.out.println(partida);
+            if(partida!=null){
+            System.out.println("Lista jugadores (Desempaquetar PARTIDA_UNIRSE cliente): "+partida.getJugadores());
+            List<Jugador> jugadores = new ArrayList();
+            for (JugadorDTO jugadorDTO : partida.getJugadores()) {
+            Jugador jugador = new Jugador(jugadorDTO.getNombre(),jugadorDTO.getAvatar());
+            jugadores.add(jugador);
+            }
+            mediador.getPartida().setJugadores(jugadores);
+            System.out.println("DesempaquetarDatos PARTIDA: "+mediador.getPartida().getJugadores());     
+            mediador.abrirPantallaLobby();
+            } 
     }
     }
     

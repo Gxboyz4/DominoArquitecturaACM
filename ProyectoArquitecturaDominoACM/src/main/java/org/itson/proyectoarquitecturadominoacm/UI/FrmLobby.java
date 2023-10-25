@@ -7,6 +7,8 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import org.itson.libreriatiposdominoacmp.JugadorDTO;
+import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 
 /**
@@ -21,15 +23,57 @@ public class FrmLobby extends javax.swing.JFrame {
         initComponents();
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
-        asignarInformacionJugadores();
     }
     public void asignarInformacionJugadores(){
+        System.out.println("Lista de jugadores en asignarInfoJugadores Lobby"+mediador.getPartida().getJugadores());
+    int numJugadores = mediador.getPartida().getJugadores().size();
+    if(numJugadores==1){
+        System.out.println("Asignó informacion de solo 1");
+    asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
+    }else if(numJugadores==2){
+        System.out.println("Asignó info de los 2");
+    asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
+    asignarInformacionJugador2(mediador.getPartida().getJugadores().get(1));
+    }else if(numJugadores==3){
+    asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
+    asignarInformacionJugador2(mediador.getPartida().getJugadores().get(1));
+    asignarInformacionJugador3(mediador.getPartida().getJugadores().get(2));
+    }else{
+    asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
+    asignarInformacionJugador2(mediador.getPartida().getJugadores().get(1));
+    asignarInformacionJugador3(mediador.getPartida().getJugadores().get(2));
+    asignarInformacionJugador4(mediador.getPartida().getJugadores().get(3));
+    }
+    }
+    public void asignarInformacionJugador1(Jugador jugador){
     Icon icon;
-    icon = new ImageIcon(mediador.getJugador().getAvatar().getImage().getScaledInstance(lblAvatarP1.getWidth(), lblAvatarP1.getHeight(), Image.SCALE_DEFAULT));
+    icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP1.getWidth(), lblAvatarP1.getHeight(), Image.SCALE_DEFAULT));
     lblAvatarP1.setIcon(icon);
-    lblNombreJugadorP1.setText(mediador.getJugador().getNombre());
+    lblNombreJugadorP1.setText(jugador.getNombre());
     lblNombreJugadorP1.setHorizontalAlignment(SwingConstants.CENTER);
     }
+    public void asignarInformacionJugador2(Jugador jugador){
+    Icon icon;
+    icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP2.getWidth(), lblAvatarP2.getHeight(), Image.SCALE_DEFAULT));
+    lblAvatarP2.setIcon(icon);
+    lblNombreJugadorP2.setText(jugador.getNombre());
+    lblNombreJugadorP2.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+    public void asignarInformacionJugador3(Jugador jugador){
+    Icon icon;
+    icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP3.getWidth(), lblAvatarP3.getHeight(), Image.SCALE_DEFAULT));
+    lblAvatarP3.setIcon(icon);
+    lblNombreJugadorP3.setText(jugador.getNombre());
+    lblNombreJugadorP3.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+    public void asignarInformacionJugador4(Jugador jugador){
+    Icon icon;
+    icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP4.getWidth(), lblAvatarP4.getHeight(), Image.SCALE_DEFAULT));
+    lblAvatarP4.setIcon(icon);
+    lblNombreJugadorP4.setText(jugador.getNombre());
+    lblNombreJugadorP4.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
     public int obtenerNumFichas(){
         String numFichas = cbxFichasPorJugador.getSelectedItem().toString();
         return Integer.parseInt(numFichas);
@@ -156,7 +200,8 @@ public class FrmLobby extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
     this.setVisible(false);
-    mediador.getProxyCliente().cerrarSocket();
+    JugadorDTO jugador = new JugadorDTO(mediador.getJugador().getNombre(),mediador.getJugador().getAvatar());
+    mediador.getProxyCliente().cerrarSocket(jugador);
     mediador.abrirPantallaMenu();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
