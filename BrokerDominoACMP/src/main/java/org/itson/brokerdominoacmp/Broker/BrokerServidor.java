@@ -65,9 +65,10 @@ public class BrokerServidor implements Runnable {
              paqueteDatosRecibido = (PaqueteDatos) paqueteDatos.readObject();
 //            if (paqueteDatosRecibido.getPara() == Mensaje.CLIENTE) {
                 //String ipRemitente = paqueteDatosRecibido.getIp();
+                System.out.println("Lista sockets clientes: "+Broker.direccionesClienteSocket);
                 for (int i = 0; i < Broker.direccionesClienteSocket.size(); i++) {
                     //if (!socketRemitente.equals(Broker.direccionesClienteSocket.get(i))) {
-                        System.out.println("Envio los paquetes a cada cliente");
+                        System.out.println("Envio los paquetes a cada cliente "+paqueteDatosRecibido.getTipo());
                         Socket socketEnviarCliente = Broker.direccionesClienteSocket.get(i);
                         System.out.println(Broker.direccionesClienteSocket.size());
                         ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarCliente.getOutputStream());

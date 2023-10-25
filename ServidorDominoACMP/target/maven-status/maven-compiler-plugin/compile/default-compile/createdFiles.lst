@@ -1,3 +1,4 @@
+org\itson\servidordominoacmp\InformacionServidor.class
 org\itson\servidordominoacmp\Conexion.class
 org\itson\servidordominoacmp\IProxyServidor.class
 org\itson\servidordominoacmp\ProxyServidor.class

@@ -18,7 +18,6 @@ public class FrmMenu extends javax.swing.JFrame {
         initComponents();
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
-
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -110,6 +109,7 @@ public class FrmMenu extends javax.swing.JFrame {
 
     private void btnUnirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirseActionPerformed
     this.setVisible(false);
+    mediador.crearPartida();
     mediador.abrirPantallaUnirse();
     }//GEN-LAST:event_btnUnirseActionPerformed
 

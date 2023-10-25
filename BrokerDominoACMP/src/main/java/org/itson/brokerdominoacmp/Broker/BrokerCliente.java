@@ -66,7 +66,7 @@ public class BrokerCliente implements Runnable {
                     Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
                     ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
                     paqueteDatosEnvio.writeObject(paqueteReciboDatos);
-                    System.out.println("Final delmetodo enviar info al server");
+                    System.out.println("Enviar info al servidor "+paqueteReciboDatos.getTipo());
                 }
             } catch (IOException ex) {
                this.eliminarConexion();

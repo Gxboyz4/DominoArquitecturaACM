@@ -90,6 +90,11 @@ public class Jugador implements Serializable{
     public void setNombre(String nombre) {
         modelo.setNombre(nombre);
     }
+
+    @Override
+    public String toString() {
+        return "Jugador{" + "nombre=" + nombre + '}';
+    }
     
     
 
