@@ -16,68 +16,90 @@ import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDomino
  * @author Gabriel Mancinas,Julio Chon,Luis Ayon
  */
 public class FrmLobby extends javax.swing.JFrame {
+
     /**
      * Creates new form FrmLobby
      */
     public FrmLobby() {
         initComponents();
+        setVisible(true);
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
-    }
-    public void asignarInformacionJugadores(){
-        System.out.println("Lista de jugadores en asignarInfoJugadores Lobby"+mediador.getPartida().getJugadores());
-    int numJugadores = mediador.getPartida().getJugadores().size();
-    if(numJugadores==1){
-        System.out.println("Asignó informacion de solo 1");
-    asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
-    }else if(numJugadores==2){
-        System.out.println("Asignó info de los 2");
-    asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
-    asignarInformacionJugador2(mediador.getPartida().getJugadores().get(1));
-    }else if(numJugadores==3){
-    asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
-    asignarInformacionJugador2(mediador.getPartida().getJugadores().get(1));
-    asignarInformacionJugador3(mediador.getPartida().getJugadores().get(2));
-    }else{
-    asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
-    asignarInformacionJugador2(mediador.getPartida().getJugadores().get(1));
-    asignarInformacionJugador3(mediador.getPartida().getJugadores().get(2));
-    asignarInformacionJugador4(mediador.getPartida().getJugadores().get(3));
-    }
-    }
-    public void asignarInformacionJugador1(Jugador jugador){
-    Icon icon;
-    icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP1.getWidth(), lblAvatarP1.getHeight(), Image.SCALE_DEFAULT));
-    lblAvatarP1.setIcon(icon);
-    lblNombreJugadorP1.setText(jugador.getNombre());
-    lblNombreJugadorP1.setHorizontalAlignment(SwingConstants.CENTER);
-    }
-    public void asignarInformacionJugador2(Jugador jugador){
-    Icon icon;
-    icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP2.getWidth(), lblAvatarP2.getHeight(), Image.SCALE_DEFAULT));
-    lblAvatarP2.setIcon(icon);
-    lblNombreJugadorP2.setText(jugador.getNombre());
-    lblNombreJugadorP2.setHorizontalAlignment(SwingConstants.CENTER);
-    }
-    public void asignarInformacionJugador3(Jugador jugador){
-    Icon icon;
-    icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP3.getWidth(), lblAvatarP3.getHeight(), Image.SCALE_DEFAULT));
-    lblAvatarP3.setIcon(icon);
-    lblNombreJugadorP3.setText(jugador.getNombre());
-    lblNombreJugadorP3.setHorizontalAlignment(SwingConstants.CENTER);
-    }
-    public void asignarInformacionJugador4(Jugador jugador){
-    Icon icon;
-    icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP4.getWidth(), lblAvatarP4.getHeight(), Image.SCALE_DEFAULT));
-    lblAvatarP4.setIcon(icon);
-    lblNombreJugadorP4.setText(jugador.getNombre());
-    lblNombreJugadorP4.setHorizontalAlignment(SwingConstants.CENTER);
+
     }
 
-    public int obtenerNumFichas(){
+    public void mostrarInformacion() {
+        asignarInformacionJugadores();
+    }
+
+    public void asignarInformacionJugadores() {
+        limpiarInformacion();
+        int numJugadores = mediador.getPartida().getJugadores().size();
+        if (numJugadores == 1) {
+            asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
+        } else if (numJugadores == 2) {
+            asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
+            asignarInformacionJugador2(mediador.getPartida().getJugadores().get(1));
+        } else if (numJugadores == 3) {
+            asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
+            asignarInformacionJugador2(mediador.getPartida().getJugadores().get(1));
+            asignarInformacionJugador3(mediador.getPartida().getJugadores().get(2));
+        } else {
+            asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
+            asignarInformacionJugador2(mediador.getPartida().getJugadores().get(1));
+            asignarInformacionJugador3(mediador.getPartida().getJugadores().get(2));
+            asignarInformacionJugador4(mediador.getPartida().getJugadores().get(3));
+        }
+    }
+
+    public void limpiarInformacion() {
+        lblAvatarP1.setIcon(null);
+        lblNombreJugadorP1.setText("");
+        lblAvatarP2.setIcon(null);
+        lblNombreJugadorP2.setText("");
+        lblAvatarP3.setIcon(null);
+        lblNombreJugadorP3.setText("");
+        lblAvatarP4.setIcon(null);
+        lblNombreJugadorP4.setText("");
+    }
+
+    public void asignarInformacionJugador1(Jugador jugador) {
+        Icon icon;
+        icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP1.getWidth(), lblAvatarP1.getHeight(), Image.SCALE_DEFAULT));
+        lblAvatarP1.setIcon(icon);
+        lblNombreJugadorP1.setText(jugador.getNombre());
+        lblNombreJugadorP1.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    public void asignarInformacionJugador2(Jugador jugador) {
+        Icon icon;
+        icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP2.getWidth(), lblAvatarP2.getHeight(), Image.SCALE_DEFAULT));
+        lblAvatarP2.setIcon(icon);
+        lblNombreJugadorP2.setText(jugador.getNombre());
+        lblNombreJugadorP2.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    public void asignarInformacionJugador3(Jugador jugador) {
+        Icon icon;
+        icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP3.getWidth(), lblAvatarP3.getHeight(), Image.SCALE_DEFAULT));
+        lblAvatarP3.setIcon(icon);
+        lblNombreJugadorP3.setText(jugador.getNombre());
+        lblNombreJugadorP3.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    public void asignarInformacionJugador4(Jugador jugador) {
+        Icon icon;
+        icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP4.getWidth(), lblAvatarP4.getHeight(), Image.SCALE_DEFAULT));
+        lblAvatarP4.setIcon(icon);
+        lblNombreJugadorP4.setText(jugador.getNombre());
+        lblNombreJugadorP4.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    public int obtenerNumFichas() {
         String numFichas = cbxFichasPorJugador.getSelectedItem().toString();
         return Integer.parseInt(numFichas);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -191,18 +213,19 @@ public class FrmLobby extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListoActionPerformed
-    this.setVisible(false);
-    mediador.getJugador().setFichas(null);
-    //mediador.crearPartida(mediador.getJugador(),obtenerNumFichas());
-    mediador.getPartida().setNumFichas(obtenerNumFichas());
-    mediador.abrirPantallaPartida();
+        this.setVisible(false);
+        mediador.getJugador().setFichas(null);
+        //mediador.crearPartida(mediador.getJugador(),obtenerNumFichas());
+        mediador.getPartida().setNumFichas(obtenerNumFichas());
+        mediador.abrirPantallaPartida();
     }//GEN-LAST:event_btnListoActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-    this.setVisible(false);
-    JugadorDTO jugador = new JugadorDTO(mediador.getJugador().getNombre(),mediador.getJugador().getAvatar());
-    mediador.getProxyCliente().cerrarSocket(jugador);
-    mediador.abrirPantallaMenu();
+        this.dispose();
+        mediador.cerrarPantallaLobby();
+        JugadorDTO jugador = new JugadorDTO(mediador.getJugador().getNombre(), mediador.getJugador().getAvatar());
+        mediador.getProxyCliente().eliminarJugador(jugador);
+        mediador.abrirPantallaMenu();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
 

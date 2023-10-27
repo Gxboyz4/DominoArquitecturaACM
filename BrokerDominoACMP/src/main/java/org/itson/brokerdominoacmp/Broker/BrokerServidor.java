@@ -49,9 +49,7 @@ public class BrokerServidor implements Runnable {
             servidorSocket = socketServer.accept();
             System.out.println("Aceptó conexión servidor");
             Broker.direccionesServerSocket.add(servidorSocket);
-            while (true) {
-                this.enviarInformacionCliente(servidorSocket);
-            }
+            this.enviarInformacionCliente(servidorSocket);
             //socketServidor.close();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -60,22 +58,23 @@ public class BrokerServidor implements Runnable {
 
     public  void enviarInformacionCliente(Socket socketServidor) {
         try {
+           while(true){
            PaqueteDatos paqueteDatosRecibido;
             ObjectInputStream paqueteDatos = new ObjectInputStream(socketServidor.getInputStream());
              paqueteDatosRecibido = (PaqueteDatos) paqueteDatos.readObject();
 //            if (paqueteDatosRecibido.getPara() == Mensaje.CLIENTE) {
                 //String ipRemitente = paqueteDatosRecibido.getIp();
                 System.out.println("Lista sockets clientes: "+Broker.direccionesClienteSocket);
+                System.out.println("Tamaño de la lista de clientes: "+Broker.direccionesClienteSocket.size());
                 for (int i = 0; i < Broker.direccionesClienteSocket.size(); i++) {
                     //if (!socketRemitente.equals(Broker.direccionesClienteSocket.get(i))) {
                         System.out.println("Envio los paquetes a cada cliente "+paqueteDatosRecibido.getTipo());
                         Socket socketEnviarCliente = Broker.direccionesClienteSocket.get(i);
-                        System.out.println(Broker.direccionesClienteSocket.size());
                         ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarCliente.getOutputStream());
                         paqueteDatosEnvio.writeObject(paqueteDatosRecibido);
                     //}
                 }
-//            }
+           }
         } catch (IOException ex) {
             ex.printStackTrace();
             System.out.println(ex.getMessage());

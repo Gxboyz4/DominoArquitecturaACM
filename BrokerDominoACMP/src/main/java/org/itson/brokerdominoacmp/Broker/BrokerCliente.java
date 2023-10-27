@@ -29,8 +29,6 @@ public class BrokerCliente implements Runnable {
                 Socket socketCliente;
                 socketCliente = socketBroker.accept();
                 System.out.println("Aceptó conexión de jugador");
-                //direccionCliente = socketCliente.getInetAddress().getHostAddress();
-                //Broker.direccionesClientes.add(direccionCliente);
                 Broker.direccionesClienteSocket.add(socketCliente);
                 Thread hilo = new Thread(new enviarInformacionCliente(socketCliente));
                 hilo.start();
@@ -69,6 +67,8 @@ public class BrokerCliente implements Runnable {
                     System.out.println("Enviar info al servidor "+paqueteReciboDatos.getTipo());
                 }
             } catch (IOException ex) {
+                System.out.println("Eliminé el socket en la tercera vuelta");
+                ex.printStackTrace();
                this.eliminarConexion();
         }   catch (ClassNotFoundException ex) {
                 ex.printStackTrace();            

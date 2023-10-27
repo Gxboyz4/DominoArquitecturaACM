@@ -69,6 +69,7 @@ public class Mediador implements IMediador{
     }
     @Override
     public Partida getPartida() {
+        System.out.println(partida);
         return partida;
     }
    
@@ -87,18 +88,15 @@ public class Mediador implements IMediador{
     @Override
     public void abrirPantallaLobby() {
     FrmLobby frmLobby = new FrmLobby();
-    frmLobby.setVisible(true);
     this.frmLobby=frmLobby;
-    mediador.getFrmLobby().asignarInformacionJugadores();
+    //mediador.getFrmLobby().asignarInformacionJugadores();
     }
-    
     @Override
-    public void abrirPantallaUnirse(){
+    public void abrirPantallaUnirse(){      
         FrmUnirse frmUnirse = new FrmUnirse();
-        frmUnirse.setVisible(true);
         this.frmUnirse=frmUnirse;
-        
     }
+    @Override
     public void iniciarHiloConexion(){
         proxyCliente.iniciarHilo();
     }
@@ -115,12 +113,27 @@ public class Mediador implements IMediador{
     public FrmLobby getFrmLobby(){
         return frmLobby;
     }
+    
     @Override
+    public void cerrarPantallaLobby() {
+    this.frmLobby=null;
+    }
+
+    @Override
+    public void cerrarPantallaUnirse() {
+    this.frmUnirse=null;
+    }
+
+    @Override
+    public void cerrarPantallaPartida() {
+    this.frmPrincipal=null;
+    }
+    
+   @Override
     public void exponerPartida(){
         List<JugadorDTO> listaJugadores = new ArrayList<JugadorDTO>();
         JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar());
         listaJugadores.add(jugadorDTO);
-        proxyCliente.iniciarSocket();
         PartidaDTO partidaDTO = new PartidaDTO(listaJugadores);
         proxyCliente.empaquetarParametros(TipoPaquete.PARTIDA,partidaDTO);
         proxyCliente.enviarDatos();
@@ -128,12 +141,13 @@ public class Mediador implements IMediador{
 
     @Override
     public void recuperarPartidas() {
-        proxyCliente.iniciarSocket();
+        //proxyCliente.iniciarSocket();
         proxyCliente.empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA, null);
         proxyCliente.enviarDatos();
+        //proxyCliente.iniciarHilo();
     }
+    @Override
     public void unirsePartida(){
-        System.out.println("Entra al unirsePartida del mediador");
         JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar());
         proxyCliente.empaquetarParametros(TipoPaquete.UNIRSE_PARTIDA, jugadorDTO);
         proxyCliente.enviarDatos();
@@ -141,6 +155,7 @@ public class Mediador implements IMediador{
     public void dibujarJugadoresLobby(){
         frmLobby.asignarInformacionJugadores();
     }
+
     
     
     

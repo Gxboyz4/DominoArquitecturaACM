@@ -27,8 +27,8 @@ public class ProxyCliente implements IProxyCliente{
     }
 
     @Override
-    public void cerrarSocket(JugadorDTO jugador) {
-        conexionCliente.cerrarSocket(jugador);
+    public void eliminarJugador(JugadorDTO jugador) {
+        conexionCliente.eliminarJugador(jugador);
     }
     @Override
     public void cerrarSocket(){

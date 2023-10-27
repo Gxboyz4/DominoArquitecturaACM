@@ -21,7 +21,7 @@ public interface IProxyCliente {
     
     public void cerrarSocket();
    
-    public void cerrarSocket(JugadorDTO jugador);
+    public void eliminarJugador(JugadorDTO jugador);
 
     public void recibirDatos();
     

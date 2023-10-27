@@ -153,6 +153,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }
     registrarJugador();
     this.setVisible(false);
+    mediador.getProxyCliente().iniciarSocket();
+    mediador.iniciarHiloConexion();
     mediador.abrirPantallaMenu();
     }//GEN-LAST:event_btnJugarActionPerformed
 

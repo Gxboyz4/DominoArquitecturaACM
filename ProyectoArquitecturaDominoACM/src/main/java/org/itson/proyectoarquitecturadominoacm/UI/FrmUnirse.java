@@ -16,7 +16,7 @@ import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDomino
  *
  * @author Gabriel Mancinas
  */
-public class FrmUnirse extends javax.swing.JFrame {
+public class FrmUnirse extends javax.swing.JFrame{
     
     List<Partida> partidas;
 
@@ -25,25 +25,28 @@ public class FrmUnirse extends javax.swing.JFrame {
      */
     public FrmUnirse() {
         initComponents();
+        this.setVisible(true);
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
-        mediador.recuperarPartidas();
-        mediador.iniciarHiloConexion();
         this.partidas = new LinkedList<>();
+        
+
+        
     }
-    
     public void cargarListaPartidas(){
-        //PartidaDTO partida = mediador.getProxyCliente().getPartidaDTO();
         Partida partida = mediador.getPartida();
-        //En todo caso que fueran varias
+        //Hicimos esto porque después vamos a realizar lo de la repartición de información en el broker, ya que se añade la partida dos veces a la lista. (Porque le llega a todos)
+        if(partidas.size()==0){
         this.partidas.add(partida);
+        }
+        cargarTabla();
     }
     
     public void cargarTabla(){
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblPartidas.getModel();
         modeloTabla.setRowCount(0);
         this.tblPartidas.removeAll();
-        if(mediador.getPartida()!=null){
+        if(mediador.getPartida()!=null && partidas.size()>0){
         for (Partida partida : partidas) {
             Object[] row = {
                 //Debería haber un método para traer al dueño de la partida
@@ -52,7 +55,7 @@ public class FrmUnirse extends javax.swing.JFrame {
                 //partida.getCantidadFichasConfiguradas(),
                 //partida.getCantidadJugadoresEnSala()
             };
-            modeloTabla.addRow(row);
+            modeloTabla.addRow(row);       
         }
 //        this.partidas.forEach(partida -> {
 //            Object[] fila = {
@@ -67,9 +70,6 @@ public class FrmUnirse extends javax.swing.JFrame {
     }
     public void vaciarListaPartidas(){
         partidas.clear();
-    }
-    public void colocarPartida(){
-        System.out.println("colocar partida");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -173,9 +173,9 @@ public class FrmUnirse extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        this.dispose();
-        mediador.abrirPantallaMenu();
-        mediador.getProxyCliente().cerrarSocket();
+    this.dispose();
+    mediador.cerrarPantallaUnirse();
+    mediador.abrirPantallaMenu();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
@@ -184,7 +184,10 @@ public class FrmUnirse extends javax.swing.JFrame {
 
     private void btnUnirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirseActionPerformed
     this.dispose();
+    mediador.cerrarPantallaUnirse();
+    mediador.abrirPantallaLobby();
     mediador.unirsePartida();
+    //mediador.abrirPantallaLobby();
     }//GEN-LAST:event_btnUnirseActionPerformed
 
 
@@ -198,4 +201,5 @@ public class FrmUnirse extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPanelPartidas;
     private javax.swing.JTable tblPartidas;
     // End of variables declaration//GEN-END:variables
+
 }

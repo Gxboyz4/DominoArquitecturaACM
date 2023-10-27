@@ -90,23 +90,18 @@ public class Conexion implements IProxyServidor, Runnable{
         System.out.println("Desempaquetar en server: "+paqueteReciboDatos.getTipo());
         if(paqueteReciboDatos.getTipo()==(TipoPaquete.PARTIDA)){
         this.infoServer.setPartidaEnServidor((PartidaDTO) paqueteReciboDatos.getObjeto());
-        empaquetarParametros(TipoPaquete.PARTIDA,infoServer.getPartidaEnServidor());
-       // System.out.println(infoServer.getPartidaEnServidor().getJugadores().get(0).getNombre());
+        empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA,infoServer.getPartidaEnServidor());
         }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.RECUPERAR_PARTIDA)){
         empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA,infoServer.getPartidaEnServidor());
         }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.UNIRSE_PARTIDA)){
         JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
         infoServer.getPartidaEnServidor().agregarJugador(jugadorDTO);
-            System.out.println("Lista de jugadores en unirse partida server: "+infoServer.getPartidaEnServidor().getJugadores());
         empaquetarParametros(TipoPaquete.PARTIDA_UNIRSE,infoServer.getPartidaEnServidor());
         }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.ELIMINAR_JUGADOR)){
-        System.out.println("Else if eliminarJugador");
         JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
         infoServer.getPartidaEnServidor().eliminarJugador(jugadorDTO);
-            System.out.println("Tamaño lista partida server"+infoServer.getPartidaEnServidor().getJugadores().size());
         if(infoServer.getPartidaEnServidor().getJugadores().size()==0){
         infoServer.eliminarPartida();
-            System.out.println("Partida eliminada: "+infoServer.getPartidaEnServidor());
         }
         empaquetarParametros(TipoPaquete.PARTIDA,infoServer.getPartidaEnServidor());
         }

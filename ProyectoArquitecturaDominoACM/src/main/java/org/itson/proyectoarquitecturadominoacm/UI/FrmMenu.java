@@ -105,12 +105,14 @@ public class FrmMenu extends javax.swing.JFrame {
     mediador.crearPartida(mediador.getJugador());
     mediador.exponerPartida();
     mediador.abrirPantallaLobby();
+    mediador.getFrmLobby().mostrarInformacion();
     }//GEN-LAST:event_btnCrearPartidaActionPerformed
 
     private void btnUnirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirseActionPerformed
     this.setVisible(false);
     mediador.crearPartida();
     mediador.abrirPantallaUnirse();
+    mediador.recuperarPartidas();
     }//GEN-LAST:event_btnUnirseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

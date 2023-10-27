@@ -26,8 +26,9 @@ import org.itson.proyectoarquitecturadominoacm.socket.SocketJugador;
  *
  * @author Gabriel Mancinas
  */
-public class Conexion implements IProxyCliente, Runnable{
-    
+public class Conexion implements IProxyCliente, Runnable {
+
+    //Thread hiloConexion;
     PaqueteDatos paqueteEnvioDatos;
     PaqueteDatos paqueteReciboDatos;
     JugadorDTO jugadorDTO;
@@ -37,15 +38,15 @@ public class Conexion implements IProxyCliente, Runnable{
     final String ip = "localhost";
 
     public Conexion() {
-    
+
     }
 
     @Override
-    public void empaquetarParametros(TipoPaquete tipo,Object objeto) {
-        if(objeto!=null){
-        paqueteEnvioDatos = new PaqueteDatos(tipo,objeto);
-        }else{
-        paqueteEnvioDatos = new PaqueteDatos(tipo);
+    public void empaquetarParametros(TipoPaquete tipo, Object objeto) {
+        if (objeto != null) {
+            paqueteEnvioDatos = new PaqueteDatos(tipo, objeto);
+        } else {
+            paqueteEnvioDatos = new PaqueteDatos(tipo);
         }
     }
 
@@ -53,13 +54,13 @@ public class Conexion implements IProxyCliente, Runnable{
     public void iniciarSocket() {
         try {
             clienteSocket = new Socket(ip, puerto);
-            clienteSocket.connect(new InetSocketAddress(ip,puerto));
+            clienteSocket.connect(new InetSocketAddress(ip, puerto));
         } catch (IOException ex) {
             ex.getStackTrace();
-            System.out.println(ex.getMessage());
+            
         }
     }
-   
+
     @Override
     public void enviarDatos() {
         try {
@@ -67,27 +68,23 @@ public class Conexion implements IProxyCliente, Runnable{
             paqueteDatos.writeObject(paqueteEnvioDatos);
         } catch (IOException ex) {
             ex.getStackTrace();
-            System.out.println(ex.getMessage());
+            
         }
     }
+
     @Override
     public void cerrarSocket() {
         try {
             clienteSocket.close();
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            
         }
     }
+
     @Override
-    public void cerrarSocket(JugadorDTO jugador) {
-        try {
-            empaquetarParametros(TipoPaquete.ELIMINAR_JUGADOR,jugador);
-            enviarDatos();
-           // System.out.println(clienteSocket.isConnected());
-            clienteSocket.close();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+    public void eliminarJugador(JugadorDTO jugador) {
+        empaquetarParametros(TipoPaquete.ELIMINAR_JUGADOR, jugador);
+        enviarDatos();
     }
 
     @Override
@@ -99,78 +96,69 @@ public class Conexion implements IProxyCliente, Runnable{
                 desempaquetarDatos();
             }
         } catch (IOException | ClassNotFoundException ex) {
-            System.out.println(ex.getMessage());
+            
         }
-
     }
 
     @Override
     public void desempaquetarDatos() {
-        System.out.println(paqueteReciboDatos.getTipo());
-        System.out.println("");
-        if(paqueteReciboDatos.getTipo()==(TipoPaquete.PARTIDA)){
-        PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
-        //      System.out.println( partida.getJugadores().get(0));
-         //partidaDTO = partida;
-            System.out.println(partida);
-            if(partida!=null){
-            System.out.println("Lista jugadores (Desempaquetar PARTIDA cliente): "+partida.getJugadores());
-            List<Jugador> jugadores = new ArrayList();
-            for (JugadorDTO jugadorDTO : partida.getJugadores()) {
-            Jugador jugador = new Jugador(jugadorDTO.getNombre(),jugadorDTO.getAvatar());
-            jugadores.add(jugador);
-            }
-            mediador.getPartida().setJugadores(jugadores);
-            System.out.println("DesempaquetarDatos PARTIDA: "+mediador.getPartida().getJugadores());
-            
-            mediador.getFrmUnirse().cargarListaPartidas();
-            mediador.getFrmUnirse().cargarTabla();
+        if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA)) {
+            PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
+            partidaDTO = partida;
+            if (partida == null) {
+                if (mediador.getFrmUnirse() != null) {
+                    mediador.getFrmUnirse().vaciarListaPartidas();
+                    mediador.getFrmUnirse().cargarTabla();
+                }
             }else{
-                mediador.getFrmUnirse().vaciarListaPartidas();
-                mediador.getFrmUnirse().cargarTabla();
+                if(mediador.getFrmLobby()!=null){
+                    modificarPartidaLocal(partida);
+                    mediador.getFrmLobby().mostrarInformacion();   
+                }
             }
-      //  mediador.getPartida().setJugadores();
-        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.JUGADOR)){
-        JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
-        System.out.println(jugador.getNombre());
-        jugadorDTO = jugador;
-        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.FICHA)){
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.JUGADOR)) {
+            JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
+            jugadorDTO = jugador;
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.FICHA)) {
 //        FichaDTO ficha = (FichaDTO) paqueteReciboDatos.getObjecto();
-//        System.out.println(ficha);
-    }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.RECUPERAR_PARTIDA)){ 
-        PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
-        partidaDTO = partida;
-        if(partida!=null){
-        System.out.println("Lista jugadores (Desempaquetar RECUPERAR_PARTIDA cliente): "+partida.getJugadores());
-        Jugador jugador = new Jugador(partida.getJugadores().get(0).getNombre(),partida.getJugadores().get(0).getAvatar());
-        mediador.crearPartida(jugador);
-        mediador.getFrmUnirse().cargarListaPartidas();
-        mediador.getFrmUnirse().cargarTabla();
-        }
-    }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.PARTIDA_UNIRSE)){
-        PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
-            System.out.println(partida);
-            if(partida!=null){
-            System.out.println("Lista jugadores (Desempaquetar PARTIDA_UNIRSE cliente): "+partida.getJugadores());
-            List<Jugador> jugadores = new ArrayList();
-            for (JugadorDTO jugadorDTO : partida.getJugadores()) {
-            Jugador jugador = new Jugador(jugadorDTO.getNombre(),jugadorDTO.getAvatar());
-            jugadores.add(jugador);
+
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.RECUPERAR_PARTIDA)) {
+            PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
+            partidaDTO = partida;
+            if (partida != null) {
+                if (mediador.getFrmUnirse() != null) {
+                    modificarPartidaLocal(partida);
+                    mediador.getFrmUnirse().cargarListaPartidas();
+                }
             }
-            mediador.getPartida().setJugadores(jugadores);
-            System.out.println("DesempaquetarDatos PARTIDA: "+mediador.getPartida().getJugadores());     
-            mediador.abrirPantallaLobby();
-            } 
-    }
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA_UNIRSE)) {
+            PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
+            if (partida != null) {
+                if (mediador.getFrmLobby() != null) {
+                    modificarPartidaLocal(partida);
+                    mediador.getFrmLobby().mostrarInformacion();
+                }
+            }
+        }
     }
     
-    
+    public void modificarPartidaLocal(PartidaDTO partida) {
+        if(partida!=null){
+        List<Jugador> jugadores = new ArrayList();
+        for (JugadorDTO jugadorDTO : partida.getJugadores()) {
+            Jugador jugador = new Jugador(jugadorDTO.getNombre(), jugadorDTO.getAvatar());
+            jugadores.add(jugador);
+        }
+        mediador.getPartida().setJugadores(jugadores);
+        }
+    }
+
     @Override
     public void iniciarHilo() {
-    Thread conexion = new Thread(this);
-    conexion.start();
+        Thread hiloConexion = new Thread(this);
+        hiloConexion.start();
     }
-    
+
     @Override
     public void run() {
         recibirDatos();
@@ -180,7 +168,7 @@ public class Conexion implements IProxyCliente, Runnable{
     public JugadorDTO getJugadorDTO() {
         return jugadorDTO;
     }
-    
+
     public void setJugadorDTO(JugadorDTO jugadorDTO) {
         this.jugadorDTO = jugadorDTO;
     }
@@ -192,6 +180,5 @@ public class Conexion implements IProxyCliente, Runnable{
     public void setPartidaDTO(PartidaDTO partidaDTO) {
         this.partidaDTO = partidaDTO;
     }
-    
-    
+
 }
