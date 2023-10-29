@@ -72,6 +72,7 @@ public class Jugador implements Serializable{
     }
 
     public void setPanelFichas(JPanel panelFichas) {
+        this.panelFichas = panelFichas;
         modelo.setPanelFichas(panelFichas);
     }
 

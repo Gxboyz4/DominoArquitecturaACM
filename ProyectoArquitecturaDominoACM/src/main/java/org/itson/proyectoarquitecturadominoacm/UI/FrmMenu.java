@@ -5,16 +5,19 @@ package org.itson.proyectoarquitecturadominoacm.UI;
 
 import javax.swing.ImageIcon;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
-import org.itson.proyectoarquitecturadominoacm.Utileria.Avatar;
 /**
  *
  * @author Gabriel Mancinas,Julio Chon,Luis Ayon
  */
 public class FrmMenu extends javax.swing.JFrame {
+    
+    private String nombreJugador;
+    
     /**
      * Creates new form FrmPrincipal
      */
     public FrmMenu() {
+        this.nombreJugador = mediador.getJugador().getNombre();
         initComponents();
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
@@ -29,7 +32,7 @@ public class FrmMenu extends javax.swing.JFrame {
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Dominó");
+        setTitle("Dominó " + this.nombreJugador);
         setMaximumSize(new java.awt.Dimension(733, 500));
         setMinimumSize(new java.awt.Dimension(733, 500));
         setPreferredSize(new java.awt.Dimension(733, 510));

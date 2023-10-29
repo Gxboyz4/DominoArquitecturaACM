@@ -19,11 +19,13 @@ import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDomino
 public class FrmUnirse extends javax.swing.JFrame{
     
     List<Partida> partidas;
+    private String nombreJugador;
 
     /**
      * Creates new form FrmUnirse
      */
     public FrmUnirse() {
+        this.nombreJugador = mediador.getJugador().getNombre();
         initComponents();
         this.setVisible(true);
         this.setSize(750, 540); //736 x 500
@@ -90,7 +92,7 @@ public class FrmUnirse extends javax.swing.JFrame{
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Dominó");
+        setTitle("Dominó " + this.nombreJugador);
         setMaximumSize(new java.awt.Dimension(733, 500));
         setMinimumSize(new java.awt.Dimension(733, 500));
         setResizable(false);

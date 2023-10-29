@@ -17,10 +17,13 @@ import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDomino
  */
 public class FrmLobby extends javax.swing.JFrame {
 
+    private String nombreJugador;
+    
     /**
      * Creates new form FrmLobby
      */
     public FrmLobby() {
+        this.nombreJugador = mediador.getJugador().getNombre();
         initComponents();
         setVisible(true);
         this.setSize(750, 540); //736 x 500
@@ -125,10 +128,8 @@ public class FrmLobby extends javax.swing.JFrame {
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Dominó");
-        setMaximumSize(new java.awt.Dimension(755, 540));
+        setTitle("Dominó " + this.nombreJugador);
         setMinimumSize(new java.awt.Dimension(755, 540));
-        setPreferredSize(new java.awt.Dimension(755, 540));
         setResizable(false);
 
         jpnFondo.setBackground(new java.awt.Color(255, 0, 0));

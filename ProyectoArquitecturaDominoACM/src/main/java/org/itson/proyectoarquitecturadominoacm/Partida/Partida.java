@@ -29,8 +29,8 @@ import org.itson.proyectoarquitecturadominoacm.excepciones.PartidaTerminadaExcep
  *
  * @author julio
  */
-public class Partida implements FichaObserver, PozoObserver, Serializable{
-    
+public class Partida implements FichaObserver, PozoObserver, Serializable {
+
     Pozo pozo;
     Ficha ficha;
     List<Jugador> jugadores = new ArrayList();
@@ -38,96 +38,97 @@ public class Partida implements FichaObserver, PozoObserver, Serializable{
     Tablero tablero;
     int numFichas;
     int numJugadores;
-    
-    public Partida(List<Jugador> jugadores){
-        this.jugadores=jugadores;
+
+    public Partida(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
     }
+
     public Partida(Jugador jugador, int numFichas) {
         this.jugadorCreador = jugador;
-        this.numFichas=numFichas;
+        this.numFichas = numFichas;
     }
-    public Partida(Jugador jugador){
-        this.jugadorCreador=jugador;
+
+    public Partida(Jugador jugador) {
+        this.jugadorCreador = jugador;
         this.jugadores.add(jugador);
     }
- 
+
     public Partida(Pozo pozo) {
         this.pozo = pozo;
     }
-    
-    public Partida(Pozo pozo, Jugador jugador,Tablero tablero) {
+
+    public Partida(Pozo pozo, Jugador jugador, Tablero tablero) {
         this.pozo = pozo;
         this.jugadorCreador = jugador;
         this.tablero = tablero;
         this.suscribirFichas();
         this.suscribirPozo();
     }
-    public Partida(){
-        
+
+    public Partida() {
+
     }
-    public void suscribirse(){
+
+    public void suscribirse() {
         this.suscribirFichas();
         this.suscribirPozo();
     }
-    
-    public void suscribirFichas(){
+
+    public void suscribirFichas() {
         for (Ficha ficha : pozo.obtenerTodasFichas()) {
             ficha.agregarObservador(this);
         }
     }
-    
-    public void suscribirPozo(){
-       pozo.agregarObservador(this);
+
+    public void suscribirPozo() {
+        pozo.agregarObservador(this);
     }
+
     @Override
     public void fichaSeleccionada(Ficha ficha) {
-        if(tablero.agregarFicha(ficha))
-        {
-            if(finalizacionTablero(tablero.getNumeroIzquierda())&&finalizacionTablero(tablero.getNumeroDerecha()))
-            {
-               JOptionPane.showMessageDialog(null, "Se ha bloqueado el tablero (este mensaje es momentaneo no se vaya a creer que quede asi profe)", "Tablero UnU", JOptionPane.INFORMATION_MESSAGE);
-               
+        if (tablero.agregarFicha(ficha)) {
+            if (finalizacionTablero(tablero.getNumeroIzquierda()) && finalizacionTablero(tablero.getNumeroDerecha())) {
+                JOptionPane.showMessageDialog(null, "Se ha bloqueado el tablero (este mensaje es momentaneo no se vaya a creer que quede asi profe)", "Tablero UnU", JOptionPane.INFORMATION_MESSAGE);
+
             }
             jugadorCreador.eliminarFicha(ficha);
-            if(finalizacionJugador())
-            {
-               JOptionPane.showMessageDialog(null, "Gano el jugador(este mensaje es momentaneo no se vaya a creer que quede asi profe)", "Jugador Gano OwO", JOptionPane.INFORMATION_MESSAGE);
+            if (finalizacionJugador()) {
+                JOptionPane.showMessageDialog(null, "Gano el jugador(este mensaje es momentaneo no se vaya a creer que quede asi profe)", "Jugador Gano OwO", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-        
+
     }
-    public boolean finalizacionJugador()
-    {
-        if(jugadorCreador.getFichas().size() == 0)
-        {
+
+    public boolean finalizacionJugador() {
+        if (jugadorCreador.getFichas().size() == 0) {
             return true;
         }
         return false;
     }
-    public boolean finalizacionTablero(int numeroBuscado)
-    {
-        int cantidad= 0;
-        
+
+    public boolean finalizacionTablero(int numeroBuscado) {
+        int cantidad = 0;
+
         for (Ficha ficha1 : tablero.getFichas()) {
-            if(numeroBuscado==ficha1.getNumeroInferior()||numeroBuscado==ficha1.getNumeroSuperior())
-            {
+            if (numeroBuscado == ficha1.getNumeroInferior() || numeroBuscado == ficha1.getNumeroSuperior()) {
                 cantidad++;
             }
-            
+
         }
-        if(cantidad == 7)
-        {
+        if (cantidad == 7) {
             return true;
         }
         return false;
     }
+
     @Override
     public void fichaElegida(Ficha ficha) {
-         //System.out.println("La ficha elegida por el pozo fue: "+ficha.getNumeroInferior() +" "+ " "+ficha.getNumeroSuperior());  
-         jugadorCreador.agregarFicha(ficha);
-       //  System.out.println(jugadorCreador.getFichas());
-         pozo.eliminarFicha(ficha);
+        //System.out.println("La ficha elegida por el pozo fue: "+ficha.getNumeroInferior() +" "+ " "+ficha.getNumeroSuperior());  
+        jugadorCreador.agregarFicha(ficha);
+        //  System.out.println(jugadorCreador.getFichas());
+        pozo.eliminarFicha(ficha);
     }
+
     public Pozo getPozo() {
         return pozo;
     }
@@ -183,13 +184,11 @@ public class Partida implements FichaObserver, PozoObserver, Serializable{
     public void setNumJugadores(int numJugadores) {
         this.numJugadores = numJugadores;
     }
-    
+
     public void repartirFichas(){
     List<Ficha> fichas = pozo.repartirFichas(numFichas);
-        for (Ficha ficha1 : fichas) {
-            jugadorCreador.agregarFicha(ficha1);
+        for (Ficha fichaNueva : fichas) {
+            jugadorCreador.agregarFicha(fichaNueva);
         }
     }
-    
-    
 }
