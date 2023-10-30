@@ -59,7 +59,12 @@ public class FrmLobby extends javax.swing.JFrame {
             asignarInformacionJugador4(mediador.getPartida().getJugadores().get(3));
         }
     }
-
+    public void abrirPantallaPartida()
+    {
+        this.dispose();
+        mediador.cerrarPantallaLobby();
+        mediador.abrirPantallaPartida();
+    }
     public void limpiarInformacion() {
         lblAvatarP1.setIcon(null);
         lblNombreJugadorP1.setText("");

@@ -118,8 +118,8 @@ public class FrmMenu extends javax.swing.JFrame {
 
     private void btnUnirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirseActionPerformed
     this.setVisible(false);
-    mediador.cerrarPantallaMenu();
     mediador.crearPartida();
+    mediador.cerrarPantallaMenu();
     mediador.abrirPantallaUnirse();
     mediador.recuperarPartidas();
     

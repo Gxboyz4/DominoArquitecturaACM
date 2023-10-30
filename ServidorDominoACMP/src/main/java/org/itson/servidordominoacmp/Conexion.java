@@ -110,6 +110,12 @@ public class Conexion implements IProxyServidor, Runnable{
             JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
             infoServer.getPartidaEnServidor().actualizarJugador(jugadorDTO);
             empaquetarParametros(TipoPaquete.LISTO,infoServer.getPartidaEnServidor());
+            if(LogicaServidor.comprobarVotacion(infoServer.getPartidaEnServidor()))
+            {
+                infoServer.getPartidaEnServidor().setPartidaIniciada(true);
+                empaquetarParametros(TipoPaquete.INICIAR_PARTIDA,infoServer.getPartidaEnServidor());
+                empaquetarParametros(TipoPaquete.PARTIDA,infoServer.getPartidaEnServidor());
+            }
         }
     }
     

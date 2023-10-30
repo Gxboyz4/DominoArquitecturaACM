@@ -32,15 +32,18 @@ public class FrmUnirse extends javax.swing.JFrame{
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         this.partidas = new LinkedList<>(); 
+        this.cargarListaPartidas();
     }
     
     public void mostrarMensaje(){
         JOptionPane.showMessageDialog(this,"La partida está llena.", "Alerta", JOptionPane.WARNING_MESSAGE);
     }
     public void cargarListaPartidas(){
+        
         Partida partida = mediador.getPartida();
         //Hicimos esto porque después vamos a realizar lo de la repartición de información en el broker, ya que se añade la partida dos veces a la lista. (Porque le llega a todos)
-        if(partidas.size()==0){
+        System.out.println(partida);
+        if(partida.getJugadores().size() != 0&&partidas.size()==0){
         this.partidas.add(partida);
         }
         cargarTabla();
@@ -51,6 +54,9 @@ public class FrmUnirse extends javax.swing.JFrame{
         modeloTabla.setRowCount(0);
         this.tblPartidas.removeAll();
         if(mediador.getPartida()!=null && partidas.size()>0){
+            
+            btnUnirse.setVisible(true);
+            
         for (Partida partida : partidas) {
             Object[] row = {
                 //Debería haber un método para traer al dueño de la partida
@@ -59,8 +65,12 @@ public class FrmUnirse extends javax.swing.JFrame{
                 //partida.getCantidadFichasConfiguradas(),
                 //partida.getCantidadJugadoresEnSala()
             };
+            
             modeloTabla.addRow(row);       
         }
+        
+         
+         
 //        this.partidas.forEach(partida -> {
 //            Object[] fila = {
 //                //Debería haber un método para traer al dueño de la partida
@@ -70,6 +80,10 @@ public class FrmUnirse extends javax.swing.JFrame{
 //            };
 //            modeloTabla.addColumn(fila);
 //        });
+        }
+        else
+        {
+            btnUnirse.setVisible(false);
         }
     }
     public void vaciarListaPartidas(){

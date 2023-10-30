@@ -104,15 +104,25 @@ public class Conexion implements IProxyCliente, Runnable {
         if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA)) {
             PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
             partidaDTO = partida;
-            if (partida == null) {
-                if (mediador.getFrmUnirse() != null) {
+            if (partida == null ) {
+                if (mediador.getFrmUnirse() != null ) {
                     mediador.getFrmUnirse().vaciarListaPartidas();
-                    mediador.getFrmUnirse().cargarTabla();
+                    mediador.getFrmUnirse().cargarTabla();                    
+                    
+
                 }
             }else{
                 if(mediador.getFrmLobby()!=null){
+                    
                     modificarPartidaLocal(partida);
                     mediador.getFrmLobby().mostrarInformacion();   
+                }else{
+                    if(mediador.getFrmUnirse()!=null&&partida.getPartidaIniciada())
+                    {
+                        System.out.println("entro vuen");
+                        mediador.getFrmUnirse().vaciarListaPartidas();
+                        mediador.getFrmUnirse().cargarTabla();  
+                    }
                 }
             }
         } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.JUGADOR)) {
@@ -121,10 +131,11 @@ public class Conexion implements IProxyCliente, Runnable {
         } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.FICHA)) {
 //        FichaDTO ficha = (FichaDTO) paqueteReciboDatos.getObjecto();
 
-        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.RECUPERAR_PARTIDA)) {
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.RECUPERAR_PARTIDA) ) {
             PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
             partidaDTO = partida;
-            if (partida != null) {
+            if (partida != null && !partida.getPartidaIniciada()) {
+                
                 if (mediador.getFrmUnirse() != null) {
                     modificarPartidaLocal(partida);
                     mediador.getFrmUnirse().cargarListaPartidas();
@@ -149,6 +160,14 @@ public class Conexion implements IProxyCliente, Runnable {
                     mediador.recuperarPartidas();
                     mediador.cerrarPantallaLobby();
                     mediador.getFrmUnirse().mostrarMensaje();
+        }
+        else if(paqueteReciboDatos.getTipo()== (TipoPaquete.INICIAR_PARTIDA))
+        {
+            if(mediador.getFrmLobby() != null)
+            {
+                mediador.getFrmLobby().abrirPantallaPartida();
+            }
+            
         }
     }
     

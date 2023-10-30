@@ -17,7 +17,15 @@ public class PartidaDTO implements Serializable{
 
     private List<JugadorDTO> jugadores = new ArrayList();
     private int numFichas;
-    
+    private boolean partidaIniciada;
+
+    public boolean getPartidaIniciada() {
+        return partidaIniciada;
+    }
+
+    public void setPartidaIniciada(boolean partidaIniciada) {
+        this.partidaIniciada = partidaIniciada;
+    }
     public PartidaDTO(List<JugadorDTO> jugadores){
         this.jugadores=jugadores;
     }  
