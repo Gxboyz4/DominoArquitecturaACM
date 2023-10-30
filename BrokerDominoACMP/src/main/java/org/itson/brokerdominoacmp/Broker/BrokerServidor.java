@@ -66,7 +66,7 @@ public class BrokerServidor implements Runnable {
                 paqueteDatosRecibido = (PaqueteDatos) paqueteDatos.readObject();
                 System.out.println("Lista sockets clientes: " + Broker.direccionesClienteSocket);
                 System.out.println("Tamaño de la lista de clientes: " + Broker.direccionesClienteSocket.size());
-                if (paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA_UNIRSE) {
+                if (paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA_UNIRSE || paqueteDatosRecibido.getTipo() == TipoPaquete.LISTO || paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA ) {
                     enviarInformacionJugadoresPartida(paqueteDatos, paqueteDatosRecibido);
                 } else {
                     enviarInformacionTodos(paqueteDatos, paqueteDatosRecibido);

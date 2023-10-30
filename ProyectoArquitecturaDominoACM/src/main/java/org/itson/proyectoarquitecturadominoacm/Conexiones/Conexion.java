@@ -130,7 +130,7 @@ public class Conexion implements IProxyCliente, Runnable {
                     mediador.getFrmUnirse().cargarListaPartidas();
                 }
             }
-        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA_UNIRSE)) {
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA_UNIRSE)|| paqueteReciboDatos.getTipo() == (TipoPaquete.LISTO)) {
             PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
             if (partida != null) {
                 if (mediador.getFrmLobby() != null) {
@@ -156,7 +156,7 @@ public class Conexion implements IProxyCliente, Runnable {
         if(partida!=null){
         List<Jugador> jugadores = new ArrayList();
         for (JugadorDTO jugadorDTO : partida.getJugadores()) {
-            Jugador jugador = new Jugador(jugadorDTO.getNombre(), jugadorDTO.getAvatar());
+            Jugador jugador = new Jugador(jugadorDTO.getNombre(), jugadorDTO.getAvatar(),jugadorDTO.getListo());
             jugadores.add(jugador);
         }
         mediador.getPartida().setJugadores(jugadores);

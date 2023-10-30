@@ -3,12 +3,14 @@
  */
 package org.itson.proyectoarquitecturadominoacm.UI;
 
+import java.awt.Color;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
+import org.itson.libreriatiposdominoacmp.TipoPaquete;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 
@@ -75,6 +77,14 @@ public class FrmLobby extends javax.swing.JFrame {
         lblAvatarP1.setIcon(icon);
         lblNombreJugadorP1.setText(jugador.getNombre());
         lblNombreJugadorP1.setHorizontalAlignment(SwingConstants.CENTER);
+        System.out.println(jugador.getListo());
+        if(jugador.getListo())
+        {
+            lblNombreJugadorP1.setForeground(Color.green);
+        }else
+        {
+            lblNombreJugadorP1.setForeground(Color.black);
+        }
     }
 
     public void asignarInformacionJugador2(Jugador jugador) {
@@ -83,6 +93,13 @@ public class FrmLobby extends javax.swing.JFrame {
         lblAvatarP2.setIcon(icon);
         lblNombreJugadorP2.setText(jugador.getNombre());
         lblNombreJugadorP2.setHorizontalAlignment(SwingConstants.CENTER);
+        if(jugador.getListo())
+        {
+            lblNombreJugadorP2.setForeground(Color.green);
+        }else
+        {
+            lblNombreJugadorP2.setForeground(Color.black);
+        }
     }
 
     public void asignarInformacionJugador3(Jugador jugador) {
@@ -91,6 +108,13 @@ public class FrmLobby extends javax.swing.JFrame {
         lblAvatarP3.setIcon(icon);
         lblNombreJugadorP3.setText(jugador.getNombre());
         lblNombreJugadorP3.setHorizontalAlignment(SwingConstants.CENTER);
+        if(jugador.getListo())
+        {
+            lblNombreJugadorP3.setForeground(Color.green);
+        }else
+        {
+            lblNombreJugadorP3.setForeground(Color.black);
+        }
     }
 
     public void asignarInformacionJugador4(Jugador jugador) {
@@ -99,6 +123,13 @@ public class FrmLobby extends javax.swing.JFrame {
         lblAvatarP4.setIcon(icon);
         lblNombreJugadorP4.setText(jugador.getNombre());
         lblNombreJugadorP4.setHorizontalAlignment(SwingConstants.CENTER);
+        if(jugador.getListo())
+        {
+            lblNombreJugadorP4.setForeground(Color.green);
+        }else
+        {
+            lblNombreJugadorP4.setForeground(Color.black);
+        }
     }
 
     public int obtenerNumFichas() {
@@ -217,16 +248,28 @@ public class FrmLobby extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListoActionPerformed
-        this.setVisible(false);
-        mediador.getJugador().setFichas(null);
-        //mediador.crearPartida(mediador.getJugador(),obtenerNumFichas());
-        mediador.getPartida().setNumFichas(obtenerNumFichas());
-        mediador.abrirPantallaPartida();
+        if(!mediador.getJugador().getListo())
+        {
+            mediador.getJugador().setListo(true);
+            btnListo.setIcon(new ImageIcon(getClass().getResource("/imgFrmLobby/iconoNoListo.png")));
+        }else
+        {
+            mediador.getJugador().setListo(false);
+            btnListo.setIcon(new ImageIcon(getClass().getResource("/imgFrmLobby/iconoListo.png")));
+        }
+        
+        mediador.jugadorListo();
+//        this.setVisible(false);
+//        mediador.getJugador().setFichas(null);
+//        //mediador.crearPartida(mediador.getJugador(),obtenerNumFichas());
+//        mediador.getPartida().setNumFichas(obtenerNumFichas());
+//        mediador.abrirPantallaPartida();
     }//GEN-LAST:event_btnListoActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.dispose();
         mediador.cerrarPantallaLobby();
+        mediador.getJugador().setListo(false);
         JugadorDTO jugador = new JugadorDTO(mediador.getJugador().getNombre(), mediador.getJugador().getAvatar());
         mediador.getProxyCliente().eliminarJugador(jugador);
         mediador.abrirPantallaMenu();

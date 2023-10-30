@@ -165,7 +165,14 @@ public class Mediador implements IMediador{
         frmLobby.asignarInformacionJugadores();
     }
 
-    
+    @Override
+    public void jugadorListo()
+    {
+        JugadorDTO jugador;
+        jugador = new JugadorDTO( mediador.getJugador().getAvatar(),mediador.getJugador().getNombre() ,mediador.getJugador().getListo());
+        mediador.getProxyCliente().empaquetarParametros(TipoPaquete.LISTO, jugador);
+        mediador.getProxyCliente().enviarDatos();
+    }
     
     
     

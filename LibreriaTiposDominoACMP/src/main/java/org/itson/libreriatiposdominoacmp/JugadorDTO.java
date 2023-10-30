@@ -17,10 +17,24 @@ public class JugadorDTO implements Serializable{
     ImageIcon avatar;
     String nombre;
     int cantidadFichas;
+   boolean listo;
 
     public JugadorDTO(String nombre,ImageIcon avatar) {
         this.avatar = avatar;
         this.nombre = nombre;
+    }
+
+    public JugadorDTO(ImageIcon avatar, String nombre, boolean listo) {
+        this.avatar = avatar;
+        this.nombre = nombre;
+        this.listo = listo;
+    }
+    
+    public JugadorDTO(ImageIcon avatar, String nombre, int cantidadFichas, boolean listo) {
+        this.avatar = avatar;
+        this.nombre = nombre;
+        this.cantidadFichas = cantidadFichas;
+        this.listo = listo;
     }
 
     public ImageIcon getAvatar() {
@@ -46,7 +60,15 @@ public class JugadorDTO implements Serializable{
     public void setCantidadFichas(int cantidadFichas) {
         this.cantidadFichas = cantidadFichas;
     }
+    
+    public boolean getListo() {
+        return listo;
+    }
 
+    public void setListo(boolean listo) {
+        this.listo = listo;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;

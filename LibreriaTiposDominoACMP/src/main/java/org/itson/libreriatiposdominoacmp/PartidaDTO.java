@@ -43,4 +43,12 @@ public class PartidaDTO implements Serializable{
     public void eliminarJugador(JugadorDTO jugador){
         jugadores.remove(jugador);
     }
+    public void actualizarJugador(JugadorDTO jugador)
+    {
+        System.out.println(jugador);
+        System.out.println(jugadores.indexOf(jugador));
+        System.out.println(jugador.getListo());
+        jugadores.set(jugadores.indexOf(jugador), jugador);
+        
+    }
 }

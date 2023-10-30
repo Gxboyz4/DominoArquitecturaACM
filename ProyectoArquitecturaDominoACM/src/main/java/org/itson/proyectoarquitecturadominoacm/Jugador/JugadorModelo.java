@@ -23,6 +23,7 @@ public class JugadorModelo implements Serializable{
     JPanel panelFichas;
     int x;
     int y;
+    boolean listo;
     
     public JugadorModelo(String nombre, ImageIcon avatar){
         this.nombre=nombre;
@@ -120,6 +121,12 @@ public class JugadorModelo implements Serializable{
     public void setPanelFichas(JPanel panelFichas) {
         this.panelFichas = panelFichas;
     }
-    
+     public boolean getListo() {
+        return listo;
+    }
+
+    public void setListo(boolean listo) {
+        this.listo = listo;
+    }
     
 }

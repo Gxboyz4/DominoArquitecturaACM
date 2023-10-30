@@ -33,6 +33,13 @@ public class Jugador implements Serializable{
         this.avatar=avatar;
         this.setearResponsabilidades();
     }
+    public Jugador(String nombre,ImageIcon avatar,boolean listo){
+        this.nombre=nombre;
+        this.avatar=avatar;
+        this.setearResponsabilidades();
+        modelo.setListo(listo);
+        
+    }
     
     public Jugador(JPanel panelFichas) {
         this.panelFichas = panelFichas;
@@ -90,6 +97,13 @@ public class Jugador implements Serializable{
 
     public void setNombre(String nombre) {
         modelo.setNombre(nombre);
+    }
+    public boolean getListo() {
+        return modelo.getListo();
+    }
+
+    public void setListo(boolean listo) {
+        modelo.setListo(listo);
     }
 
     @Override

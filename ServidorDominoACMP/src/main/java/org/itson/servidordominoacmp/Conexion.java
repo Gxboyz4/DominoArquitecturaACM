@@ -105,6 +105,12 @@ public class Conexion implements IProxyServidor, Runnable{
         }
         empaquetarParametros(TipoPaquete.PARTIDA,infoServer.getPartidaEnServidor());
         }
+        else if(paqueteReciboDatos.getTipo()==(TipoPaquete.LISTO))
+        {
+            JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
+            infoServer.getPartidaEnServidor().actualizarJugador(jugadorDTO);
+            empaquetarParametros(TipoPaquete.LISTO,infoServer.getPartidaEnServidor());
+        }
     }
     
 //     public void cambiarEstadoSocket(Boolean estado){

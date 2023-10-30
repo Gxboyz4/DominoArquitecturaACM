@@ -42,5 +42,5 @@ public interface IMediador {
       public void exponerPartida();
       public void recuperarPartidas();
       public void unirsePartida();
-      
+      public void jugadorListo();
 }
