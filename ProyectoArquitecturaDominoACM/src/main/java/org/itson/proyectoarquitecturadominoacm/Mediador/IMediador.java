@@ -25,6 +25,7 @@ public interface IMediador {
     public void abrirPantallaLobby();
     public void abrirPantallaPartida();
     public void abrirPantallaUnirse();
+    public void cerrarPantallaMenu();
     public void cerrarPantallaLobby();
     public void cerrarPantallaUnirse();
     public void cerrarPantallaPartida();
@@ -35,9 +36,11 @@ public interface IMediador {
     public Partida getPartida();
     public void iniciarHiloConexion();
     public ProxyCliente getProxyCliente();
+    public FrmMenu getFrmMenu();
      public FrmUnirse getFrmUnirse();
       public FrmLobby getFrmLobby();
       public void exponerPartida();
       public void recuperarPartidas();
       public void unirsePartida();
+      
 }

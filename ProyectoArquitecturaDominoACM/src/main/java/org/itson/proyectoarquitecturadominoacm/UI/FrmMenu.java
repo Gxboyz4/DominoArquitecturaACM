@@ -4,6 +4,7 @@
 package org.itson.proyectoarquitecturadominoacm.UI;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 /**
  *
@@ -19,8 +20,12 @@ public class FrmMenu extends javax.swing.JFrame {
     public FrmMenu() {
         this.nombreJugador = mediador.getJugador().getNombre();
         initComponents();
+        this.setVisible(true);
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
+    }
+    public void mostrarMensaje(){
+        JOptionPane.showMessageDialog(this,"Ya hay una partida creada.", "Alerta", JOptionPane.WARNING_MESSAGE);
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -106,16 +111,18 @@ public class FrmMenu extends javax.swing.JFrame {
     private void btnCrearPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPartidaActionPerformed
     this.setVisible(false);
     mediador.crearPartida(mediador.getJugador());
-    mediador.exponerPartida();
     mediador.abrirPantallaLobby();
+    mediador.exponerPartida();
     mediador.getFrmLobby().mostrarInformacion();
     }//GEN-LAST:event_btnCrearPartidaActionPerformed
 
     private void btnUnirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirseActionPerformed
     this.setVisible(false);
+    mediador.cerrarPantallaMenu();
     mediador.crearPartida();
     mediador.abrirPantallaUnirse();
     mediador.recuperarPartidas();
+    
     }//GEN-LAST:event_btnUnirseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

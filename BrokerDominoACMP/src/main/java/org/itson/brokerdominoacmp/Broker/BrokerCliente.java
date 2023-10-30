@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.itson.brokerdominoacmp.Broker.Broker.puertoCliente;
 import org.itson.libreriatiposdominoacmp.PaqueteDatos;
+import org.itson.libreriatiposdominoacmp.TipoPaquete;
 import org.itson.proyectoarquitecturadominoacm.socket.SocketJugador;
 
 /**
@@ -44,8 +45,6 @@ public class BrokerCliente implements Runnable {
         this.iniciarSocketCliente();
     }
 
-    
-    
     public class enviarInformacionCliente implements Runnable {
 
         Socket socketCliente;
@@ -57,30 +56,71 @@ public class BrokerCliente implements Runnable {
 
         public void enviarInformacionServidor(Socket socketCliente) {
             try {
-                while (true) {  
+                while (true) {
                     BrokerServidor.socketRemitente = socketCliente;
                     ObjectInputStream paqueteDatos = new ObjectInputStream(socketCliente.getInputStream());
                     PaqueteDatos paqueteReciboDatos = (PaqueteDatos) paqueteDatos.readObject();
-                    Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
-                    ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
-                    paqueteDatosEnvio.writeObject(paqueteReciboDatos);
-                    System.out.println("Enviar info al servidor "+paqueteReciboDatos.getTipo());
+                    if (paqueteReciboDatos.getTipo() == TipoPaquete.PARTIDA) {
+                        verificarPartidaCreada(socketCliente, paqueteDatos, paqueteReciboDatos);
+                    } else if (paqueteReciboDatos.getTipo() == TipoPaquete.UNIRSE_PARTIDA) {
+                        verificarPartidaLlena(socketCliente, paqueteDatos, paqueteReciboDatos);
+                    } else if (paqueteReciboDatos.getTipo() == TipoPaquete.ELIMINAR_JUGADOR) {
+                        Broker.direccionesClienteSocket.add(socketCliente);
+                        Broker.direccionesClienteSocketPartida.remove(socketCliente);
+                        Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
+                        ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
+                        paqueteDatosEnvio.writeObject(paqueteReciboDatos);
+                    } else {
+                        Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
+                        ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
+                        paqueteDatosEnvio.writeObject(paqueteReciboDatos);
+                    }
+                    System.out.println("Enviar info al servidor " + paqueteReciboDatos.getTipo());
                 }
             } catch (IOException ex) {
                 System.out.println("Eliminé el socket en la tercera vuelta");
                 ex.printStackTrace();
-               this.eliminarConexion();
-        }   catch (ClassNotFoundException ex) {
-                ex.printStackTrace();            
+                this.eliminarConexion();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+
         }
-   
-        }
+
         public void eliminarConexion() {
             try {
                 Broker.direccionesClienteSocket.remove(socketCliente);
                 this.socketCliente.close();
             } catch (IOException ex) {
                 System.out.println("Error al cerrar la conexion");
+            }
+        }
+
+        public void verificarPartidaCreada(Socket socketCliente, ObjectInputStream paqueteDatos, PaqueteDatos paqueteReciboDatos) throws IOException {
+            if (Broker.direccionesClienteSocketPartida.size() == 0) {
+                Broker.direccionesClienteSocketPartida.add(socketCliente);
+                Broker.direccionesClienteSocket.remove(socketCliente);
+                Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
+                ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
+                paqueteDatosEnvio.writeObject(paqueteReciboDatos);
+            } else {
+                PaqueteDatos paqueteRegreso = new PaqueteDatos(TipoPaquete.HAY_PARTIDA, null);
+                ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketCliente.getOutputStream());
+                paqueteDatosEnvio.writeObject(paqueteRegreso);
+            }
+        }
+
+        public void verificarPartidaLlena(Socket socketCliente, ObjectInputStream paqueteDatos, PaqueteDatos paqueteReciboDatos) throws IOException {
+            if (Broker.direccionesClienteSocketPartida.size() < 4) {
+                Broker.direccionesClienteSocketPartida.add(socketCliente);
+                Broker.direccionesClienteSocket.remove(socketCliente);
+                Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
+                ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
+                paqueteDatosEnvio.writeObject(paqueteReciboDatos);
+            } else {
+                PaqueteDatos paqueteRegreso = new PaqueteDatos(TipoPaquete.PARTIDA_LLENA, null);
+                ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketCliente.getOutputStream());
+                paqueteDatosEnvio.writeObject(paqueteRegreso);
             }
         }
 

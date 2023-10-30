@@ -26,6 +26,7 @@ static int puertoCliente = 9091;
 //static List<String> direccionesServidores = new ArrayList();
 static List<Socket> direccionesServerSocket = new ArrayList();
 static List<Socket> direccionesClienteSocket = new ArrayList();
+static List<Socket> direccionesClienteSocketPartida = new ArrayList();
 static Thread hiloCliente;
 static Thread hiloServidor;
 static BrokerCliente brokerCliente = new BrokerCliente(); 

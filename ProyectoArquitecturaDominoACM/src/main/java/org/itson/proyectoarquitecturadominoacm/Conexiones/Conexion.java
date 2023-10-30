@@ -28,7 +28,6 @@ import org.itson.proyectoarquitecturadominoacm.socket.SocketJugador;
  */
 public class Conexion implements IProxyCliente, Runnable {
 
-    //Thread hiloConexion;
     PaqueteDatos paqueteEnvioDatos;
     PaqueteDatos paqueteReciboDatos;
     JugadorDTO jugadorDTO;
@@ -139,6 +138,17 @@ public class Conexion implements IProxyCliente, Runnable {
                     mediador.getFrmLobby().mostrarInformacion();
                 }
             }
+        }else if(paqueteReciboDatos.getTipo()== (TipoPaquete.HAY_PARTIDA)){
+                if (mediador.getFrmMenu() != null) {
+                    mediador.abrirPantallaMenu();
+                    mediador.cerrarPantallaLobby();
+                    mediador.getFrmMenu().mostrarMensaje();
+                }
+        }else if(paqueteReciboDatos.getTipo()== (TipoPaquete.PARTIDA_LLENA)){
+                    mediador.abrirPantallaUnirse();
+                    mediador.recuperarPartidas();
+                    mediador.cerrarPantallaLobby();
+                    mediador.getFrmUnirse().mostrarMensaje();
         }
     }
     

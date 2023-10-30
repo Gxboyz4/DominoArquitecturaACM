@@ -6,6 +6,7 @@ package org.itson.proyectoarquitecturadominoacm.UI;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
@@ -30,7 +31,9 @@ public class FrmLobby extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
 
     }
-
+    public void mostrarMensaje(){
+        JOptionPane.showMessageDialog(null,"Ya hay una partida creada.", "Alerta", JOptionPane.WARNING_MESSAGE);
+    }
     public void mostrarInformacion() {
         asignarInformacionJugadores();
     }

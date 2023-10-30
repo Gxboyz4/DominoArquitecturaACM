@@ -82,7 +82,7 @@ public class Mediador implements IMediador{
     @Override
     public void abrirPantallaMenu() {
     FrmMenu frmMenu = new FrmMenu();
-    frmMenu.setVisible(true);
+    this.frmMenu=frmMenu;
     }
 
     @Override
@@ -106,6 +106,10 @@ public class Mediador implements IMediador{
         return proxyCliente;
     }
     @Override
+     public FrmMenu getFrmMenu(){
+         return frmMenu;
+     }
+    @Override
     public FrmUnirse getFrmUnirse(){
         return frmUnirse;
     }
@@ -116,6 +120,7 @@ public class Mediador implements IMediador{
     
     @Override
     public void cerrarPantallaLobby() {
+    this.frmLobby.setVisible(false);
     this.frmLobby=null;
     }
 
@@ -128,9 +133,13 @@ public class Mediador implements IMediador{
     public void cerrarPantallaPartida() {
     this.frmPrincipal=null;
     }
-    
+    @Override
+    public void cerrarPantallaMenu(){
+    this.frmMenu=null;
+    }
    @Override
     public void exponerPartida(){
+        
         List<JugadorDTO> listaJugadores = new ArrayList<JugadorDTO>();
         JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar());
         listaJugadores.add(jugadorDTO);

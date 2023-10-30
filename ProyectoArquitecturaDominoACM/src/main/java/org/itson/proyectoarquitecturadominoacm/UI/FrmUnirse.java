@@ -7,6 +7,7 @@ package org.itson.proyectoarquitecturadominoacm.UI;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.itson.libreriatiposdominoacmp.PartidaDTO;
 import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
@@ -30,10 +31,11 @@ public class FrmUnirse extends javax.swing.JFrame{
         this.setVisible(true);
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
-        this.partidas = new LinkedList<>();
-        
-
-        
+        this.partidas = new LinkedList<>(); 
+    }
+    
+    public void mostrarMensaje(){
+        JOptionPane.showMessageDialog(this,"La partida está llena.", "Alerta", JOptionPane.WARNING_MESSAGE);
     }
     public void cargarListaPartidas(){
         Partida partida = mediador.getPartida();
