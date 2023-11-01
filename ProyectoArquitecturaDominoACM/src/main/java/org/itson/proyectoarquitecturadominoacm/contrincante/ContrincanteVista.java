@@ -26,9 +26,11 @@ public class ContrincanteVista {
     /**
      *
      * @param panelFichas
+     * @param modelo
      */
-    public ContrincanteVista(JPanel panelFichas) {
+    public ContrincanteVista(JPanel panelFichas, ContrincanteModelo modelo) {
         this.panelFichas = panelFichas;
+        this.modelo = modelo;
     }
 
     private void cargarPanelFichas() {
@@ -38,7 +40,7 @@ public class ContrincanteVista {
 
     private JLabel construirFichaLimpia(int alto, int ancho) {
         JLabel fichaLimpia = new JLabel();
-        String rutaImagen = "/imgFrmPartidaFichas/ficha%0_%0.png";
+        String rutaImagen = "/imgFrmPartidaFichas/ficha0_0.png";
         ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
         Icon icon = null;
 
@@ -47,7 +49,8 @@ public class ContrincanteVista {
         }
 
         if (this.modelo.getPosicionPanel() == PosicionPanel.LATERAL) {
-            icon = this.rotarImagen(imagen, 90);
+            imagen = this.rotarImagen(imagen, 90);
+            icon = new ImageIcon(imagen.getImage().getScaledInstance(alto, ancho, Image.SCALE_DEFAULT));
         }
 
         fichaLimpia.setIcon(icon);
@@ -77,38 +80,48 @@ public class ContrincanteVista {
     }
 
     public void pintarFichas() {
+        
         this.cargarPanelFichas();
         int x = 0;
         int y = 0;
+
+        if (modelo.getPosicionPanel() == PosicionPanel.LATERAL) {
+            x = 0;
+            y = 56;
+        }
+
         int ancho = 37;
         int alto = 37;
+        
         JLabel fichaPintar = null;
         for (int i = 0; i < modelo.getFichasRestantes(); i++) {
 
             if (modelo.getPosicionPanel() == PosicionPanel.LATERAL) {
 
-                if (y + 20 > panelFichas.getWidth()) {
-                    x += 42;
+                if (x + 20 > panelFichas.getHeight()) {
+                    x += 26;
                     y = 0;
                 }
-                
+
                 fichaPintar = this.construirFichaLimpia(alto, ancho);
                 fichaPintar.setBounds(y, x, ancho, alto);
+                x += 26;
             }
 
             if (modelo.getPosicionPanel() == PosicionPanel.SUPERIOR_INFERIOR) {
-                
+
                 if (x + 20 > panelFichas.getWidth()) {
                     y += 42;
                     x = 0;
                 }
                 fichaPintar = this.construirFichaLimpia(alto, ancho);
                 fichaPintar.setBounds(x, y, ancho, alto);
+                x += 26;
             }
 
-            y += 42;
+            this.panelFichas.add(fichaPintar);
         }
-        this.panelFichas.add(fichaPintar);
+
     }
 
     public ContrincanteModelo getModelo() {

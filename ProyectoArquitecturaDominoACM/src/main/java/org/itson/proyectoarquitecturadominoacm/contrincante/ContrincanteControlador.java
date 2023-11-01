@@ -40,4 +40,8 @@ public class ContrincanteControlador {
     public void setModelo(ContrincanteModelo modelo) {
         this.modelo = modelo;
     }
+    
+    public void pintarFichas(){
+        this.vista.pintarFichas();
+    }
 }

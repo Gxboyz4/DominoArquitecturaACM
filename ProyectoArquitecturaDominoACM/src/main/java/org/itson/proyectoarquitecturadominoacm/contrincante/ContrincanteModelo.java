@@ -17,10 +17,14 @@ public class ContrincanteModelo {
     
     private int fichasRestantes;
     private PosicionPanel posicionPanel;
+    private String nombreContrincante;
+    private int idContrincante;
 
-    public ContrincanteModelo(int fichasRestantes, PosicionPanel posicionPanel) {
+    public ContrincanteModelo(int fichasRestantes, PosicionPanel posicionPanel, String nombreContrincante, int idJugador) {
         this.fichasRestantes = fichasRestantes;
         this.posicionPanel = posicionPanel;
+        this.nombreContrincante = nombreContrincante;
+        this.idContrincante = idJugador;
     }
 
     public int getFichasRestantes() {
@@ -46,4 +50,29 @@ public class ContrincanteModelo {
     public void agregarFichasRestantes(int fichasAgregadas){
         this.fichasRestantes =+ fichasAgregadas;
     }
+    
+    public void quitarFicha(){
+        this.fichasRestantes--;
+    }
+    
+    public void quitarFichas(int fichasEliminadas){
+        this.fichasRestantes-= fichasEliminadas;
+    }
+
+    public String getNombreContrincante() {
+        return nombreContrincante;
+    }
+
+    public void setNombreContrincante(String nombreContrincante) {
+        this.nombreContrincante = nombreContrincante;
+    }
+
+    public int getIdContrincante() {
+        return idContrincante;
+    }
+
+    public void setIdJugador(int idJugador) {
+        this.idContrincante = idJugador;
+    }
+    
 }
