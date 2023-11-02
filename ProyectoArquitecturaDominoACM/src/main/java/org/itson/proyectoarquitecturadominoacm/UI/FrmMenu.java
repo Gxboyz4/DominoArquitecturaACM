@@ -13,12 +13,11 @@ import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDomino
 public class FrmMenu extends javax.swing.JFrame {
     
     private String nombreJugador;
-    
+    private int idJugador;
     /**
      * Creates new form FrmPrincipal
      */
     public FrmMenu() {
-        this.nombreJugador = mediador.getJugador().getNombre();
         initComponents();
         this.setVisible(true);
         this.setSize(750, 540); //736 x 500
@@ -27,6 +26,11 @@ public class FrmMenu extends javax.swing.JFrame {
     public void mostrarMensaje(){
         JOptionPane.showMessageDialog(this,"Ya hay una partida creada.", "Alerta", JOptionPane.WARNING_MESSAGE);
     }
+//    public void asignarTitulo(){
+//        this.nombreJugador = mediador.getJugador().getNombre();
+//        this.idJugador = mediador.getJugador().getId();
+//        this.setTitle("Dominó " + this.nombreJugador +", "+this.idJugador);
+//    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

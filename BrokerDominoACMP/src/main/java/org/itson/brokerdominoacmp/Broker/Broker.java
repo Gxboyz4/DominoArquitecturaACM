@@ -22,6 +22,7 @@ import org.itson.proyectoarquitecturadominoacm.socket.SocketJugador;
 public class Broker{
 static int puertoServidor = 9090;
 static int puertoCliente = 9091;
+static Socket socketID;
 //static List<String> direccionesClientes = new ArrayList();
 //static List<String> direccionesServidores = new ArrayList();
 static List<Socket> direccionesServerSocket = new ArrayList();

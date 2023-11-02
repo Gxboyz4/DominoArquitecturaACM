@@ -54,7 +54,7 @@ public class BrokerCliente implements Runnable {
 
         }
 
-        public void enviarInformacionServidor(Socket socketCliente) {
+        public synchronized void enviarInformacionServidor(Socket socketCliente) {
             try {
                 while (true) {
                     BrokerServidor.socketRemitente = socketCliente;
@@ -70,7 +70,13 @@ public class BrokerCliente implements Runnable {
                         Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
                         ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
                         paqueteDatosEnvio.writeObject(paqueteReciboDatos);
-                    } else {
+                    }else if(paqueteReciboDatos.getTipo() == TipoPaquete.GENERAR_ID){
+                        Broker.socketID = socketCliente;
+                        Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
+                        ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
+                        paqueteDatosEnvio.writeObject(paqueteReciboDatos);
+                        System.out.println("Broker ID");
+                    }else {
                         Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
                         ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
                         paqueteDatosEnvio.writeObject(paqueteReciboDatos);

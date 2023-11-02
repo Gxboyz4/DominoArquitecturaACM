@@ -43,4 +43,6 @@ public interface IMediador {
       public void recuperarPartidas();
       public void unirsePartida();
       public void jugadorListo();
+      public void asignarIDJugadorLocal(int id);
+      public void generarIDJugador();
 }

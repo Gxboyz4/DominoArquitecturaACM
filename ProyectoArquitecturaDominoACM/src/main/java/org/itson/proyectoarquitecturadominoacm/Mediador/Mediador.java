@@ -141,7 +141,7 @@ public class Mediador implements IMediador{
     public void exponerPartida(){
         
         List<JugadorDTO> listaJugadores = new ArrayList<JugadorDTO>();
-        JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar());
+        JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar(),jugador.getId());
         listaJugadores.add(jugadorDTO);
         PartidaDTO partidaDTO = new PartidaDTO(listaJugadores);
         proxyCliente.empaquetarParametros(TipoPaquete.PARTIDA,partidaDTO);
@@ -157,7 +157,7 @@ public class Mediador implements IMediador{
     }
     @Override
     public void unirsePartida(){
-        JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar());
+        JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar(),jugador.getId());
         proxyCliente.empaquetarParametros(TipoPaquete.UNIRSE_PARTIDA, jugadorDTO);
         proxyCliente.enviarDatos();
     }
@@ -171,6 +171,16 @@ public class Mediador implements IMediador{
         JugadorDTO jugador;
         jugador = new JugadorDTO( mediador.getJugador().getAvatar(),mediador.getJugador().getNombre() ,mediador.getJugador().getListo());
         mediador.getProxyCliente().empaquetarParametros(TipoPaquete.LISTO, jugador);
+        mediador.getProxyCliente().enviarDatos();
+    }
+
+    @Override
+    public void asignarIDJugadorLocal(int id){
+     jugador.setId(id);
+    }
+    @Override
+    public void generarIDJugador(){
+        mediador.getProxyCliente().empaquetarParametros(TipoPaquete.GENERAR_ID, null);
         mediador.getProxyCliente().enviarDatos();
     }
     

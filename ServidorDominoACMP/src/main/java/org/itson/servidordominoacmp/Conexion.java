@@ -28,6 +28,7 @@ public class Conexion implements IProxyServidor, Runnable{
     PaqueteDatos paqueteReciboDatos;
     int puerto = 9090;
     Socket servidorSocket;
+    LogicaServidor logicaServidor = new LogicaServidor();
     final String ip = "localhost";
     //PartidaDTO partidaDTO;
     public Conexion() {
@@ -104,9 +105,7 @@ public class Conexion implements IProxyServidor, Runnable{
         infoServer.eliminarPartida();
         }
         empaquetarParametros(TipoPaquete.PARTIDA,infoServer.getPartidaEnServidor());
-        }
-        else if(paqueteReciboDatos.getTipo()==(TipoPaquete.LISTO))
-        {
+        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.LISTO)){
             JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
             infoServer.getPartidaEnServidor().actualizarJugador(jugadorDTO);
             empaquetarParametros(TipoPaquete.LISTO,infoServer.getPartidaEnServidor());
@@ -116,19 +115,19 @@ public class Conexion implements IProxyServidor, Runnable{
                 empaquetarParametros(TipoPaquete.INICIAR_PARTIDA,infoServer.getPartidaEnServidor());
                 empaquetarParametros(TipoPaquete.PARTIDA,infoServer.getPartidaEnServidor());
             }
+        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.GENERAR_ID)){
+            int id = logicaServidor.generarIdJugador();
+            empaquetarParametros(TipoPaquete.GENERAR_ID,id);
         }
     }
     
-//     public void cambiarEstadoSocket(Boolean estado){
-//       servidorSocket.setEstaEnPartida(estado);
-//    }
     
     @Override
     public void iniciarHilo() {
     Thread conexion = new Thread(this);
     conexion.start();
     }
-//    
+ 
     @Override
     public void run() {
         recibirDatos();

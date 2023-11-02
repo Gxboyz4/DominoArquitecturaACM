@@ -23,7 +23,7 @@ public class Jugador implements Serializable{
     JugadorVista vista;
     ImageIcon avatar;
     String nombre;
-    
+    int id = 0;
     public Jugador(){
         this.setearResponsabilidades();
     }
@@ -110,6 +110,15 @@ public class Jugador implements Serializable{
     public String toString() {
         return "Jugador{" + "nombre=" + nombre + '}';
     }
+
+    public int getId() {
+      return modelo.getId();
+    }
+
+    public void setId(int id) {
+       modelo.setId(id);
+    }
+    
     
     
 

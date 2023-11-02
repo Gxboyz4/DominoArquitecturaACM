@@ -108,18 +108,14 @@ public class Conexion implements IProxyCliente, Runnable {
                 if (mediador.getFrmUnirse() != null ) {
                     mediador.getFrmUnirse().vaciarListaPartidas();
                     mediador.getFrmUnirse().cargarTabla();                    
-                    
-
                 }
             }else{
                 if(mediador.getFrmLobby()!=null){
-                    
                     modificarPartidaLocal(partida);
                     mediador.getFrmLobby().mostrarInformacion();   
                 }else{
                     if(mediador.getFrmUnirse()!=null&&partida.getPartidaIniciada())
                     {
-                        System.out.println("entro vuen");
                         mediador.getFrmUnirse().vaciarListaPartidas();
                         mediador.getFrmUnirse().cargarTabla();  
                     }
@@ -161,13 +157,18 @@ public class Conexion implements IProxyCliente, Runnable {
                     mediador.cerrarPantallaLobby();
                     mediador.getFrmUnirse().mostrarMensaje();
         }
-        else if(paqueteReciboDatos.getTipo()== (TipoPaquete.INICIAR_PARTIDA))
+        else if(paqueteReciboDatos.getTipo() == (TipoPaquete.INICIAR_PARTIDA))
         {
             if(mediador.getFrmLobby() != null)
             {
                 mediador.getFrmLobby().abrirPantallaPartida();
             }
             
+        }else if (paqueteReciboDatos.getTipo() == (TipoPaquete.GENERAR_ID)){
+            System.out.println("ID Jugador parte cliente");
+            int id = (int)paqueteReciboDatos.getObjeto();
+            System.out.println(id);
+            mediador.asignarIDJugadorLocal(id);
         }
     }
     

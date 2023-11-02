@@ -58,7 +58,7 @@ public class BrokerServidor implements Runnable {
         }
     }
 
-    public void enviarInformacionCliente(Socket socketServidor) {
+    public synchronized void enviarInformacionCliente(Socket socketServidor) {
         try {
             while (true) {
                 PaqueteDatos paqueteDatosRecibido;
@@ -72,7 +72,9 @@ public class BrokerServidor implements Runnable {
                 if(paqueteDatosRecibido.getTipo() == TipoPaquete.RECUPERAR_PARTIDA || paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA){
                     enviarInformacionTodos(paqueteDatos, paqueteDatosRecibido);
                 }
-                
+                if(paqueteDatosRecibido.getTipo() == TipoPaquete.GENERAR_ID){
+                   enviarInformacionSoloUno(paqueteDatos, paqueteDatosRecibido);
+                }
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -101,6 +103,11 @@ public class BrokerServidor implements Runnable {
             paqueteDatosEnvio.writeObject(paqueteDatosRecibido);
         }
     }
+    public void enviarInformacionSoloUno(ObjectInputStream paqueteDatos, PaqueteDatos paqueteDatosRecibido) throws IOException{
+      Socket socketEnviarCliente = Broker.socketID;
+      ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarCliente.getOutputStream());
+      paqueteDatosEnvio.writeObject(paqueteDatosRecibido);
+}
 
     @Override
     public void run() {

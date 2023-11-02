@@ -17,6 +17,7 @@ import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
  * @author julio
  */
 public class JugadorModelo implements Serializable{
+    int id;
     String nombre;
     ImageIcon avatar;
     List<Ficha> fichas = new ArrayList<>();
@@ -24,7 +25,6 @@ public class JugadorModelo implements Serializable{
     int x;
     int y;
     boolean listo;
-    
     public JugadorModelo(String nombre, ImageIcon avatar){
         this.nombre=nombre;
         this.avatar=avatar;
@@ -127,6 +127,14 @@ public class JugadorModelo implements Serializable{
 
     public void setListo(boolean listo) {
         this.listo = listo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
 }

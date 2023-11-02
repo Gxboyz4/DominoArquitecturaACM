@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
  * @author Gabriel Mancinas
  */
 public class JugadorDTO implements Serializable{
-    
+    int id;
     ImageIcon avatar;
     String nombre;
     int cantidadFichas;
@@ -23,7 +23,10 @@ public class JugadorDTO implements Serializable{
         this.avatar = avatar;
         this.nombre = nombre;
     }
-
+       public JugadorDTO(String nombre,ImageIcon avatar,int id) {
+        this.avatar = avatar;
+        this.nombre = nombre;
+    }
     public JugadorDTO(ImageIcon avatar, String nombre, boolean listo) {
         this.avatar = avatar;
         this.nombre = nombre;
@@ -68,11 +71,19 @@ public class JugadorDTO implements Serializable{
     public void setListo(boolean listo) {
         this.listo = listo;
     }
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 71 * hash + Objects.hashCode(this.nombre);
+        int hash = 7;
+        hash = 97 * hash + this.id;
         return hash;
     }
 
@@ -88,13 +99,17 @@ public class JugadorDTO implements Serializable{
             return false;
         }
         final JugadorDTO other = (JugadorDTO) obj;
-        return Objects.equals(this.nombre, other.nombre);
+        return this.id == other.id;
     }
 
     @Override
     public String toString() {
-        return "JugadorDTO{" + "nombre=" + nombre + '}';
+        return "JugadorDTO{" + "id=" + id + ", nombre=" + nombre + '}';
     }
+    
+    
+    
+    
     
    
     

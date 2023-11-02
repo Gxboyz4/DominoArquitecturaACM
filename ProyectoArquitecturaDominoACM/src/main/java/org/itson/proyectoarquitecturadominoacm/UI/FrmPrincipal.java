@@ -154,8 +154,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     registrarJugador();
     this.setVisible(false);
     mediador.getProxyCliente().iniciarSocket();
-    mediador.iniciarHiloConexion();
     mediador.abrirPantallaMenu();
+    mediador.iniciarHiloConexion();
+    mediador.generarIDJugador();
+   
     }//GEN-LAST:event_btnJugarActionPerformed
 
     private void btnCambiarAvatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarAvatarActionPerformed

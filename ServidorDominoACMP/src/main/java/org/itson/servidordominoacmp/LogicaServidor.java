@@ -13,8 +13,8 @@ import org.itson.libreriatiposdominoacmp.PartidaDTO;
  * @author Zaurus
  */
 public class LogicaServidor {
-    public static boolean comprobarVotacion(PartidaDTO partida)
-    {
+    int ultimoID=0;
+    public static boolean comprobarVotacion(PartidaDTO partida){
         int listos = 0;
         for (JugadorDTO jugador : partida.getJugadores()) {
             if(jugador.getListo())
@@ -28,5 +28,9 @@ public class LogicaServidor {
         }
         
         return false;
+    }
+    public int generarIdJugador(){
+    this.ultimoID=this.ultimoID+1; 
+    return ultimoID;
     }
 }
