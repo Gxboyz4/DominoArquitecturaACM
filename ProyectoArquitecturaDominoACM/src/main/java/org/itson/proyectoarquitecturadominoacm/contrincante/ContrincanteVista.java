@@ -44,11 +44,11 @@ public class ContrincanteVista {
         ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
         Icon icon = null;
 
-        if (this.modelo.getPosicionPanel() == PosicionPanel.SUPERIOR_INFERIOR) {
+        if (this.modelo.getPosicionPanel() == PosicionPanel.ARRIBA) {
             icon = new ImageIcon(imagen.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT));
         }
 
-        if (this.modelo.getPosicionPanel() == PosicionPanel.LATERAL) {
+        if (this.modelo.getPosicionPanel() == PosicionPanel.IZQUIERDA) {
             imagen = this.rotarImagen(imagen, 90);
             icon = new ImageIcon(imagen.getImage().getScaledInstance(alto, ancho, Image.SCALE_DEFAULT));
         }
@@ -85,7 +85,7 @@ public class ContrincanteVista {
         int x = 0;
         int y = 0;
 
-        if (modelo.getPosicionPanel() == PosicionPanel.LATERAL) {
+        if (modelo.getPosicionPanel() == PosicionPanel.IZQUIERDA) {
             x = 0;
             y = 56;
         }
@@ -96,7 +96,7 @@ public class ContrincanteVista {
         JLabel fichaPintar = null;
         for (int i = 0; i < modelo.getFichasRestantes(); i++) {
 
-            if (modelo.getPosicionPanel() == PosicionPanel.LATERAL) {
+            if (modelo.getPosicionPanel() == PosicionPanel.IZQUIERDA) {
 
                 if (x + 20 > panelFichas.getHeight()) {
                     x += 26;
@@ -108,7 +108,7 @@ public class ContrincanteVista {
                 x += 26;
             }
 
-            if (modelo.getPosicionPanel() == PosicionPanel.SUPERIOR_INFERIOR) {
+            if (modelo.getPosicionPanel() == PosicionPanel.ARRIBA) {
 
                 if (x + 20 > panelFichas.getWidth()) {
                     y += 42;

@@ -4,24 +4,19 @@
 package org.itson.proyectoarquitecturadominoacm.UI;
 
 import java.awt.BorderLayout;
-import java.awt.ComponentOrientation;
 import java.awt.Image;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
-import org.itson.proyectoarquitecturadominoacm.Fichas.FichaModelo;
-import org.itson.proyectoarquitecturadominoacm.Fichas.FichaVista;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
-import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
 import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 import org.itson.proyectoarquitecturadominoacm.Tablero.Tablero;
+import org.itson.proyectoarquitecturadominoacm.contrincante.Contrincante;
+import org.itson.proyectoarquitecturadominoacm.contrincante.PosicionPanel;
 
 /**
  *
@@ -37,7 +32,7 @@ public class FrmPartida extends javax.swing.JFrame {
     public FrmPartida() {
         this.nombreJugador = mediador.getJugador().getNombre();
         initComponents();
-        this.ocultarPanelesJugadores();
+        this.ocultarPanelesContrincantes();
         //this.setSize(850, 575); //800 x 550
         this.setLayout(new BorderLayout());
         this.pack();
@@ -45,7 +40,7 @@ public class FrmPartida extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         this.crearPartida();
         this.cargarPartida();
-        mediador.getJugador().setPanelFichas(jpnFichasP1);
+        mediador.getJugador().setPanelFichas(jpnFichasContrincante2);
         mediador.getPartida().setJugadorCreador(mediador.getPartida().getJugadores().get(0));
         mediador.getPartida().repartirFichas();
         setFocusable(true);
@@ -53,10 +48,56 @@ public class FrmPartida extends javax.swing.JFrame {
         scrollPanel.getHorizontalScrollBar().setValue((scrollPanel.getHorizontalScrollBar().getMaximum() - scrollPanel.getHorizontalScrollBar().getVisibleAmount()) / 2);
     }
 
+    private void establecerDatosJugadorLocal() {
+        Jugador jugadorLocal = mediador.getJugador();
+        mediador.getJugador().setPanelFichas(this.jpnFichasJugadorLocal);
+        this.asignarInformacionJugadorLocal(jugadorLocal);
+    }
+
+    private void establecerContrincantes() {
+        List<Contrincante> contrincantes = new LinkedList<>();
+        Jugador jugadorLocal = mediador.getJugador();
+        int numeroContrincante = 1;
+        for (Jugador jugador : mediador.getPartida().getJugadores()) {
+            if (jugador != jugadorLocal) {
+                Contrincante contrincanteNuevo = new Contrincante(
+                        jugador.getId(),
+                        jugador.getNombre(),
+                        jugador.getFichas().size(),
+                        this.getPosicionPorPanelContrincante(numeroContrincante),
+                        this.getPanelContrincante(numeroContrincante));
+                contrincantes.add(contrincanteNuevo);
+                this.asignarInformacionContrincante(numeroContrincante, jugadorLocal);
+                this.mostrarPanelContrincante(numeroContrincante);
+                numeroContrincante++;
+            }
+        }
+        mediador.getPartida().setContrincantes(contrincantes);
+    }
+
+    private PosicionPanel getPosicionPorPanelContrincante(int numPanel){
+        return switch (numPanel) {
+            case 1 -> PosicionPanel.IZQUIERDA;
+            case 2 -> PosicionPanel.ARRIBA;
+            case 3 -> PosicionPanel.IZQUIERDA;
+            //Alemnos hasta saber si cambio de lugar las fichas del panel derecho
+            default -> PosicionPanel.IZQUIERDA;
+        };
+    }
+    
+    private JPanel getPanelContrincante(int numPanel) {
+        return switch (numPanel) {
+            case 1 -> this.jpnFichasContrincante1;
+            case 2 -> this.jpnFichasContrincante2;
+            case 3 -> this.jpnFichasContrincante3;
+            default -> null;
+        };
+    }
+
     private void cargarPartida() {
-        int cantidadJugadores = mediador.getPartida().getJugadores().size();
-        this.asignarInformacionJugadores(cantidadJugadores);
-        this.mostrarPanelesPorCantidadJugadores(cantidadJugadores);
+        this.ocultarPanelesContrincantes();
+        this.establecerDatosJugadorLocal();
+        this.establecerContrincantes();
     }
 
     public void crearPartida() {
@@ -73,102 +114,54 @@ public class FrmPartida extends javax.swing.JFrame {
 
     }
 
-    private void ocultarPanelesJugadores() {
-        this.jpnFichasP1.setVisible(false);
-        this.jpnFichasP2.setVisible(false);
-        this.jpnFichasP3.setVisible(false);
-        this.jpnFichasP4.setVisible(false);
+    private void ocultarPanelesContrincantes() {
+        this.jpnFichasContrincante1.setVisible(false);
+        this.jpnFichasContrincante2.setVisible(false);
+        this.jpnFichasContrincante3.setVisible(false);
     }
-
-    private void mostrarPanelesPorCantidadJugadores(int cantidadJugadores) {
-        switch (cantidadJugadores) {
-            case 1:
-                this.jpnFichasP1.setVisible(true);
-                break;
-            case 2:
-                this.jpnFichasP1.setVisible(true);
-                this.jpnFichasP2.setVisible(true);
-                break;
-            case 3:
-                this.jpnFichasP1.setVisible(true);
-                this.jpnFichasP2.setVisible(true);
-                this.jpnFichasP3.setVisible(true);
-                break;
-            case 4:
-                this.jpnFichasP1.setVisible(true);
-                this.jpnFichasP2.setVisible(true);
-                this.jpnFichasP3.setVisible(true);
-                this.jpnFichasP4.setVisible(true);
-                break;
+    
+    private void mostrarPanelContrincante(int cantidadJugadores){
+        this.getPanelContrincante(cantidadJugadores).setVisible(true);
+    }
+    
+    private void asignarInformacionContrincante(int numContrincante, Jugador jugadorContrincante){
+        switch(numContrincante){
+            case 1 -> this.asignarInformacionContrincante1(jugadorContrincante);
+            case 2 -> this.asignarInformacionContrincante2(jugadorContrincante);
+            case 3 -> this.asignarInformacionContrincante3(jugadorContrincante);
         }
     }
 
-    private void asignarInformacionJugadores(int cantidadJugadores) {
-        switch (cantidadJugadores) {
-            case 1 -> {
-                mediador.getPartida().getJugadores().get(0).setPanelFichas(jpnFichasP1);
-                asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
-            }
-            case 2 -> {
-                mediador.getPartida().getJugadores().get(0).setPanelFichas(jpnFichasP1);
-                asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
-                mediador.getPartida().getJugadores().get(1).setPanelFichas(jpnFichasP2);
-                asignarInformacionJugador2(mediador.getPartida().getJugadores().get(1));
-            }
-            case 3 -> {
-                mediador.getPartida().getJugadores().get(0).setPanelFichas(jpnFichasP1);
-                asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
-                mediador.getPartida().getJugadores().get(1).setPanelFichas(jpnFichasP2);
-                asignarInformacionJugador2(mediador.getPartida().getJugadores().get(1));
-                mediador.getPartida().getJugadores().get(2).setPanelFichas(jpnFichasP3);
-                asignarInformacionJugador3(mediador.getPartida().getJugadores().get(2));
-            }
-            default -> {
-                mediador.getPartida().getJugadores().get(0).setPanelFichas(jpnFichasP1);
-                asignarInformacionJugador1(mediador.getPartida().getJugadores().get(0));
-                mediador.getPartida().getJugadores().get(1).setPanelFichas(jpnFichasP2);
-                asignarInformacionJugador2(mediador.getPartida().getJugadores().get(1));
-                mediador.getPartida().getJugadores().get(2).setPanelFichas(jpnFichasP3);
-                asignarInformacionJugador3(mediador.getPartida().getJugadores().get(2));
-                mediador.getPartida().getJugadores().get(3).setPanelFichas(jpnFichasP4);
-                asignarInformacionJugador4(mediador.getPartida().getJugadores().get(3));
-            }
-        }
+    private void asignarInformacionJugadorLocal(Jugador jugadorContrincante) {
+        Icon icon;
+        icon = new ImageIcon(jugadorContrincante.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
+        lblAvatarJugadorLocal.setIcon(icon);
+        lblNombreJugadorLocal.setText(jugadorContrincante.getNombre());
+        lblNombreJugadorLocal.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
-    private void asignarInformacionJugador1(Jugador jugador1) {
+    private void asignarInformacionContrincante1(Jugador jugador2) {
         Icon icon;
-        icon = new ImageIcon(jugador1.getAvatar().getImage().getScaledInstance(lblAvatarP2.getWidth(), lblAvatarP2.getHeight(), Image.SCALE_DEFAULT));
-        lblAvatarP1.setIcon(icon);
-        lblNombreP1.setText(jugador1.getNombre());
-        lblNombreP1.setHorizontalAlignment(SwingConstants.CENTER);
+        icon = new ImageIcon(jugador2.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
+        lblAvatarContrincante1.setIcon(icon);
+        lblNombreContrincante1.setText(jugador2.getNombre());
+        lblNombreContrincante1.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
-    private void asignarInformacionJugador2(Jugador jugador2) {
-        jugador2.setPanelFichas(jpnFichasP2);
+    private void asignarInformacionContrincante2(Jugador jugador3) {
         Icon icon;
-        icon = new ImageIcon(jugador2.getAvatar().getImage().getScaledInstance(lblAvatarP2.getWidth(), lblAvatarP2.getHeight(), Image.SCALE_DEFAULT));
-        lblAvatarP2.setIcon(icon);
-        lblNombreP2.setText(jugador2.getNombre());
-        lblNombreP2.setHorizontalAlignment(SwingConstants.CENTER);
+        icon = new ImageIcon(jugador3.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
+        lblAvatarContrincante1.setIcon(icon);
+        lblNombreContrincante1.setText(jugador3.getNombre());
+        lblNombreContrincante1.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
-    private void asignarInformacionJugador3(Jugador jugador3) {
-        jugador3.setPanelFichas(jpnFichasP3);
+    private void asignarInformacionContrincante3(Jugador jugador4) {
         Icon icon;
-        icon = new ImageIcon(jugador3.getAvatar().getImage().getScaledInstance(lblAvatarP2.getWidth(), lblAvatarP2.getHeight(), Image.SCALE_DEFAULT));
-        lblAvatarP2.setIcon(icon);
-        lblNombreP2.setText(jugador3.getNombre());
-        lblNombreP2.setHorizontalAlignment(SwingConstants.CENTER);
-    }
-
-    private void asignarInformacionJugador4(Jugador jugador4) {
-        jugador4.setPanelFichas(jpnFichasP4);
-        Icon icon;
-        icon = new ImageIcon(jugador4.getAvatar().getImage().getScaledInstance(lblAvatarP2.getWidth(), lblAvatarP2.getHeight(), Image.SCALE_DEFAULT));
-        lblAvatarP2.setIcon(icon);
-        lblNombreP2.setText(jugador4.getNombre());
-        lblNombreP2.setHorizontalAlignment(SwingConstants.CENTER);
+        icon = new ImageIcon(jugador4.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
+        lblAvatarContrincante1.setIcon(icon);
+        lblNombreContrincante1.setText(jugador4.getNombre());
+        lblNombreContrincante1.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     /**
@@ -183,18 +176,18 @@ public class FrmPartida extends javax.swing.JFrame {
         jpnFondo = new javax.swing.JPanel();
         scrollPanel = new javax.swing.JScrollPane();
         jpnTablero = new javax.swing.JPanel();
-        jpnFichasP1 = new javax.swing.JPanel();
-        jpnFichasP2 = new javax.swing.JPanel();
-        jpnFichasP3 = new javax.swing.JPanel();
-        jpnFichasP4 = new javax.swing.JPanel();
-        lblNombreP4 = new javax.swing.JLabel();
-        lblNombreP3 = new javax.swing.JLabel();
-        lblNombreP2 = new javax.swing.JLabel();
-        lblNombreP1 = new javax.swing.JLabel();
-        lblAvatarP1 = new javax.swing.JLabel();
-        lblAvatarP2 = new javax.swing.JLabel();
-        lblAvatarP3 = new javax.swing.JLabel();
-        lblAvatarP4 = new javax.swing.JLabel();
+        jpnFichasJugadorLocal = new javax.swing.JPanel();
+        jpnFichasContrincante1 = new javax.swing.JPanel();
+        jpnFichasContrincante2 = new javax.swing.JPanel();
+        jpnFichasContrincante3 = new javax.swing.JPanel();
+        lblNombreContrincante2 = new javax.swing.JLabel();
+        lblNombreContrincante3 = new javax.swing.JLabel();
+        lblNombreContrincante1 = new javax.swing.JLabel();
+        lblNombreJugadorLocal = new javax.swing.JLabel();
+        lblAvatarJugadorLocal = new javax.swing.JLabel();
+        lblAvatarContrincante1 = new javax.swing.JLabel();
+        lblAvatarContrincante2 = new javax.swing.JLabel();
+        lblAvatarContrincante3 = new javax.swing.JLabel();
         btnAcabarPartida = new javax.swing.JButton();
         btnPozo = new javax.swing.JButton();
         lblTableroFondo = new javax.swing.JLabel();
@@ -202,7 +195,6 @@ public class FrmPartida extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("¡Partida en curso! " + this.nombreJugador );
         setMinimumSize(new java.awt.Dimension(900, 600));
-        setPreferredSize(new java.awt.Dimension(900, 600));
         setResizable(false);
         setSize(new java.awt.Dimension(900, 600));
 
@@ -234,59 +226,59 @@ public class FrmPartida extends javax.swing.JFrame {
 
         jpnFondo.add(scrollPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 368, 260));
 
-        jpnFichasP1.setBackground(new java.awt.Color(8, 78, 171));
-        jpnFichasP1.setLayout(null);
-        jpnFondo.add(jpnFichasP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 368, 88));
+        jpnFichasJugadorLocal.setBackground(new java.awt.Color(8, 78, 171));
+        jpnFichasJugadorLocal.setLayout(null);
+        jpnFondo.add(jpnFichasJugadorLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 368, 88));
 
-        jpnFichasP2.setBackground(new java.awt.Color(8, 78, 171));
+        jpnFichasContrincante1.setBackground(new java.awt.Color(8, 78, 171));
 
-        javax.swing.GroupLayout jpnFichasP2Layout = new javax.swing.GroupLayout(jpnFichasP2);
-        jpnFichasP2.setLayout(jpnFichasP2Layout);
-        jpnFichasP2Layout.setHorizontalGroup(
-            jpnFichasP2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jpnFichasContrincante1Layout = new javax.swing.GroupLayout(jpnFichasContrincante1);
+        jpnFichasContrincante1.setLayout(jpnFichasContrincante1Layout);
+        jpnFichasContrincante1Layout.setHorizontalGroup(
+            jpnFichasContrincante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
-        jpnFichasP2Layout.setVerticalGroup(
-            jpnFichasP2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jpnFichasContrincante1Layout.setVerticalGroup(
+            jpnFichasContrincante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 260, Short.MAX_VALUE)
         );
 
-        jpnFondo.add(jpnFichasP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, 260));
+        jpnFondo.add(jpnFichasContrincante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, 260));
 
-        jpnFichasP3.setBackground(new java.awt.Color(8, 78, 171));
-        jpnFichasP3.setLayout(null);
-        jpnFondo.add(jpnFichasP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 368, 88));
+        jpnFichasContrincante2.setBackground(new java.awt.Color(8, 78, 171));
+        jpnFichasContrincante2.setLayout(null);
+        jpnFondo.add(jpnFichasContrincante2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 368, 88));
 
-        jpnFichasP4.setBackground(new java.awt.Color(8, 78, 171));
+        jpnFichasContrincante3.setBackground(new java.awt.Color(8, 78, 171));
 
-        javax.swing.GroupLayout jpnFichasP4Layout = new javax.swing.GroupLayout(jpnFichasP4);
-        jpnFichasP4.setLayout(jpnFichasP4Layout);
-        jpnFichasP4Layout.setHorizontalGroup(
-            jpnFichasP4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jpnFichasContrincante3Layout = new javax.swing.GroupLayout(jpnFichasContrincante3);
+        jpnFichasContrincante3.setLayout(jpnFichasContrincante3Layout);
+        jpnFichasContrincante3Layout.setHorizontalGroup(
+            jpnFichasContrincante3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
-        jpnFichasP4Layout.setVerticalGroup(
-            jpnFichasP4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jpnFichasContrincante3Layout.setVerticalGroup(
+            jpnFichasContrincante3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 260, Short.MAX_VALUE)
         );
 
-        jpnFondo.add(jpnFichasP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, -1, 260));
+        jpnFondo.add(jpnFichasContrincante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, -1, 260));
 
-        lblNombreP4.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        jpnFondo.add(lblNombreP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 480, 130, 20));
+        lblNombreContrincante2.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jpnFondo.add(lblNombreContrincante2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 480, 130, 20));
 
-        lblNombreP3.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        jpnFondo.add(lblNombreP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 130, 20));
+        lblNombreContrincante3.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jpnFondo.add(lblNombreContrincante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 130, 20));
 
-        lblNombreP2.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        jpnFondo.add(lblNombreP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 130, 20));
+        lblNombreContrincante1.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jpnFondo.add(lblNombreContrincante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 130, 20));
 
-        lblNombreP1.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        jpnFondo.add(lblNombreP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, 130, 20));
-        jpnFondo.add(lblAvatarP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, 100, 90));
-        jpnFondo.add(lblAvatarP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 100, 90));
-        jpnFondo.add(lblAvatarP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 100, 90));
-        jpnFondo.add(lblAvatarP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 100, 90));
+        lblNombreJugadorLocal.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jpnFondo.add(lblNombreJugadorLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, 130, 20));
+        jpnFondo.add(lblAvatarJugadorLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, 100, 90));
+        jpnFondo.add(lblAvatarContrincante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 100, 90));
+        jpnFondo.add(lblAvatarContrincante2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 100, 90));
+        jpnFondo.add(lblAvatarContrincante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 100, 90));
 
         btnAcabarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoAcabarPartida.png"))); // NOI18N
         btnAcabarPartida.setBorderPainted(false);
@@ -335,20 +327,20 @@ public class FrmPartida extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcabarPartida;
     private javax.swing.JButton btnPozo;
-    private javax.swing.JPanel jpnFichasP1;
-    private javax.swing.JPanel jpnFichasP2;
-    private javax.swing.JPanel jpnFichasP3;
-    private javax.swing.JPanel jpnFichasP4;
+    private javax.swing.JPanel jpnFichasContrincante1;
+    private javax.swing.JPanel jpnFichasContrincante2;
+    private javax.swing.JPanel jpnFichasContrincante3;
+    private javax.swing.JPanel jpnFichasJugadorLocal;
     private javax.swing.JPanel jpnFondo;
     private javax.swing.JPanel jpnTablero;
-    private javax.swing.JLabel lblAvatarP1;
-    private javax.swing.JLabel lblAvatarP2;
-    private javax.swing.JLabel lblAvatarP3;
-    private javax.swing.JLabel lblAvatarP4;
-    private javax.swing.JLabel lblNombreP1;
-    private javax.swing.JLabel lblNombreP2;
-    private javax.swing.JLabel lblNombreP3;
-    private javax.swing.JLabel lblNombreP4;
+    private javax.swing.JLabel lblAvatarContrincante1;
+    private javax.swing.JLabel lblAvatarContrincante2;
+    private javax.swing.JLabel lblAvatarContrincante3;
+    private javax.swing.JLabel lblAvatarJugadorLocal;
+    private javax.swing.JLabel lblNombreContrincante1;
+    private javax.swing.JLabel lblNombreContrincante2;
+    private javax.swing.JLabel lblNombreContrincante3;
+    private javax.swing.JLabel lblNombreJugadorLocal;
     private javax.swing.JLabel lblTableroFondo;
     private javax.swing.JScrollPane scrollPanel;
     // End of variables declaration//GEN-END:variables

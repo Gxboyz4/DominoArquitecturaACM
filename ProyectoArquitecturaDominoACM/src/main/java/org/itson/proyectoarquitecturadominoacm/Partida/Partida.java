@@ -6,24 +6,15 @@ package org.itson.proyectoarquitecturadominoacm.Partida;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import javax.swing.JOptionPane;
-import org.itson.libreriatiposdominoacmp.JugadorDTO;
-import org.itson.libreriatiposdominoacmp.PartidaDTO;
-import org.itson.libreriatiposdominoacmp.TipoPaquete;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Observadores.FichaObserver;
 import org.itson.proyectoarquitecturadominoacm.Observadores.PozoObserver;
 import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
-import org.itson.proyectoarquitecturadominoacm.Proxy.IProxyCliente;
-import org.itson.proyectoarquitecturadominoacm.Proxy.ProxyCliente;
-import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 import org.itson.proyectoarquitecturadominoacm.Tablero.Tablero;
-import org.itson.proyectoarquitecturadominoacm.excepciones.PartidaTerminadaException;
+import org.itson.proyectoarquitecturadominoacm.contrincante.Contrincante;
 
 /**
  *
@@ -34,6 +25,7 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
     Pozo pozo;
     Ficha ficha;
     List<Jugador> jugadores = new ArrayList();
+    List<Contrincante> contrincantes = new ArrayList();
     Jugador jugadorCreador;
     Tablero tablero;
     int numFichas;
@@ -183,6 +175,14 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
 
     public void setNumJugadores(int numJugadores) {
         this.numJugadores = numJugadores;
+    }
+
+    public List<Contrincante> getContrincantes() {
+        return contrincantes;
+    }
+
+    public void setContrincantes(List<Contrincante> contrincantes) {
+        this.contrincantes = contrincantes;
     }
 
     public void repartirFichas(){

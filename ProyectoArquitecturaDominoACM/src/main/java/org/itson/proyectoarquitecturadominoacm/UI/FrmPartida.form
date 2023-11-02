@@ -9,9 +9,6 @@
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[900, 600]"/>
     </Property>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[900, 600]"/>
-    </Property>
     <Property name="resizable" type="boolean" value="false"/>
     <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[900, 600]"/>
@@ -105,7 +102,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jpnFichasP1">
+        <Container class="javax.swing.JPanel" name="jpnFichasJugadorLocal">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ab" green="4e" red="8" type="rgb"/>
@@ -121,7 +118,7 @@
             <Property name="useNullLayout" type="boolean" value="true"/>
           </Layout>
         </Container>
-        <Container class="javax.swing.JPanel" name="jpnFichasP2">
+        <Container class="javax.swing.JPanel" name="jpnFichasContrincante1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ab" green="4e" red="8" type="rgb"/>
@@ -146,7 +143,7 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Container class="javax.swing.JPanel" name="jpnFichasP3">
+        <Container class="javax.swing.JPanel" name="jpnFichasContrincante2">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ab" green="4e" red="8" type="rgb"/>
@@ -162,7 +159,7 @@
             <Property name="useNullLayout" type="boolean" value="true"/>
           </Layout>
         </Container>
-        <Container class="javax.swing.JPanel" name="jpnFichasP4">
+        <Container class="javax.swing.JPanel" name="jpnFichasContrincante3">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ab" green="4e" red="8" type="rgb"/>
@@ -187,7 +184,7 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JLabel" name="lblNombreP4">
+        <Component class="javax.swing.JLabel" name="lblNombreContrincante2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Gadugi" size="14" style="1"/>
@@ -199,7 +196,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblNombreP3">
+        <Component class="javax.swing.JLabel" name="lblNombreContrincante3">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Gadugi" size="14" style="1"/>
@@ -211,7 +208,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblNombreP2">
+        <Component class="javax.swing.JLabel" name="lblNombreContrincante1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Gadugi" size="14" style="1"/>
@@ -223,7 +220,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblNombreP1">
+        <Component class="javax.swing.JLabel" name="lblNombreJugadorLocal">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Gadugi" size="14" style="1"/>
@@ -235,28 +232,28 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblAvatarP1">
+        <Component class="javax.swing.JLabel" name="lblAvatarJugadorLocal">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="110" y="400" width="100" height="90"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblAvatarP2">
+        <Component class="javax.swing.JLabel" name="lblAvatarContrincante1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="110" y="30" width="100" height="90"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblAvatarP3">
+        <Component class="javax.swing.JLabel" name="lblAvatarContrincante2">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="600" y="30" width="100" height="90"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblAvatarP4">
+        <Component class="javax.swing.JLabel" name="lblAvatarContrincante3">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="600" y="400" width="100" height="90"/>

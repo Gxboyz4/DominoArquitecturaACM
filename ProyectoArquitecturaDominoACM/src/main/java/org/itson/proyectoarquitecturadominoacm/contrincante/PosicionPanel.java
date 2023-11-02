@@ -9,6 +9,7 @@ package org.itson.proyectoarquitecturadominoacm.contrincante;
  * @author Daniel Armando Peña Garcia ID:229185
  */
 public enum PosicionPanel {
-    LATERAL,
-    SUPERIOR_INFERIOR
+    DERECHA,
+    IZQUIERDA,
+    ARRIBA
 }
