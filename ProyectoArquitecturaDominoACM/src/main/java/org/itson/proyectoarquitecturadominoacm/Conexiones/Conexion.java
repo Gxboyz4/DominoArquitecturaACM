@@ -162,6 +162,8 @@ public class Conexion implements IProxyCliente, Runnable {
             if(mediador.getFrmLobby() != null)
             {
                 mediador.getFrmLobby().abrirPantallaPartida();
+                PartidaDTO partidaDTO = (PartidaDTO) paqueteReciboDatos.getObjeto();
+                System.out.println(partidaDTO.getJugadores().get(0).getFichas());
             }
             
         }else if (paqueteReciboDatos.getTipo() == (TipoPaquete.GENERAR_ID)){

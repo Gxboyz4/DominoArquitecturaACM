@@ -112,6 +112,9 @@ public class Conexion implements IProxyServidor, Runnable{
             if(LogicaServidor.comprobarVotacion(infoServer.getPartidaEnServidor()))
             {
                 infoServer.getPartidaEnServidor().setPartidaIniciada(true);
+                infoServer.getPartidaEnServidor().setNumFichas(3);
+                
+                logicaServidor.repartirFichasJugadores(infoServer);
                 empaquetarParametros(TipoPaquete.INICIAR_PARTIDA,infoServer.getPartidaEnServidor());
                 empaquetarParametros(TipoPaquete.PARTIDA,infoServer.getPartidaEnServidor());
             }

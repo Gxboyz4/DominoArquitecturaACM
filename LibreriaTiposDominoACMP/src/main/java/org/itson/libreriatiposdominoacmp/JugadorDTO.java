@@ -5,6 +5,8 @@
 package org.itson.libreriatiposdominoacmp;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.swing.ImageIcon;
 
@@ -18,6 +20,7 @@ public class JugadorDTO implements Serializable{
     String nombre;
     int cantidadFichas;
    boolean listo;
+   List<FichaDTO> fichas = new ArrayList<>();
 
     public JugadorDTO(String nombre,ImageIcon avatar) {
         this.avatar = avatar;
@@ -42,6 +45,14 @@ public class JugadorDTO implements Serializable{
         this.listo = listo;
     }
 
+    public List<FichaDTO> getFichas() {
+        return fichas;
+    }
+
+    public void setFichas(List<FichaDTO> fichas) {
+        this.fichas = fichas;
+    }
+    
     public ImageIcon getAvatar() {
         return avatar;
     }
@@ -80,6 +91,10 @@ public class JugadorDTO implements Serializable{
 
     public void setId(int id) {
         this.id = id;
+    }
+    public void anadirFichas(List<FichaDTO> fichasAnadir)
+    {
+        this.fichas.addAll(fichasAnadir);
     }
 
     @Override

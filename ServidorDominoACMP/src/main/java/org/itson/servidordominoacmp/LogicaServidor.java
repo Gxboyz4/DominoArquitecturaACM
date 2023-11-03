@@ -29,6 +29,13 @@ public class LogicaServidor {
         
         return false;
     }
+    public void repartirFichasJugadores(InformacionServidor infoServer)
+    {
+        for (int i = 0;infoServer.getPartidaEnServidor().getJugadores().size()>i;i++) {
+            infoServer.getPartidaEnServidor().getJugadores().get(i).anadirFichas(infoServer.repartirFichas(infoServer.getPartidaEnServidor().getNumFichas()));
+            
+        }
+    }
     public int generarIdJugador(){
     this.ultimoID=this.ultimoID+1; 
     return ultimoID;
