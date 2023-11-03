@@ -169,7 +169,7 @@ public class Mediador implements IMediador{
     public void jugadorListo()
     {
         JugadorDTO jugador;
-        jugador = new JugadorDTO( mediador.getJugador().getAvatar(),mediador.getJugador().getNombre() ,mediador.getJugador().getListo());
+        jugador = new JugadorDTO( mediador.getJugador().getAvatar(),mediador.getJugador().getNombre() ,mediador.getJugador().getListo(),mediador.getJugador().getId());
         mediador.getProxyCliente().empaquetarParametros(TipoPaquete.LISTO, jugador);
         mediador.getProxyCliente().enviarDatos();
     }

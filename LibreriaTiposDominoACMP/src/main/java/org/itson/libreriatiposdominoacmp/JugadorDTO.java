@@ -26,11 +26,13 @@ public class JugadorDTO implements Serializable{
        public JugadorDTO(String nombre,ImageIcon avatar,int id) {
         this.avatar = avatar;
         this.nombre = nombre;
+        this.id = id;
     }
-    public JugadorDTO(ImageIcon avatar, String nombre, boolean listo) {
+    public JugadorDTO(ImageIcon avatar, String nombre, boolean listo,int id) {
         this.avatar = avatar;
         this.nombre = nombre;
         this.listo = listo;
+        this.id = id;
     }
     
     public JugadorDTO(ImageIcon avatar, String nombre, int cantidadFichas, boolean listo) {
