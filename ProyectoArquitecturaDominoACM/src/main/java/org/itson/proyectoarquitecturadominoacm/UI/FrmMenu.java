@@ -18,6 +18,7 @@ public class FrmMenu extends javax.swing.JFrame {
      * Creates new form FrmPrincipal
      */
     public FrmMenu() {
+        this.nombreJugador = mediador.getJugador().getNombre();
         initComponents();
         this.setVisible(true);
         this.setSize(750, 540); //736 x 500

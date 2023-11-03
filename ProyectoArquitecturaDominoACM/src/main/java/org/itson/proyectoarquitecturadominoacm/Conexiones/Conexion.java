@@ -178,7 +178,7 @@ public class Conexion implements IProxyCliente, Runnable {
         if(partida!=null){
         List<Jugador> jugadores = new ArrayList();
         for (JugadorDTO jugadorDTO : partida.getJugadores()) {
-            Jugador jugador = new Jugador(jugadorDTO.getNombre(), jugadorDTO.getAvatar(),jugadorDTO.getListo());
+            Jugador jugador = new Jugador(jugadorDTO.getNombre(), jugadorDTO.getAvatar(),jugadorDTO.getListo(), jugadorDTO.getId());
             jugadores.add(jugador);
         }
         mediador.getPartida().setJugadores(jugadores);

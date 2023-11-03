@@ -102,7 +102,6 @@ public class FrmUnirse extends javax.swing.JFrame{
         scrollPanelPartidas = new javax.swing.JScrollPane();
         tblPartidas = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
         btnUnirse = new javax.swing.JButton();
         lblUnirseA = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
@@ -153,14 +152,6 @@ public class FrmUnirse extends javax.swing.JFrame{
         });
         jpnFondo.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, 100, 80));
 
-        jToggleButton1.setText("Actualizar");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
-            }
-        });
-        jpnFondo.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
-
         btnUnirse.setText("Unirse");
         btnUnirse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,10 +187,6 @@ public class FrmUnirse extends javax.swing.JFrame{
     mediador.abrirPantallaMenu();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        this.cargarTabla();
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
     private void btnUnirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirseActionPerformed
     this.dispose();
     mediador.cerrarPantallaUnirse();
@@ -212,7 +199,6 @@ public class FrmUnirse extends javax.swing.JFrame{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnUnirse;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JPanel jpnFondo;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblUnirseA;

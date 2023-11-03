@@ -59,7 +59,7 @@ public class FrmPartida extends javax.swing.JFrame {
         Jugador jugadorLocal = mediador.getJugador();
         int numeroContrincante = 1;
         for (Jugador jugador : mediador.getPartida().getJugadores()) {
-            if (jugador != jugadorLocal) {
+            if (jugador.getId() != jugadorLocal.getId()) {
                 Contrincante contrincanteNuevo = new Contrincante(
                         jugador.getId(),
                         jugador.getNombre(),
@@ -67,7 +67,7 @@ public class FrmPartida extends javax.swing.JFrame {
                         this.getPosicionPorPanelContrincante(numeroContrincante),
                         this.getPanelContrincante(numeroContrincante));
                 contrincantes.add(contrincanteNuevo);
-                this.asignarInformacionContrincante(numeroContrincante, jugadorLocal);
+                this.asignarInformacionContrincante(numeroContrincante, jugador);
                 this.mostrarPanelContrincante(numeroContrincante);
                 numeroContrincante++;
             }
@@ -75,22 +75,30 @@ public class FrmPartida extends javax.swing.JFrame {
         mediador.getPartida().setContrincantes(contrincantes);
     }
 
-    private PosicionPanel getPosicionPorPanelContrincante(int numPanel){
+    private PosicionPanel getPosicionPorPanelContrincante(int numPanel) {
         return switch (numPanel) {
-            case 1 -> PosicionPanel.IZQUIERDA;
-            case 2 -> PosicionPanel.ARRIBA;
-            case 3 -> PosicionPanel.IZQUIERDA;
+            case 1 ->
+                PosicionPanel.IZQUIERDA;
+            case 2 ->
+                PosicionPanel.ARRIBA;
+            case 3 ->
+                PosicionPanel.IZQUIERDA;
             //Alemnos hasta saber si cambio de lugar las fichas del panel derecho
-            default -> PosicionPanel.IZQUIERDA;
+            default ->
+                PosicionPanel.IZQUIERDA;
         };
     }
-    
+
     private JPanel getPanelContrincante(int numPanel) {
         return switch (numPanel) {
-            case 1 -> this.jpnFichasContrincante1;
-            case 2 -> this.jpnFichasContrincante2;
-            case 3 -> this.jpnFichasContrincante3;
-            default -> null;
+            case 1 ->
+                this.jpnFichasContrincante1;
+            case 2 ->
+                this.jpnFichasContrincante2;
+            case 3 ->
+                this.jpnFichasContrincante3;
+            default ->
+                null;
         };
     }
 
@@ -119,16 +127,19 @@ public class FrmPartida extends javax.swing.JFrame {
         this.jpnFichasContrincante2.setVisible(false);
         this.jpnFichasContrincante3.setVisible(false);
     }
-    
-    private void mostrarPanelContrincante(int cantidadJugadores){
+
+    private void mostrarPanelContrincante(int cantidadJugadores) {
         this.getPanelContrincante(cantidadJugadores).setVisible(true);
     }
-    
-    private void asignarInformacionContrincante(int numContrincante, Jugador jugadorContrincante){
-        switch(numContrincante){
-            case 1 -> this.asignarInformacionContrincante1(jugadorContrincante);
-            case 2 -> this.asignarInformacionContrincante2(jugadorContrincante);
-            case 3 -> this.asignarInformacionContrincante3(jugadorContrincante);
+
+    private void asignarInformacionContrincante(int numContrincante, Jugador jugadorContrincante) {
+        switch (numContrincante) {
+            case 1 ->
+                this.asignarInformacionContrincante1(jugadorContrincante);
+            case 2 ->
+                this.asignarInformacionContrincante2(jugadorContrincante);
+            case 3 ->
+                this.asignarInformacionContrincante3(jugadorContrincante);
         }
     }
 
@@ -151,17 +162,17 @@ public class FrmPartida extends javax.swing.JFrame {
     private void asignarInformacionContrincante2(Jugador jugador3) {
         Icon icon;
         icon = new ImageIcon(jugador3.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
-        lblAvatarContrincante1.setIcon(icon);
-        lblNombreContrincante1.setText(jugador3.getNombre());
-        lblNombreContrincante1.setHorizontalAlignment(SwingConstants.CENTER);
+        lblAvatarContrincante2.setIcon(icon);
+        lblNombreContrincante2.setText(jugador3.getNombre());
+        lblNombreContrincante2.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     private void asignarInformacionContrincante3(Jugador jugador4) {
         Icon icon;
         icon = new ImageIcon(jugador4.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
-        lblAvatarContrincante1.setIcon(icon);
-        lblNombreContrincante1.setText(jugador4.getNombre());
-        lblNombreContrincante1.setHorizontalAlignment(SwingConstants.CENTER);
+        lblAvatarContrincante3.setIcon(icon);
+        lblNombreContrincante3.setText(jugador4.getNombre());
+        lblNombreContrincante3.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     /**

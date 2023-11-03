@@ -33,11 +33,13 @@ public class Jugador implements Serializable{
         this.avatar=avatar;
         this.setearResponsabilidades();
     }
-    public Jugador(String nombre,ImageIcon avatar,boolean listo){
+    public Jugador(String nombre,ImageIcon avatar,boolean listo, int id){
         this.nombre=nombre;
         this.avatar=avatar;
+        this.id = id;
         this.setearResponsabilidades();
         modelo.setListo(listo);
+        modelo.setId(id);
         
     }
     
@@ -108,7 +110,7 @@ public class Jugador implements Serializable{
 
     @Override
     public String toString() {
-        return "Jugador{" + "nombre=" + nombre + '}';
+        return "Jugador{" + "nombre=" + modelo.getNombre() + '}';
     }
 
     public int getId() {
