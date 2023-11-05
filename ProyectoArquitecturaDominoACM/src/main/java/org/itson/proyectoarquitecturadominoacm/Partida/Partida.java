@@ -185,10 +185,11 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
         this.contrincantes = contrincantes;
     }
 
-    public void repartirFichas(){
-    List<Ficha> fichas = pozo.repartirFichas(numFichas);
-        for (Ficha fichaNueva : fichas) {
-            jugadorCreador.agregarFicha(fichaNueva);
+    public void repartirFichas() {
+        for (Jugador jugador : jugadores) {
+            List<Ficha> fichas = this.pozo.repartirFichas(numFichas);
+            System.out.println(fichas.size());
+            jugador.setFichas(fichas);
         }
     }
 }

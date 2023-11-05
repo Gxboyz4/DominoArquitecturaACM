@@ -10,17 +10,21 @@ import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import javax.swing.ImageIcon;
+import org.itson.libreriatiposdominoacmp.FichaDTO;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.libreriatiposdominoacmp.PaqueteDatos;
 import org.itson.libreriatiposdominoacmp.PartidaDTO;
 import org.itson.libreriatiposdominoacmp.TipoPaquete;
+import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
+import org.itson.proyectoarquitecturadominoacm.Fichas.FichaControlador;
+import org.itson.proyectoarquitecturadominoacm.Fichas.FichaModelo;
+import org.itson.proyectoarquitecturadominoacm.Fichas.FichaVista;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Proxy.IProxyCliente;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
-import org.itson.proyectoarquitecturadominoacm.socket.SocketJugador;
+import org.itson.proyectoarquitecturadominoacm.contrincante.Contrincante;
 
 /**
  *
@@ -56,7 +60,7 @@ public class Conexion implements IProxyCliente, Runnable {
             clienteSocket.connect(new InetSocketAddress(ip, puerto));
         } catch (IOException ex) {
             ex.getStackTrace();
-            
+
         }
     }
 
@@ -67,7 +71,7 @@ public class Conexion implements IProxyCliente, Runnable {
             paqueteDatos.writeObject(paqueteEnvioDatos);
         } catch (IOException ex) {
             ex.getStackTrace();
-            
+
         }
     }
 
@@ -76,7 +80,7 @@ public class Conexion implements IProxyCliente, Runnable {
         try {
             clienteSocket.close();
         } catch (IOException ex) {
-            
+
         }
     }
 
@@ -95,7 +99,7 @@ public class Conexion implements IProxyCliente, Runnable {
                 desempaquetarDatos();
             }
         } catch (IOException | ClassNotFoundException ex) {
-            
+
         }
     }
 
@@ -104,20 +108,19 @@ public class Conexion implements IProxyCliente, Runnable {
         if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA)) {
             PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
             partidaDTO = partida;
-            if (partida == null ) {
-                if (mediador.getFrmUnirse() != null ) {
+            if (partida == null) {
+                if (mediador.getFrmUnirse() != null) {
                     mediador.getFrmUnirse().vaciarListaPartidas();
-                    mediador.getFrmUnirse().cargarTabla();                    
+                    mediador.getFrmUnirse().cargarTabla();
                 }
-            }else{
-                if(mediador.getFrmLobby()!=null){
+            } else {
+                if (mediador.getFrmLobby() != null) {
                     modificarPartidaLocal(partida);
-                    mediador.getFrmLobby().mostrarInformacion();   
-                }else{
-                    if(mediador.getFrmUnirse()!=null&&partida.getPartidaIniciada())
-                    {
+                    mediador.getFrmLobby().mostrarInformacion();
+                } else {
+                    if (mediador.getFrmUnirse() != null && partida.getPartidaIniciada()) {
                         mediador.getFrmUnirse().vaciarListaPartidas();
-                        mediador.getFrmUnirse().cargarTabla();  
+                        mediador.getFrmUnirse().cargarTabla();
                     }
                 }
             }
@@ -127,17 +130,17 @@ public class Conexion implements IProxyCliente, Runnable {
         } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.FICHA)) {
 //        FichaDTO ficha = (FichaDTO) paqueteReciboDatos.getObjecto();
 
-        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.RECUPERAR_PARTIDA) ) {
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.RECUPERAR_PARTIDA)) {
             PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
             partidaDTO = partida;
             if (partida != null && !partida.getPartidaIniciada()) {
-                
+
                 if (mediador.getFrmUnirse() != null) {
                     modificarPartidaLocal(partida);
                     mediador.getFrmUnirse().cargarListaPartidas();
                 }
             }
-        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA_UNIRSE)|| paqueteReciboDatos.getTipo() == (TipoPaquete.LISTO)) {
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA_UNIRSE) || paqueteReciboDatos.getTipo() == (TipoPaquete.LISTO)) {
             PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
             if (partida != null) {
                 if (mediador.getFrmLobby() != null) {
@@ -145,43 +148,66 @@ public class Conexion implements IProxyCliente, Runnable {
                     mediador.getFrmLobby().mostrarInformacion();
                 }
             }
-        }else if(paqueteReciboDatos.getTipo()== (TipoPaquete.HAY_PARTIDA)){
-                if (mediador.getFrmMenu() != null) {
-                    mediador.abrirPantallaMenu();
-                    mediador.cerrarPantallaLobby();
-                    mediador.getFrmMenu().mostrarMensaje();
-                }
-        }else if(paqueteReciboDatos.getTipo()== (TipoPaquete.PARTIDA_LLENA)){
-                    mediador.abrirPantallaUnirse();
-                    mediador.recuperarPartidas();
-                    mediador.cerrarPantallaLobby();
-                    mediador.getFrmUnirse().mostrarMensaje();
-        }
-        else if(paqueteReciboDatos.getTipo() == (TipoPaquete.INICIAR_PARTIDA))
-        {
-            if(mediador.getFrmLobby() != null)
-            {
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.HAY_PARTIDA)) {
+            if (mediador.getFrmMenu() != null) {
+                mediador.abrirPantallaMenu();
+                mediador.cerrarPantallaLobby();
+                mediador.getFrmMenu().mostrarMensaje();
+            }
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA_LLENA)) {
+            mediador.abrirPantallaUnirse();
+            mediador.recuperarPartidas();
+            mediador.cerrarPantallaLobby();
+            mediador.getFrmUnirse().mostrarMensaje();
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.INICIAR_PARTIDA)) {
+            if (mediador.getFrmLobby() != null) {
                 mediador.getFrmLobby().abrirPantallaPartida();
                 PartidaDTO partidaDTO = (PartidaDTO) paqueteReciboDatos.getObjeto();
-                System.out.println(partidaDTO.getJugadores().get(0).getFichas());
+                List<JugadorDTO> jugadores = partidaDTO.getJugadores();
+                for (JugadorDTO jugador : jugadores) {
+                    if (mediador.getJugador().getId() == jugador.getId()) {
+                        
+                        List<FichaDTO> fichas = jugador.getFichas();
+                        
+                        for (FichaDTO ficha : fichas) {
+                            String rutaImagen = ficha.getDireccionImg();
+                            ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
+                            FichaModelo fichaModelo = new FichaModelo(ficha.getNumeroSup(), ficha.getNumeroInf(), imagen);
+                            FichaVista fichaVista = new FichaVista(fichaModelo, null);
+                            FichaControlador fichaControlador = new FichaControlador(fichaModelo, fichaVista);
+                            Ficha fichaAgregar = new Ficha(fichaControlador, fichaModelo, fichaVista);
+                            mediador.getJugador().agregarFicha(fichaAgregar);
+                        }
+                        break;
+                    }
+                }
+                //Esto es solo para pintar a los contrincantes
+                //Necesitamos abrir el frmPartida ya que asigne la cantidad de fichas en la partida
+                //Porque ahí asigna las fichas a todos
+                //O lo podemos mover a partida, solo para que le de la cantidad de fichas
+                //a los contrincantes: BORRAR ESTO DESPUÉS
+                int numFichas = partidaDTO.getJugadores().get(0).getFichas().size();
+                for (Contrincante contrincante : mediador.getPartida().getContrincantes()) {
+                    contrincante.agregarFichasRestantes(numFichas);
+                }
             }
-            
-        }else if (paqueteReciboDatos.getTipo() == (TipoPaquete.GENERAR_ID)){
+
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.GENERAR_ID)) {
             System.out.println("ID Jugador parte cliente");
-            int id = (int)paqueteReciboDatos.getObjeto();
+            int id = (int) paqueteReciboDatos.getObjeto();
             System.out.println(id);
             mediador.asignarIDJugadorLocal(id);
         }
     }
-    
+
     public void modificarPartidaLocal(PartidaDTO partida) {
-        if(partida!=null){
-        List<Jugador> jugadores = new ArrayList();
-        for (JugadorDTO jugadorDTO : partida.getJugadores()) {
-            Jugador jugador = new Jugador(jugadorDTO.getNombre(), jugadorDTO.getAvatar(),jugadorDTO.getListo(), jugadorDTO.getId());
-            jugadores.add(jugador);
-        }
-        mediador.getPartida().setJugadores(jugadores);
+        if (partida != null) {
+            List<Jugador> jugadores = new ArrayList();
+            for (JugadorDTO jugadorDTO : partida.getJugadores()) {
+                Jugador jugador = new Jugador(jugadorDTO.getNombre(), jugadorDTO.getAvatar(), jugadorDTO.getListo(), jugadorDTO.getId());
+                jugadores.add(jugador);
+            }
+            mediador.getPartida().setJugadores(jugadores);
         }
     }
 

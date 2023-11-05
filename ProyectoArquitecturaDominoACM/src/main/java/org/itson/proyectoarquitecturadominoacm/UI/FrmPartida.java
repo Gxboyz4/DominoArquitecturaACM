@@ -11,6 +11,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
@@ -39,18 +40,31 @@ public class FrmPartida extends javax.swing.JFrame {
 
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         this.crearPartida();
-        this.cargarPartida();
-        mediador.getJugador().setPanelFichas(jpnFichasContrincante2);
-        mediador.getPartida().setJugadorCreador(mediador.getPartida().getJugadores().get(0));
         mediador.getPartida().repartirFichas();
+        this.cargarPartida();
+        mediador.getPartida().setJugadorCreador(mediador.getPartida().getJugadores().get(0));
         setFocusable(true);
         requestFocusInWindow();
         scrollPanel.getHorizontalScrollBar().setValue((scrollPanel.getHorizontalScrollBar().getMaximum() - scrollPanel.getHorizontalScrollBar().getVisibleAmount()) / 2);
     }
 
     private void establecerDatosJugadorLocal() {
+        
         Jugador jugadorLocal = mediador.getJugador();
         mediador.getJugador().setPanelFichas(this.jpnFichasJugadorLocal);
+        int contPrueba = 0;
+        for (Jugador jugador : mediador.getPartida().getJugadores()) {
+            if(jugador.getId() == jugadorLocal.getId()){
+                System.out.println("cant fich: " + jugador.getFichas().size());
+                for (Ficha ficha : jugador.getFichas()) {
+                    jugadorLocal.agregarFicha(ficha);
+                    contPrueba++;
+                    System.out.println(contPrueba);
+                }
+                break;
+            }
+        }
+        
         this.asignarInformacionJugadorLocal(jugadorLocal);
     }
 
@@ -63,13 +77,14 @@ public class FrmPartida extends javax.swing.JFrame {
                 Contrincante contrincanteNuevo = new Contrincante(
                         jugador.getId(),
                         jugador.getNombre(),
-                        jugador.getFichas().size(),
+                        mediador.getPartida().getNumFichas(),
                         this.getPosicionPorPanelContrincante(numeroContrincante),
                         this.getPanelContrincante(numeroContrincante));
                 contrincantes.add(contrincanteNuevo);
                 this.asignarInformacionContrincante(numeroContrincante, jugador);
                 this.mostrarPanelContrincante(numeroContrincante);
                 numeroContrincante++;
+                System.out.println("esta: " + contrincanteNuevo.getModelo().getFichasRestantes());
             }
         }
         mediador.getPartida().setContrincantes(contrincantes);

@@ -47,6 +47,7 @@ public class Contrincante {
 
     public void agregarFichaRestante(){
         this.modelo.agregarFichaRestante();
+        System.out.println(modelo.getFichasRestantes());
         this.vista.pintarFichas();
     }
     
