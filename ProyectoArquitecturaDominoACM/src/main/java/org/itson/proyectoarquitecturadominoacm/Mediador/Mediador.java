@@ -156,6 +156,17 @@ public class Mediador implements IMediador{
         //proxyCliente.iniciarHilo();
     }
     @Override
+    public void configuracionPartida(){
+        
+        List<JugadorDTO> listaJugadores = new ArrayList<JugadorDTO>();
+        JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar(),jugador.getId());
+        listaJugadores.add(jugadorDTO);
+        PartidaDTO partidaDTO = new PartidaDTO(listaJugadores);
+        partidaDTO.setNumFichas(this.partida.getNumFichas());
+        proxyCliente.empaquetarParametros(TipoPaquete.CONFIGURACION_PARTIDA,partidaDTO);
+        proxyCliente.enviarDatos();
+    }
+    @Override
     public void unirsePartida(){
         JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar(),jugador.getId());
         proxyCliente.empaquetarParametros(TipoPaquete.UNIRSE_PARTIDA, jugadorDTO);

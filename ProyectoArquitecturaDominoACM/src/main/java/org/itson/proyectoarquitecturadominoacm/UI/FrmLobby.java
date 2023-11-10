@@ -5,6 +5,7 @@ package org.itson.proyectoarquitecturadominoacm.UI;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.ItemEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -31,13 +32,22 @@ public class FrmLobby extends javax.swing.JFrame {
         setVisible(true);
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
-
+        if(mediador.getPartida().getJugadores().get(0)!= mediador.getPartida().getJugadorCreador())
+        {
+            cbxFichasPorJugador.setEnabled(false);
+            
+        }
     }
     public void mostrarMensaje(){
         JOptionPane.showMessageDialog(null,"Ya hay una partida creada.", "Alerta", JOptionPane.WARNING_MESSAGE);
     }
     public void mostrarInformacion() {
         asignarInformacionJugadores();
+        System.out.println("se muestra info");
+        
+            System.out.println("config"+mediador.getPartida().getNumFichas());
+            cbxFichasPorJugador.setSelectedItem(mediador.getPartida().getNumFichas()+"");
+          
     }
 
     public void asignarInformacionJugadores() {
@@ -178,6 +188,11 @@ public class FrmLobby extends javax.swing.JFrame {
         jpnFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cbxFichasPorJugador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2", "3", "4", "5", "6", "7" }));
+        cbxFichasPorJugador.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxFichasPorJugadorItemStateChanged(evt);
+            }
+        });
         jpnFondo.add(cbxFichasPorJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, 150, -1));
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgIconosGenerales/iconoRegresar.png"))); // NOI18N
@@ -279,6 +294,16 @@ public class FrmLobby extends javax.swing.JFrame {
         mediador.getProxyCliente().eliminarJugador(jugador);
         mediador.abrirPantallaMenu();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void cbxFichasPorJugadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxFichasPorJugadorItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+                    // Obtiene el objeto seleccionado
+                    String itemSeleccionado = (String) cbxFichasPorJugador.getSelectedItem();
+                    int numero = Integer.parseInt(itemSeleccionado);
+                    mediador.getPartida().setNumFichas(numero);
+                    mediador.configuracionPartida();
+                }
+    }//GEN-LAST:event_cbxFichasPorJugadorItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

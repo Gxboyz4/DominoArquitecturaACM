@@ -38,6 +38,7 @@ public interface IMediador {
     public ProxyCliente getProxyCliente();
     public FrmMenu getFrmMenu();
      public FrmUnirse getFrmUnirse();
+     public void configuracionPartida();
       public FrmLobby getFrmLobby();
       public void exponerPartida();
       public void recuperarPartidas();

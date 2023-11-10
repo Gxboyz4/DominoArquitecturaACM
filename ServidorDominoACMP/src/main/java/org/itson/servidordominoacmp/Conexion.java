@@ -94,6 +94,10 @@ public class Conexion implements IProxyServidor, Runnable{
         empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA,infoServer.getPartidaEnServidor());
         }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.RECUPERAR_PARTIDA)){
         empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA,infoServer.getPartidaEnServidor());
+        }if(paqueteReciboDatos.getTipo()==(TipoPaquete.CONFIGURACION_PARTIDA)){
+            PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
+             this.infoServer.getPartidaEnServidor().setNumFichas(partida.getNumFichas());
+             empaquetarParametros(TipoPaquete.CONFIGURACION_PARTIDA,infoServer.getPartidaEnServidor());
         }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.UNIRSE_PARTIDA)){
         JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
         infoServer.getPartidaEnServidor().agregarJugador(jugadorDTO);
@@ -112,7 +116,7 @@ public class Conexion implements IProxyServidor, Runnable{
             if(LogicaServidor.comprobarVotacion(infoServer.getPartidaEnServidor()))
             {
                 infoServer.getPartidaEnServidor().setPartidaIniciada(true);
-                infoServer.getPartidaEnServidor().setNumFichas(3);
+                
                 
                 logicaServidor.repartirFichasJugadores(infoServer);
                 empaquetarParametros(TipoPaquete.INICIAR_PARTIDA,infoServer.getPartidaEnServidor());

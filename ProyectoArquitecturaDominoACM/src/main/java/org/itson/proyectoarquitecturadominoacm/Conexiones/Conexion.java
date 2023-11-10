@@ -148,7 +148,16 @@ public class Conexion implements IProxyCliente, Runnable {
                     mediador.getFrmLobby().mostrarInformacion();
                 }
             }
-        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.HAY_PARTIDA)) {
+        }else if (paqueteReciboDatos.getTipo() == (TipoPaquete.CONFIGURACION_PARTIDA)) {
+            PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
+            if (partida != null) {
+                if (mediador.getFrmLobby() != null) {
+                    System.out.println("CONEXION"+partida.getNumFichas());
+                    mediador.getPartida().setNumFichas(partida.getNumFichas());
+                    mediador.getFrmLobby().mostrarInformacion();
+                }
+            }
+        }else if (paqueteReciboDatos.getTipo() == (TipoPaquete.HAY_PARTIDA)) {
             if (mediador.getFrmMenu() != null) {
                 mediador.abrirPantallaMenu();
                 mediador.cerrarPantallaLobby();
