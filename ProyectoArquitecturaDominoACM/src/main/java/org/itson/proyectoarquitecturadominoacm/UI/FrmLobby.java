@@ -32,10 +32,19 @@ public class FrmLobby extends javax.swing.JFrame {
         setVisible(true);
         this.setSize(750, 540); //736 x 500
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
-        if(mediador.getPartida().getJugadores().get(0)!= mediador.getPartida().getJugadorCreador())
+        this.cambirInformacionLider();
+    }
+    public void cambirInformacionLider(){
+        System.out.println("Cambiar informacio lider");
+        System.out.println("Jugador lider"+mediador.getPartida().getJugadores().get(0));
+        System.out.println("Jugador Local" + mediador.getJugador());
+        if(mediador.getPartida().getJugadores().get(0).getId()!=mediador.getJugador().getId())
         {
             cbxFichasPorJugador.setEnabled(false);
             
+        }else{
+            System.out.println("Entro al else");
+             cbxFichasPorJugador.setEnabled(true);
         }
     }
     public void mostrarMensaje(){
@@ -290,7 +299,7 @@ public class FrmLobby extends javax.swing.JFrame {
         this.dispose();
         mediador.cerrarPantallaLobby();
         mediador.getJugador().setListo(false);
-        JugadorDTO jugador = new JugadorDTO(mediador.getJugador().getNombre(), mediador.getJugador().getAvatar());
+        JugadorDTO jugador = new JugadorDTO(mediador.getJugador().getNombre(), mediador.getJugador().getAvatar(),mediador.getJugador().getId());
         mediador.getProxyCliente().eliminarJugador(jugador);
         mediador.abrirPantallaMenu();
     }//GEN-LAST:event_btnRegresarActionPerformed

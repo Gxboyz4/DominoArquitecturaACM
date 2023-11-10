@@ -119,7 +119,9 @@ public class ContrincanteVista {
                 x += 26;
             }
 
+            
             this.panelFichas.add(fichaPintar);
+            this.panelFichas.repaint();
         }
 
     }

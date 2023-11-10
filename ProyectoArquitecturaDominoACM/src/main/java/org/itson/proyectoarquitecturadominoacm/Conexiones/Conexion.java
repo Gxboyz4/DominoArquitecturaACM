@@ -116,6 +116,8 @@ public class Conexion implements IProxyCliente, Runnable {
             } else {
                 if (mediador.getFrmLobby() != null) {
                     modificarPartidaLocal(partida);
+                    mediador.getFrmLobby().cambirInformacionLider();
+                    mediador.getPartida().setNumFichas(partida.getNumFichas());
                     mediador.getFrmLobby().mostrarInformacion();
                 } else {
                     if (mediador.getFrmUnirse() != null && partida.getPartidaIniciada()) {
@@ -145,6 +147,7 @@ public class Conexion implements IProxyCliente, Runnable {
             if (partida != null) {
                 if (mediador.getFrmLobby() != null) {
                     modificarPartidaLocal(partida);
+                    mediador.getPartida().setNumFichas(partida.getNumFichas());
                     mediador.getFrmLobby().mostrarInformacion();
                 }
             }

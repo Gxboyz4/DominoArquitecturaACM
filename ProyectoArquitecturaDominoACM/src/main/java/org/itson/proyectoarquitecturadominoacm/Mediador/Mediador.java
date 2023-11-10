@@ -144,6 +144,7 @@ public class Mediador implements IMediador{
         JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar(),jugador.getId());
         listaJugadores.add(jugadorDTO);
         PartidaDTO partidaDTO = new PartidaDTO(listaJugadores);
+        partidaDTO.setNumFichas(2);
         proxyCliente.empaquetarParametros(TipoPaquete.PARTIDA,partidaDTO);
         proxyCliente.enviarDatos();
     }

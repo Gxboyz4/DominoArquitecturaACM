@@ -105,6 +105,8 @@ public class Conexion implements IProxyServidor, Runnable{
         }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.ELIMINAR_JUGADOR)){
         JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
         infoServer.getPartidaEnServidor().eliminarJugador(jugadorDTO);
+        System.out.println(jugadorDTO);
+        System.out.println(infoServer.getPartidaEnServidor().getJugadores());
         if(infoServer.getPartidaEnServidor().getJugadores().size()==0){
         infoServer.eliminarPartida();
         }
