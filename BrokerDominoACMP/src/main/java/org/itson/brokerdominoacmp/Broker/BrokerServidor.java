@@ -61,29 +61,29 @@ public class BrokerServidor implements Runnable {
     public synchronized void enviarInformacionCliente(Socket socketServidor) {
         try {
             while (true) {
-                PaqueteDatos paqueteDatosRecibido;
+                PaqueteDatos paqueteReciboDatos;
                 ObjectInputStream paqueteDatos = new ObjectInputStream(socketServidor.getInputStream());
-                paqueteDatosRecibido = (PaqueteDatos) paqueteDatos.readObject();
+                paqueteReciboDatos = (PaqueteDatos) paqueteDatos.readObject();
 
                 //Limpiar este método
-                if (paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA_UNIRSE || 
-                        paqueteDatosRecibido.getTipo() == TipoPaquete.LISTO || paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA || 
-                        paqueteDatosRecibido.getTipo() == TipoPaquete.INICIAR_PARTIDA || 
-                        paqueteDatosRecibido.getTipo() == TipoPaquete.CONFIGURACION_PARTIDA || 
-                        paqueteDatosRecibido.getTipo() == TipoPaquete.POZO_VACIO ||
-                         paqueteDatosRecibido.getTipo() == TipoPaquete.AGREGAR_FICHA_CONTRINCANTE||
-                        paqueteDatosRecibido.getTipo() == TipoPaquete.AGREGAR_FICHA_DERECHA||
-                        paqueteDatosRecibido.getTipo() == TipoPaquete.AGREGAR_FICHA_IZQUIERDA||
-                         paqueteDatosRecibido.getTipo() == TipoPaquete.AGREGAR_FICHA||
-                        paqueteDatosRecibido.getTipo() == TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE
+                if (paqueteReciboDatos.getTipo() == TipoPaquete.PARTIDA_UNIRSE || 
+                        paqueteReciboDatos.getTipo() == TipoPaquete.LISTO || paqueteReciboDatos.getTipo() == TipoPaquete.PARTIDA || 
+                        paqueteReciboDatos.getTipo() == TipoPaquete.INICIAR_PARTIDA || 
+                        paqueteReciboDatos.getTipo() == TipoPaquete.CONFIGURACION_PARTIDA || 
+                        paqueteReciboDatos.getTipo() == TipoPaquete.POZO_VACIO ||
+                         paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA_CONTRINCANTE||
+                        paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA_DERECHA||
+                        paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA_IZQUIERDA||
+                         paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA||
+                        paqueteReciboDatos.getTipo() == TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE
                         ) {
-                    enviarInformacionJugadoresPartida(paqueteDatos, paqueteDatosRecibido);
+                    enviarInformacionJugadoresPartida(paqueteDatos, paqueteReciboDatos);
                 } 
-                if(paqueteDatosRecibido.getTipo() == TipoPaquete.RECUPERAR_PARTIDA || paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA){
-                    enviarInformacionTodos(paqueteDatos, paqueteDatosRecibido);
+                if(paqueteReciboDatos.getTipo() == TipoPaquete.RECUPERAR_PARTIDA || paqueteReciboDatos.getTipo() == TipoPaquete.PARTIDA){
+                    enviarInformacionTodos(paqueteDatos, paqueteReciboDatos);
                 }
-                if(paqueteDatosRecibido.getTipo() == TipoPaquete.GENERAR_ID || paqueteDatosRecibido.getTipo() == TipoPaquete.DEVOLVER_FICHA){
-                   enviarInformacionSoloUno(paqueteDatos, paqueteDatosRecibido);
+                if(paqueteReciboDatos.getTipo() == TipoPaquete.GENERAR_ID || paqueteReciboDatos.getTipo() == TipoPaquete.DEVOLVER_FICHA){
+                   enviarInformacionSoloUno(paqueteDatos, paqueteReciboDatos);
                 }
             }
         } catch (IOException ex) {
@@ -96,27 +96,27 @@ public class BrokerServidor implements Runnable {
         }
     }
 
-    public void enviarInformacionTodos(ObjectInputStream paqueteDatos, PaqueteDatos paqueteDatosRecibido) throws IOException {
+    public synchronized void enviarInformacionTodos(ObjectInputStream paqueteDatos, PaqueteDatos paqueteReciboDatos) throws IOException {
         for (int i = 0; i < Broker.direccionesClienteSocket.size(); i++) {
-            System.out.println("Envio los paquetes a cada cliente " + paqueteDatosRecibido.getTipo());
+            System.out.println("Envio los paquetes a cada cliente " + paqueteReciboDatos.getTipo());
             Socket socketEnviarCliente = Broker.direccionesClienteSocket.get(i);
             ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarCliente.getOutputStream());
-            paqueteDatosEnvio.writeObject(paqueteDatosRecibido);
+            paqueteDatosEnvio.writeObject(paqueteReciboDatos);
         }
     }
 
-    public void enviarInformacionJugadoresPartida(ObjectInputStream paqueteDatos, PaqueteDatos paqueteDatosRecibido) throws IOException {
+    public synchronized void enviarInformacionJugadoresPartida(ObjectInputStream paqueteDatos, PaqueteDatos paqueteReciboDatos) throws IOException {
         for (int i = 0; i < Broker.direccionesClienteSocketPartida.size(); i++) {
-            System.out.println("Envio los paquetes a cada cliente " + paqueteDatosRecibido.getTipo());
+            System.out.println("Envio los paquetes a cada cliente " + paqueteReciboDatos.getTipo());
             Socket socketEnviarCliente = Broker.direccionesClienteSocketPartida.get(i);
             ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarCliente.getOutputStream());
-            paqueteDatosEnvio.writeObject(paqueteDatosRecibido);
+            paqueteDatosEnvio.writeObject(paqueteReciboDatos);
         }
     }
-    public void enviarInformacionSoloUno(ObjectInputStream paqueteDatos, PaqueteDatos paqueteDatosRecibido) throws IOException{
+    public synchronized void enviarInformacionSoloUno(ObjectInputStream paqueteDatos, PaqueteDatos paqueteReciboDatos) throws IOException{
       Socket socketEnviarCliente = Broker.socketID;
       ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarCliente.getOutputStream());
-      paqueteDatosEnvio.writeObject(paqueteDatosRecibido);
+      paqueteDatosEnvio.writeObject(paqueteReciboDatos);
 }
 
     @Override

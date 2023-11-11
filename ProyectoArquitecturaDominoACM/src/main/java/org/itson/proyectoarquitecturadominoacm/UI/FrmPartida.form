@@ -184,7 +184,7 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JLabel" name="lblNombreContrincante2">
+        <Component class="javax.swing.JLabel" name="lblNombreContrincante3">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Gadugi" size="14" style="1"/>
@@ -196,7 +196,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblNombreContrincante3">
+        <Component class="javax.swing.JLabel" name="lblNombreContrincante2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Gadugi" size="14" style="1"/>

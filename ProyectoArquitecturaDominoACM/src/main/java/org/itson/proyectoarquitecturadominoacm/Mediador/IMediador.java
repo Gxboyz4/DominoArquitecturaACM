@@ -92,5 +92,5 @@ public interface IMediador {
     public void agregarFichaIzquierdaTablero(Ficha ficha);
 
     public void agregarFichaTablero(Ficha ficha);
-     public void enviarElimianrFichaContrincante();
+     public void enviarEliminarFichaContrincante();
 }

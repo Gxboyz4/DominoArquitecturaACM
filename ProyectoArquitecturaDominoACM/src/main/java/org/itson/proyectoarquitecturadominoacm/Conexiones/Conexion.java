@@ -257,13 +257,11 @@ public class Conexion implements IProxyCliente, Runnable {
         FichaVista fichaVista = new FichaVista(fichaModelo, null);
         FichaControlador fichaControlador = new FichaControlador(fichaModelo, fichaVista);
         Ficha fichaCreada = new Ficha(fichaControlador, fichaModelo, fichaVista);
-
         return fichaCreada;
     }
 
     public Contrincante obtenerContrincante(JugadorDTO jugador) {
         for (Contrincante contrincante : mediador.getPartida().getContrincantes()) {
-
             if (jugador.getId() == contrincante.obtenerID()) {
                 return contrincante;
             }
@@ -302,6 +300,7 @@ public class Conexion implements IProxyCliente, Runnable {
         this.jugadorDTO = jugadorDTO;
     }
 
+    @Override
     public PartidaDTO getPartidaDTO() {
         return partidaDTO;
     }

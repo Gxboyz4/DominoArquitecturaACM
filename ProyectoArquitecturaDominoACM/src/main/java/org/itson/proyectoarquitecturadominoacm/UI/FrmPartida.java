@@ -206,8 +206,8 @@ public class FrmPartida extends javax.swing.JFrame {
         jpnFichasContrincante1 = new javax.swing.JPanel();
         jpnFichasContrincante2 = new javax.swing.JPanel();
         jpnFichasContrincante3 = new javax.swing.JPanel();
-        lblNombreContrincante2 = new javax.swing.JLabel();
         lblNombreContrincante3 = new javax.swing.JLabel();
+        lblNombreContrincante2 = new javax.swing.JLabel();
         lblNombreContrincante1 = new javax.swing.JLabel();
         lblNombreJugadorLocal = new javax.swing.JLabel();
         lblAvatarJugadorLocal = new javax.swing.JLabel();
@@ -290,11 +290,11 @@ public class FrmPartida extends javax.swing.JFrame {
 
         jpnFondo.add(jpnFichasContrincante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, -1, 260));
 
-        lblNombreContrincante2.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        jpnFondo.add(lblNombreContrincante2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 480, 130, 20));
-
         lblNombreContrincante3.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        jpnFondo.add(lblNombreContrincante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 130, 20));
+        jpnFondo.add(lblNombreContrincante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 480, 130, 20));
+
+        lblNombreContrincante2.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jpnFondo.add(lblNombreContrincante2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 130, 20));
 
         lblNombreContrincante1.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jpnFondo.add(lblNombreContrincante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 130, 20));

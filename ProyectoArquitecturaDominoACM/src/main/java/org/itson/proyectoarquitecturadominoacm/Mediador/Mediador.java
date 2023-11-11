@@ -235,7 +235,7 @@ public class Mediador implements IMediador {
         FichaDTO fichaEnviar = new FichaDTO(ficha.getNumeroInferior(), ficha.getNumeroSuperior(), ficha.getImagenFicha());
          proxyCliente.empaquetarParametros(TipoPaquete.AGREGAR_FICHA, fichaEnviar);
           proxyCliente.enviarDatos();
-          this.enviarElimianrFichaContrincante();
+          this.enviarEliminarFichaContrincante();
     }
     
     @Override
@@ -244,7 +244,7 @@ public class Mediador implements IMediador {
          FichaDTO fichaEnviar = new FichaDTO(ficha.getNumeroInferior(), ficha.getNumeroSuperior(), ficha.getImagenFicha());
          proxyCliente.empaquetarParametros(TipoPaquete.AGREGAR_FICHA_IZQUIERDA, fichaEnviar);
           proxyCliente.enviarDatos();
-          this.enviarElimianrFichaContrincante();
+          this.enviarEliminarFichaContrincante();
      }
 
     @Override
@@ -253,29 +253,25 @@ public class Mediador implements IMediador {
         FichaDTO fichaEnviar = new FichaDTO(ficha.getNumeroInferior(), ficha.getNumeroSuperior(), ficha.getImagenFicha());
          proxyCliente.empaquetarParametros(TipoPaquete.AGREGAR_FICHA_DERECHA, fichaEnviar);
          proxyCliente.enviarDatos(); 
-         this.enviarElimianrFichaContrincante();
+         this.enviarEliminarFichaContrincante();
      }
      
     @Override
-     public void enviarElimianrFichaContrincante(){
-        
+     public void enviarEliminarFichaContrincante(){
          proxyCliente.empaquetarParametros(TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE, this.crearJugadorDTO());
          proxyCliente.enviarDatos(); 
      }
      
     @Override
      public void agregarFichaDerechaTablero(Ficha ficha){
-        
          partida.getTablero().agregarFichaDerecha(ficha);
      }
     @Override
      public void agregarFichaIzquierdaTablero(Ficha ficha){
-         
          partida.getTablero().agregarFichaIzquierda(ficha);
      }
     @Override
       public void agregarFichaTablero(Ficha ficha){
-
            partida.getTablero().agregarFicha(ficha,false);
       }
 }

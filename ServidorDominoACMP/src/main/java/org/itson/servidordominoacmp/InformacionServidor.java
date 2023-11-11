@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import org.itson.libreriatiposdominoacmp.FichaDTO;
+import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.libreriatiposdominoacmp.PartidaDTO;
 
 /**
@@ -41,6 +42,15 @@ public class InformacionServidor {
 
     public void setPozoServidor(PozoServidor pozoServidor) {
         this.pozoServidor = pozoServidor;
+    }
+    public int getCantidadJugadores(){
+        return partidaEnServidor.getJugadores().size();
+    }
+    public JugadorDTO getJugadorPartida(int numLista){
+        return partidaEnServidor.getJugadores().get(numLista);
+    }
+    public int getNumeroFichasPartida(){
+        return partidaEnServidor.getNumFichas();
     }
     
     

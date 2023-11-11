@@ -33,7 +33,9 @@ public class Tablero {
         if (modelo.validarColocacionDerecha(ficha) != 0 && modelo.validarColocacionIzquierda(ficha) != 0) {
             if (modelo.getFichas().size() == 0) {
                 modelo.agregarFichaDerecha(ficha);
-                mediador.enviarFicha(ficha);
+                if (jugadorLocal) {
+                mediador.enviarFichaDerecha(ficha);
+                }
                 return true;
             }
             int opcion = desplegarOpcion();
