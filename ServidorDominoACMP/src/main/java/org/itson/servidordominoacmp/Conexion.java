@@ -11,6 +11,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import org.itson.libreriatiposdominoacmp.FichaDTO;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.libreriatiposdominoacmp.PaqueteDatos;
 import org.itson.libreriatiposdominoacmp.PartidaDTO;
@@ -127,6 +128,15 @@ public class Conexion implements IProxyServidor, Runnable{
         }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.GENERAR_ID)){
             int id = logicaServidor.generarIdJugador();
             empaquetarParametros(TipoPaquete.GENERAR_ID,id);
+        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.OBTENER_FICHA)){
+            if(logicaServidor.pozoEstaVacio(infoServer)){
+                empaquetarParametros(TipoPaquete.POZO_VACIO,null);
+            }else{
+                FichaDTO ficha = logicaServidor.devolverFicha(infoServer);
+                JugadorDTO jugador = (JugadorDTO)paqueteReciboDatos.getObjeto();
+                empaquetarParametros(TipoPaquete.DEVOLVER_FICHA,ficha);
+                empaquetarParametros(TipoPaquete.AGREGAR_FICHA_CONTRINCANTE,jugador);
+            }     
         }
     }
     

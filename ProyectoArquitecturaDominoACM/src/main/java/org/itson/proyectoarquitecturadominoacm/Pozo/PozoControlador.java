@@ -33,13 +33,13 @@ public class PozoControlador implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
      //  System.out.println("Entro al action de botón pozo");
-       Ficha ficha = pozoModelo.devolverFicha();
-       pozoObservable.notificar(ficha);
+     //  Ficha ficha = pozoModelo.devolverFicha();
+       pozoObservable.notificar();
      //  pozoModelo.getListaFichas().get(0);
     }
-    public Ficha devolverFicha(){
-        return pozoModelo.devolverFicha();
-    }
+//    public Ficha devolverFicha(){
+//        return pozoModelo.devolverFicha();
+//    }
 
     public PozoObservable getPozoObservable() {
         return pozoObservable;
@@ -49,7 +49,7 @@ public class PozoControlador implements ActionListener{
         this.pozoObservable = pozoObservable;
     }
     public void eliminarFicha(Ficha ficha){
-        pozoModelo.eliminarFicha(ficha);
+        //pozoModelo.eliminarFicha(ficha);
         pozoVista.mostrarPozo();
     }
     public class PozoObservable{
@@ -57,9 +57,9 @@ public class PozoControlador implements ActionListener{
         public void agregarObservador(PozoObserver observador){
             observadores.add(observador);
         }
-        public void notificar(Ficha ficha){
+        public void notificar(){
             for (PozoObserver observador : observadores) {
-                observador.fichaElegida(ficha);
+                observador.fichaElegida();
             }
         }
     }

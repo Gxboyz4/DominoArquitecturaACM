@@ -123,5 +123,7 @@ public class Contrincante {
         }
         return Objects.equals(this.controlador, other.controlador);
     }
-    
+    public int obtenerID(){
+        return modelo.getIdContrincante();
+    }
 }

@@ -16,21 +16,11 @@ import org.itson.libreriatiposdominoacmp.PartidaDTO;
  */
 public class InformacionServidor {
     PartidaDTO partidaEnServidor;   
-    List<FichaDTO> fichas;
+    //List<FichaDTO> fichas;
+    PozoServidor pozoServidor;
 
     public InformacionServidor(){
-        fichas = new ArrayList();        
-        for (int i = 0; i <= 6; i++) {
-            for (int j = i; j <= 6; j++) {
-                String rutaImagen = String.format("/imgFrmPartidaFichas/ficha%d_%d.png", i, j);
-                FichaDTO ficha = new FichaDTO(i, j, rutaImagen);
-                fichas.add(ficha);
-            }
-        }
-    }
-
-    public List<FichaDTO> getFichas() {
-        return fichas;
+       pozoServidor = new PozoServidor();
     }
 
     public PartidaDTO getPartidaEnServidor() {
@@ -44,23 +34,14 @@ public class InformacionServidor {
     public void eliminarPartida(){
         this.partidaEnServidor=null;
     }
-    public FichaDTO devolverFicha(){
-     int numeroRandom = (int) (Math.random() * getFichas().size() + 0);
-     return fichas.get(numeroRandom);
+
+    public PozoServidor getPozoServidor() {
+        return pozoServidor;
+    }
+
+    public void setPozoServidor(PozoServidor pozoServidor) {
+        this.pozoServidor = pozoServidor;
     }
     
-    public void eliminarFicha(FichaDTO ficha){
-        fichas.remove(ficha);
-    }
-   
-    public List<FichaDTO> repartirFichas(int numFichas){
-        List<FichaDTO> fichasRepartidas = new ArrayList();
-            for (int j = 0; j < numFichas; j++) {
-                FichaDTO ficha;
-                ficha=devolverFicha();
-                eliminarFicha(ficha);
-                fichasRepartidas.add(ficha);
-            }
-            return fichasRepartidas;
-    }
+    
 }

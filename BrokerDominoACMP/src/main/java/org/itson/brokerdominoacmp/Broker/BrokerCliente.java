@@ -70,7 +70,7 @@ public class BrokerCliente implements Runnable {
                         Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
                         ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
                         paqueteDatosEnvio.writeObject(paqueteReciboDatos);
-                    }else if(paqueteReciboDatos.getTipo() == TipoPaquete.GENERAR_ID){
+                    }else if(paqueteReciboDatos.getTipo() == TipoPaquete.GENERAR_ID || paqueteReciboDatos.getTipo()==TipoPaquete.OBTENER_FICHA){
                         Broker.socketID = socketCliente;
                         Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
                         ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());

@@ -6,6 +6,7 @@ package org.itson.proyectoarquitecturadominoacm.Mediador;
 
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
+import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
 import org.itson.proyectoarquitecturadominoacm.Proxy.ProxyCliente;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
@@ -46,4 +47,6 @@ public interface IMediador {
       public void jugadorListo();
       public void asignarIDJugadorLocal(int id);
       public void generarIDJugador();
+      public void obtenerFichaPozo();
+      public Pozo obtenerPozo();
 }

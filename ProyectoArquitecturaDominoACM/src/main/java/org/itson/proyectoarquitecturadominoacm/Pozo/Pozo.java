@@ -25,32 +25,36 @@ public class Pozo {
         pozoControlador = new PozoControlador(pozoModelo, pozoVista);
         this.botonPozo=botonPozo;
         this.botonPozo.addActionListener(pozoControlador);
-        devolverFicha();
+        //devolverFicha();
         mostrarPozo();
     
     }
-    public Ficha devolverFicha(){
-        return pozoControlador.devolverFicha();
-    }
+//    public Ficha devolverFicha(){
+//        return pozoControlador.devolverFicha();
+//    }
     public void mostrarPozo(){
+        pozoControlador.mostrarPozo();
+    }
+    public void ocultarPozo(){
+        pozoModelo.setEstadoVisible(false);
         pozoControlador.mostrarPozo();
     }
     public PozoModelo getPozoModelo() {
         return pozoModelo;
     }
     
-    public List<Ficha> obtenerTodasFichas(){
-        return this.pozoModelo.getListaFichas();
-    }
+//    public List<Ficha> obtenerTodasFichas(){
+//        return this.pozoModelo.getListaFichas();
+//    }
     public void agregarObservador(PozoObserver observador){
         pozoControlador.getPozoObservable().agregarObservador(observador);
     }
     
-    public void eliminarFicha (Ficha ficha){
-        pozoControlador.eliminarFicha(ficha);
-    }
+//    public void eliminarFicha (Ficha ficha){
+//        pozoControlador.eliminarFicha(ficha);
+//    }
     
-    public List<Ficha> repartirFichas(int numFichas){
-        return pozoModelo.repartirFichas(numFichas);
-    }
+//    public List<Ficha> repartirFichas(int numFichas){
+//        return pozoModelo.repartirFichas(numFichas);
+//    }
 }

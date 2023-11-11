@@ -5,6 +5,7 @@
 package org.itson.servidordominoacmp;
 
 import java.util.Iterator;
+import org.itson.libreriatiposdominoacmp.FichaDTO;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.libreriatiposdominoacmp.PartidaDTO;
 
@@ -29,15 +30,24 @@ public class LogicaServidor {
         
         return false;
     }
+    //Limpiar codigo 
     public void repartirFichasJugadores(InformacionServidor infoServer)
     {
         for (int i = 0;infoServer.getPartidaEnServidor().getJugadores().size()>i;i++) {
-            infoServer.getPartidaEnServidor().getJugadores().get(i).anadirFichas(infoServer.repartirFichas(infoServer.getPartidaEnServidor().getNumFichas()));
+            infoServer.getPartidaEnServidor().getJugadores().get(i).anadirFichas(infoServer.getPozoServidor().repartirFichas(infoServer.getPartidaEnServidor().getNumFichas()));
             
         }
     }
     public int generarIdJugador(){
     this.ultimoID=this.ultimoID+1; 
     return ultimoID;
+    }
+    public FichaDTO devolverFicha(InformacionServidor infoServer){
+        FichaDTO ficha = infoServer.getPozoServidor().devolverFicha();
+        infoServer.getPozoServidor().eliminarFicha(ficha);
+        return ficha;
+    }
+    public Boolean pozoEstaVacio(InformacionServidor infoServer){
+        return infoServer.getPozoServidor().verificarNumFichas();
     }
 }

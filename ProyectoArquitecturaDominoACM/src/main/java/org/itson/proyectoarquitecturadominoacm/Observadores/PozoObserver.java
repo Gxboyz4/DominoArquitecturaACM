@@ -11,6 +11,6 @@ import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
  * @author Gabriel Mancinas
  */
 public interface PozoObserver {
-    public void fichaElegida(Ficha ficha);
+    public void fichaElegida();
     
 }

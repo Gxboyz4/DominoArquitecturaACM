@@ -66,13 +66,20 @@ public class BrokerServidor implements Runnable {
                 paqueteDatosRecibido = (PaqueteDatos) paqueteDatos.readObject();
                 System.out.println("Lista sockets clientes: " + Broker.direccionesClienteSocket);
                 System.out.println("Tamaño de la lista de clientes: " + Broker.direccionesClienteSocket.size());
-                if (paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA_UNIRSE || paqueteDatosRecibido.getTipo() == TipoPaquete.LISTO || paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA || paqueteDatosRecibido.getTipo() == TipoPaquete.INICIAR_PARTIDA || paqueteDatosRecibido.getTipo() == TipoPaquete.CONFIGURACION_PARTIDA) {
+                //Limpiar este método
+                if (paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA_UNIRSE || 
+                        paqueteDatosRecibido.getTipo() == TipoPaquete.LISTO || paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA || 
+                        paqueteDatosRecibido.getTipo() == TipoPaquete.INICIAR_PARTIDA || 
+                        paqueteDatosRecibido.getTipo() == TipoPaquete.CONFIGURACION_PARTIDA || 
+                        paqueteDatosRecibido.getTipo() == TipoPaquete.POZO_VACIO ||
+                         paqueteDatosRecibido.getTipo() == TipoPaquete.AGREGAR_FICHA_CONTRINCANTE
+                        ) {
                     enviarInformacionJugadoresPartida(paqueteDatos, paqueteDatosRecibido);
                 } 
                 if(paqueteDatosRecibido.getTipo() == TipoPaquete.RECUPERAR_PARTIDA || paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA){
                     enviarInformacionTodos(paqueteDatos, paqueteDatosRecibido);
                 }
-                if(paqueteDatosRecibido.getTipo() == TipoPaquete.GENERAR_ID){
+                if(paqueteDatosRecibido.getTipo() == TipoPaquete.GENERAR_ID || paqueteDatosRecibido.getTipo() == TipoPaquete.DEVOLVER_FICHA){
                    enviarInformacionSoloUno(paqueteDatos, paqueteDatosRecibido);
                 }
             }

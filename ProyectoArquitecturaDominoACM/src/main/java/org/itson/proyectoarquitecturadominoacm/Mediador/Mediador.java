@@ -11,6 +11,7 @@ import org.itson.libreriatiposdominoacmp.PartidaDTO;
 import org.itson.libreriatiposdominoacmp.TipoPaquete;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
+import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
 import org.itson.proyectoarquitecturadominoacm.Proxy.IProxyCliente;
 import org.itson.proyectoarquitecturadominoacm.Proxy.ProxyCliente;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
@@ -169,8 +170,7 @@ public class Mediador implements IMediador{
     }
     @Override
     public void unirsePartida(){
-        JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar(),jugador.getId());
-        proxyCliente.empaquetarParametros(TipoPaquete.UNIRSE_PARTIDA, jugadorDTO);
+        proxyCliente.empaquetarParametros(TipoPaquete.UNIRSE_PARTIDA, crearJugadorDTO());
         proxyCliente.enviarDatos();
     }
     public void dibujarJugadoresLobby(){
@@ -181,9 +181,9 @@ public class Mediador implements IMediador{
     public void jugadorListo()
     {
         JugadorDTO jugador;
-        jugador = new JugadorDTO( mediador.getJugador().getAvatar(),mediador.getJugador().getNombre() ,mediador.getJugador().getListo(),mediador.getJugador().getId());
-        mediador.getProxyCliente().empaquetarParametros(TipoPaquete.LISTO, jugador);
-        mediador.getProxyCliente().enviarDatos();
+        jugador = new JugadorDTO( this.jugador.getAvatar(),this.jugador.getNombre() ,this.jugador.getListo(),this.jugador.getId());
+        proxyCliente.empaquetarParametros(TipoPaquete.LISTO, jugador);
+        proxyCliente.enviarDatos();
     }
 
     @Override
@@ -192,10 +192,21 @@ public class Mediador implements IMediador{
     }
     @Override
     public void generarIDJugador(){
-        mediador.getProxyCliente().empaquetarParametros(TipoPaquete.GENERAR_ID, null);
-        mediador.getProxyCliente().enviarDatos();
+        proxyCliente.empaquetarParametros(TipoPaquete.GENERAR_ID, null);
+        proxyCliente.enviarDatos();
     }
     
+    public void obtenerFichaPozo(){   
+       proxyCliente.empaquetarParametros(TipoPaquete.OBTENER_FICHA, crearJugadorDTO());
+       proxyCliente.enviarDatos();
+    }
+    public Pozo obtenerPozo(){
+        return partida.getPozo();
+    }
+    public JugadorDTO crearJugadorDTO(){
+        JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(),jugador.getAvatar(),jugador.getId());
+        return jugadorDTO;
+    }
     
     
     

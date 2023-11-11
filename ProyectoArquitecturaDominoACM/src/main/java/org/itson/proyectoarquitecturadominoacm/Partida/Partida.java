@@ -10,9 +10,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
+import org.itson.proyectoarquitecturadominoacm.Mediador.Mediador;
 import org.itson.proyectoarquitecturadominoacm.Observadores.FichaObserver;
 import org.itson.proyectoarquitecturadominoacm.Observadores.PozoObserver;
 import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
+import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 import org.itson.proyectoarquitecturadominoacm.Tablero.Tablero;
 import org.itson.proyectoarquitecturadominoacm.contrincante.Contrincante;
 
@@ -26,22 +28,27 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
     Ficha ficha;
     List<Jugador> jugadores = new ArrayList();
     List<Contrincante> contrincantes = new ArrayList();
-    Jugador jugadorCreador;
+    Jugador jugadorLocal;
     Tablero tablero;
     int numFichas;
     int numJugadores;
-
+    
+     
     public Partida(List<Jugador> jugadores) {
         this.jugadores = jugadores;
     }
 
     public Partida(Jugador jugador, int numFichas) {
-        this.jugadorCreador = jugador;
+        this.jugadorLocal = mediador.getJugador();
         this.numFichas = numFichas;
     }
-
+    //Nuevo
+     public Partida(int numFichas) {
+        this.jugadorLocal = mediador.getJugador();
+        this.numFichas = numFichas;
+    }
     public Partida(Jugador jugador) {
-        this.jugadorCreador = jugador;
+        this.jugadorLocal = jugador;
         this.jugadores.add(jugador);
     }
 
@@ -51,25 +58,27 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
 
     public Partida(Pozo pozo, Jugador jugador, Tablero tablero) {
         this.pozo = pozo;
-        this.jugadorCreador = jugador;
+        this.jugadorLocal = jugador;
         this.tablero = tablero;
         this.suscribirFichas();
         this.suscribirPozo();
     }
 
     public Partida() {
-
+    this.jugadorLocal = mediador.getJugador();
     }
 
     public void suscribirse() {
         this.suscribirFichas();
         this.suscribirPozo();
     }
-
+ 
     public void suscribirFichas() {
-        for (Ficha ficha : pozo.obtenerTodasFichas()) {
+        for (Ficha ficha : mediador.getJugador().getFichas()) {
             ficha.agregarObservador(this);
         }
+                System.out.println("Entró a suscribirse fichas.");
+                System.out.println("Fichas del jugador: "+jugadorLocal.getFichas());
     }
 
     public void suscribirPozo() {
@@ -78,12 +87,13 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
 
     @Override
     public void fichaSeleccionada(Ficha ficha) {
+        System.out.println("Entró a ficha seleccionada.");
         if (tablero.agregarFicha(ficha)) {
             if (finalizacionTablero(tablero.getNumeroIzquierda()) && finalizacionTablero(tablero.getNumeroDerecha())) {
                 JOptionPane.showMessageDialog(null, "Se ha bloqueado el tablero (este mensaje es momentaneo no se vaya a creer que quede asi profe)", "Tablero UnU", JOptionPane.INFORMATION_MESSAGE);
 
             }
-            jugadorCreador.eliminarFicha(ficha);
+            mediador.getJugador().eliminarFicha(ficha);
             if (finalizacionJugador()) {
                 JOptionPane.showMessageDialog(null, "Gano el jugador(este mensaje es momentaneo no se vaya a creer que quede asi profe)", "Jugador Gano OwO", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -92,7 +102,7 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
     }
 
     public boolean finalizacionJugador() {
-        if (jugadorCreador.getFichas().size() == 0) {
+        if (mediador.getJugador().getFichas().size() == 0) {
             return true;
         }
         return false;
@@ -114,11 +124,10 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
     }
 
     @Override
-    public void fichaElegida(Ficha ficha) {
-        //System.out.println("La ficha elegida por el pozo fue: "+ficha.getNumeroInferior() +" "+ " "+ficha.getNumeroSuperior());  
-        jugadorCreador.agregarFicha(ficha);
-        //  System.out.println(jugadorCreador.getFichas());
-        pozo.eliminarFicha(ficha);
+    public void fichaElegida() {
+//        jugadorLocal.agregarFicha(ficha);
+        System.out.println("Obtener Ficha del pozo del servidor cuando le das click al pozo");
+        mediador.obtenerFichaPozo();
     }
 
     public Pozo getPozo() {
@@ -138,11 +147,11 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
     }
 
     public Jugador getJugadorCreador() {
-        return jugadorCreador;
+        return jugadorLocal;
     }
 
     public void setJugadorCreador(Jugador jugador) {
-        this.jugadorCreador = jugador;
+        this.jugadorLocal = jugador;
     }
 
     public Tablero getTablero() {
@@ -185,11 +194,11 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
         this.contrincantes = contrincantes;
     }
 
-    public void repartirFichas() {
-        for (Jugador jugador : jugadores) {
-            List<Ficha> fichas = this.pozo.repartirFichas(numFichas);
-            System.out.println(fichas.size());
-            jugador.setFichas(fichas);
-        }
-    }
+//    public void repartirFichas() {
+//        for (Jugador jugador : jugadores) {
+//            List<Ficha> fichas = this.pozo.repartirFichas(numFichas);
+//            System.out.println(fichas.size());
+//            jugador.setFichas(fichas);
+//        }
+//    }
 }

@@ -40,7 +40,7 @@ public class FrmPartida extends javax.swing.JFrame {
 
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         this.crearPartida();
-        mediador.getPartida().repartirFichas();
+//        mediador.getPartida().repartirFichas();
         this.cargarPartida();
         mediador.getPartida().setJugadorCreador(mediador.getPartida().getJugadores().get(0));
         setFocusable(true);

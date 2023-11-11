@@ -178,18 +178,12 @@ public class Conexion implements IProxyCliente, Runnable {
                 List<JugadorDTO> jugadores = partidaDTO.getJugadores();
                 for (JugadorDTO jugador : jugadores) {
                     if (mediador.getJugador().getId() == jugador.getId()) {
-                        
                         List<FichaDTO> fichas = jugador.getFichas();
-                        
                         for (FichaDTO ficha : fichas) {
-                            String rutaImagen = ficha.getDireccionImg();
-                            ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
-                            FichaModelo fichaModelo = new FichaModelo(ficha.getNumeroSup(), ficha.getNumeroInf(), imagen);
-                            FichaVista fichaVista = new FichaVista(fichaModelo, null);
-                            FichaControlador fichaControlador = new FichaControlador(fichaModelo, fichaVista);
-                            Ficha fichaAgregar = new Ficha(fichaControlador, fichaModelo, fichaVista);
+                            Ficha fichaAgregar = crearFicha(ficha);
                             mediador.getJugador().agregarFicha(fichaAgregar);
                         }
+                        mediador.getPartida().suscribirFichas();
                         break;
                     }
                 }
@@ -202,6 +196,7 @@ public class Conexion implements IProxyCliente, Runnable {
                 for (Contrincante contrincante : mediador.getPartida().getContrincantes()) {
                     contrincante.agregarFichasRestantes(numFichas);
                 }
+                
             }
 
         } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.GENERAR_ID)) {
@@ -209,9 +204,32 @@ public class Conexion implements IProxyCliente, Runnable {
             int id = (int) paqueteReciboDatos.getObjeto();
             System.out.println(id);
             mediador.asignarIDJugadorLocal(id);
+        }else if (paqueteReciboDatos.getTipo() == TipoPaquete.DEVOLVER_FICHA){
+            FichaDTO fichaObtenida = (FichaDTO)paqueteReciboDatos.getObjeto();
+            Ficha ficha = crearFicha(fichaObtenida);
+            mediador.getJugador().agregarFicha(ficha);
+            mediador.getPartida().suscribirFichas();
+        }else if(paqueteReciboDatos.getTipo() == TipoPaquete.POZO_VACIO){
+            mediador.obtenerPozo().ocultarPozo();
+        }else if(paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA_CONTRINCANTE){
+            JugadorDTO jugador = (JugadorDTO)paqueteReciboDatos.getObjeto();
+            for (Contrincante contrincante : mediador.getPartida().getContrincantes()) {
+                    if(jugador.getId()==contrincante.obtenerID()){
+                        contrincante.agregarFichaRestante();
+                    }
+                }
         }
+        
     }
-
+    public Ficha crearFicha(FichaDTO ficha) {
+        String rutaImagen = ficha.getDireccionImg();
+        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
+        FichaModelo fichaModelo = new FichaModelo(ficha.getNumeroSup(), ficha.getNumeroInf(), imagen);
+        FichaVista fichaVista = new FichaVista(fichaModelo, null);
+        FichaControlador fichaControlador = new FichaControlador(fichaModelo, fichaVista);
+        Ficha fichaCreada = new Ficha(fichaControlador, fichaModelo, fichaVista);
+        return fichaCreada;
+    }
     public void modificarPartidaLocal(PartidaDTO partida) {
         if (partida != null) {
             List<Jugador> jugadores = new ArrayList();
