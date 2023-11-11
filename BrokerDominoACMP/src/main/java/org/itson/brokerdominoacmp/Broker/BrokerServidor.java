@@ -64,15 +64,18 @@ public class BrokerServidor implements Runnable {
                 PaqueteDatos paqueteDatosRecibido;
                 ObjectInputStream paqueteDatos = new ObjectInputStream(socketServidor.getInputStream());
                 paqueteDatosRecibido = (PaqueteDatos) paqueteDatos.readObject();
-                System.out.println("Lista sockets clientes: " + Broker.direccionesClienteSocket);
-                System.out.println("Tamaño de la lista de clientes: " + Broker.direccionesClienteSocket.size());
+
                 //Limpiar este método
                 if (paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA_UNIRSE || 
                         paqueteDatosRecibido.getTipo() == TipoPaquete.LISTO || paqueteDatosRecibido.getTipo() == TipoPaquete.PARTIDA || 
                         paqueteDatosRecibido.getTipo() == TipoPaquete.INICIAR_PARTIDA || 
                         paqueteDatosRecibido.getTipo() == TipoPaquete.CONFIGURACION_PARTIDA || 
                         paqueteDatosRecibido.getTipo() == TipoPaquete.POZO_VACIO ||
-                         paqueteDatosRecibido.getTipo() == TipoPaquete.AGREGAR_FICHA_CONTRINCANTE
+                         paqueteDatosRecibido.getTipo() == TipoPaquete.AGREGAR_FICHA_CONTRINCANTE||
+                        paqueteDatosRecibido.getTipo() == TipoPaquete.AGREGAR_FICHA_DERECHA||
+                        paqueteDatosRecibido.getTipo() == TipoPaquete.AGREGAR_FICHA_IZQUIERDA||
+                         paqueteDatosRecibido.getTipo() == TipoPaquete.AGREGAR_FICHA||
+                        paqueteDatosRecibido.getTipo() == TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE
                         ) {
                     enviarInformacionJugadoresPartida(paqueteDatos, paqueteDatosRecibido);
                 } 

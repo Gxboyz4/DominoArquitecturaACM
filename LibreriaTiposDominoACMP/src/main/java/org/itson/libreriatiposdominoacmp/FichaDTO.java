@@ -5,6 +5,7 @@
 package org.itson.libreriatiposdominoacmp;
 
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -14,6 +15,7 @@ public class FichaDTO implements Serializable{
     int numeroInf;
     int numeroSup;
     String direccionImg;
+    ImageIcon imagen;
 
     public FichaDTO(int numeroInf, int numeroSup, String direccionImg) {
         this.numeroInf = numeroInf;
@@ -21,6 +23,11 @@ public class FichaDTO implements Serializable{
         this.direccionImg = direccionImg;
     }
 
+    public FichaDTO(int numeroInf, int numeroSup,  ImageIcon imagen) {
+        this.numeroInf = numeroInf;
+        this.numeroSup = numeroSup;
+        this.imagen = imagen;
+    }
     public int getNumeroInf() {
         return numeroInf;
     }
@@ -45,6 +52,15 @@ public class FichaDTO implements Serializable{
         this.direccionImg = direccionImg;
     }
 
+    public ImageIcon getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(ImageIcon imagen) {
+        this.imagen = imagen;
+    }
+
+    
     @Override
     public String toString() {
         return "FichaDTO{" + "numeroInf=" + numeroInf + ", numeroSup=" + numeroSup + '}';

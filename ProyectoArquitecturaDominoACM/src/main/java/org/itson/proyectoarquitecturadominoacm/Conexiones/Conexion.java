@@ -151,16 +151,16 @@ public class Conexion implements IProxyCliente, Runnable {
                     mediador.getFrmLobby().mostrarInformacion();
                 }
             }
-        }else if (paqueteReciboDatos.getTipo() == (TipoPaquete.CONFIGURACION_PARTIDA)) {
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.CONFIGURACION_PARTIDA)) {
             PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
             if (partida != null) {
                 if (mediador.getFrmLobby() != null) {
-                    System.out.println("CONEXION"+partida.getNumFichas());
+
                     mediador.getPartida().setNumFichas(partida.getNumFichas());
                     mediador.getFrmLobby().mostrarInformacion();
                 }
             }
-        }else if (paqueteReciboDatos.getTipo() == (TipoPaquete.HAY_PARTIDA)) {
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.HAY_PARTIDA)) {
             if (mediador.getFrmMenu() != null) {
                 mediador.abrirPantallaMenu();
                 mediador.cerrarPantallaLobby();
@@ -180,7 +180,7 @@ public class Conexion implements IProxyCliente, Runnable {
                     if (mediador.getJugador().getId() == jugador.getId()) {
                         List<FichaDTO> fichas = jugador.getFichas();
                         for (FichaDTO ficha : fichas) {
-                            Ficha fichaAgregar = crearFicha(ficha);
+                            Ficha fichaAgregar = crearFichaDireccion(ficha);
                             mediador.getJugador().agregarFicha(fichaAgregar);
                         }
                         mediador.getPartida().suscribirFichas();
@@ -196,40 +196,81 @@ public class Conexion implements IProxyCliente, Runnable {
                 for (Contrincante contrincante : mediador.getPartida().getContrincantes()) {
                     contrincante.agregarFichasRestantes(numFichas);
                 }
-                
+
             }
 
         } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.GENERAR_ID)) {
-            System.out.println("ID Jugador parte cliente");
+
             int id = (int) paqueteReciboDatos.getObjeto();
             System.out.println(id);
             mediador.asignarIDJugadorLocal(id);
-        }else if (paqueteReciboDatos.getTipo() == TipoPaquete.DEVOLVER_FICHA){
-            FichaDTO fichaObtenida = (FichaDTO)paqueteReciboDatos.getObjeto();
-            Ficha ficha = crearFicha(fichaObtenida);
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.DEVOLVER_FICHA) {
+            FichaDTO fichaObtenida = (FichaDTO) paqueteReciboDatos.getObjeto();
+            Ficha ficha = crearFichaDireccion(fichaObtenida);
             mediador.getJugador().agregarFicha(ficha);
             mediador.getPartida().suscribirFichas();
-        }else if(paqueteReciboDatos.getTipo() == TipoPaquete.POZO_VACIO){
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.POZO_VACIO) {
             mediador.obtenerPozo().ocultarPozo();
-        }else if(paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA_CONTRINCANTE){
-            JugadorDTO jugador = (JugadorDTO)paqueteReciboDatos.getObjeto();
-            for (Contrincante contrincante : mediador.getPartida().getContrincantes()) {
-                    if(jugador.getId()==contrincante.obtenerID()){
-                        contrincante.agregarFichaRestante();
-                    }
-                }
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA_CONTRINCANTE) {
+            JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
+            Contrincante contrincante = obtenerContrincante(jugador);
+            if (contrincante != null) {
+                contrincante.agregarFichaRestante();
+            }
+
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA_DERECHA) {
+            FichaDTO fichaObtenida = (FichaDTO) paqueteReciboDatos.getObjeto();
+            Ficha ficha = crearFicha(fichaObtenida);
+            mediador.agregarFichaDerechaTablero(ficha);
+
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA_IZQUIERDA) {
+            FichaDTO fichaObtenida = (FichaDTO) paqueteReciboDatos.getObjeto();
+            Ficha ficha = crearFicha(fichaObtenida);
+            mediador.agregarFichaIzquierdaTablero(ficha);
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA) {
+            FichaDTO fichaObtenida = (FichaDTO) paqueteReciboDatos.getObjeto();
+            Ficha ficha = crearFicha(fichaObtenida);
+            mediador.agregarFichaTablero(ficha);
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE) {
+            JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
+            Contrincante contrincante = obtenerContrincante(jugador);
+            if (contrincante != null) {
+                contrincante.quitarFicha();
+            }
         }
-        
+
     }
+
     public Ficha crearFicha(FichaDTO ficha) {
+        FichaModelo fichaModelo = new FichaModelo(ficha.getNumeroSup(), ficha.getNumeroInf(), ficha.getImagen());
+        FichaVista fichaVista = new FichaVista(fichaModelo, null);
+        FichaControlador fichaControlador = new FichaControlador(fichaModelo, fichaVista);
+        Ficha fichaCreada = new Ficha(fichaControlador, fichaModelo, fichaVista);
+
+        return fichaCreada;
+    }
+
+    public Ficha crearFichaDireccion(FichaDTO ficha) {
         String rutaImagen = ficha.getDireccionImg();
         ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
         FichaModelo fichaModelo = new FichaModelo(ficha.getNumeroSup(), ficha.getNumeroInf(), imagen);
         FichaVista fichaVista = new FichaVista(fichaModelo, null);
         FichaControlador fichaControlador = new FichaControlador(fichaModelo, fichaVista);
         Ficha fichaCreada = new Ficha(fichaControlador, fichaModelo, fichaVista);
+
         return fichaCreada;
     }
+
+    public Contrincante obtenerContrincante(JugadorDTO jugador) {
+        for (Contrincante contrincante : mediador.getPartida().getContrincantes()) {
+
+            if (jugador.getId() == contrincante.obtenerID()) {
+                return contrincante;
+            }
+        }
+        return null;
+    }
+
     public void modificarPartidaLocal(PartidaDTO partida) {
         if (partida != null) {
             List<Jugador> jugadores = new ArrayList();

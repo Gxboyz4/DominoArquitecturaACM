@@ -42,8 +42,8 @@ public class FichaModelo {
     public FichaModelo(int posicionX, int posiciony,int  ancho,int alto, int numeroSuperior, int numeroInferior, String estado, ImageIcon ficha) {
         this.posicionX = posicionX;
         this.posicionY = posiciony;
-        this.ancho = ancho;
-        this.alto = alto;
+        this.ancho = 45;
+        this.alto = 45;
         this.numeroSuperior = numeroSuperior;
         this.numeroInferior = numeroInferior;
         this.estado = estado;

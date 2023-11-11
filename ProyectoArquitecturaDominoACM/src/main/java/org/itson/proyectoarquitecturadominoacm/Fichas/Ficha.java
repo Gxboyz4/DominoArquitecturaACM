@@ -56,7 +56,11 @@ public class Ficha {
     {
         this.fichaModelo.escalado(escala);
     }
-    
+    public void establecerTamano(){
+        System.out.println("Entro a establecer");
+        fichaModelo.setAlto(37);
+        fichaModelo.setAncho(37);
+    }
     
     public void dibujarEnPanel(){
         fichaControlador.dibujarFicha();  
@@ -81,13 +85,23 @@ public class Ficha {
         this.fichaVista.setPanel(panelFichas);;
     }
 
+    public Ficha(ImageIcon imagenFicha) {
+        this.fichaModelo.setImagenFicha(imagenFicha);
+    }
+
+    public ImageIcon getImagenFicha() {
+        return fichaModelo.getImagenFicha();
+    }
+
+    
+    
     public int getNumeroSuperior() {
-        return numeroSuperior;
+        return fichaModelo.getNumeroSuperior();
                 
     }
 
     public int getNumeroInferior() {
-        return numeroInferior;
+        return fichaModelo.getNumeroInferior();
     }
     
     public int getPosicionX() {

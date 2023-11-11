@@ -55,11 +55,14 @@ public class TableroModelo {
     }
     public void colocarPosicionFichaDer(int desplazamientoX,int desplazamientoY,Ficha ficha,int grados)
     {
+
+        ficha.establecerTamano();
         ficha.setPanelFichas(lienzo);
         int x = fichas.getLast().getPosicionX();
         int y = fichas.getLast().getPosicionY();
         ficha.setPosicionX(x+desplazamientoX);
         ficha.setPosicionY(y+desplazamientoY);
+        
         fichas.addLast(ficha);
         fichas.getLast().dibujarEnPanelRotada(grados);
         
@@ -109,6 +112,7 @@ public class TableroModelo {
             
         }else 
         if(fichas.isEmpty()){
+            ficha.establecerTamano();
             this.numeroDerecha = ficha.getNumeroSuperior();
             this.numeroIzquierda = ficha.getNumeroInferior();
             ficha.setPanelFichas(lienzo);
@@ -124,11 +128,14 @@ public class TableroModelo {
      }
         public void colocarPosicionFichaIzq(int desplazamientoX,int desplazamientoY,Ficha ficha,int grados)
     {
+
+        ficha.establecerTamano();
         ficha.setPanelFichas(lienzo);
         int x = fichas.getFirst().getPosicionX();
         int y = fichas.getFirst().getPosicionY();
         ficha.setPosicionX(x+desplazamientoX);
         ficha.setPosicionY(y+desplazamientoY);
+        
         fichas.addFirst(ficha);
         fichas.getFirst().dibujarEnPanelRotada(grados);
     }

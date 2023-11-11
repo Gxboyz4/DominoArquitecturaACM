@@ -17,13 +17,12 @@ import org.itson.libreriatiposdominoacmp.PaqueteDatos;
 import org.itson.libreriatiposdominoacmp.PartidaDTO;
 import org.itson.libreriatiposdominoacmp.TipoPaquete;
 
-
-
 /**
  *
  * @author Gabriel Mancinas
  */
-public class Conexion implements IProxyServidor, Runnable{
+public class Conexion implements IProxyServidor, Runnable {
+
     InformacionServidor infoServer = new InformacionServidor();
     PaqueteDatos paqueteEnvioDatos;
     PaqueteDatos paqueteReciboDatos;
@@ -31,27 +30,28 @@ public class Conexion implements IProxyServidor, Runnable{
     Socket servidorSocket;
     LogicaServidor logicaServidor = new LogicaServidor();
     final String ip = "localhost";
+
     //PartidaDTO partidaDTO;
     public Conexion() {
-    
+
     }
 
     @Override
-    public void empaquetarParametros(TipoPaquete tipo,Object objeto) {
-       paqueteEnvioDatos = new PaqueteDatos(tipo,objeto);
-       enviarDatos();
+    public void empaquetarParametros(TipoPaquete tipo, Object objeto) {
+        paqueteEnvioDatos = new PaqueteDatos(tipo, objeto);
+        enviarDatos();
     }
 
     @Override
     public void iniciarSocket() {
         try {
             servidorSocket = new Socket(ip, puerto);
-            servidorSocket.connect(new InetSocketAddress(ip,puerto));
+            servidorSocket.connect(new InetSocketAddress(ip, puerto));
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }
-   
+
     @Override
     public void enviarDatos() {
         try {
@@ -89,64 +89,74 @@ public class Conexion implements IProxyServidor, Runnable{
 
     @Override
     public void desempaquetarDatos() {
-        System.out.println("Desempaquetar en server: "+paqueteReciboDatos.getTipo());
-        if(paqueteReciboDatos.getTipo()==(TipoPaquete.PARTIDA)){
-        this.infoServer.setPartidaEnServidor((PartidaDTO) paqueteReciboDatos.getObjeto());
-        empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA,infoServer.getPartidaEnServidor());
-        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.RECUPERAR_PARTIDA)){
-        empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA,infoServer.getPartidaEnServidor());
-        }if(paqueteReciboDatos.getTipo()==(TipoPaquete.CONFIGURACION_PARTIDA)){
-            PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
-             this.infoServer.getPartidaEnServidor().setNumFichas(partida.getNumFichas());
-             empaquetarParametros(TipoPaquete.CONFIGURACION_PARTIDA,infoServer.getPartidaEnServidor());
-        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.UNIRSE_PARTIDA)){
-        JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
-        infoServer.getPartidaEnServidor().agregarJugador(jugadorDTO);
-        empaquetarParametros(TipoPaquete.PARTIDA_UNIRSE,infoServer.getPartidaEnServidor());
-        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.ELIMINAR_JUGADOR)){
-        JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
-        infoServer.getPartidaEnServidor().eliminarJugador(jugadorDTO);
-        System.out.println(jugadorDTO);
-        System.out.println(infoServer.getPartidaEnServidor().getJugadores());
-        if(infoServer.getPartidaEnServidor().getJugadores().size()==0){
-        infoServer.eliminarPartida();
+        System.out.println("Desempaquetar en server: " + paqueteReciboDatos.getTipo());
+        if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA)) {
+            this.infoServer.setPartidaEnServidor((PartidaDTO) paqueteReciboDatos.getObjeto());
+            empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA, infoServer.getPartidaEnServidor());
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.RECUPERAR_PARTIDA)) {
+            empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA, infoServer.getPartidaEnServidor());
         }
-        empaquetarParametros(TipoPaquete.PARTIDA,infoServer.getPartidaEnServidor());
-        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.LISTO)){
+        if (paqueteReciboDatos.getTipo() == (TipoPaquete.CONFIGURACION_PARTIDA)) {
+            PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
+            this.infoServer.getPartidaEnServidor().setNumFichas(partida.getNumFichas());
+            empaquetarParametros(TipoPaquete.CONFIGURACION_PARTIDA, infoServer.getPartidaEnServidor());
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.UNIRSE_PARTIDA)) {
+            JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
+            infoServer.getPartidaEnServidor().agregarJugador(jugadorDTO);
+            empaquetarParametros(TipoPaquete.PARTIDA_UNIRSE, infoServer.getPartidaEnServidor());
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.ELIMINAR_JUGADOR)) {
+            JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
+            infoServer.getPartidaEnServidor().eliminarJugador(jugadorDTO);
+            System.out.println(jugadorDTO);
+            System.out.println(infoServer.getPartidaEnServidor().getJugadores());
+            if (infoServer.getPartidaEnServidor().getJugadores().size() == 0) {
+                infoServer.eliminarPartida();
+            }
+            empaquetarParametros(TipoPaquete.PARTIDA, infoServer.getPartidaEnServidor());
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.LISTO)) {
             JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
             infoServer.getPartidaEnServidor().actualizarJugador(jugadorDTO);
-            empaquetarParametros(TipoPaquete.LISTO,infoServer.getPartidaEnServidor());
-            if(LogicaServidor.comprobarVotacion(infoServer.getPartidaEnServidor()))
-            {
+            empaquetarParametros(TipoPaquete.LISTO, infoServer.getPartidaEnServidor());
+            if (LogicaServidor.comprobarVotacion(infoServer.getPartidaEnServidor())) {
                 infoServer.getPartidaEnServidor().setPartidaIniciada(true);
-                
-                
+
                 logicaServidor.repartirFichasJugadores(infoServer);
-                empaquetarParametros(TipoPaquete.INICIAR_PARTIDA,infoServer.getPartidaEnServidor());
-                empaquetarParametros(TipoPaquete.PARTIDA,infoServer.getPartidaEnServidor());
+                empaquetarParametros(TipoPaquete.INICIAR_PARTIDA, infoServer.getPartidaEnServidor());
+                empaquetarParametros(TipoPaquete.PARTIDA, infoServer.getPartidaEnServidor());
             }
-        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.GENERAR_ID)){
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.GENERAR_ID)) {
             int id = logicaServidor.generarIdJugador();
-            empaquetarParametros(TipoPaquete.GENERAR_ID,id);
-        }else if(paqueteReciboDatos.getTipo()==(TipoPaquete.OBTENER_FICHA)){
-            if(logicaServidor.pozoEstaVacio(infoServer)){
-                empaquetarParametros(TipoPaquete.POZO_VACIO,null);
-            }else{
+            empaquetarParametros(TipoPaquete.GENERAR_ID, id);
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.OBTENER_FICHA)) {
+            if (logicaServidor.pozoEstaVacio(infoServer)) {
+                empaquetarParametros(TipoPaquete.POZO_VACIO, null);
+            } else {
                 FichaDTO ficha = logicaServidor.devolverFicha(infoServer);
-                JugadorDTO jugador = (JugadorDTO)paqueteReciboDatos.getObjeto();
-                empaquetarParametros(TipoPaquete.DEVOLVER_FICHA,ficha);
-                empaquetarParametros(TipoPaquete.AGREGAR_FICHA_CONTRINCANTE,jugador);
-            }     
+                JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
+                empaquetarParametros(TipoPaquete.DEVOLVER_FICHA, ficha);
+                empaquetarParametros(TipoPaquete.AGREGAR_FICHA_CONTRINCANTE, jugador);
+            }
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.AGREGAR_FICHA_DERECHA)) {
+            FichaDTO ficha = (FichaDTO) paqueteReciboDatos.getObjeto();
+            empaquetarParametros(TipoPaquete.AGREGAR_FICHA_DERECHA, ficha);
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.AGREGAR_FICHA_IZQUIERDA)) {
+            FichaDTO ficha = (FichaDTO) paqueteReciboDatos.getObjeto();
+            empaquetarParametros(TipoPaquete.AGREGAR_FICHA_IZQUIERDA, ficha);
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.AGREGAR_FICHA)) {
+            FichaDTO ficha = (FichaDTO) paqueteReciboDatos.getObjeto();
+            empaquetarParametros(TipoPaquete.AGREGAR_FICHA, ficha);
+        }else if (paqueteReciboDatos.getTipo() == (TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE)) {
+           JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
+           empaquetarParametros(TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE, jugador);
         }
     }
-    
-    
+
     @Override
     public void iniciarHilo() {
-    Thread conexion = new Thread(this);
-    conexion.start();
+        Thread conexion = new Thread(this);
+        conexion.start();
     }
- 
+
     @Override
     public void run() {
         recibirDatos();

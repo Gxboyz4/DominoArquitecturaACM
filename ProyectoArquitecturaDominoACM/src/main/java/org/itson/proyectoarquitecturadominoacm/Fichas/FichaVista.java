@@ -42,6 +42,8 @@ public class FichaVista extends JLabel {
         this.setBounds(modelo.getPosicionX(), modelo.getPosicionY(), this.modelo.getAncho(), this.modelo.getAlto());
         Icon icon = new ImageIcon(modelo.getImagenFicha().getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(icon);
+        System.out.println("Ancho" + modelo.getAncho());
+        System.out.println("Alto" + modelo.getAlto());
 
     }
 
@@ -52,7 +54,8 @@ public class FichaVista extends JLabel {
         imagen = rotarImagen(imagen, grados);
         Icon icon = imagen;
         this.setIcon(icon);
-
+        System.out.println("Ancho" + modelo.getAncho());
+        System.out.println("Alto" + modelo.getAlto());
     }
 
     public ImageIcon rotarImagen(ImageIcon icon, double grados) {
@@ -68,7 +71,7 @@ public class FichaVista extends JLabel {
         Graphics2D g2d = bi.createGraphics();
 
         AffineTransform transformacion = AffineTransform.getRotateInstance(radianes, nuevoAncho / 2, nuevoAlto / 2);
-        transformacion.translate((nuevoAncho - ancho) / 2, (nuevoAlto - alto) / 2); 
+        transformacion.translate((nuevoAncho - ancho) / 2, (nuevoAlto - alto) / 2);
 
         g2d.setTransform(transformacion);
         g2d.drawImage(img, 0, 0, null);
@@ -83,7 +86,5 @@ public class FichaVista extends JLabel {
     public void setPanel(JPanel fichas) {
         this.panel = fichas;
     }
-    
-    
 
 }

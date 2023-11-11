@@ -1,6 +1,7 @@
+org\itson\servidordominoacmp\PozoServidor.class
 org\itson\servidordominoacmp\InformacionServidor.class
-org\itson\servidordominoacmp\LogicaServidor.class
 org\itson\servidordominoacmp\Conexion.class
 org\itson\servidordominoacmp\IProxyServidor.class
-org\itson\servidordominoacmp\ProxyServidor.class
 org\itson\servidordominoacmp\ServidorDominoACMP.class
+org\itson\servidordominoacmp\LogicaServidor.class
+org\itson\servidordominoacmp\ProxyServidor.class
