@@ -233,8 +233,9 @@ public class Conexion implements IProxyCliente, Runnable {
         else if (paqueteReciboDatos.getTipo() == TipoPaquete.PASAR_TURNO) {
             PartidaDTO partidaDTO = (PartidaDTO) paqueteReciboDatos.getObjeto();
             List<JugadorDTO> jugadores = partidaDTO.getJugadores();
-            System.out.println(jugadores.get(1));
+            System.out.println("Lista turnos justo llegan"+jugadores);
             listaJugadorDTOJugador( jugadores);
+            System.out.println("Despues de convertirse"+mediador.getPartida().getJugadores());
             mediador.modificarTurno(jugadores);
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA) {
             FichaDTO fichaObtenida = (FichaDTO) paqueteReciboDatos.getObjeto();
@@ -261,8 +262,12 @@ public class Conexion implements IProxyCliente, Runnable {
     public void listaJugadorDTOJugador(List<JugadorDTO> jugadoresDTO)
     {
         for (int i = 0; i < jugadoresDTO.size(); i++) {
-            System.out.println(jugadoresDTO.get(i));
-            mediador.getPartida().getJugadores().get(i).setTurno(jugadoresDTO.get(i).getTurno());
+            for (int ii = 0; ii < jugadoresDTO.size(); ii++) {
+                if(mediador.getPartida().getJugadores().get(i).getId() == jugadoresDTO.get(ii).getId())
+                {
+                    mediador.getPartida().getJugadores().get(i).setTurno(jugadoresDTO.get(ii).getTurno());
+                }
+            }
         }
             
     }

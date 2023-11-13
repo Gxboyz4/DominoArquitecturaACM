@@ -234,8 +234,8 @@ public class FrmPartida extends javax.swing.JFrame {
             lblNombreContrincante3.setForeground(Color.green);
         }
         else{
-            lblNombreContrincante2.setText(jugador4.getNombre());
-            lblNombreContrincante2.setForeground(Color.black);
+            lblNombreContrincante3.setText(jugador4.getNombre());
+            lblNombreContrincante3.setForeground(Color.black);
         }
     }
 
