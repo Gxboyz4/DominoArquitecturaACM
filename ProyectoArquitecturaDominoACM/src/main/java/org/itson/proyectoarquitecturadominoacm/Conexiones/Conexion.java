@@ -192,6 +192,8 @@ public class Conexion implements IProxyCliente, Runnable {
                 //Porque ahí asigna las fichas a todos
                 //O lo podemos mover a partida, solo para que le de la cantidad de fichas
                 //a los contrincantes: BORRAR ESTO DESPUÉS
+                listaJugadorDTOJugador( jugadores);
+                mediador.modificarTurno(jugadores);
                 int numFichas = partidaDTO.getJugadores().get(0).getFichas().size();
                 for (Contrincante contrincante : mediador.getPartida().getContrincantes()) {
                     contrincante.agregarFichasRestantes(numFichas);
@@ -227,6 +229,13 @@ public class Conexion implements IProxyCliente, Runnable {
             FichaDTO fichaObtenida = (FichaDTO) paqueteReciboDatos.getObjeto();
             Ficha ficha = crearFicha(fichaObtenida);
             mediador.agregarFichaIzquierdaTablero(ficha);
+        } 
+        else if (paqueteReciboDatos.getTipo() == TipoPaquete.PASAR_TURNO) {
+            PartidaDTO partidaDTO = (PartidaDTO) paqueteReciboDatos.getObjeto();
+            List<JugadorDTO> jugadores = partidaDTO.getJugadores();
+            System.out.println(jugadores.get(1));
+            listaJugadorDTOJugador( jugadores);
+            mediador.modificarTurno(jugadores);
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA) {
             FichaDTO fichaObtenida = (FichaDTO) paqueteReciboDatos.getObjeto();
             Ficha ficha = crearFicha(fichaObtenida);
@@ -249,7 +258,14 @@ public class Conexion implements IProxyCliente, Runnable {
 
         return fichaCreada;
     }
-
+    public void listaJugadorDTOJugador(List<JugadorDTO> jugadoresDTO)
+    {
+        for (int i = 0; i < jugadoresDTO.size(); i++) {
+            System.out.println(jugadoresDTO.get(i));
+            mediador.getPartida().getJugadores().get(i).setTurno(jugadoresDTO.get(i).getTurno());
+        }
+            
+    }
     public Ficha crearFichaDireccion(FichaDTO ficha) {
         String rutaImagen = ficha.getDireccionImg();
         ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
@@ -273,7 +289,7 @@ public class Conexion implements IProxyCliente, Runnable {
         if (partida != null) {
             List<Jugador> jugadores = new ArrayList();
             for (JugadorDTO jugadorDTO : partida.getJugadores()) {
-                Jugador jugador = new Jugador(jugadorDTO.getNombre(), jugadorDTO.getAvatar(), jugadorDTO.getListo(), jugadorDTO.getId());
+                Jugador jugador = new Jugador(jugadorDTO.getNombre(), jugadorDTO.getAvatar(), jugadorDTO.getListo(),jugadorDTO.getTurno(), jugadorDTO.getId());
                 jugadores.add(jugador);
             }
             mediador.getPartida().setJugadores(jugadores);

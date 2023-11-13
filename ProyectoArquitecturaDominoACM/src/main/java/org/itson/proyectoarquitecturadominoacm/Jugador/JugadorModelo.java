@@ -25,6 +25,7 @@ public class JugadorModelo implements Serializable{
     int x;
     int y;
     boolean listo;
+    boolean turno;
     public JugadorModelo(String nombre, ImageIcon avatar){
         this.nombre=nombre;
         this.avatar=avatar;
@@ -127,6 +128,14 @@ public class JugadorModelo implements Serializable{
 
     public void setListo(boolean listo) {
         this.listo = listo;
+    }
+
+    public boolean getTurno() {
+        return turno;
+    }
+
+    public void setTurno(boolean turno) {
+        this.turno = turno;
     }
 
     public int getId() {

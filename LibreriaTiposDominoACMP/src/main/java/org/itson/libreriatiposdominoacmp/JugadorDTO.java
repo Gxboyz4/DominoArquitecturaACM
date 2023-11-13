@@ -20,6 +20,7 @@ public class JugadorDTO implements Serializable{
     String nombre;
     int cantidadFichas;
    boolean listo;
+   boolean turno;
    List<FichaDTO> fichas = new ArrayList<>();
 
     public JugadorDTO(String nombre,ImageIcon avatar) {
@@ -85,6 +86,14 @@ public class JugadorDTO implements Serializable{
         this.listo = listo;
     }
 
+    public boolean getTurno() {
+        return turno;
+    }
+
+    public void setTurno(boolean turno) {
+        this.turno = turno;
+    }
+
     public int getId() {
         return id;
     }
@@ -121,7 +130,7 @@ public class JugadorDTO implements Serializable{
 
     @Override
     public String toString() {
-        return "JugadorDTO{" + "id=" + id + ", nombre=" + nombre + '}';
+        return "JugadorDTO{" + "id=" + id + ", nombre=" + nombre +"turno "+ turno+ '}';
     }
     
     

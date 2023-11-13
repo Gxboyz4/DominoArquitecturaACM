@@ -4,6 +4,8 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Mediador;
 
+import java.util.List;
+import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
@@ -93,4 +95,6 @@ public interface IMediador {
 
     public void agregarFichaTablero(Ficha ficha);
      public void enviarEliminarFichaContrincante();
+     public void modificarTurno(List<JugadorDTO> jugadores);
+     public void pasarTurno();
 }

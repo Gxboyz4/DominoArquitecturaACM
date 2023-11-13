@@ -121,12 +121,15 @@ public class Conexion implements IProxyServidor, Runnable {
                 infoServer.getPartidaEnServidor().setPartidaIniciada(true);
 
                 logicaServidor.repartirFichasJugadores(infoServer);
+                logicaServidor.repartirTurnos(infoServer);
                 empaquetarParametros(TipoPaquete.INICIAR_PARTIDA, infoServer.getPartidaEnServidor());
-                empaquetarParametros(TipoPaquete.PARTIDA, infoServer.getPartidaEnServidor());
             }
         } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.GENERAR_ID)) {
             int id = logicaServidor.generarIdJugador();
             empaquetarParametros(TipoPaquete.GENERAR_ID, id);
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.PASAR_TURNO)) {
+            logicaServidor.pasarTurno(infoServer);
+            empaquetarParametros(TipoPaquete.PASAR_TURNO, infoServer.getPartidaEnServidor());
         } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.OBTENER_FICHA)) {
             if (logicaServidor.pozoEstaVacio(infoServer)) {
                 empaquetarParametros(TipoPaquete.POZO_VACIO, null);

@@ -4,6 +4,7 @@
 package org.itson.proyectoarquitecturadominoacm.UI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Image;
 import java.util.LinkedList;
 import java.util.List;
@@ -116,7 +117,22 @@ public class FrmPartida extends javax.swing.JFrame {
                 null;
         };
     }
-
+    public void actualizarInfo()
+    {
+        System.out.println(mediador.getPartida().getJugadores());
+        btnPozo.setVisible(mediador.getJugador().getTurno());
+        asignarInformacionJugadorLocal(mediador.getJugador());
+        Jugador jugadorLocal = mediador.getJugador();
+        int numeroContrincante = 1;
+        for (Jugador jugador : mediador.getPartida().getJugadores()) {
+            if (jugador.getId() != jugadorLocal.getId()) {
+                System.out.println("Este estoy mandando"+jugador);
+                this.asignarInformacionContrincante(numeroContrincante, jugador);
+                numeroContrincante++;
+            }
+        }
+        jpnFondo.repaint();
+    }
     private void cargarPartida() {
         this.ocultarPanelesContrincantes();
         this.establecerDatosJugadorLocal();
@@ -162,8 +178,16 @@ public class FrmPartida extends javax.swing.JFrame {
         Icon icon;
         icon = new ImageIcon(jugadorContrincante.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
         lblAvatarJugadorLocal.setIcon(icon);
-        lblNombreJugadorLocal.setText(jugadorContrincante.getNombre());
         lblNombreJugadorLocal.setHorizontalAlignment(SwingConstants.CENTER);
+        if(jugadorContrincante.getTurno())
+        {
+            lblNombreJugadorLocal.setText("∎ "+jugadorContrincante.getNombre());
+            lblNombreJugadorLocal.setForeground(Color.green);
+        }
+        else{
+            lblNombreJugadorLocal.setText(jugadorContrincante.getNombre());
+            lblNombreJugadorLocal.setForeground(Color.black);
+        }
     }
 
     private void asignarInformacionContrincante1(Jugador jugador2) {
@@ -172,22 +196,47 @@ public class FrmPartida extends javax.swing.JFrame {
         lblAvatarContrincante1.setIcon(icon);
         lblNombreContrincante1.setText(jugador2.getNombre());
         lblNombreContrincante1.setHorizontalAlignment(SwingConstants.CENTER);
+        if(jugador2.getTurno())
+        {
+            lblNombreContrincante1.setText("∎ "+jugador2.getNombre());
+            lblNombreContrincante1.setForeground(Color.green);
+        }
+        else{
+            lblNombreContrincante1.setText(jugador2.getNombre());
+            lblNombreContrincante1.setForeground(Color.black);
+        }
     }
 
     private void asignarInformacionContrincante2(Jugador jugador3) {
         Icon icon;
         icon = new ImageIcon(jugador3.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
         lblAvatarContrincante2.setIcon(icon);
-        lblNombreContrincante2.setText(jugador3.getNombre());
         lblNombreContrincante2.setHorizontalAlignment(SwingConstants.CENTER);
+        if(jugador3.getTurno())
+        {
+            lblNombreContrincante2.setText("∎ "+jugador3.getNombre());
+            lblNombreContrincante2.setForeground(Color.green);
+        }
+        else{
+            lblNombreContrincante2.setText(jugador3.getNombre());
+            lblNombreContrincante2.setForeground(Color.black);
+        }
     }
 
     private void asignarInformacionContrincante3(Jugador jugador4) {
         Icon icon;
         icon = new ImageIcon(jugador4.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
         lblAvatarContrincante3.setIcon(icon);
-        lblNombreContrincante3.setText(jugador4.getNombre());
         lblNombreContrincante3.setHorizontalAlignment(SwingConstants.CENTER);
+        if(jugador4.getTurno())
+        {
+            lblNombreContrincante3.setText("∎ "+jugador4.getNombre());
+            lblNombreContrincante3.setForeground(Color.green);
+        }
+        else{
+            lblNombreContrincante2.setText(jugador4.getNombre());
+            lblNombreContrincante2.setForeground(Color.black);
+        }
     }
 
     /**

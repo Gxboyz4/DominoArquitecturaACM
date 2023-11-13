@@ -45,7 +45,7 @@ public class Mediador implements IMediador {
 
     @Override
     public void abrirPantallaPartida() {
-        FrmPartida frmPartida = new FrmPartida();
+        this.frmPartida = new FrmPartida();
         frmPartida.setVisible(true);
     }
 
@@ -77,7 +77,6 @@ public class Mediador implements IMediador {
 
     @Override
     public Partida getPartida() {
-        System.out.println(partida);
         return partida;
     }
 
@@ -274,4 +273,25 @@ public class Mediador implements IMediador {
       public void agregarFichaTablero(Ficha ficha){
            partida.getTablero().agregarFicha(ficha,false);
       }
+      public void modificarTurno(List<JugadorDTO> jugadores)
+    {
+        for (JugadorDTO jugadore : jugadores) {
+            if(jugadore.getId() == jugador.getId())
+            {
+                jugador.setTurno(jugadore.getTurno());
+                
+                
+            }
+        }
+        this.frmPartida.actualizarInfo();
+        
+    }
+     public void pasarTurno()
+    {
+        jugador.setTurno(false);
+        System.out.println("Entro pasarturnoMediador");
+        proxyCliente.empaquetarParametros(TipoPaquete.PASAR_TURNO, null);
+        proxyCliente.enviarDatos();
+        
+    }
 }

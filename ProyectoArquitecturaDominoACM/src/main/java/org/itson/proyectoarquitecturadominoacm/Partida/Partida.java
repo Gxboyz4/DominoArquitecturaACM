@@ -88,11 +88,13 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
     @Override
     public void fichaSeleccionada(Ficha ficha) {
         System.out.println("Entró a ficha seleccionada.");
-        if (tablero.agregarFicha(ficha,true)) {
+        if (mediador.getJugador().getTurno()&&tablero.agregarFicha(ficha,true)) {
             if (finalizacionTablero(tablero.getNumeroIzquierda()) && finalizacionTablero(tablero.getNumeroDerecha())) {
                 JOptionPane.showMessageDialog(null, "Se ha bloqueado el tablero (este mensaje es momentaneo no se vaya a creer que quede asi profe)", "Tablero UnU", JOptionPane.INFORMATION_MESSAGE);
 
             }
+            mediador.getJugador().setTurno(false);
+            mediador.pasarTurno();
             mediador.getJugador().eliminarFicha(ficha);
             if (finalizacionJugador()) {
                 JOptionPane.showMessageDialog(null, "Gano el jugador(este mensaje es momentaneo no se vaya a creer que quede asi profe)", "Jugador Gano OwO", JOptionPane.INFORMATION_MESSAGE);

@@ -31,5 +31,6 @@ public enum TipoPaquete implements Serializable {
     ELIMINAR_FICHA_CONTRINCANTE,
     AGREGAR_FICHA_IZQUIERDA,
     AGREGAR_FICHA_DERECHA,
-    AGREGAR_FICHA
+    AGREGAR_FICHA,
+    PASAR_TURNO
 }

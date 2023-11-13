@@ -4,6 +4,7 @@
  */
 package org.itson.servidordominoacmp;
 
+import java.util.Collections;
 import java.util.Iterator;
 import org.itson.libreriatiposdominoacmp.FichaDTO;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
@@ -34,7 +35,28 @@ public class LogicaServidor {
             infoServer.getJugadorPartida(i).anadirFichas(infoServer.getPozoServidor().repartirFichas(infoServer.getNumeroFichasPartida()));
         }
     }
-
+    public void repartirTurnos(InformacionServidor infoServer)
+    {
+        Collections.shuffle(infoServer.getPartidaEnServidor().getJugadores());
+        infoServer.getPartidaEnServidor().getJugadores().get(0).setTurno(true);
+    }
+    public void pasarTurno(InformacionServidor infoServer)
+    {
+        for (int i = 0; i<infoServer.getPartidaEnServidor().getJugadores().size(); i++) {
+            if(infoServer.getPartidaEnServidor().getJugadores().get(i).getTurno()== true)
+            {
+                infoServer.getPartidaEnServidor().getJugadores().get(i).setTurno(false);
+                if(i == infoServer.getPartidaEnServidor().getJugadores().size()-1)
+                {
+                    infoServer.getPartidaEnServidor().getJugadores().get(0).setTurno(true);
+                    break;
+                }
+                infoServer.getPartidaEnServidor().getJugadores().get(i+1).setTurno(true);
+                break;
+            }
+        }
+        
+    }
     public int generarIdJugador() {
         this.ultimoID = this.ultimoID + 1;        
         return ultimoID;

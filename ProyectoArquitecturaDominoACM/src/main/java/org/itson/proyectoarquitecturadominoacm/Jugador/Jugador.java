@@ -33,11 +33,12 @@ public class Jugador implements Serializable{
         this.avatar=avatar;
         this.setearResponsabilidades();
     }
-    public Jugador(String nombre,ImageIcon avatar,boolean listo, int id){
+    public Jugador(String nombre,ImageIcon avatar,boolean listo,boolean turno, int id){
         this.nombre=nombre;
         this.avatar=avatar;
         this.id = id;
         this.setearResponsabilidades();
+        modelo.setTurno(turno);
         modelo.setListo(listo);
         modelo.setId(id);
         
@@ -107,10 +108,17 @@ public class Jugador implements Serializable{
     public void setListo(boolean listo) {
         modelo.setListo(listo);
     }
+    public boolean getTurno() {
+        return modelo.getTurno();
+    }
+
+    public void setTurno(boolean turno) {
+        modelo.setTurno(turno);
+    }
 
     @Override
     public String toString() {
-        return "Jugador{" + "nombre=" + modelo.getNombre() + '}';
+        return "Jugador{" + "nombre=" + modelo.getNombre() + "turno "+ modelo.getTurno()+'}';
     }
 
     public int getId() {
