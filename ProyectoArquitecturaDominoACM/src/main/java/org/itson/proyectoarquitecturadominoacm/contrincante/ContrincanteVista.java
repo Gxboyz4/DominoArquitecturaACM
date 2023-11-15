@@ -87,7 +87,7 @@ public class ContrincanteVista {
 
         if (modelo.getPosicionPanel() == PosicionPanel.IZQUIERDA) {
             x = 0;
-            y = 56;
+            y = 90;
         }
 
         int ancho = 37;
@@ -98,9 +98,9 @@ public class ContrincanteVista {
 
             if (modelo.getPosicionPanel() == PosicionPanel.IZQUIERDA) {
 
-                if (x + 20 > panelFichas.getHeight()) {
-                    x += 26;
-                    y = 0;
+                if (x + 34 > panelFichas.getHeight()) {
+                    y -= 42;
+                    x = 0;
                 }
 
                 fichaPintar = this.construirFichaLimpia(alto, ancho);

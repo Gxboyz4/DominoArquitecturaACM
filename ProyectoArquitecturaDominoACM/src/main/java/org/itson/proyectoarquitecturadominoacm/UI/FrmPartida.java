@@ -311,14 +311,14 @@ public class FrmPartida extends javax.swing.JFrame {
         jpnFichasContrincante1.setLayout(jpnFichasContrincante1Layout);
         jpnFichasContrincante1Layout.setHorizontalGroup(
             jpnFichasContrincante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 140, Short.MAX_VALUE)
         );
         jpnFichasContrincante1Layout.setVerticalGroup(
             jpnFichasContrincante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 260, Short.MAX_VALUE)
         );
 
-        jpnFondo.add(jpnFichasContrincante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, 260));
+        jpnFondo.add(jpnFichasContrincante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 140, 260));
 
         jpnFichasContrincante2.setBackground(new java.awt.Color(8, 78, 171));
         jpnFichasContrincante2.setLayout(null);
@@ -330,14 +330,14 @@ public class FrmPartida extends javax.swing.JFrame {
         jpnFichasContrincante3.setLayout(jpnFichasContrincante3Layout);
         jpnFichasContrincante3Layout.setHorizontalGroup(
             jpnFichasContrincante3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 140, Short.MAX_VALUE)
         );
         jpnFichasContrincante3Layout.setVerticalGroup(
             jpnFichasContrincante3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 260, Short.MAX_VALUE)
         );
 
-        jpnFondo.add(jpnFichasContrincante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, -1, 260));
+        jpnFondo.add(jpnFichasContrincante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, 140, 260));
 
         lblNombreContrincante3.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jpnFondo.add(lblNombreContrincante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 480, 130, 20));
