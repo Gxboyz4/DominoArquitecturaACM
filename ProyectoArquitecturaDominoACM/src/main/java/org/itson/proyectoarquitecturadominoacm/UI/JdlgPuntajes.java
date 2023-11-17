@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
+import org.itson.libreriatiposdominoacmp.JugadorDTO;
+import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 
 /**
  *
@@ -20,74 +21,66 @@ import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
  */
 public class JdlgPuntajes extends javax.swing.JDialog {
 
-    LinkedHashMap<Jugador, Integer> puntajesJugadores;
+    LinkedHashMap<JugadorDTO, Integer> puntajesJugadores;
+    FrmPartida frmPartida;
 
     /**
      * Creates new form JdlgPuntajes
      */
     public JdlgPuntajes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.frmPartida = (FrmPartida) parent;
         initComponents();
-        this.ocultarInformacionJugadores();
+        this.ocultarLabelsInformacionJugadores();
         this.puntajesJugadores = new LinkedHashMap<>();
     }
 
-    public JdlgPuntajes(LinkedHashMap<Jugador, Integer> puntajesJugadores, Frame owner, boolean modal) {
+    public JdlgPuntajes(LinkedHashMap<JugadorDTO, Integer> puntajesJugadores, Frame owner, boolean modal) {
         super(owner, modal);
         initComponents();
         this.puntajesJugadores = puntajesJugadores;
-        this.ocultarInformacionJugadores();
+        this.ocultarLabelsInformacionJugadores();
     }
 
-    private void ocultarInformacionJugadores() {
-        for (int i = 0; i < 4; i++) {
-            this.ocultarLabelsInformacionJugadores(i);
-        }
+    private void ocultarLabelsInformacionJugadores() {
+        this.lblPrimerLugar.setVisible(false);
+        this.lblAvatarP1.setVisible(false);
+        this.lblNombreP1.setVisible(false);
+        this.lblSegundoLugar.setVisible(false);
+        this.lblAvatarP2.setVisible(false);
+        this.lblNombreP2.setVisible(false);
+        this.lblPuntajeP2.setVisible(false);
+        this.lblTercerLugar.setVisible(false);
+        this.lblAvatarP3.setVisible(false);
+        this.lblNombreP3.setVisible(false);
+        this.lblPuntajeP3.setVisible(false);
+        this.lblCuartoLugar.setVisible(false);
+        this.lblAvatarP4.setVisible(false);
+        this.lblNombreP4.setVisible(false);
+        this.lblPuntajeP4.setVisible(false);
     }
 
-    private void ocultarLabelsInformacionJugadores(int rankingJugador) {
-        switch (rankingJugador) {
-            case 1:
-                this.lblAvatarP1.setVisible(false);
-                this.lblNombreP1.setVisible(false);
-                this.lblPuntajeP1.setVisible(false);
-                break;
-            case 2:
-                this.lblAvatarP2.setVisible(false);
-                this.lblNombreP2.setVisible(false);
-                this.lblPuntajeP2.setVisible(false);
-                break;
-            case 3:
-                this.lblAvatarP3.setVisible(false);
-                this.lblNombreP3.setVisible(false);
-                this.lblPuntajeP3.setVisible(false);
-                break;
-            default:
-                this.lblAvatarP4.setVisible(false);
-                this.lblNombreP4.setVisible(false);
-                this.lblPuntajeP4.setVisible(false);
-                break;
-        }
-    }
-    
     private void mostrarLabelsInformacionJugadores(int rankingJugador) {
         switch (rankingJugador) {
             case 1:
+                this.lblPrimerLugar.setVisible(true);
                 this.lblAvatarP1.setVisible(true);
                 this.lblNombreP1.setVisible(true);
-                this.lblPuntajeP1.setVisible(true);
                 break;
             case 2:
+                this.lblSegundoLugar.setVisible(true);
                 this.lblAvatarP2.setVisible(true);
                 this.lblNombreP2.setVisible(true);
                 this.lblPuntajeP2.setVisible(true);
                 break;
             case 3:
+                this.lblTercerLugar.setVisible(true);
                 this.lblAvatarP3.setVisible(true);
                 this.lblNombreP3.setVisible(true);
                 this.lblPuntajeP3.setVisible(true);
                 break;
             default:
+                this.lblCuartoLugar.setVisible(true);
                 this.lblAvatarP4.setVisible(true);
                 this.lblNombreP4.setVisible(true);
                 this.lblPuntajeP4.setVisible(true);
@@ -95,23 +88,27 @@ public class JdlgPuntajes extends javax.swing.JDialog {
         }
     }
 
-    public LinkedHashMap<Jugador, Integer> getPuntajesJugadores() {
+    public int cantJugadoresEnRanking() {
+        return this.puntajesJugadores.size();
+    }
+
+    public LinkedHashMap<JugadorDTO, Integer> getPuntajesJugadores() {
         return puntajesJugadores;
     }
 
-    public void setPuntajesJugadores(LinkedHashMap<Jugador, Integer> puntajesJugadores) {
+    public void setPuntajesJugadores(LinkedHashMap<JugadorDTO, Integer> puntajesJugadores) {
         this.puntajesJugadores = puntajesJugadores;
     }
 
-    public void agregarPuntajesJugadores(Jugador jugador, Integer puntaje) {
+    public void agregarPuntajesJugadores(JugadorDTO jugador, Integer puntaje) {
         this.puntajesJugadores.put(jugador, puntaje);
     }
 
     private void ordenarJugadoresPuntajes() {
-        List<Map.Entry<Jugador, Integer>> listaEntradas = new ArrayList<>(puntajesJugadores.entrySet());
+        List<Map.Entry<JugadorDTO, Integer>> listaEntradas = new ArrayList<>(puntajesJugadores.entrySet());
         listaEntradas.sort(Map.Entry.comparingByValue());
-        LinkedHashMap<Jugador, Integer> mapaOrdenado = new LinkedHashMap<>();
-        for (Map.Entry<Jugador, Integer> entrada : listaEntradas) {
+        LinkedHashMap<JugadorDTO, Integer> mapaOrdenado = new LinkedHashMap<>();
+        for (Map.Entry<JugadorDTO, Integer> entrada : listaEntradas) {
             mapaOrdenado.put(entrada.getKey(), entrada.getValue());
         }
         puntajesJugadores.clear();
@@ -125,15 +122,15 @@ public class JdlgPuntajes extends javax.swing.JDialog {
 
     private void asignarPuestosJugadores() {
         int cont = 1;
-        for (Map.Entry<Jugador, Integer> entry : puntajesJugadores.entrySet()) {
-            Jugador jugador = entry.getKey();
+        for (Map.Entry<JugadorDTO, Integer> entry : puntajesJugadores.entrySet()) {
+            JugadorDTO jugador = entry.getKey();
             Integer puntos = entry.getValue();
             this.asignarJugadorPosicionRanking(jugador, puntos, cont);
             cont++;
         }
     }
 
-    private void asignarJugadorPosicionRanking(Jugador jugador, Integer puntos, int posicionRanking) {
+    private void asignarJugadorPosicionRanking(JugadorDTO jugador, Integer puntos, int posicionRanking) {
         Icon icon;
         icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP1.getWidth(), lblAvatarP1.getHeight(), Image.SCALE_DEFAULT));
         this.mostrarLabelsInformacionJugadores(posicionRanking);
@@ -141,7 +138,6 @@ public class JdlgPuntajes extends javax.swing.JDialog {
             case 1:
                 this.lblAvatarP1.setIcon(icon);
                 this.lblNombreP1.setText(jugador.getNombre());
-                this.lblPuntajeP1.setText(String.valueOf(puntos));
                 break;
             case 2:
                 this.lblAvatarP2.setIcon(icon);
@@ -159,7 +155,6 @@ public class JdlgPuntajes extends javax.swing.JDialog {
                 this.lblPuntajeP4.setText(String.valueOf(puntos));
                 break;
         }
-
     }
 
     /**
@@ -172,15 +167,18 @@ public class JdlgPuntajes extends javax.swing.JDialog {
     private void initComponents() {
 
         jpnFondo = new javax.swing.JPanel();
+        lblPrimerLugar = new javax.swing.JLabel();
         lblNombreP1 = new javax.swing.JLabel();
         lblAvatarP1 = new javax.swing.JLabel();
-        lblPuntajeP1 = new javax.swing.JLabel();
+        lblSegundoLugar = new javax.swing.JLabel();
         lblAvatarP2 = new javax.swing.JLabel();
         lblNombreP2 = new javax.swing.JLabel();
         lblPuntajeP2 = new javax.swing.JLabel();
+        lblTercerLugar = new javax.swing.JLabel();
         lblAvatarP3 = new javax.swing.JLabel();
         lblNombreP3 = new javax.swing.JLabel();
         lblPuntajeP3 = new javax.swing.JLabel();
+        lblCuartoLugar = new javax.swing.JLabel();
         lblAvatarP4 = new javax.swing.JLabel();
         lblNombreP4 = new javax.swing.JLabel();
         lblPuntajeP4 = new javax.swing.JLabel();
@@ -188,8 +186,18 @@ public class JdlgPuntajes extends javax.swing.JDialog {
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jpnFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblPrimerLugar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblPrimerLugar.setForeground(new java.awt.Color(255, 255, 255));
+        lblPrimerLugar.setText("Primer Lugar");
+        jpnFondo.add(lblPrimerLugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 110, 30));
 
         lblNombreP1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         lblNombreP1.setForeground(new java.awt.Color(0, 0, 0));
@@ -197,10 +205,10 @@ public class JdlgPuntajes extends javax.swing.JDialog {
         jpnFondo.add(lblNombreP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 130, 30));
         jpnFondo.add(lblAvatarP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 130, 110));
 
-        lblPuntajeP1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        lblPuntajeP1.setForeground(new java.awt.Color(0, 0, 0));
-        lblPuntajeP1.setText("0");
-        jpnFondo.add(lblPuntajeP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 130, 30));
+        lblSegundoLugar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblSegundoLugar.setForeground(new java.awt.Color(255, 255, 255));
+        lblSegundoLugar.setText("Segundo Lugar");
+        jpnFondo.add(lblSegundoLugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 130, 30));
         jpnFondo.add(lblAvatarP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 130, 110));
 
         lblNombreP2.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
@@ -212,6 +220,11 @@ public class JdlgPuntajes extends javax.swing.JDialog {
         lblPuntajeP2.setForeground(new java.awt.Color(0, 0, 0));
         lblPuntajeP2.setText("0");
         jpnFondo.add(lblPuntajeP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, 130, 30));
+
+        lblTercerLugar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTercerLugar.setForeground(new java.awt.Color(255, 255, 255));
+        lblTercerLugar.setText("Tercer Lugar");
+        jpnFondo.add(lblTercerLugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 110, 30));
         jpnFondo.add(lblAvatarP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 250, 130, 110));
 
         lblNombreP3.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
@@ -223,6 +236,11 @@ public class JdlgPuntajes extends javax.swing.JDialog {
         lblPuntajeP3.setForeground(new java.awt.Color(0, 0, 0));
         lblPuntajeP3.setText("0");
         jpnFondo.add(lblPuntajeP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 380, 130, 30));
+
+        lblCuartoLugar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblCuartoLugar.setForeground(new java.awt.Color(255, 255, 255));
+        lblCuartoLugar.setText("Cuarto Lugar");
+        jpnFondo.add(lblCuartoLugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 160, 110, 30));
         jpnFondo.add(lblAvatarP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 250, 130, 110));
 
         lblNombreP4.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
@@ -255,22 +273,30 @@ public class JdlgPuntajes extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        mediador.abrirPantallaMenu();
+        this.frmPartida.dispose();
+    }//GEN-LAST:event_formWindowClosed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jpnFondo;
     private javax.swing.JLabel lblAvatarP1;
     private javax.swing.JLabel lblAvatarP2;
     private javax.swing.JLabel lblAvatarP3;
     private javax.swing.JLabel lblAvatarP4;
+    private javax.swing.JLabel lblCuartoLugar;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblNombreP1;
     private javax.swing.JLabel lblNombreP2;
     private javax.swing.JLabel lblNombreP3;
     private javax.swing.JLabel lblNombreP4;
-    private javax.swing.JLabel lblPuntajeP1;
+    private javax.swing.JLabel lblPrimerLugar;
     private javax.swing.JLabel lblPuntajeP2;
     private javax.swing.JLabel lblPuntajeP3;
     private javax.swing.JLabel lblPuntajeP4;
+    private javax.swing.JLabel lblSegundoLugar;
     private javax.swing.JLabel lblSlots;
+    private javax.swing.JLabel lblTercerLugar;
     // End of variables declaration//GEN-END:variables
 
 }

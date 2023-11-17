@@ -148,6 +148,10 @@ public class Ficha {
         }
         return true;
     }
+    
+    public Integer getPuntos(){
+        return this.fichaModelo.getPuntos();
+    }
 
     @Override
     public String toString() {

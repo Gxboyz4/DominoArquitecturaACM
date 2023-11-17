@@ -14,36 +14,47 @@ import javax.swing.ImageIcon;
  *
  * @author Gabriel Mancinas
  */
-public class JugadorDTO implements Serializable{
+public class JugadorDTO implements Serializable {
+
     int id;
     ImageIcon avatar;
     String nombre;
     int cantidadFichas;
-   boolean listo;
-   boolean turno;
-   List<FichaDTO> fichas = new ArrayList<>();
+    boolean listo;
+    boolean turno;
+    Integer puntos;
+    List<FichaDTO> fichas = new ArrayList<>();
 
-    public JugadorDTO(String nombre,ImageIcon avatar) {
+    public JugadorDTO(String nombre, ImageIcon avatar) {
         this.avatar = avatar;
         this.nombre = nombre;
     }
-       public JugadorDTO(String nombre,ImageIcon avatar,int id) {
+
+    public JugadorDTO(String nombre, ImageIcon avatar, int id) {
         this.avatar = avatar;
         this.nombre = nombre;
         this.id = id;
     }
-    public JugadorDTO(ImageIcon avatar, String nombre, boolean listo,int id) {
+
+    public JugadorDTO(ImageIcon avatar, String nombre, boolean listo, int id) {
         this.avatar = avatar;
         this.nombre = nombre;
         this.listo = listo;
         this.id = id;
     }
-    
+
     public JugadorDTO(ImageIcon avatar, String nombre, int cantidadFichas, boolean listo) {
         this.avatar = avatar;
         this.nombre = nombre;
         this.cantidadFichas = cantidadFichas;
         this.listo = listo;
+    }
+
+    public JugadorDTO(int id, ImageIcon avatar, String nombre, Integer puntos) {
+        this.id = id;
+        this.avatar = avatar;
+        this.nombre = nombre;
+        this.puntos = puntos;
     }
 
     public List<FichaDTO> getFichas() {
@@ -53,7 +64,7 @@ public class JugadorDTO implements Serializable{
     public void setFichas(List<FichaDTO> fichas) {
         this.fichas = fichas;
     }
-    
+
     public ImageIcon getAvatar() {
         return avatar;
     }
@@ -77,7 +88,7 @@ public class JugadorDTO implements Serializable{
     public void setCantidadFichas(int cantidadFichas) {
         this.cantidadFichas = cantidadFichas;
     }
-    
+
     public boolean getListo() {
         return listo;
     }
@@ -101,8 +112,8 @@ public class JugadorDTO implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
-    public void anadirFichas(List<FichaDTO> fichasAnadir)
-    {
+
+    public void anadirFichas(List<FichaDTO> fichasAnadir) {
         this.fichas.addAll(fichasAnadir);
     }
 
@@ -128,17 +139,17 @@ public class JugadorDTO implements Serializable{
         return this.id == other.id;
     }
 
+    public Integer getPuntos() {
+        return puntos;
+    }
+
+    public void setPuntos(Integer puntos) {
+        this.puntos = puntos;
+    }
+
     @Override
     public String toString() {
-        return "JugadorDTO{" + "id=" + id + ", nombre=" + nombre +"turno "+ turno+ '}';
+        return "JugadorDTO{" + "id=" + id + ", nombre=" + nombre + "turno " + turno + '}';
     }
-    
-    
-    
-    
-    
-   
-    
-    
-    
+
 }

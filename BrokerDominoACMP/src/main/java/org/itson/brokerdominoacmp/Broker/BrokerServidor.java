@@ -76,8 +76,9 @@ public class BrokerServidor implements Runnable {
                         paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA_IZQUIERDA||
                          paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA||
                         paqueteReciboDatos.getTipo() == TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE ||
-                        paqueteReciboDatos.getTipo() == TipoPaquete.PASAR_TURNO
-                        
+                        paqueteReciboDatos.getTipo() == TipoPaquete.PASAR_TURNO||
+                        paqueteReciboDatos.getTipo() == TipoPaquete.FINALIZAR_PARTIDA||
+                        paqueteReciboDatos.getTipo() == TipoPaquete.RECIBIR_PUNTOS
                         ) {
                     enviarInformacionJugadoresPartida(paqueteDatos, paqueteReciboDatos);
                 } 

@@ -146,4 +146,11 @@ public class JugadorModelo implements Serializable{
         this.id = id;
     }
     
+    public Integer getTotalPuntos(){
+        Integer totalPuntos = 0;
+        for (Ficha ficha : fichas) {
+            totalPuntos += ficha.getPuntos();
+        }
+        return totalPuntos;
+    }
 }

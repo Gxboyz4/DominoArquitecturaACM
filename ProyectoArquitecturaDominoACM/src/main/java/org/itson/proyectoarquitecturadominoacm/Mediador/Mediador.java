@@ -5,6 +5,7 @@
 package org.itson.proyectoarquitecturadominoacm.Mediador;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import org.itson.libreriatiposdominoacmp.FichaDTO;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
@@ -229,69 +230,109 @@ public class Mediador implements IMediador {
     }
 
     @Override
-    public void enviarFicha(Ficha ficha){
-         
+    public void enviarFicha(Ficha ficha) {
+
         FichaDTO fichaEnviar = new FichaDTO(ficha.getNumeroInferior(), ficha.getNumeroSuperior(), ficha.getImagenFicha());
-         proxyCliente.empaquetarParametros(TipoPaquete.AGREGAR_FICHA, fichaEnviar);
-          proxyCliente.enviarDatos();
-          this.enviarEliminarFichaContrincante();
+        proxyCliente.empaquetarParametros(TipoPaquete.AGREGAR_FICHA, fichaEnviar);
+        proxyCliente.enviarDatos();
+        this.enviarEliminarFichaContrincante();
     }
-    
-    @Override
-     public void enviarFichaIzquierda(Ficha ficha){
-
-         FichaDTO fichaEnviar = new FichaDTO(ficha.getNumeroInferior(), ficha.getNumeroSuperior(), ficha.getImagenFicha());
-         proxyCliente.empaquetarParametros(TipoPaquete.AGREGAR_FICHA_IZQUIERDA, fichaEnviar);
-          proxyCliente.enviarDatos();
-          this.enviarEliminarFichaContrincante();
-     }
 
     @Override
-     public void enviarFichaDerecha(Ficha ficha){
+    public void enviarFichaIzquierda(Ficha ficha) {
 
         FichaDTO fichaEnviar = new FichaDTO(ficha.getNumeroInferior(), ficha.getNumeroSuperior(), ficha.getImagenFicha());
-         proxyCliente.empaquetarParametros(TipoPaquete.AGREGAR_FICHA_DERECHA, fichaEnviar);
-         proxyCliente.enviarDatos(); 
-         this.enviarEliminarFichaContrincante();
-     }
-     
+        proxyCliente.empaquetarParametros(TipoPaquete.AGREGAR_FICHA_IZQUIERDA, fichaEnviar);
+        proxyCliente.enviarDatos();
+        this.enviarEliminarFichaContrincante();
+    }
+
     @Override
-     public void enviarEliminarFichaContrincante(){
-         proxyCliente.empaquetarParametros(TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE, this.crearJugadorDTO());
-         proxyCliente.enviarDatos(); 
-     }
-     
+    public void enviarFichaDerecha(Ficha ficha) {
+
+        FichaDTO fichaEnviar = new FichaDTO(ficha.getNumeroInferior(), ficha.getNumeroSuperior(), ficha.getImagenFicha());
+        proxyCliente.empaquetarParametros(TipoPaquete.AGREGAR_FICHA_DERECHA, fichaEnviar);
+        proxyCliente.enviarDatos();
+        this.enviarEliminarFichaContrincante();
+    }
+
     @Override
-     public void agregarFichaDerechaTablero(Ficha ficha){
-         partida.getTablero().agregarFichaDerecha(ficha);
-     }
+    public void enviarEliminarFichaContrincante() {
+        proxyCliente.empaquetarParametros(TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE, this.crearJugadorDTO());
+        proxyCliente.enviarDatos();
+    }
+
     @Override
-     public void agregarFichaIzquierdaTablero(Ficha ficha){
-         partida.getTablero().agregarFichaIzquierda(ficha);
-     }
+    public void agregarFichaDerechaTablero(Ficha ficha) {
+        partida.getTablero().agregarFichaDerecha(ficha);
+    }
+
     @Override
-      public void agregarFichaTablero(Ficha ficha){
-           partida.getTablero().agregarFicha(ficha,false);
-      }
-      public void modificarTurno(List<JugadorDTO> jugadores)
-    {
+    public void agregarFichaIzquierdaTablero(Ficha ficha) {
+        partida.getTablero().agregarFichaIzquierda(ficha);
+    }
+
+    @Override
+    public void agregarFichaTablero(Ficha ficha) {
+        partida.getTablero().agregarFicha(ficha, false);
+    }
+
+    public void modificarTurno(List<JugadorDTO> jugadores) {
         for (JugadorDTO jugadore : jugadores) {
-            if(jugadore.getId() == jugador.getId())
-            {
+            if (jugadore.getId() == jugador.getId()) {
                 jugador.setTurno(jugadore.getTurno());
-                
-                
+
             }
         }
         this.frmPartida.actualizarInfo();
-        
     }
-     public void pasarTurno()
-    {
+
+    public void pasarTurno() {
         jugador.setTurno(false);
         System.out.println("Entro pasarturnoMediador");
         proxyCliente.empaquetarParametros(TipoPaquete.PASAR_TURNO, null);
         proxyCliente.enviarDatos();
-        
+
+    }
+
+    @Override
+    public void enviarFinalizarPartida() {
+        JugadorDTO jugador = new JugadorDTO(
+                this.jugador.getId(),
+                this.jugador.getAvatar(),
+                this.jugador.getNombre(),
+                this.jugador.getTotalPuntos());
+        proxyCliente.empaquetarParametros(
+                TipoPaquete.FINALIZAR_PARTIDA,
+                jugador
+        );
+        proxyCliente.enviarDatos();
+    }
+
+    @Override
+    public void enviarTotalPuntos() {
+        JugadorDTO jugador = new JugadorDTO(
+                this.jugador.getId(), 
+                this.jugador.getAvatar(), 
+                this.jugador.getNombre(), 
+                this.jugador.getTotalPuntos()
+        );
+        proxyCliente.empaquetarParametros(TipoPaquete.ENVIAR_PUNTOS, jugador);
+        proxyCliente.enviarDatos();
+    }
+
+    @Override
+    public void mostrarRanking() {
+        this.frmPartida.mostrarRanking();
+    }
+
+    @Override
+    public void agregarRanking(JugadorDTO jugador, Integer puntos) {
+        this.frmPartida.getTableroRanking().agregarPuntajesJugadores(jugador, puntos);
+    }
+
+    @Override
+    public int cantJugadoresEnRanking() {
+        return this.frmPartida.getTableroRanking().cantJugadoresEnRanking();
     }
 }

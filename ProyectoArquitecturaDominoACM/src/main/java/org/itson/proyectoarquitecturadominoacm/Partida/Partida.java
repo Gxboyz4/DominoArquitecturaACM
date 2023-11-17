@@ -97,7 +97,7 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
             mediador.pasarTurno();
             mediador.getJugador().eliminarFicha(ficha);
             if (finalizacionJugador()) {
-                JOptionPane.showMessageDialog(null, "Gano el jugador(este mensaje es momentaneo no se vaya a creer que quede asi profe)", "Jugador Gano OwO", JOptionPane.INFORMATION_MESSAGE);
+                mediador.enviarFinalizarPartida();
             }
         }
 

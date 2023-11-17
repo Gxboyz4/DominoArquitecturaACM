@@ -4,6 +4,7 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Mediador;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
@@ -13,8 +14,6 @@ import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
 import org.itson.proyectoarquitecturadominoacm.Proxy.ProxyCliente;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
-import org.itson.proyectoarquitecturadominoacm.UI.FrmPartida;
-import org.itson.proyectoarquitecturadominoacm.UI.FrmPrincipal;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmUnirse;
 
 /**
@@ -94,7 +93,20 @@ public interface IMediador {
     public void agregarFichaIzquierdaTablero(Ficha ficha);
 
     public void agregarFichaTablero(Ficha ficha);
-     public void enviarEliminarFichaContrincante();
-     public void modificarTurno(List<JugadorDTO> jugadores);
-     public void pasarTurno();
+
+    public void enviarEliminarFichaContrincante();
+
+    public void modificarTurno(List<JugadorDTO> jugadores);
+
+    public void pasarTurno();
+    
+    public void enviarFinalizarPartida();
+    
+    public void enviarTotalPuntos();
+    
+    public void mostrarRanking();
+    
+    public void agregarRanking(JugadorDTO jugador, Integer puntos);
+    
+    public int cantJugadoresEnRanking();
 }

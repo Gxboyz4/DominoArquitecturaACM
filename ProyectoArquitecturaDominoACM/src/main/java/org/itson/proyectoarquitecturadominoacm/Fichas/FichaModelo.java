@@ -13,6 +13,7 @@ import javax.swing.JPanel;
  * @author Zaurus
  */
 public class FichaModelo {
+
     private int posicionX;
     private int posicionY;
     private int ancho;
@@ -22,24 +23,26 @@ public class FichaModelo {
     private String estado;
     private ImageIcon imagenFicha;
 
-    public FichaModelo(int numeroSuperior, int numeroInferior, ImageIcon imagen){
-        this.numeroSuperior=numeroSuperior;
-        this.numeroInferior=numeroInferior;
+    public FichaModelo(int numeroSuperior, int numeroInferior, ImageIcon imagen) {
+        this.numeroSuperior = numeroSuperior;
+        this.numeroInferior = numeroInferior;
         this.imagenFicha = imagen;
-        this.alto=45;
-        this.ancho=45;
+        this.alto = 45;
+        this.ancho = 45;
     }
-    public FichaModelo(int numeroSuperior, int numeroInferior, ImageIcon imagen,int posicionX,int posicionY){
-        this.numeroSuperior=numeroSuperior;
-        this.numeroInferior=numeroInferior;
+
+    public FichaModelo(int numeroSuperior, int numeroInferior, ImageIcon imagen, int posicionX, int posicionY) {
+        this.numeroSuperior = numeroSuperior;
+        this.numeroInferior = numeroInferior;
         this.imagenFicha = imagen;
-        this.estado="En pozo";
-        this.alto=45;
-        this.ancho=46;
-        this.posicionX=posicionX;
-        this.posicionY=posicionY;
+        this.estado = "En pozo";
+        this.alto = 45;
+        this.ancho = 46;
+        this.posicionX = posicionX;
+        this.posicionY = posicionY;
     }
-    public FichaModelo(int posicionX, int posiciony,int  ancho,int alto, int numeroSuperior, int numeroInferior, String estado, ImageIcon ficha) {
+
+    public FichaModelo(int posicionX, int posiciony, int ancho, int alto, int numeroSuperior, int numeroInferior, String estado, ImageIcon ficha) {
         this.posicionX = posicionX;
         this.posicionY = posiciony;
         this.ancho = 45;
@@ -49,12 +52,12 @@ public class FichaModelo {
         this.estado = estado;
         this.imagenFicha = ficha;
     }
-    
-    public void escalado(int escala)
-    {
+
+    public void escalado(int escala) {
         this.alto = escala;
         this.ancho = escala;
     }
+
     public int getNumeroSuperior() {
         return numeroSuperior;
     }
@@ -87,7 +90,6 @@ public class FichaModelo {
         this.imagenFicha = imagenFicha;
     }
 
-
     public int getPosicionX() {
         return posicionX;
     }
@@ -119,5 +121,8 @@ public class FichaModelo {
     public void setAlto(int alto) {
         this.alto = alto;
     }
-    
+
+    public Integer getPuntos() {
+        return this.numeroInferior + this.numeroSuperior;
+    }
 }

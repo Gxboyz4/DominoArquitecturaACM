@@ -27,6 +27,7 @@ import org.itson.proyectoarquitecturadominoacm.contrincante.PosicionPanel;
 public class FrmPartida extends javax.swing.JFrame {
 
     private String nombreJugador;
+    private JdlgPuntajes tableroRanking;
 
     /**
      * Creates new form FrmLobby
@@ -47,6 +48,7 @@ public class FrmPartida extends javax.swing.JFrame {
         setFocusable(true);
         requestFocusInWindow();
         scrollPanel.getHorizontalScrollBar().setValue((scrollPanel.getHorizontalScrollBar().getMaximum() - scrollPanel.getHorizontalScrollBar().getVisibleAmount()) / 2);
+        this.tableroRanking = new JdlgPuntajes(this, true);
     }
 
     private void establecerDatosJugadorLocal() {
@@ -239,6 +241,19 @@ public class FrmPartida extends javax.swing.JFrame {
         }
     }
 
+    public void mostrarRanking(){
+        this.tableroRanking.mostrarPuntajesJugadores();
+        this.tableroRanking.setVisible(true);
+    }
+
+    public JdlgPuntajes getTableroRanking() {
+        return tableroRanking;
+    }
+
+    public void setTableroRanking(JdlgPuntajes tableroRanking) {
+        this.tableroRanking = tableroRanking;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

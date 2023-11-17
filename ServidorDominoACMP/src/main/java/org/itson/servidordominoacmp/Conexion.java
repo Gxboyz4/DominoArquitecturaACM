@@ -89,7 +89,6 @@ public class Conexion implements IProxyServidor, Runnable {
 
     @Override
     public void desempaquetarDatos() {
-        System.out.println("Desempaquetar en server: " + paqueteReciboDatos.getTipo());
         if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA)) {
             this.infoServer.setPartidaEnServidor((PartidaDTO) paqueteReciboDatos.getObjeto());
             empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA, infoServer.getPartidaEnServidor());
@@ -148,9 +147,23 @@ public class Conexion implements IProxyServidor, Runnable {
         } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.AGREGAR_FICHA)) {
             FichaDTO ficha = (FichaDTO) paqueteReciboDatos.getObjeto();
             empaquetarParametros(TipoPaquete.AGREGAR_FICHA, ficha);
-        }else if (paqueteReciboDatos.getTipo() == (TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE)) {
-           JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
-           empaquetarParametros(TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE, jugador);
+        } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE)) {
+            JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
+            empaquetarParametros(TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE, jugador);
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.FINALIZAR_PARTIDA) {
+            JugadorDTO jugadorGanador = (JugadorDTO) paqueteReciboDatos.getObjeto();
+            this.infoServer.agregarJugadorRanking(jugadorGanador);
+            empaquetarParametros(TipoPaquete.FINALIZAR_PARTIDA, jugadorGanador);
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.ENVIAR_PUNTOS) {
+            JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
+            System.out.println("ENVIAR-PUNTOS");
+            this.infoServer.agregarJugadorRanking(jugador);
+            //if (this.infoServer.getRanking().size() == this.infoServer.getCantidadJugadores()) {
+                this.empaquetarParametros(
+                        TipoPaquete.RECIBIR_PUNTOS,
+                        jugador
+                );
+            //}
         }
     }
 

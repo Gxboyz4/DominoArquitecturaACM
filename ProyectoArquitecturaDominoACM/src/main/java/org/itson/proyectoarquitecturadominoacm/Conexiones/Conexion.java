@@ -105,6 +105,7 @@ public class Conexion implements IProxyCliente, Runnable {
 
     @Override
     public void desempaquetarDatos() {
+        System.out.println(paqueteReciboDatos.getTipo());
         if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA)) {
             PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
             partidaDTO = partida;
@@ -192,7 +193,7 @@ public class Conexion implements IProxyCliente, Runnable {
                 //Porque ahí asigna las fichas a todos
                 //O lo podemos mover a partida, solo para que le de la cantidad de fichas
                 //a los contrincantes: BORRAR ESTO DESPUÉS
-                listaJugadorDTOJugador( jugadores);
+                listaJugadorDTOJugador(jugadores);
                 mediador.modificarTurno(jugadores);
                 int numFichas = partidaDTO.getJugadores().get(0).getFichas().size();
                 for (Contrincante contrincante : mediador.getPartida().getContrincantes()) {
@@ -229,13 +230,12 @@ public class Conexion implements IProxyCliente, Runnable {
             FichaDTO fichaObtenida = (FichaDTO) paqueteReciboDatos.getObjeto();
             Ficha ficha = crearFicha(fichaObtenida);
             mediador.agregarFichaIzquierdaTablero(ficha);
-        } 
-        else if (paqueteReciboDatos.getTipo() == TipoPaquete.PASAR_TURNO) {
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.PASAR_TURNO) {
             PartidaDTO partidaDTO = (PartidaDTO) paqueteReciboDatos.getObjeto();
             List<JugadorDTO> jugadores = partidaDTO.getJugadores();
-            System.out.println("Lista turnos justo llegan"+jugadores);
-            listaJugadorDTOJugador( jugadores);
-            System.out.println("Despues de convertirse"+mediador.getPartida().getJugadores());
+            System.out.println("Lista turnos justo llegan" + jugadores);
+            listaJugadorDTOJugador(jugadores);
+            System.out.println("Despues de convertirse" + mediador.getPartida().getJugadores());
             mediador.modificarTurno(jugadores);
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.AGREGAR_FICHA) {
             FichaDTO fichaObtenida = (FichaDTO) paqueteReciboDatos.getObjeto();
@@ -247,8 +247,25 @@ public class Conexion implements IProxyCliente, Runnable {
             if (contrincante != null) {
                 contrincante.quitarFicha();
             }
+        }else if (paqueteReciboDatos.getTipo() == TipoPaquete.FINALIZAR_PARTIDA) {
+            System.out.println("FINALIZAR_PARTIDA-CLIENTE");
+            JugadorDTO jugadorGanador = 
+                    (JugadorDTO) this.paqueteReciboDatos.getObjeto();
+            int idLocal = mediador.getJugador().getId();
+            mediador.agregarRanking(jugadorGanador, jugadorGanador.getPuntos());
+            if(jugadorGanador.getId() != idLocal){
+                mediador.enviarTotalPuntos();
+            }
+        }else if(paqueteReciboDatos.getTipo() == TipoPaquete.RECIBIR_PUNTOS){
+            System.out.println("RECIBIR_PUNTOS-CLIENTE");
+            JugadorDTO jugador = 
+                    (JugadorDTO) this.paqueteReciboDatos.getObjeto();
+            mediador.agregarRanking(jugador, jugador.getPuntos());
+            int cantJugadoresPartida = mediador.getPartida().getContrincantes().size() + 1;
+            if(cantJugadoresPartida == mediador.cantJugadoresEnRanking()){
+                mediador.mostrarRanking();
+            }
         }
-
     }
 
     public Ficha crearFicha(FichaDTO ficha) {
@@ -259,18 +276,18 @@ public class Conexion implements IProxyCliente, Runnable {
 
         return fichaCreada;
     }
-    public void listaJugadorDTOJugador(List<JugadorDTO> jugadoresDTO)
-    {
+
+    public void listaJugadorDTOJugador(List<JugadorDTO> jugadoresDTO) {
         for (int i = 0; i < jugadoresDTO.size(); i++) {
             for (int ii = 0; ii < jugadoresDTO.size(); ii++) {
-                if(mediador.getPartida().getJugadores().get(i).getId() == jugadoresDTO.get(ii).getId())
-                {
+                if (mediador.getPartida().getJugadores().get(i).getId() == jugadoresDTO.get(ii).getId()) {
                     mediador.getPartida().getJugadores().get(i).setTurno(jugadoresDTO.get(ii).getTurno());
                 }
             }
         }
-            
+
     }
+
     public Ficha crearFichaDireccion(FichaDTO ficha) {
         String rutaImagen = ficha.getDireccionImg();
         ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
@@ -294,7 +311,7 @@ public class Conexion implements IProxyCliente, Runnable {
         if (partida != null) {
             List<Jugador> jugadores = new ArrayList();
             for (JugadorDTO jugadorDTO : partida.getJugadores()) {
-                Jugador jugador = new Jugador(jugadorDTO.getNombre(), jugadorDTO.getAvatar(), jugadorDTO.getListo(),jugadorDTO.getTurno(), jugadorDTO.getId());
+                Jugador jugador = new Jugador(jugadorDTO.getNombre(), jugadorDTO.getAvatar(), jugadorDTO.getListo(), jugadorDTO.getTurno(), jugadorDTO.getId());
                 jugadores.add(jugador);
             }
             mediador.getPartida().setJugadores(jugadores);

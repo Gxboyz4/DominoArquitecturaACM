@@ -4,10 +4,7 @@
  */
 package org.itson.servidordominoacmp;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.ImageIcon;
-import org.itson.libreriatiposdominoacmp.FichaDTO;
+import java.util.LinkedHashMap;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.libreriatiposdominoacmp.PartidaDTO;
 
@@ -16,12 +13,14 @@ import org.itson.libreriatiposdominoacmp.PartidaDTO;
  * @author Gabriel Mancinas
  */
 public class InformacionServidor {
-    PartidaDTO partidaEnServidor;   
+
+    PartidaDTO partidaEnServidor;
     //List<FichaDTO> fichas;
     PozoServidor pozoServidor;
+    LinkedHashMap<JugadorDTO, Integer> ranking;
 
-    public InformacionServidor(){
-       pozoServidor = new PozoServidor();
+    public InformacionServidor() {
+        pozoServidor = new PozoServidor();
     }
 
     public PartidaDTO getPartidaEnServidor() {
@@ -31,9 +30,9 @@ public class InformacionServidor {
     public void setPartidaEnServidor(PartidaDTO partidaEnServidor) {
         this.partidaEnServidor = partidaEnServidor;
     }
-    
-    public void eliminarPartida(){
-        this.partidaEnServidor=null;
+
+    public void eliminarPartida() {
+        this.partidaEnServidor = null;
     }
 
     public PozoServidor getPozoServidor() {
@@ -43,15 +42,31 @@ public class InformacionServidor {
     public void setPozoServidor(PozoServidor pozoServidor) {
         this.pozoServidor = pozoServidor;
     }
-    public int getCantidadJugadores(){
+
+    public int getCantidadJugadores() {
         return partidaEnServidor.getJugadores().size();
     }
-    public JugadorDTO getJugadorPartida(int numLista){
+
+    public JugadorDTO getJugadorPartida(int numLista) {
         return partidaEnServidor.getJugadores().get(numLista);
     }
-    public int getNumeroFichasPartida(){
+
+    public int getNumeroFichasPartida() {
         return partidaEnServidor.getNumFichas();
     }
-    
-    
+
+    public LinkedHashMap<JugadorDTO, Integer> getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(LinkedHashMap<JugadorDTO, Integer> ranking) {
+        this.ranking = ranking;
+    }
+
+    public void agregarJugadorRanking(JugadorDTO jugador){
+        if(this.ranking == null){
+            this.ranking = new LinkedHashMap<>();
+        }
+        this.ranking.put(jugador, jugador.getPuntos());
+    }
 }
