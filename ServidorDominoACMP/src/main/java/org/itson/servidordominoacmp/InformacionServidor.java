@@ -5,6 +5,8 @@
 package org.itson.servidordominoacmp;
 
 import java.util.LinkedHashMap;
+import java.util.List;
+import org.itson.libreriatiposdominoacmp.FichaDTO;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.libreriatiposdominoacmp.PartidaDTO;
 
@@ -68,5 +70,9 @@ public class InformacionServidor {
             this.ranking = new LinkedHashMap<>();
         }
         this.ranking.put(jugador, jugador.getPuntos());
+    }
+    
+    public void agregarFichasPozo(List<FichaDTO> fichas){
+        this.pozoServidor.agregarFichas(fichas);
     }
 }

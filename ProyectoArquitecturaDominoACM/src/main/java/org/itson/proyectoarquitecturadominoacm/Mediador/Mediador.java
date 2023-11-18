@@ -5,8 +5,8 @@
 package org.itson.proyectoarquitecturadominoacm.Mediador;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
+import javax.swing.ImageIcon;
 import org.itson.libreriatiposdominoacmp.FichaDTO;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.libreriatiposdominoacmp.PartidaDTO;
@@ -15,14 +15,13 @@ import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
 import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
-import org.itson.proyectoarquitecturadominoacm.Proxy.IProxyCliente;
 import org.itson.proyectoarquitecturadominoacm.Proxy.ProxyCliente;
-import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPartida;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPrincipal;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmUnirse;
+import org.itson.proyectoarquitecturadominoacm.contrincante.Contrincante;
 
 /**
  *
@@ -38,6 +37,16 @@ public class Mediador implements IMediador {
     FrmUnirse frmUnirse;
     Partida partida;
     ProxyCliente proxyCliente = new ProxyCliente();
+
+    @Override
+    public void reiniciarJugador() {
+        String nombre = this.jugador.getNombre();
+        ImageIcon avatar = this.jugador.getAvatar();
+        int id = this.jugador.getId();
+        this.jugador = new Jugador(nombre, avatar);
+        this.jugador.setListo(false);
+        this.jugador.setId(id);
+    }
 
     @Override
     public void registrarJugador(Jugador jugador) {
@@ -144,7 +153,8 @@ public class Mediador implements IMediador {
 
     @Override
     public void cerrarPantallaPartida() {
-        this.frmPrincipal = null;
+        this.frmPartida.setVisible(false);
+        this.frmPartida = null;
     }
 
     @Override
@@ -287,6 +297,7 @@ public class Mediador implements IMediador {
         this.frmPartida.actualizarInfo();
     }
 
+    @Override
     public void pasarTurno() {
         jugador.setTurno(false);
         System.out.println("Entro pasarturnoMediador");
@@ -311,13 +322,14 @@ public class Mediador implements IMediador {
 
     @Override
     public void enviarTotalPuntos() {
-        JugadorDTO jugador = new JugadorDTO(
-                this.jugador.getId(), 
-                this.jugador.getAvatar(), 
-                this.jugador.getNombre(), 
+        this.pasarTurno();
+        JugadorDTO jugadorEliminar = new JugadorDTO(
+                this.jugador.getId(),
+                this.jugador.getAvatar(),
+                this.jugador.getNombre(),
                 this.jugador.getTotalPuntos()
         );
-        proxyCliente.empaquetarParametros(TipoPaquete.ENVIAR_PUNTOS, jugador);
+        proxyCliente.empaquetarParametros(TipoPaquete.ENVIAR_PUNTOS, jugadorEliminar);
         proxyCliente.enviarDatos();
     }
 
@@ -334,5 +346,80 @@ public class Mediador implements IMediador {
     @Override
     public int cantJugadoresEnRanking() {
         return this.frmPartida.getTableroRanking().cantJugadoresEnRanking();
+    }
+
+    @Override
+    public void salirPartida() {
+        if(this.jugador.getTurno()){
+            this.pasarTurno();
+        }
+        JugadorDTO jugadorSalir = new JugadorDTO(
+                this.jugador.getNombre(),
+                this.jugador.getAvatar(),
+                this.jugador.getId()
+        );
+        jugadorSalir.setFichas(this.convertirFichasDTO(this.jugador.getFichas()));
+        this.proxyCliente.empaquetarParametros(
+                TipoPaquete.ELIMINAR_JUGADOR,
+                jugadorSalir
+        );
+        this.proxyCliente.enviarDatos();
+    }
+
+    @Override
+    public void sacarJugadorPartidaPorId(int idJugador) {
+        this.partida.sacarJugadorPorId(idJugador);
+        this.partida.sacarContrincantePorId(idJugador);
+    }
+
+    @Override
+    public void noHayJugadoresPartida() {
+        this.cerrarPantallaPartida();
+        this.abrirPantallaMenu();
+        JugadorDTO jugadorEliminar = new JugadorDTO(
+                this.jugador.getNombre(),
+                this.jugador.getAvatar(),
+                this.jugador.getId()
+        );
+        this.proxyCliente.empaquetarParametros(
+                TipoPaquete.ELIMINAR_JUGADOR,
+                jugadorEliminar
+        );
+        this.proxyCliente.enviarDatos();
+    }
+
+    @Override
+    public void recargarPantallaPartida() {
+        this.frmPartida.cargarPartida();
+    }
+    
+    @Override
+    public void enviarFinalizarPartidaCerrarPartida(){
+        JugadorDTO jugador = new JugadorDTO(
+                this.jugador.getId(),
+                this.jugador.getAvatar(),
+                this.jugador.getNombre(),
+                this.jugador.getTotalPuntos());
+        proxyCliente.empaquetarParametros(
+                TipoPaquete.FINALIZO_PARTIDA,
+                jugador
+        );
+        proxyCliente.enviarDatos();
+    }
+
+    private List<FichaDTO> convertirFichasDTO(List<Ficha> fichas) {
+        List<FichaDTO> fichasDTO = new ArrayList<>();
+        
+        for (Ficha ficha : fichas) {
+            String rutaImagen = String.format("/imgFrmPartidaFichas/ficha%d_%d.png", ficha.getNumeroInferior(), ficha.getNumeroSuperior());
+            FichaDTO fichaDTO = new FichaDTO(
+                    ficha.getNumeroInferior(),
+                    ficha.getNumeroSuperior(),
+                    rutaImagen
+            );
+            
+            fichasDTO.add(fichaDTO);
+        }
+        return fichasDTO;
     }
 }

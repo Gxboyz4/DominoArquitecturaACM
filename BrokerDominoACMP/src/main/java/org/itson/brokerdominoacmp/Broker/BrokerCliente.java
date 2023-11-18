@@ -64,19 +64,20 @@ public class BrokerCliente implements Runnable {
                         verificarPartidaCreada(socketCliente, paqueteDatos, paqueteReciboDatos);
                     } else if (paqueteReciboDatos.getTipo() == TipoPaquete.UNIRSE_PARTIDA) {
                         verificarPartidaLlena(socketCliente, paqueteDatos, paqueteReciboDatos);
-                    } else if (paqueteReciboDatos.getTipo() == TipoPaquete.ELIMINAR_JUGADOR) {
+                    } else if (paqueteReciboDatos.getTipo() == TipoPaquete.ELIMINAR_JUGADOR
+                            || paqueteReciboDatos.getTipo() == TipoPaquete.FINALIZO_PARTIDA) {
                         Broker.direccionesClienteSocket.add(socketCliente);
                         Broker.direccionesClienteSocketPartida.remove(socketCliente);
                         Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
                         ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
                         paqueteDatosEnvio.writeObject(paqueteReciboDatos);
-                    }else if(paqueteReciboDatos.getTipo() == TipoPaquete.GENERAR_ID || paqueteReciboDatos.getTipo()==TipoPaquete.OBTENER_FICHA){
+                    } else if (paqueteReciboDatos.getTipo() == TipoPaquete.GENERAR_ID || paqueteReciboDatos.getTipo() == TipoPaquete.OBTENER_FICHA) {
                         Broker.socketID = socketCliente;
                         Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
                         ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
                         paqueteDatosEnvio.writeObject(paqueteReciboDatos);
- 
-                    }else {
+
+                    } else {
                         Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
                         ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
                         paqueteDatosEnvio.writeObject(paqueteReciboDatos);
@@ -104,12 +105,14 @@ public class BrokerCliente implements Runnable {
 
         public void verificarPartidaCreada(Socket socketCliente, ObjectInputStream paqueteDatos, PaqueteDatos paqueteReciboDatos) throws IOException {
             if (Broker.direccionesClienteSocketPartida.size() == 0) {
+                System.out.println("NO HAY JUGADORES EN LA SALA");
                 Broker.direccionesClienteSocketPartida.add(socketCliente);
                 Broker.direccionesClienteSocket.remove(socketCliente);
                 Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
                 ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketEnviarServidor.getOutputStream());
                 paqueteDatosEnvio.writeObject(paqueteReciboDatos);
             } else {
+                System.out.println("HAY JUGADORES EN LA SALA");
                 PaqueteDatos paqueteRegreso = new PaqueteDatos(TipoPaquete.HAY_PARTIDA, null);
                 ObjectOutputStream paqueteDatosEnvio = new ObjectOutputStream(socketCliente.getOutputStream());
                 paqueteDatosEnvio.writeObject(paqueteRegreso);

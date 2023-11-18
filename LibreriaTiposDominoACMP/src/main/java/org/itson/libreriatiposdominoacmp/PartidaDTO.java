@@ -36,6 +36,10 @@ public class PartidaDTO implements Serializable{
     public void setJugadores(List<JugadorDTO> jugadores) {
         this.jugadores = jugadores;
     }
+    
+    public void reiniciarJugadores(){
+        this.jugadores = new ArrayList();
+    }
 
     public int getNumFichas() {
         return numFichas;

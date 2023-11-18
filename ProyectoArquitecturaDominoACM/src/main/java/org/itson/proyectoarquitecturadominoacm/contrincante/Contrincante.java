@@ -18,6 +18,9 @@ public class Contrincante {
     private ContrincanteVista vista;
     private ContrincanteControlador controlador;
 
+    public Contrincante() {
+    }
+
     /**
      * 
      * @param idJugador
@@ -66,7 +69,7 @@ public class Contrincante {
         this.vista.pintarFichas();
     }
     
-    public int obtenerIdContrincante(){
+    public int getIdContrincante(){
         return this.modelo.getIdContrincante();
     }
 
@@ -115,14 +118,9 @@ public class Contrincante {
             return false;
         }
         final Contrincante other = (Contrincante) obj;
-        if (!Objects.equals(this.modelo, other.modelo)) {
-            return false;
-        }
-        if (!Objects.equals(this.vista, other.vista)) {
-            return false;
-        }
-        return Objects.equals(this.controlador, other.controlador);
+        return Objects.equals(this.modelo, other.modelo);
     }
+
     public int obtenerID(){
         return modelo.getIdContrincante();
     }

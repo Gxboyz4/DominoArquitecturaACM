@@ -274,6 +274,7 @@ public class JdlgPuntajes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        mediador.enviarFinalizarPartidaCerrarPartida();
         mediador.abrirPantallaMenu();
         this.frmPartida.dispose();
     }//GEN-LAST:event_formWindowClosed

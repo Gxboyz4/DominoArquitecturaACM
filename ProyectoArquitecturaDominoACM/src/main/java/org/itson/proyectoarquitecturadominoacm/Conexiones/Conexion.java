@@ -105,7 +105,6 @@ public class Conexion implements IProxyCliente, Runnable {
 
     @Override
     public void desempaquetarDatos() {
-        System.out.println(paqueteReciboDatos.getTipo());
         if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA)) {
             PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
             partidaDTO = partida;
@@ -247,24 +246,36 @@ public class Conexion implements IProxyCliente, Runnable {
             if (contrincante != null) {
                 contrincante.quitarFicha();
             }
-        }else if (paqueteReciboDatos.getTipo() == TipoPaquete.FINALIZAR_PARTIDA) {
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.FINALIZAR_PARTIDA) {
             System.out.println("FINALIZAR_PARTIDA-CLIENTE");
-            JugadorDTO jugadorGanador = 
-                    (JugadorDTO) this.paqueteReciboDatos.getObjeto();
+            JugadorDTO jugadorGanador
+                    = (JugadorDTO) this.paqueteReciboDatos.getObjeto();
             int idLocal = mediador.getJugador().getId();
             mediador.agregarRanking(jugadorGanador, jugadorGanador.getPuntos());
-            if(jugadorGanador.getId() != idLocal){
+            if (jugadorGanador.getId() != idLocal) {
                 mediador.enviarTotalPuntos();
             }
-        }else if(paqueteReciboDatos.getTipo() == TipoPaquete.RECIBIR_PUNTOS){
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.RECIBIR_PUNTOS) {
             System.out.println("RECIBIR_PUNTOS-CLIENTE");
-            JugadorDTO jugador = 
-                    (JugadorDTO) this.paqueteReciboDatos.getObjeto();
+            JugadorDTO jugador
+                    = (JugadorDTO) this.paqueteReciboDatos.getObjeto();
             mediador.agregarRanking(jugador, jugador.getPuntos());
             int cantJugadoresPartida = mediador.getPartida().getContrincantes().size() + 1;
-            if(cantJugadoresPartida == mediador.cantJugadoresEnRanking()){
+            if (cantJugadoresPartida == mediador.cantJugadoresEnRanking()) {
                 mediador.mostrarRanking();
             }
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.SACAR_JUGADOR) {
+            System.out.println("SACAR JUGADOR-CLIENTE");
+            JugadorDTO jugador
+                    = (JugadorDTO) this.paqueteReciboDatos.getObjeto();
+            int idLocal = mediador.getJugador().getId();
+            if(idLocal != jugador.getId()){
+                mediador.sacarJugadorPartidaPorId(jugador.getId());
+                mediador.recargarPantallaPartida();
+            }
+        }else if (paqueteReciboDatos.getTipo() == TipoPaquete.NO_HAY_JUGADORES_EN_PARTIDA){
+            System.out.println("NO HAY JUGADORES EN PARTIDA-CLIENTE");
+            mediador.noHayJugadoresPartida();
         }
     }
 

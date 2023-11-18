@@ -32,8 +32,7 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
     Tablero tablero;
     int numFichas;
     int numJugadores;
-    
-     
+
     public Partida(List<Jugador> jugadores) {
         this.jugadores = jugadores;
     }
@@ -42,11 +41,13 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
         this.jugadorLocal = mediador.getJugador();
         this.numFichas = numFichas;
     }
+
     //Nuevo
-     public Partida(int numFichas) {
+    public Partida(int numFichas) {
         this.jugadorLocal = mediador.getJugador();
         this.numFichas = numFichas;
     }
+
     public Partida(Jugador jugador) {
         this.jugadorLocal = jugador;
         this.jugadores.add(jugador);
@@ -65,20 +66,20 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
     }
 
     public Partida() {
-    this.jugadorLocal = mediador.getJugador();
+        this.jugadorLocal = mediador.getJugador();
     }
 
     public void suscribirse() {
         this.suscribirFichas();
         this.suscribirPozo();
     }
- 
+
     public void suscribirFichas() {
         for (Ficha ficha : mediador.getJugador().getFichas()) {
             ficha.agregarObservador(this);
         }
-                System.out.println("Entró a suscribirse fichas.");
-                System.out.println("Fichas del jugador: "+jugadorLocal.getFichas());
+        System.out.println("Entró a suscribirse fichas.");
+        System.out.println("Fichas del jugador: " + jugadorLocal.getFichas());
     }
 
     public void suscribirPozo() {
@@ -88,7 +89,7 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
     @Override
     public void fichaSeleccionada(Ficha ficha) {
         System.out.println("Entró a ficha seleccionada.");
-        if (mediador.getJugador().getTurno()&&tablero.agregarFicha(ficha,true)) {
+        if (mediador.getJugador().getTurno() && tablero.agregarFicha(ficha, true)) {
             if (finalizacionTablero(tablero.getNumeroIzquierda()) && finalizacionTablero(tablero.getNumeroDerecha())) {
                 JOptionPane.showMessageDialog(null, "Se ha bloqueado el tablero (este mensaje es momentaneo no se vaya a creer que quede asi profe)", "Tablero UnU", JOptionPane.INFORMATION_MESSAGE);
 
@@ -195,7 +196,26 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
     public void setContrincantes(List<Contrincante> contrincantes) {
         this.contrincantes = contrincantes;
     }
-
+    
+    public Jugador sacarJugadorPorId(int id){
+        for (Jugador jugador : jugadores) {
+            if(jugador.getId() == id){
+                this.jugadores.remove(jugador);
+                return jugador;
+            }
+        }
+        return null;
+    }
+    
+    public Contrincante sacarContrincantePorId(int id){
+        for (Contrincante contrincante : this.contrincantes) {
+            if(contrincante.getIdContrincante() == id){
+                this.contrincantes.remove(contrincante);
+                return contrincante;
+            }
+        }
+        return null;
+    }
 //    public void repartirFichas() {
 //        for (Jugador jugador : jugadores) {
 //            List<Ficha> fichas = this.pozo.repartirFichas(numFichas);

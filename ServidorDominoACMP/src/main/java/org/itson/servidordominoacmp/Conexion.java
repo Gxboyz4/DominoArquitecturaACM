@@ -55,7 +55,6 @@ public class Conexion implements IProxyServidor, Runnable {
     @Override
     public void enviarDatos() {
         try {
-            System.out.println("Servidor: Envio datos al cliente");
             ObjectOutputStream paqueteDatos = new ObjectOutputStream(servidorSocket.getOutputStream());
             paqueteDatos.writeObject(paqueteEnvioDatos);
         } catch (IOException ex) {
@@ -106,19 +105,33 @@ public class Conexion implements IProxyServidor, Runnable {
         } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.ELIMINAR_JUGADOR)) {
             JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
             infoServer.getPartidaEnServidor().eliminarJugador(jugadorDTO);
-            System.out.println(jugadorDTO);
-            System.out.println(infoServer.getPartidaEnServidor().getJugadores());
-            if (infoServer.getPartidaEnServidor().getJugadores().size() == 0) {
+            if (infoServer.getPartidaEnServidor().getJugadores().isEmpty()
+                    && !infoServer.getPartidaEnServidor().getPartidaIniciada()) {
                 infoServer.eliminarPartida();
+                empaquetarParametros(TipoPaquete.PARTIDA, infoServer.getPartidaEnServidor());
             }
-            empaquetarParametros(TipoPaquete.PARTIDA, infoServer.getPartidaEnServidor());
+            if (infoServer.getCantidadJugadores() == 1
+                    && !infoServer.getPartidaEnServidor().getPartidaIniciada()) {
+                this.empaquetarParametros(TipoPaquete.PARTIDA, infoServer.getPartidaEnServidor());
+            }
+            if (this.infoServer.getCantidadJugadores() > 1
+                    && infoServer.getPartidaEnServidor().getPartidaIniciada()) {
+                infoServer.agregarFichasPozo(jugadorDTO.getFichas());
+                this.empaquetarParametros(TipoPaquete.SACAR_JUGADOR, jugadorDTO);
+            }
+            if (infoServer.getCantidadJugadores() <= 1
+                    && infoServer.getPartidaEnServidor().getPartidaIniciada()) {
+                this.infoServer.eliminarPartida();
+                this.empaquetarParametros(TipoPaquete.NO_HAY_JUGADORES_EN_PARTIDA, null);
+            }
+
         } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.LISTO)) {
             JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
             infoServer.getPartidaEnServidor().actualizarJugador(jugadorDTO);
             empaquetarParametros(TipoPaquete.LISTO, infoServer.getPartidaEnServidor());
             if (LogicaServidor.comprobarVotacion(infoServer.getPartidaEnServidor())) {
                 infoServer.getPartidaEnServidor().setPartidaIniciada(true);
-
+                infoServer.getPozoServidor().reiniciarPozo();
                 logicaServidor.repartirFichasJugadores(infoServer);
                 logicaServidor.repartirTurnos(infoServer);
                 empaquetarParametros(TipoPaquete.INICIAR_PARTIDA, infoServer.getPartidaEnServidor());
@@ -152,18 +165,19 @@ public class Conexion implements IProxyServidor, Runnable {
             empaquetarParametros(TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE, jugador);
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.FINALIZAR_PARTIDA) {
             JugadorDTO jugadorGanador = (JugadorDTO) paqueteReciboDatos.getObjeto();
-            this.infoServer.agregarJugadorRanking(jugadorGanador);
             empaquetarParametros(TipoPaquete.FINALIZAR_PARTIDA, jugadorGanador);
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.ENVIAR_PUNTOS) {
             JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
-            System.out.println("ENVIAR-PUNTOS");
-            this.infoServer.agregarJugadorRanking(jugador);
-            //if (this.infoServer.getRanking().size() == this.infoServer.getCantidadJugadores()) {
-                this.empaquetarParametros(
-                        TipoPaquete.RECIBIR_PUNTOS,
-                        jugador
-                );
-            //}
+            this.empaquetarParametros(
+                    TipoPaquete.RECIBIR_PUNTOS,
+                    jugador
+            );
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.FINALIZO_PARTIDA) {
+            JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
+            infoServer.getPartidaEnServidor().eliminarJugador(jugadorDTO);
+            if (infoServer.getCantidadJugadores() == 0) {
+                this.infoServer.eliminarPartida();
+            }
         }
     }
 

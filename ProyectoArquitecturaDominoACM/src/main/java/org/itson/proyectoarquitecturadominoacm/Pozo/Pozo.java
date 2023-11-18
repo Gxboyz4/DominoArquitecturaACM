@@ -39,6 +39,7 @@ public class Pozo {
         pozoModelo.setEstadoVisible(false);
         pozoControlador.mostrarPozo();
     }
+    
     public PozoModelo getPozoModelo() {
         return pozoModelo;
     }

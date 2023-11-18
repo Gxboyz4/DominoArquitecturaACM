@@ -39,7 +39,6 @@ public class FrmPartida extends javax.swing.JFrame {
         //this.setSize(850, 575); //800 x 550
         this.setLayout(new BorderLayout());
         this.pack();
-
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         this.crearPartida();
 //        mediador.getPartida().repartirFichas();
@@ -52,12 +51,12 @@ public class FrmPartida extends javax.swing.JFrame {
     }
 
     private void establecerDatosJugadorLocal() {
-        
+
         Jugador jugadorLocal = mediador.getJugador();
         mediador.getJugador().setPanelFichas(this.jpnFichasJugadorLocal);
         int contPrueba = 0;
         for (Jugador jugador : mediador.getPartida().getJugadores()) {
-            if(jugador.getId() == jugadorLocal.getId()){
+            if (jugador.getId() == jugadorLocal.getId()) {
                 System.out.println("cant fich: " + jugador.getFichas().size());
                 for (Ficha ficha : jugador.getFichas()) {
                     jugadorLocal.agregarFicha(ficha);
@@ -67,7 +66,7 @@ public class FrmPartida extends javax.swing.JFrame {
                 break;
             }
         }
-        
+
         this.asignarInformacionJugadorLocal(jugadorLocal);
     }
 
@@ -119,8 +118,8 @@ public class FrmPartida extends javax.swing.JFrame {
                 null;
         };
     }
-    public void actualizarInfo()
-    {
+
+    public void actualizarInfo() {
         System.out.println(mediador.getPartida().getJugadores());
         btnPozo.setVisible(mediador.getJugador().getTurno());
         asignarInformacionJugadorLocal(mediador.getJugador());
@@ -128,14 +127,16 @@ public class FrmPartida extends javax.swing.JFrame {
         int numeroContrincante = 1;
         for (Jugador jugador : mediador.getPartida().getJugadores()) {
             if (jugador.getId() != jugadorLocal.getId()) {
-                System.out.println("Este estoy mandando"+jugador);
+                System.out.println("Este estoy mandando" + jugador);
                 this.asignarInformacionContrincante(numeroContrincante, jugador);
                 numeroContrincante++;
             }
         }
         jpnFondo.repaint();
     }
-    private void cargarPartida() {
+
+    public void cargarPartida() {
+        this.ocultarInformacionContrincantes();
         this.ocultarPanelesContrincantes();
         this.establecerDatosJugadorLocal();
         this.establecerContrincantes();
@@ -153,6 +154,12 @@ public class FrmPartida extends javax.swing.JFrame {
         mediador.abrirPantallaMenu();
         this.dispose();
 
+    }
+
+    private void ocultarInformacionContrincantes() {
+        for (int i = 0; i < 4; i++) {
+            this.ocultarLabelsContrincantes(i);
+        }
     }
 
     private void ocultarPanelesContrincantes() {
@@ -176,17 +183,32 @@ public class FrmPartida extends javax.swing.JFrame {
         }
     }
 
+    private void ocultarLabelsContrincantes(int numContrincante) {
+        switch (numContrincante) {
+            case 1 -> {
+                this.lblAvatarContrincante1.setVisible(false);
+                this.lblNombreContrincante1.setVisible(false);
+            }
+            case 2 -> {
+                this.lblAvatarContrincante2.setVisible(false);
+                this.lblNombreContrincante2.setVisible(false);
+            }
+            case 3 -> {
+                this.lblAvatarContrincante3.setVisible(false);
+                this.lblNombreContrincante3.setVisible(false);
+            }
+        }
+    }
+
     private void asignarInformacionJugadorLocal(Jugador jugadorContrincante) {
         Icon icon;
         icon = new ImageIcon(jugadorContrincante.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
         lblAvatarJugadorLocal.setIcon(icon);
         lblNombreJugadorLocal.setHorizontalAlignment(SwingConstants.CENTER);
-        if(jugadorContrincante.getTurno())
-        {
-            lblNombreJugadorLocal.setText("∎ "+jugadorContrincante.getNombre());
+        if (jugadorContrincante.getTurno()) {
+            lblNombreJugadorLocal.setText("∎ " + jugadorContrincante.getNombre());
             lblNombreJugadorLocal.setForeground(Color.green);
-        }
-        else{
+        } else {
             lblNombreJugadorLocal.setText(jugadorContrincante.getNombre());
             lblNombreJugadorLocal.setForeground(Color.black);
         }
@@ -198,15 +220,15 @@ public class FrmPartida extends javax.swing.JFrame {
         lblAvatarContrincante1.setIcon(icon);
         lblNombreContrincante1.setText(jugador2.getNombre());
         lblNombreContrincante1.setHorizontalAlignment(SwingConstants.CENTER);
-        if(jugador2.getTurno())
-        {
-            lblNombreContrincante1.setText("∎ "+jugador2.getNombre());
+        if (jugador2.getTurno()) {
+            lblNombreContrincante1.setText("∎ " + jugador2.getNombre());
             lblNombreContrincante1.setForeground(Color.green);
-        }
-        else{
+        } else {
             lblNombreContrincante1.setText(jugador2.getNombre());
             lblNombreContrincante1.setForeground(Color.black);
         }
+        this.lblAvatarContrincante1.setVisible(true);
+        this.lblNombreContrincante1.setVisible(true);
     }
 
     private void asignarInformacionContrincante2(Jugador jugador3) {
@@ -214,15 +236,15 @@ public class FrmPartida extends javax.swing.JFrame {
         icon = new ImageIcon(jugador3.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
         lblAvatarContrincante2.setIcon(icon);
         lblNombreContrincante2.setHorizontalAlignment(SwingConstants.CENTER);
-        if(jugador3.getTurno())
-        {
-            lblNombreContrincante2.setText("∎ "+jugador3.getNombre());
+        if (jugador3.getTurno()) {
+            lblNombreContrincante2.setText("∎ " + jugador3.getNombre());
             lblNombreContrincante2.setForeground(Color.green);
-        }
-        else{
+        } else {
             lblNombreContrincante2.setText(jugador3.getNombre());
             lblNombreContrincante2.setForeground(Color.black);
         }
+        this.lblAvatarContrincante2.setVisible(true);
+        this.lblNombreContrincante2.setVisible(true);
     }
 
     private void asignarInformacionContrincante3(Jugador jugador4) {
@@ -230,18 +252,18 @@ public class FrmPartida extends javax.swing.JFrame {
         icon = new ImageIcon(jugador4.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
         lblAvatarContrincante3.setIcon(icon);
         lblNombreContrincante3.setHorizontalAlignment(SwingConstants.CENTER);
-        if(jugador4.getTurno())
-        {
-            lblNombreContrincante3.setText("∎ "+jugador4.getNombre());
+        if (jugador4.getTurno()) {
+            lblNombreContrincante3.setText("∎ " + jugador4.getNombre());
             lblNombreContrincante3.setForeground(Color.green);
-        }
-        else{
+        } else {
             lblNombreContrincante3.setText(jugador4.getNombre());
             lblNombreContrincante3.setForeground(Color.black);
         }
+        this.lblAvatarContrincante3.setVisible(true);
+        this.lblNombreContrincante3.setVisible(true);
     }
 
-    public void mostrarRanking(){
+    public void mostrarRanking() {
         this.tableroRanking.mostrarPuntajesJugadores();
         this.tableroRanking.setVisible(true);
     }
@@ -253,7 +275,7 @@ public class FrmPartida extends javax.swing.JFrame {
     public void setTableroRanking(JdlgPuntajes tableroRanking) {
         this.tableroRanking = tableroRanking;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -410,7 +432,7 @@ public class FrmPartida extends javax.swing.JFrame {
 
     private void btnAcabarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcabarPartidaActionPerformed
         this.dispose();
-        mediador.abrirPantallaMenu();
+        mediador.salirPartida();
     }//GEN-LAST:event_btnAcabarPartidaActionPerformed
 
 

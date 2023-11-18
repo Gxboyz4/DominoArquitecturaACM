@@ -4,7 +4,6 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Mediador;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
@@ -99,14 +98,26 @@ public interface IMediador {
     public void modificarTurno(List<JugadorDTO> jugadores);
 
     public void pasarTurno();
-    
+
     public void enviarFinalizarPartida();
-    
+
     public void enviarTotalPuntos();
-    
+
     public void mostrarRanking();
-    
+
     public void agregarRanking(JugadorDTO jugador, Integer puntos);
-    
+
     public int cantJugadoresEnRanking();
+
+    public void salirPartida();
+
+    public void sacarJugadorPartidaPorId(int id);
+
+    public void noHayJugadoresPartida();
+    
+    public void reiniciarJugador();
+    
+    public void recargarPantallaPartida();
+    
+    public void enviarFinalizarPartidaCerrarPartida();
 }
