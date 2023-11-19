@@ -47,7 +47,7 @@ public class FrmPartida extends javax.swing.JFrame {
         setFocusable(true);
         requestFocusInWindow();
         scrollPanel.getHorizontalScrollBar().setValue((scrollPanel.getHorizontalScrollBar().getMaximum() - scrollPanel.getHorizontalScrollBar().getVisibleAmount()) / 2);
-        this.tableroRanking = new JdlgPuntajes(this, true);
+        
     }
 
     private void establecerDatosJugadorLocal() {
@@ -304,11 +304,16 @@ public class FrmPartida extends javax.swing.JFrame {
         btnPozo = new javax.swing.JButton();
         lblTableroFondo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("¡Partida en curso! " + this.nombreJugador );
         setMinimumSize(new java.awt.Dimension(900, 600));
         setResizable(false);
         setSize(new java.awt.Dimension(900, 600));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jpnFondo.setMaximumSize(new java.awt.Dimension(900, 600));
         jpnFondo.setMinimumSize(new java.awt.Dimension(900, 600));
@@ -433,7 +438,14 @@ public class FrmPartida extends javax.swing.JFrame {
     private void btnAcabarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcabarPartidaActionPerformed
         this.dispose();
         mediador.salirPartida();
+        mediador.abrirPantallaMenu();
     }//GEN-LAST:event_btnAcabarPartidaActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.dispose();
+        mediador.salirPartida();
+        mediador.abrirPantallaMenu();
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

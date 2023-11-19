@@ -13,6 +13,7 @@ import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
 import org.itson.proyectoarquitecturadominoacm.Proxy.ProxyCliente;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
+import org.itson.proyectoarquitecturadominoacm.UI.FrmPodio;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmUnirse;
 
 /**
@@ -34,6 +35,8 @@ public interface IMediador {
     public void abrirPantallaPartida();
 
     public void abrirPantallaUnirse();
+    
+    public void abrirPantallaPodio();
 
     public void cerrarPantallaMenu();
 
@@ -42,6 +45,8 @@ public interface IMediador {
     public void cerrarPantallaUnirse();
 
     public void cerrarPantallaPartida();
+    
+    public void cerrarPantallaPodio();
 
     public Jugador getJugador();
 
@@ -64,6 +69,8 @@ public interface IMediador {
     public void configuracionPartida();
 
     public FrmLobby getFrmLobby();
+    
+    public FrmPodio getFrmPodio();
 
     public void exponerPartida();
 

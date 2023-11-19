@@ -1,10 +1,10 @@
 /**
- * JdlgPuntajes.java
- * Nov 14, 2023 6:10:13 PM
+ * FrmPuntajes.java
+ * Nov 18, 2023 9:02:37 PM
+ *
  */
 package org.itson.proyectoarquitecturadominoacm.UI;
 
-import java.awt.Frame;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -13,39 +13,38 @@ import java.util.Map;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
-import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 
 /**
+ * Descripción de la clase:
  *
  * @author Daniel Armando Peña Garcia ID:229185
  */
-public class JdlgPuntajes extends javax.swing.JDialog {
+public class FrmPodio extends javax.swing.JFrame {
 
-    LinkedHashMap<JugadorDTO, Integer> puntajesJugadores;
-    FrmPartida frmPartida;
+    private LinkedHashMap<JugadorDTO, Integer> podio;
+    private static FrmPodio frmPodio;
 
     /**
-     * Creates new form JdlgPuntajes
+     * Creates new form FrmPuntajes
      */
-    public JdlgPuntajes(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        this.frmPartida = (FrmPartida) parent;
+    private FrmPodio() {
         initComponents();
-        this.ocultarLabelsInformacionJugadores();
-        this.puntajesJugadores = new LinkedHashMap<>();
+        this.iniciarComponentes();
     }
 
-    public JdlgPuntajes(LinkedHashMap<JugadorDTO, Integer> puntajesJugadores, Frame owner, boolean modal) {
-        super(owner, modal);
-        initComponents();
-        this.puntajesJugadores = puntajesJugadores;
-        this.ocultarLabelsInformacionJugadores();
+    private void iniciarComponentes() {
+        this.podio = new LinkedHashMap<>();
+        this.ocultarInformacionLabelsPodio();
+        this.setIconImage(new ImageIcon(getClass()
+                .getResource("/imgFrmPrincipal/iconoGeneral.png"))
+                .getImage());
     }
 
-    private void ocultarLabelsInformacionJugadores() {
+    private void ocultarInformacionLabelsPodio() {
         this.lblPrimerLugar.setVisible(false);
         this.lblAvatarP1.setVisible(false);
         this.lblNombreP1.setVisible(false);
+        this.lblPuntajeP1.setVisible(false);
         this.lblSegundoLugar.setVisible(false);
         this.lblAvatarP2.setVisible(false);
         this.lblNombreP2.setVisible(false);
@@ -60,8 +59,37 @@ public class JdlgPuntajes extends javax.swing.JDialog {
         this.lblPuntajeP4.setVisible(false);
     }
 
-    private void mostrarLabelsInformacionJugadores(int rankingJugador) {
-        switch (rankingJugador) {
+    private void actualizarPodio(){
+        this.ocultarInformacionLabelsPodio();
+        this.ordenarPodioPuntos();
+        this.asignarInformacionLabelsPodio();
+    }
+    
+    public void abrirVentanaPodio(){
+        this.actualizarPodio();
+        this.mostrarInformacionLabels();
+        this.setVisible(true);
+    }
+    
+    public void cerrarVentanaPodio(){
+        this.ocultarInformacionLabelsPodio();
+        this.setVisible(false);
+    }
+    
+    public void reiniciarPodio(){
+        this.podio = new LinkedHashMap<>();
+        this.ocultarInformacionLabelsPodio();
+    }
+    
+    private void mostrarInformacionLabels(){
+        int enPodio = this.podio.size();
+        for (int i = 1; i <= enPodio; i++) {
+            mostrarInformacionLabels(i);
+        }
+    }
+    
+    private void mostrarInformacionLabels(int posicion) {
+        switch (posicion) {
             case 1:
                 this.lblPrimerLugar.setVisible(true);
                 this.lblAvatarP1.setVisible(true);
@@ -71,89 +99,73 @@ public class JdlgPuntajes extends javax.swing.JDialog {
                 this.lblSegundoLugar.setVisible(true);
                 this.lblAvatarP2.setVisible(true);
                 this.lblNombreP2.setVisible(true);
-                this.lblPuntajeP2.setVisible(true);
                 break;
             case 3:
                 this.lblTercerLugar.setVisible(true);
                 this.lblAvatarP3.setVisible(true);
                 this.lblNombreP3.setVisible(true);
-                this.lblPuntajeP3.setVisible(true);
                 break;
             default:
                 this.lblCuartoLugar.setVisible(true);
                 this.lblAvatarP4.setVisible(true);
                 this.lblNombreP4.setVisible(true);
-                this.lblPuntajeP4.setVisible(true);
                 break;
         }
     }
 
-    public int cantJugadoresEnRanking() {
-        return this.puntajesJugadores.size();
-    }
-
-    public LinkedHashMap<JugadorDTO, Integer> getPuntajesJugadores() {
-        return puntajesJugadores;
-    }
-
-    public void setPuntajesJugadores(LinkedHashMap<JugadorDTO, Integer> puntajesJugadores) {
-        this.puntajesJugadores = puntajesJugadores;
-    }
-
-    public void agregarPuntajesJugadores(JugadorDTO jugador, Integer puntaje) {
-        this.puntajesJugadores.put(jugador, puntaje);
-    }
-
-    private void ordenarJugadoresPuntajes() {
-        List<Map.Entry<JugadorDTO, Integer>> listaEntradas = new ArrayList<>(puntajesJugadores.entrySet());
-        listaEntradas.sort(Map.Entry.comparingByValue());
+    private void ordenarPodioPuntos() {
+        List<Map.Entry<JugadorDTO, Integer>> listaOrdena = 
+                new ArrayList<>(this.podio.entrySet());
+        listaOrdena.sort(Map.Entry.comparingByValue());
         LinkedHashMap<JugadorDTO, Integer> mapaOrdenado = new LinkedHashMap<>();
-        for (Map.Entry<JugadorDTO, Integer> entrada : listaEntradas) {
-            mapaOrdenado.put(entrada.getKey(), entrada.getValue());
+        for (Map.Entry<JugadorDTO, Integer> datosPosicion : listaOrdena) {
+            mapaOrdenado.put(datosPosicion.getKey(), datosPosicion.getValue());
         }
-        puntajesJugadores.clear();
-        puntajesJugadores.putAll(mapaOrdenado);
+        this.podio.clear();
+        this.podio.putAll(mapaOrdenado);
     }
-
-    public void mostrarPuntajesJugadores() {
-        this.ordenarJugadoresPuntajes();
-        this.asignarPuestosJugadores();
-    }
-
-    private void asignarPuestosJugadores() {
-        int cont = 1;
-        for (Map.Entry<JugadorDTO, Integer> entry : puntajesJugadores.entrySet()) {
+    
+    private void asignarInformacionLabelsPodio() {
+        int posicision = 1;
+        for (Map.Entry<JugadorDTO, Integer> entry : podio.entrySet()) {
             JugadorDTO jugador = entry.getKey();
             Integer puntos = entry.getValue();
-            this.asignarJugadorPosicionRanking(jugador, puntos, cont);
-            cont++;
+            this.asignarInformacionLabelsPodio(jugador, puntos, posicision);
+            posicision++;
         }
     }
 
-    private void asignarJugadorPosicionRanking(JugadorDTO jugador, Integer puntos, int posicionRanking) {
-        Icon icon;
-        icon = new ImageIcon(jugador.getAvatar().getImage().getScaledInstance(lblAvatarP1.getWidth(), lblAvatarP1.getHeight(), Image.SCALE_DEFAULT));
-        this.mostrarLabelsInformacionJugadores(posicionRanking);
-        switch (posicionRanking) {
-            case 1:
-                this.lblAvatarP1.setIcon(icon);
+    private void asignarInformacionLabelsPodio(JugadorDTO jugador,
+            Integer puntos,
+            int posicion) {
+        Icon iconoJugador = new ImageIcon(
+                jugador.getAvatar().
+                        getImage().
+                        getScaledInstance(lblAvatarP1.
+                                getWidth(), 
+                                lblAvatarP1.getHeight(), 
+                                Image.SCALE_DEFAULT));
+        switch (posicion) {
+            case 1 -> {
+                this.lblAvatarP1.setIcon(iconoJugador);
                 this.lblNombreP1.setText(jugador.getNombre());
-                break;
-            case 2:
-                this.lblAvatarP2.setIcon(icon);
+                this.lblPuntajeP1.setText(String.valueOf(puntos));
+            }
+            case 2 -> {
+                this.lblAvatarP2.setIcon(iconoJugador);
                 this.lblNombreP2.setText(jugador.getNombre());
                 this.lblPuntajeP2.setText(String.valueOf(puntos));
-                break;
-            case 3:
-                this.lblAvatarP3.setIcon(icon);
+            }
+            case 3 -> {
+                this.lblAvatarP3.setIcon(iconoJugador);
                 this.lblNombreP3.setText(jugador.getNombre());
                 this.lblPuntajeP3.setText(String.valueOf(puntos));
-                break;
-            default:
-                this.lblAvatarP4.setIcon(icon);
+            }
+            default -> {
+                this.lblAvatarP4.setIcon(iconoJugador);
                 this.lblNombreP4.setText(jugador.getNombre());
                 this.lblPuntajeP4.setText(String.valueOf(puntos));
-                break;
+            }
         }
     }
 
@@ -169,6 +181,7 @@ public class JdlgPuntajes extends javax.swing.JDialog {
         jpnFondo = new javax.swing.JPanel();
         lblPrimerLugar = new javax.swing.JLabel();
         lblNombreP1 = new javax.swing.JLabel();
+        lblPuntajeP1 = new javax.swing.JLabel();
         lblAvatarP1 = new javax.swing.JLabel();
         lblSegundoLugar = new javax.swing.JLabel();
         lblAvatarP2 = new javax.swing.JLabel();
@@ -185,10 +198,11 @@ public class JdlgPuntajes extends javax.swing.JDialog {
         lblSlots = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+        setTitle("Podio");
+        setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                formComponentHidden(evt);
             }
         });
 
@@ -203,6 +217,11 @@ public class JdlgPuntajes extends javax.swing.JDialog {
         lblNombreP1.setForeground(new java.awt.Color(0, 0, 0));
         lblNombreP1.setText("P1");
         jpnFondo.add(lblNombreP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 130, 30));
+
+        lblPuntajeP1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        lblPuntajeP1.setForeground(new java.awt.Color(0, 0, 0));
+        lblPuntajeP1.setText("0");
+        jpnFondo.add(lblPuntajeP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 130, 30));
         jpnFondo.add(lblAvatarP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 130, 110));
 
         lblSegundoLugar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -271,13 +290,41 @@ public class JdlgPuntajes extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-//        mediador.enviarFinalizarPartidaCerrarPartida();
-//        mediador.abrirPantallaMenu();
-//        this.frmPartida.dispose();
-    }//GEN-LAST:event_formWindowClosed
+    private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
+        this.cerrarVentanaPodio();
+    }//GEN-LAST:event_formComponentHidden
+
+    public LinkedHashMap<JugadorDTO, Integer> getPodio() {
+        return podio;
+    }
+
+    public void setPodio(LinkedHashMap<JugadorDTO, Integer> podio) {
+        this.podio = podio;
+    }
+
+    public int cantidadEnPodio(){
+        return this.podio.size();
+    }
+    
+    public void agregarAlPodio(JugadorDTO jugador, Integer puntos) {
+        this.podio.put(jugador, puntos);
+        this.actualizarPodio();
+    }
+    
+    public void eliminarDelPodio(JugadorDTO jugador){
+        this.podio.remove(jugador);
+        this.actualizarPodio();
+    }
+    
+    public static FrmPodio getInstance(){
+        if(frmPodio == null){
+            frmPodio = new FrmPodio();
+        }
+        return frmPodio;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jpnFondo;
@@ -292,6 +339,7 @@ public class JdlgPuntajes extends javax.swing.JDialog {
     private javax.swing.JLabel lblNombreP3;
     private javax.swing.JLabel lblNombreP4;
     private javax.swing.JLabel lblPrimerLugar;
+    private javax.swing.JLabel lblPuntajeP1;
     private javax.swing.JLabel lblPuntajeP2;
     private javax.swing.JLabel lblPuntajeP3;
     private javax.swing.JLabel lblPuntajeP4;

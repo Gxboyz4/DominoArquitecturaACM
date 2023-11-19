@@ -20,6 +20,7 @@ import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPartida;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPrincipal;
+import org.itson.proyectoarquitecturadominoacm.UI.FrmPodio;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmUnirse;
 import org.itson.proyectoarquitecturadominoacm.contrincante.Contrincante;
 
@@ -36,6 +37,7 @@ public class Mediador implements IMediador {
     FrmPartida frmPartida;
     FrmUnirse frmUnirse;
     Partida partida;
+    FrmPodio frmPodio;
     ProxyCliente proxyCliente = new ProxyCliente();
 
     @Override
@@ -46,6 +48,7 @@ public class Mediador implements IMediador {
         this.jugador = new Jugador(nombre, avatar);
         this.jugador.setListo(false);
         this.jugador.setId(id);
+        this.frmPodio = FrmPodio.getInstance();
     }
 
     @Override
@@ -116,6 +119,11 @@ public class Mediador implements IMediador {
     }
 
     @Override
+    public void abrirPantallaPodio() {
+        this.frmPodio.abrirVentanaPodio();
+    }
+
+    @Override
     public void iniciarHiloConexion() {
         proxyCliente.iniciarHilo();
     }
@@ -160,6 +168,16 @@ public class Mediador implements IMediador {
     @Override
     public void cerrarPantallaMenu() {
         this.frmMenu = null;
+    }
+
+    @Override
+    public void cerrarPantallaPodio() {
+        this.frmPodio.cerrarVentanaPodio();
+    }
+
+    @Override
+    public FrmPodio getFrmPodio() {
+        return this.frmPodio;
     }
 
     @Override
@@ -350,7 +368,7 @@ public class Mediador implements IMediador {
 
     @Override
     public void salirPartida() {
-        if(this.jugador.getTurno()){
+        if (this.jugador.getTurno()) {
             this.pasarTurno();
         }
         JugadorDTO jugadorSalir = new JugadorDTO(
@@ -392,9 +410,9 @@ public class Mediador implements IMediador {
     public void recargarPantallaPartida() {
         this.frmPartida.cargarPartida();
     }
-    
+
     @Override
-    public void enviarFinalizarPartidaCerrarPartida(){
+    public void enviarFinalizarPartidaCerrarPartida() {
         JugadorDTO jugador = new JugadorDTO(
                 this.jugador.getId(),
                 this.jugador.getAvatar(),
@@ -409,7 +427,7 @@ public class Mediador implements IMediador {
 
     private List<FichaDTO> convertirFichasDTO(List<Ficha> fichas) {
         List<FichaDTO> fichasDTO = new ArrayList<>();
-        
+
         for (Ficha ficha : fichas) {
             String rutaImagen = String.format("/imgFrmPartidaFichas/ficha%d_%d.png", ficha.getNumeroInferior(), ficha.getNumeroSuperior());
             FichaDTO fichaDTO = new FichaDTO(
@@ -417,7 +435,7 @@ public class Mediador implements IMediador {
                     ficha.getNumeroSuperior(),
                     rutaImagen
             );
-            
+
             fichasDTO.add(fichaDTO);
         }
         return fichasDTO;

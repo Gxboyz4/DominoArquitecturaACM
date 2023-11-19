@@ -60,7 +60,7 @@ public class Conexion implements IProxyCliente, Runnable {
             clienteSocket.connect(new InetSocketAddress(ip, puerto));
         } catch (IOException ex) {
             ex.getStackTrace();
-
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ public class Conexion implements IProxyCliente, Runnable {
             paqueteDatos.writeObject(paqueteEnvioDatos);
         } catch (IOException ex) {
             ex.getStackTrace();
-
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -80,7 +80,7 @@ public class Conexion implements IProxyCliente, Runnable {
         try {
             clienteSocket.close();
         } catch (IOException ex) {
-
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -99,7 +99,7 @@ public class Conexion implements IProxyCliente, Runnable {
                 desempaquetarDatos();
             }
         } catch (IOException | ClassNotFoundException ex) {
-
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -259,21 +259,21 @@ public class Conexion implements IProxyCliente, Runnable {
             System.out.println("RECIBIR_PUNTOS-CLIENTE");
             JugadorDTO jugador
                     = (JugadorDTO) this.paqueteReciboDatos.getObjeto();
-            mediador.agregarRanking(jugador, jugador.getPuntos());
+            mediador.getFrmPodio().agregarAlPodio(jugador, jugador.getPuntos());
             int cantJugadoresPartida = mediador.getPartida().getContrincantes().size() + 1;
-            if (cantJugadoresPartida == mediador.cantJugadoresEnRanking()) {
-                mediador.mostrarRanking();
+            if (cantJugadoresPartida == mediador.getFrmPodio().cantidadEnPodio()) {
+                mediador.abrirPantallaPodio();
             }
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.SACAR_JUGADOR) {
             System.out.println("SACAR JUGADOR-CLIENTE");
             JugadorDTO jugador
                     = (JugadorDTO) this.paqueteReciboDatos.getObjeto();
             int idLocal = mediador.getJugador().getId();
-            if(idLocal != jugador.getId()){
+            if (idLocal != jugador.getId()) {
                 mediador.sacarJugadorPartidaPorId(jugador.getId());
                 mediador.recargarPantallaPartida();
             }
-        }else if (paqueteReciboDatos.getTipo() == TipoPaquete.NO_HAY_JUGADORES_EN_PARTIDA){
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.NO_HAY_JUGADORES_EN_PARTIDA) {
             System.out.println("NO HAY JUGADORES EN PARTIDA-CLIENTE");
             mediador.noHayJugadoresPartida();
         }

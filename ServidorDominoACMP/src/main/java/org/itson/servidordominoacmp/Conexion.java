@@ -121,7 +121,6 @@ public class Conexion implements IProxyServidor, Runnable {
             }
             if (infoServer.getCantidadJugadores() <= 1
                     && infoServer.getPartidaEnServidor().getPartidaIniciada()) {
-                this.infoServer.eliminarPartida();
                 this.empaquetarParametros(TipoPaquete.NO_HAY_JUGADORES_EN_PARTIDA, null);
             }
 
