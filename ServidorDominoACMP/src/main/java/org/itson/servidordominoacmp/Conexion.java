@@ -9,8 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedHashMap;
 import org.itson.libreriatiposdominoacmp.FichaDTO;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.libreriatiposdominoacmp.PaqueteDatos;
@@ -163,14 +162,20 @@ public class Conexion implements IProxyServidor, Runnable {
             JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
             empaquetarParametros(TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE, jugador);
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.FINALIZAR_PARTIDA) {
-            JugadorDTO jugadorGanador = (JugadorDTO) paqueteReciboDatos.getObjeto();
-            empaquetarParametros(TipoPaquete.FINALIZAR_PARTIDA, jugadorGanador);
+            JugadorDTO jugadorFinalizo = (JugadorDTO) paqueteReciboDatos.getObjeto();
+            this.infoServer.agregarJugadorPodio(jugadorFinalizo);
+            empaquetarParametros(TipoPaquete.FINALIZAR_PARTIDA, jugadorFinalizo);
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.ENVIAR_PUNTOS) {
-            JugadorDTO jugador = (JugadorDTO) paqueteReciboDatos.getObjeto();
-            this.empaquetarParametros(
-                    TipoPaquete.RECIBIR_PUNTOS,
-                    jugador
-            );
+            JugadorDTO jugadorPodio = (JugadorDTO) paqueteReciboDatos.getObjeto();
+            this.infoServer.agregarJugadorPodio(jugadorPodio);
+            int cantidadJugadoresPartida = this.infoServer.getCantidadJugadores();
+            int cantidadJugadoresPodio = this.infoServer.getCantidadJugadoresPodio();
+            if (cantidadJugadoresPartida == cantidadJugadoresPodio) {
+                LinkedHashMap<JugadorDTO, Integer> podio = this.infoServer.getPodio();
+                this.empaquetarParametros(TipoPaquete.RECIBIR_PUNTOS, podio);
+            }
+        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.SALIR_PARTIDA) {
+            
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.FINALIZO_PARTIDA) {
             JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
             infoServer.getPartidaEnServidor().eliminarJugador(jugadorDTO);

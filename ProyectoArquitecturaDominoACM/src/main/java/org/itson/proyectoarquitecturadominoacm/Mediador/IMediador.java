@@ -110,13 +110,7 @@ public interface IMediador {
 
     public void enviarTotalPuntos();
 
-    public void mostrarRanking();
-
-    public void agregarRanking(JugadorDTO jugador, Integer puntos);
-
-    public int cantJugadoresEnRanking();
-
-    public void salirPartida();
+    public void salirDurantePartida();
 
     public void sacarJugadorPartidaPorId(int id);
 
@@ -127,4 +121,6 @@ public interface IMediador {
     public void recargarPantallaPartida();
     
     public void enviarFinalizarPartidaCerrarPartida();
+    
+    public void enviarSalirPartida();
 }

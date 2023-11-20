@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import javax.swing.ImageIcon;
 import org.itson.libreriatiposdominoacmp.FichaDTO;
@@ -247,23 +248,20 @@ public class Conexion implements IProxyCliente, Runnable {
                 contrincante.quitarFicha();
             }
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.FINALIZAR_PARTIDA) {
-            System.out.println("FINALIZAR_PARTIDA-CLIENTE");
-            JugadorDTO jugadorGanador
-                    = (JugadorDTO) this.paqueteReciboDatos.getObjeto();
-            int idLocal = mediador.getJugador().getId();
-            mediador.agregarRanking(jugadorGanador, jugadorGanador.getPuntos());
-            if (jugadorGanador.getId() != idLocal) {
+            JugadorDTO jugadorFinalizo = 
+                    (JugadorDTO) paqueteReciboDatos.getObjeto();
+            int idJugadorLocal = mediador.getJugador().getId();
+            int idJugadorFinalizoPartida = jugadorFinalizo.getId();
+            if(idJugadorLocal != idJugadorFinalizoPartida){
                 mediador.enviarTotalPuntos();
             }
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.RECIBIR_PUNTOS) {
-            System.out.println("RECIBIR_PUNTOS-CLIENTE");
-            JugadorDTO jugador
-                    = (JugadorDTO) this.paqueteReciboDatos.getObjeto();
-            mediador.getFrmPodio().agregarAlPodio(jugador, jugador.getPuntos());
-            int cantJugadoresPartida = mediador.getPartida().getContrincantes().size() + 1;
-            if (cantJugadoresPartida == mediador.getFrmPodio().cantidadEnPodio()) {
-                mediador.abrirPantallaPodio();
-            }
+            LinkedHashMap<JugadorDTO, Integer> podio = 
+                    (LinkedHashMap) this.paqueteReciboDatos.getObjeto();
+            mediador.getFrmPodio().setPodio(podio);
+            mediador.abrirPantallaPodio();
+            mediador.cerrarPantallaPartida();
+            mediador.enviarSalirPartida();
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.SACAR_JUGADOR) {
             System.out.println("SACAR JUGADOR-CLIENTE");
             JugadorDTO jugador

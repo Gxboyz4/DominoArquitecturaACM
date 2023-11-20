@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
+import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 
 /**
  * Descripción de la clase:
@@ -74,6 +75,7 @@ public class FrmPodio extends javax.swing.JFrame {
     public void cerrarVentanaPodio(){
         this.ocultarInformacionLabelsPodio();
         this.setVisible(false);
+        mediador.abrirPantallaMenu();
     }
     
     public void reiniciarPodio(){
@@ -94,21 +96,25 @@ public class FrmPodio extends javax.swing.JFrame {
                 this.lblPrimerLugar.setVisible(true);
                 this.lblAvatarP1.setVisible(true);
                 this.lblNombreP1.setVisible(true);
+                this.lblPuntajeP1.setVisible(true);
                 break;
             case 2:
                 this.lblSegundoLugar.setVisible(true);
                 this.lblAvatarP2.setVisible(true);
                 this.lblNombreP2.setVisible(true);
+                this.lblPuntajeP2.setVisible(true);
                 break;
             case 3:
                 this.lblTercerLugar.setVisible(true);
                 this.lblAvatarP3.setVisible(true);
                 this.lblNombreP3.setVisible(true);
+                this.lblPuntajeP3.setVisible(true);
                 break;
             default:
                 this.lblCuartoLugar.setVisible(true);
                 this.lblAvatarP4.setVisible(true);
                 this.lblNombreP4.setVisible(true);
+                this.lblPuntajeP4.setVisible(true);
                 break;
         }
     }
@@ -145,26 +151,27 @@ public class FrmPodio extends javax.swing.JFrame {
                                 getWidth(), 
                                 lblAvatarP1.getHeight(), 
                                 Image.SCALE_DEFAULT));
+        String puntosMostrar = String.valueOf(puntos);
         switch (posicion) {
             case 1 -> {
                 this.lblAvatarP1.setIcon(iconoJugador);
                 this.lblNombreP1.setText(jugador.getNombre());
-                this.lblPuntajeP1.setText(String.valueOf(puntos));
+                this.lblPuntajeP1.setText(puntosMostrar);
             }
             case 2 -> {
                 this.lblAvatarP2.setIcon(iconoJugador);
                 this.lblNombreP2.setText(jugador.getNombre());
-                this.lblPuntajeP2.setText(String.valueOf(puntos));
+                this.lblPuntajeP2.setText(puntosMostrar);
             }
             case 3 -> {
                 this.lblAvatarP3.setIcon(iconoJugador);
                 this.lblNombreP3.setText(jugador.getNombre());
-                this.lblPuntajeP3.setText(String.valueOf(puntos));
+                this.lblPuntajeP3.setText(puntosMostrar);
             }
             default -> {
                 this.lblAvatarP4.setIcon(iconoJugador);
                 this.lblNombreP4.setText(jugador.getNombre());
-                this.lblPuntajeP4.setText(String.valueOf(puntos));
+                this.lblPuntajeP4.setText(puntosMostrar);
             }
         }
     }

@@ -326,48 +326,32 @@ public class Mediador implements IMediador {
 
     @Override
     public void enviarFinalizarPartida() {
-        JugadorDTO jugador = new JugadorDTO(
+        JugadorDTO jugadorPuntos = new JugadorDTO(
                 this.jugador.getId(),
                 this.jugador.getAvatar(),
                 this.jugador.getNombre(),
                 this.jugador.getTotalPuntos());
         proxyCliente.empaquetarParametros(
                 TipoPaquete.FINALIZAR_PARTIDA,
-                jugador
+                jugadorPuntos
         );
         proxyCliente.enviarDatos();
     }
 
     @Override
     public void enviarTotalPuntos() {
-        this.pasarTurno();
-        JugadorDTO jugadorEliminar = new JugadorDTO(
+        JugadorDTO jugadorPuntos = new JugadorDTO(
                 this.jugador.getId(),
                 this.jugador.getAvatar(),
                 this.jugador.getNombre(),
                 this.jugador.getTotalPuntos()
         );
-        proxyCliente.empaquetarParametros(TipoPaquete.ENVIAR_PUNTOS, jugadorEliminar);
+        proxyCliente.empaquetarParametros(TipoPaquete.ENVIAR_PUNTOS, jugadorPuntos);
         proxyCliente.enviarDatos();
     }
 
     @Override
-    public void mostrarRanking() {
-        this.frmPartida.mostrarRanking();
-    }
-
-    @Override
-    public void agregarRanking(JugadorDTO jugador, Integer puntos) {
-        this.frmPartida.getTableroRanking().agregarPuntajesJugadores(jugador, puntos);
-    }
-
-    @Override
-    public int cantJugadoresEnRanking() {
-        return this.frmPartida.getTableroRanking().cantJugadoresEnRanking();
-    }
-
-    @Override
-    public void salirPartida() {
+    public void salirDurantePartida() {
         if (this.jugador.getTurno()) {
             this.pasarTurno();
         }
@@ -439,5 +423,19 @@ public class Mediador implements IMediador {
             fichasDTO.add(fichaDTO);
         }
         return fichasDTO;
+    }
+
+    @Override
+    public void enviarSalirPartida() {
+        JugadorDTO jugadorSalir = new JugadorDTO(
+                this.jugador.getId(),
+                this.jugador.getAvatar(),
+                this.jugador.getNombre(),
+                this.jugador.getTotalPuntos());
+        proxyCliente.empaquetarParametros(
+                TipoPaquete.SALIR_PARTIDA,
+                jugadorSalir
+        );
+        proxyCliente.enviarDatos();
     }
 }

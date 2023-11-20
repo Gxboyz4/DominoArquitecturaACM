@@ -19,7 +19,7 @@ public class InformacionServidor {
     PartidaDTO partidaEnServidor;
     //List<FichaDTO> fichas;
     PozoServidor pozoServidor;
-    LinkedHashMap<JugadorDTO, Integer> ranking;
+    LinkedHashMap<JugadorDTO, Integer> podio;
 
     public InformacionServidor() {
         pozoServidor = new PozoServidor();
@@ -57,19 +57,23 @@ public class InformacionServidor {
         return partidaEnServidor.getNumFichas();
     }
 
-    public LinkedHashMap<JugadorDTO, Integer> getRanking() {
-        return ranking;
+    public LinkedHashMap<JugadorDTO, Integer> getPodio() {
+        return podio;
     }
 
-    public void setRanking(LinkedHashMap<JugadorDTO, Integer> ranking) {
-        this.ranking = ranking;
+    public void setPodio(LinkedHashMap<JugadorDTO, Integer> ranking) {
+        this.podio = ranking;
     }
 
-    public void agregarJugadorRanking(JugadorDTO jugador){
-        if(this.ranking == null){
-            this.ranking = new LinkedHashMap<>();
+    public void agregarJugadorPodio(JugadorDTO jugador){
+        if(this.podio == null){
+            this.podio = new LinkedHashMap<>();
         }
-        this.ranking.put(jugador, jugador.getPuntos());
+        this.podio.put(jugador, jugador.getPuntos());
+    }
+    
+    public int getCantidadJugadoresPodio(){
+        return this.podio.size();
     }
     
     public void agregarFichasPozo(List<FichaDTO> fichas){

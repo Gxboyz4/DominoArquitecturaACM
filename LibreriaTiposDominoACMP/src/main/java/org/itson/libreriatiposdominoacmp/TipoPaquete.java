@@ -40,5 +40,5 @@ public enum TipoPaquete implements Serializable {
     SALIR_PARTIDA,
     SACAR_JUGADOR,
     NO_HAY_JUGADORES_EN_PARTIDA,
-    FINALIZO_PARTIDA
+    FINALIZO_PARTIDA,
 }

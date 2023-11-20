@@ -437,13 +437,13 @@ public class FrmPartida extends javax.swing.JFrame {
 
     private void btnAcabarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcabarPartidaActionPerformed
         this.dispose();
-        mediador.salirPartida();
+        mediador.salirDurantePartida();
         mediador.abrirPantallaMenu();
     }//GEN-LAST:event_btnAcabarPartidaActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.dispose();
-        mediador.salirPartida();
+        mediador.salirDurantePartida();
         mediador.abrirPantallaMenu();
     }//GEN-LAST:event_formWindowClosing
 

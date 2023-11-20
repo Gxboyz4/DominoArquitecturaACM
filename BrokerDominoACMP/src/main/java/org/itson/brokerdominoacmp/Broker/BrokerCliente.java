@@ -65,7 +65,7 @@ public class BrokerCliente implements Runnable {
                     } else if (paqueteReciboDatos.getTipo() == TipoPaquete.UNIRSE_PARTIDA) {
                         verificarPartidaLlena(socketCliente, paqueteDatos, paqueteReciboDatos);
                     } else if (paqueteReciboDatos.getTipo() == TipoPaquete.ELIMINAR_JUGADOR
-                            || paqueteReciboDatos.getTipo() == TipoPaquete.FINALIZO_PARTIDA) {
+                            || paqueteReciboDatos.getTipo() == TipoPaquete.SALIR_PARTIDA) {
                         Broker.direccionesClienteSocket.add(socketCliente);
                         Broker.direccionesClienteSocketPartida.remove(socketCliente);
                         Socket socketEnviarServidor = Broker.direccionesServerSocket.get(0);
