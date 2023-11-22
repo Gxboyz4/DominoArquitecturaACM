@@ -22,7 +22,7 @@ import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDomino
  */
 public class FrmPodio extends javax.swing.JFrame {
 
-    private LinkedHashMap<JugadorDTO, Integer> podio;
+    private List<JugadorDTO> podio;
     private static FrmPodio frmPodio;
 
     /**
@@ -34,7 +34,7 @@ public class FrmPodio extends javax.swing.JFrame {
     }
 
     private void iniciarComponentes() {
-        this.podio = new LinkedHashMap<>();
+        this.podio = new ArrayList<>();
         this.ocultarInformacionLabelsPodio();
         this.setIconImage(new ImageIcon(getClass()
                 .getResource("/imgFrmPrincipal/iconoGeneral.png"))
@@ -79,7 +79,7 @@ public class FrmPodio extends javax.swing.JFrame {
     }
     
     public void reiniciarPodio(){
-        this.podio = new LinkedHashMap<>();
+        this.podio = new ArrayList<>();
         this.ocultarInformacionLabelsPodio();
     }
     
@@ -120,25 +120,30 @@ public class FrmPodio extends javax.swing.JFrame {
     }
 
     private void ordenarPodioPuntos() {
-        List<Map.Entry<JugadorDTO, Integer>> listaOrdena = 
-                new ArrayList<>(this.podio.entrySet());
-        listaOrdena.sort(Map.Entry.comparingByValue());
-        LinkedHashMap<JugadorDTO, Integer> mapaOrdenado = new LinkedHashMap<>();
-        for (Map.Entry<JugadorDTO, Integer> datosPosicion : listaOrdena) {
-            mapaOrdenado.put(datosPosicion.getKey(), datosPosicion.getValue());
-        }
-        this.podio.clear();
-        this.podio.putAll(mapaOrdenado);
+//        List<Map.Entry<JugadorDTO, Integer>> listaOrdena = 
+//                new ArrayList<>(this.podio.entrySet());
+//        listaOrdena.sort(Map.Entry.comparingByValue());
+//        LinkedHashMap<JugadorDTO, Integer> mapaOrdenado = new LinkedHashMap<>();
+//        for (Map.Entry<JugadorDTO, Integer> datosPosicion : listaOrdena) {
+//            mapaOrdenado.put(datosPosicion.getKey(), datosPosicion.getValue());
+//        }
+//        this.podio.clear();
+//        this.podio.putAll(mapaOrdenado);
     }
     
     private void asignarInformacionLabelsPodio() {
         int posicision = 1;
-        for (Map.Entry<JugadorDTO, Integer> entry : podio.entrySet()) {
-            JugadorDTO jugador = entry.getKey();
-            Integer puntos = entry.getValue();
-            this.asignarInformacionLabelsPodio(jugador, puntos, posicision);
-            posicision++;
+        for (int i = 0; i < podio.size(); i++) {
+            
+            this.asignarInformacionLabelsPodio(podio.get(i),podio.get(i).getPuntos(), posicision);
+             posicision++;
         }
+//        for (Map.Entry<JugadorDTO, Integer> entry : podio.entrySet()) {
+//            JugadorDTO jugador = entry.getKey();
+//            Integer puntos = entry.getValue();
+//            this.asignarInformacionLabelsPodio(jugador, puntos, posicision);
+//            posicision++;
+//        }
     }
 
     private void asignarInformacionLabelsPodio(JugadorDTO jugador,
@@ -151,7 +156,7 @@ public class FrmPodio extends javax.swing.JFrame {
                                 getWidth(), 
                                 lblAvatarP1.getHeight(), 
                                 Image.SCALE_DEFAULT));
-        String puntosMostrar = String.valueOf(puntos);
+        String puntosMostrar = String.valueOf(jugador.getTotalPuntos());
         switch (posicion) {
             case 1 -> {
                 this.lblAvatarP1.setIcon(iconoJugador);
@@ -304,20 +309,22 @@ public class FrmPodio extends javax.swing.JFrame {
         this.cerrarVentanaPodio();
     }//GEN-LAST:event_formComponentHidden
 
-    public LinkedHashMap<JugadorDTO, Integer> getPodio() {
+    public List<JugadorDTO> getPodio() {
         return podio;
     }
 
-    public void setPodio(LinkedHashMap<JugadorDTO, Integer> podio) {
+    public void setPodio(List<JugadorDTO> podio) {
         this.podio = podio;
     }
+
+  
 
     public int cantidadEnPodio(){
         return this.podio.size();
     }
     
     public void agregarAlPodio(JugadorDTO jugador, Integer puntos) {
-        this.podio.put(jugador, puntos);
+        this.podio.add(jugador);
         this.actualizarPodio();
     }
     

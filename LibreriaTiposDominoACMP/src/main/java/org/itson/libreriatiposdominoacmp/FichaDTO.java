@@ -59,6 +59,35 @@ public class FichaDTO implements Serializable{
     public void setImagen(ImageIcon imagen) {
         this.imagen = imagen;
     }
+    public Integer getPuntos() {
+        return this.numeroInf + this.numeroSup;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + this.numeroInf;
+        hash = 79 * hash + this.numeroSup;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FichaDTO other = (FichaDTO) obj;
+        if (this.numeroInf != other.numeroInf) {
+            return false;
+        }
+        return this.numeroSup == other.numeroSup;
+    }
 
     
     @Override

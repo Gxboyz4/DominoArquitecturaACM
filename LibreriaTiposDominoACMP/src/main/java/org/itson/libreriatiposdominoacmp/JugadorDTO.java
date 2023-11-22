@@ -22,7 +22,7 @@ public class JugadorDTO implements Serializable {
     int cantidadFichas;
     boolean listo;
     boolean turno;
-    Integer puntos;
+    int puntos;
     List<FichaDTO> fichas = new ArrayList<>();
 
     public JugadorDTO(String nombre, ImageIcon avatar) {
@@ -116,6 +116,23 @@ public class JugadorDTO implements Serializable {
     public void anadirFichas(List<FichaDTO> fichasAnadir) {
         this.fichas.addAll(fichasAnadir);
     }
+    
+    public void agregarFicha(FichaDTO fichaDTO){
+        this.fichas.add(fichaDTO);
+    }
+    
+    public void eliminarFicha(FichaDTO fichaDTO){
+        this.fichas.remove(fichaDTO);
+    }
+    
+    public Integer getTotalPuntos(){
+        Integer totalPuntos = 0;
+        for (FichaDTO ficha : fichas) {
+            totalPuntos += ficha.getPuntos();
+        }
+  
+        return totalPuntos;
+    }
 
     @Override
     public int hashCode() {
@@ -139,11 +156,11 @@ public class JugadorDTO implements Serializable {
         return this.id == other.id;
     }
 
-    public Integer getPuntos() {
+    public int getPuntos() {
         return puntos;
     }
 
-    public void setPuntos(Integer puntos) {
+    public void setPuntos(int puntos) {
         this.puntos = puntos;
     }
 

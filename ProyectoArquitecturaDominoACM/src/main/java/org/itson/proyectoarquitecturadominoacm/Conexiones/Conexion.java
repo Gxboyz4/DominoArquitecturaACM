@@ -69,6 +69,7 @@ public class Conexion implements IProxyCliente, Runnable {
     public void enviarDatos() {
         try {
             ObjectOutputStream paqueteDatos = new ObjectOutputStream(clienteSocket.getOutputStream());
+            System.out.println("El paquete que va a enviar es: " + paqueteEnvioDatos.getTipo());
             paqueteDatos.writeObject(paqueteEnvioDatos);
         } catch (IOException ex) {
             ex.getStackTrace();
@@ -92,7 +93,7 @@ public class Conexion implements IProxyCliente, Runnable {
     }
 
     @Override
-    public void recibirDatos() {
+    public synchronized void recibirDatos() {
         try {
             while (true) {
                 ObjectInputStream paqueteDatos = new ObjectInputStream(clienteSocket.getInputStream());
@@ -105,7 +106,8 @@ public class Conexion implements IProxyCliente, Runnable {
     }
 
     @Override
-    public void desempaquetarDatos() {
+    public synchronized void desempaquetarDatos() {
+        System.out.println("El tipo de paquete es: " + paqueteReciboDatos.getTipo());
         if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA)) {
             PartidaDTO partida = (PartidaDTO) paqueteReciboDatos.getObjeto();
             partidaDTO = partida;
@@ -252,16 +254,16 @@ public class Conexion implements IProxyCliente, Runnable {
                     (JugadorDTO) paqueteReciboDatos.getObjeto();
             int idJugadorLocal = mediador.getJugador().getId();
             int idJugadorFinalizoPartida = jugadorFinalizo.getId();
-            if(idJugadorLocal != idJugadorFinalizoPartida){
+            //if(idJugadorLocal != idJugadorFinalizoPartida){
                 mediador.enviarTotalPuntos();
-            }
+            //}
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.RECIBIR_PUNTOS) {
-            LinkedHashMap<JugadorDTO, Integer> podio = 
-                    (LinkedHashMap) this.paqueteReciboDatos.getObjeto();
+            List<JugadorDTO> podio = 
+                    (ArrayList<JugadorDTO>) this.paqueteReciboDatos.getObjeto();
             mediador.getFrmPodio().setPodio(podio);
             mediador.abrirPantallaPodio();
             mediador.cerrarPantallaPartida();
-            mediador.enviarSalirPartida();
+            //mediador.enviarSalirPartida();
         } else if (paqueteReciboDatos.getTipo() == TipoPaquete.SACAR_JUGADOR) {
             System.out.println("SACAR JUGADOR-CLIENTE");
             JugadorDTO jugador
