@@ -25,7 +25,7 @@ import org.itson.proyectoarquitecturadominoacm.contrincante.PosicionPanel;
  * @author Gabriel Mancinas,Julio Chon,Luis Ayon
  */
 public class FrmPartida extends javax.swing.JFrame {
-
+    
     private String nombreJugador;
     private JdlgPuntajes tableroRanking;
 
@@ -49,9 +49,9 @@ public class FrmPartida extends javax.swing.JFrame {
         scrollPanel.getHorizontalScrollBar().setValue((scrollPanel.getHorizontalScrollBar().getMaximum() - scrollPanel.getHorizontalScrollBar().getVisibleAmount()) / 2);
         
     }
-
+    
     private void establecerDatosJugadorLocal() {
-
+        
         Jugador jugadorLocal = mediador.getJugador();
         mediador.getJugador().setPanelFichas(this.jpnFichasJugadorLocal);
         int contPrueba = 0;
@@ -66,10 +66,10 @@ public class FrmPartida extends javax.swing.JFrame {
                 break;
             }
         }
-
+        
         this.asignarInformacionJugadorLocal(jugadorLocal);
     }
-
+    
     private void establecerContrincantes() {
         List<Contrincante> contrincantes = new LinkedList<>();
         Jugador jugadorLocal = mediador.getJugador();
@@ -91,7 +91,7 @@ public class FrmPartida extends javax.swing.JFrame {
         }
         mediador.getPartida().setContrincantes(contrincantes);
     }
-
+    
     private PosicionPanel getPosicionPorPanelContrincante(int numPanel) {
         return switch (numPanel) {
             case 1 ->
@@ -105,7 +105,7 @@ public class FrmPartida extends javax.swing.JFrame {
                 PosicionPanel.IZQUIERDA;
         };
     }
-
+    
     private JPanel getPanelContrincante(int numPanel) {
         return switch (numPanel) {
             case 1 ->
@@ -118,10 +118,11 @@ public class FrmPartida extends javax.swing.JFrame {
                 null;
         };
     }
-
+    
     public void actualizarInfo() {
         System.out.println(mediador.getPartida().getJugadores());
         btnPozo.setVisible(mediador.getJugador().getTurno());
+        this.mostrarBtnPasarTurno(mediador.getJugador().getTurno());
         asignarInformacionJugadorLocal(mediador.getJugador());
         Jugador jugadorLocal = mediador.getJugador();
         int numeroContrincante = 1;
@@ -134,14 +135,15 @@ public class FrmPartida extends javax.swing.JFrame {
         }
         jpnFondo.repaint();
     }
-
+    
     public void cargarPartida() {
         this.ocultarInformacionContrincantes();
         this.ocultarPanelesContrincantes();
         this.establecerDatosJugadorLocal();
         this.establecerContrincantes();
+        this.ocultarBotonesPartida();
     }
-
+    
     public void crearPartida() {
         Pozo pozo = new Pozo(btnPozo);
         Tablero tablero = new Tablero(jpnTablero);
@@ -149,29 +151,33 @@ public class FrmPartida extends javax.swing.JFrame {
         mediador.getPartida().setTablero(tablero);
         mediador.getPartida().suscribirse();
     }
-
+    
     public void acabarPartida() {
         mediador.abrirPantallaMenu();
         this.dispose();
-
+        
     }
-
+    
     private void ocultarInformacionContrincantes() {
         for (int i = 0; i < 4; i++) {
             this.ocultarLabelsContrincantes(i);
         }
     }
-
+    
+    private void ocultarBotonesPartida(){
+        this.btnPasarTurno.setVisible(false);
+    }
+    
     private void ocultarPanelesContrincantes() {
         this.jpnFichasContrincante1.setVisible(false);
         this.jpnFichasContrincante2.setVisible(false);
         this.jpnFichasContrincante3.setVisible(false);
     }
-
+    
     private void mostrarPanelContrincante(int cantidadJugadores) {
         this.getPanelContrincante(cantidadJugadores).setVisible(true);
     }
-
+    
     private void asignarInformacionContrincante(int numContrincante, Jugador jugadorContrincante) {
         switch (numContrincante) {
             case 1 ->
@@ -182,7 +188,7 @@ public class FrmPartida extends javax.swing.JFrame {
                 this.asignarInformacionContrincante3(jugadorContrincante);
         }
     }
-
+    
     private void ocultarLabelsContrincantes(int numContrincante) {
         switch (numContrincante) {
             case 1 -> {
@@ -199,7 +205,7 @@ public class FrmPartida extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void asignarInformacionJugadorLocal(Jugador jugadorContrincante) {
         Icon icon;
         icon = new ImageIcon(jugadorContrincante.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
@@ -213,7 +219,7 @@ public class FrmPartida extends javax.swing.JFrame {
             lblNombreJugadorLocal.setForeground(Color.black);
         }
     }
-
+    
     private void asignarInformacionContrincante1(Jugador jugador2) {
         Icon icon;
         icon = new ImageIcon(jugador2.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
@@ -230,7 +236,7 @@ public class FrmPartida extends javax.swing.JFrame {
         this.lblAvatarContrincante1.setVisible(true);
         this.lblNombreContrincante1.setVisible(true);
     }
-
+    
     private void asignarInformacionContrincante2(Jugador jugador3) {
         Icon icon;
         icon = new ImageIcon(jugador3.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
@@ -246,7 +252,7 @@ public class FrmPartida extends javax.swing.JFrame {
         this.lblAvatarContrincante2.setVisible(true);
         this.lblNombreContrincante2.setVisible(true);
     }
-
+    
     private void asignarInformacionContrincante3(Jugador jugador4) {
         Icon icon;
         icon = new ImageIcon(jugador4.getAvatar().getImage().getScaledInstance(lblAvatarContrincante1.getWidth(), lblAvatarContrincante1.getHeight(), Image.SCALE_DEFAULT));
@@ -262,18 +268,22 @@ public class FrmPartida extends javax.swing.JFrame {
         this.lblAvatarContrincante3.setVisible(true);
         this.lblNombreContrincante3.setVisible(true);
     }
-
+    
     public void mostrarRanking() {
         this.tableroRanking.mostrarPuntajesJugadores();
         this.tableroRanking.setVisible(true);
     }
-
+    
     public JdlgPuntajes getTableroRanking() {
         return tableroRanking;
     }
-
+    
     public void setTableroRanking(JdlgPuntajes tableroRanking) {
         this.tableroRanking = tableroRanking;
+    }
+    
+    private void mostrarBtnPasarTurno(boolean mostrar) {
+        this.btnPasarTurno.setVisible(mostrar);
     }
 
     /**
@@ -302,6 +312,7 @@ public class FrmPartida extends javax.swing.JFrame {
         lblAvatarContrincante3 = new javax.swing.JLabel();
         btnAcabarPartida = new javax.swing.JButton();
         btnPozo = new javax.swing.JButton();
+        btnPasarTurno = new javax.swing.JButton();
         lblTableroFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -412,6 +423,17 @@ public class FrmPartida extends javax.swing.JFrame {
         btnPozo.setContentAreaFilled(false);
         jpnFondo.add(btnPozo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 400, 180, 70));
 
+        btnPasarTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgFrmPartida/iconoPasarTurno.png"))); // NOI18N
+        btnPasarTurno.setBorder(null);
+        btnPasarTurno.setBorderPainted(false);
+        btnPasarTurno.setContentAreaFilled(false);
+        btnPasarTurno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasarTurnoActionPerformed(evt);
+            }
+        });
+        jpnFondo.add(btnPasarTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 30, -1, -1));
+
         lblTableroFondo.setBackground(new java.awt.Color(1, 114, 171));
         lblTableroFondo.setAlignmentY(0.0F);
         lblTableroFondo.setMaximumSize(new java.awt.Dimension(900, 600));
@@ -447,9 +469,14 @@ public class FrmPartida extends javax.swing.JFrame {
         mediador.abrirPantallaMenu();
     }//GEN-LAST:event_formWindowClosing
 
+    private void btnPasarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarTurnoActionPerformed
+        mediador.pasarTurno();
+    }//GEN-LAST:event_btnPasarTurnoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcabarPartida;
+    private javax.swing.JButton btnPasarTurno;
     private javax.swing.JButton btnPozo;
     private javax.swing.JPanel jpnFichasContrincante1;
     private javax.swing.JPanel jpnFichasContrincante2;
