@@ -30,49 +30,7 @@ public class Tablero {
     }
 
     public boolean agregarFicha(Ficha ficha, Boolean jugadorLocal) {
-        if (modelo.validarColocacionDerecha(ficha) != 0 && modelo.validarColocacionIzquierda(ficha) != 0) {
-            if (modelo.getFichas().size() == 0) {
-                modelo.agregarFichaDerecha(ficha);
-                if (jugadorLocal) {
-                mediador.enviarFichaDerecha(ficha);
-                }
-                return true;
-            }
-            int opcion = desplegarOpcion();
-            if (opcion == 1) {
-
-                modelo.agregarFichaIzquierda(ficha);
-                if (jugadorLocal) {
-                mediador.enviarFichaIzquierda(ficha);
-                }
-                return true;
-            }
-            if (opcion == 2) //else if
-            {
-                modelo.agregarFichaDerecha(ficha);
-                if (jugadorLocal) {
-                mediador.enviarFichaDerecha(ficha);
-                }
-                return true;
-            }
-            if (opcion == 3) { //else if
-                return false;
-            }
-        } else if (modelo.validarColocacionDerecha(ficha) != 0) {
-            modelo.agregarFichaDerecha(ficha);
-            if (jugadorLocal) {
-                mediador.enviarFichaDerecha(ficha);
-            }
-
-            return true;
-        } else if (modelo.validarColocacionIzquierda(ficha) != 0) {
-            modelo.agregarFichaIzquierda(ficha);
-            if (jugadorLocal) {
-                mediador.enviarFichaIzquierda(ficha);
-            }
-            return true;
-        }
-        return false;
+       return this.controlador.agregarFicha(ficha, jugadorLocal);
     }
 
    public byte desplegarOpcion(){

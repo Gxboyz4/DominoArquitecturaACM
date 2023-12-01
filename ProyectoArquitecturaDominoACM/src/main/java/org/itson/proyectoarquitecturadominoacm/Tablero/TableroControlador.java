@@ -4,31 +4,47 @@
  */
 package org.itson.proyectoarquitecturadominoacm.Tablero;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
+import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 
 /**
  *
  * @author Gabriel Mancinas
  */
 public class TableroControlador {
+
     TableroModelo modelo;
     TableroVista vista;
-    
-    public TableroControlador(TableroModelo modelo, TableroVista vista){
+
+    private static final int IZQUIERDA = 1;
+    private static final int DERECHA = 2;
+    private static final int CANCELAR = 3;
+
+    public TableroControlador(TableroModelo modelo, TableroVista vista) {
         this.modelo = modelo;
         this.vista = vista;
-        
-        
+
     }
-    public void agregarFichaDerecha(Ficha ficha)
-    {
-        modelo.agregarFichaDerecha(ficha);
-        
+
+    public boolean agregarFicha(Ficha ficha, Boolean jugadorLocal) {
+        if (validarColocacionFicha(ficha)) {
+            if (modelo.getFichas().isEmpty()) {
+                this.agregarFichaDerecha(ficha, jugadorLocal);
+                return true;
+            }
+            int opcion = this.desplegarOpcion();
+            return this.agregarFichaOpcion(opcion, ficha, jugadorLocal);
+        } else if (modelo.validarColocacionDerecha(ficha) != modelo.getFalso()) {
+            this.agregarFichaDerecha(ficha, jugadorLocal);
+            return true;
+        } else if (modelo.validarColocacionIzquierda(ficha) != modelo.getFalso()) {
+            this.agregarFichaIzquierda(ficha, jugadorLocal);
+            return true;
+        }
+        return false;
     }
+
     public byte desplegarOpcion() {
         int opcion = JOptionPane.showOptionDialog(
                 null,
@@ -42,13 +58,57 @@ public class TableroControlador {
         );
 
         if (opcion == JOptionPane.YES_OPTION) {
-            return 1;
+            return IZQUIERDA;
         } else if (opcion == JOptionPane.NO_OPTION) {
-            return 2;
+            return DERECHA;
         } else {
-            return 3;
+            return CANCELAR;
         }
     }
-    
 
+    private boolean validarColocacionFicha(Ficha ficha) {
+        if ((modelo.validarColocacionDerecha(ficha) != modelo.getFalso())
+                && modelo.validarColocacionIzquierda(ficha) != modelo.getFalso()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean agregarFichaOpcion(int opcion, Ficha ficha, Boolean JugadorLocal) {
+        switch (opcion) {
+            case IZQUIERDA:
+                this.agregarFichaIzquierda(ficha, JugadorLocal);
+                return true;
+            case DERECHA:
+                this.agregarFichaDerecha(ficha, JugadorLocal);
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void agregarFichaIzquierda(Ficha ficha, Boolean JugadorLocal) {
+        modelo.agregarFichaIzquierda(ficha);
+        if (JugadorLocal) {
+            this.movimientoJugadorLocal(ficha, IZQUIERDA);
+        }
+    }
+
+    private void agregarFichaDerecha(Ficha ficha, Boolean JugadorLocal) {
+        modelo.agregarFichaDerecha(ficha);
+        if (JugadorLocal) {
+            this.movimientoJugadorLocal(ficha, DERECHA);
+        }
+    }
+
+    private void movimientoJugadorLocal(Ficha ficha, int ladoFicha) {
+        switch (ladoFicha) {
+            case IZQUIERDA:
+                mediador.enviarFichaIzquierda(ficha);
+                break;
+            case DERECHA:
+                mediador.enviarFichaDerecha(ficha);
+                break;
+        }
+    }
 }

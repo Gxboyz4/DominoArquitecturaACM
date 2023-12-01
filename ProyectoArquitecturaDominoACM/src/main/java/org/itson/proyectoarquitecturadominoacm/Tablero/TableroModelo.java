@@ -30,6 +30,9 @@ public class TableroModelo {
     private final int sextoCaso = 6;
 //    private List<Ficha> fichasDibujadas;
 
+    public int getFalso(){
+        return falso;
+    }
     public int getNumeroDerecha() {
         return numeroDerecha;
     }
@@ -54,7 +57,7 @@ public class TableroModelo {
         this.lienzo = lienzo;
         fichas = new LinkedList<Ficha>();
     }
-
+    
     public void colocarPosicionFichaDer(int desplazamientoX, int desplazamientoY, Ficha ficha, int grados) {
 
         ficha.establecerTamano();
