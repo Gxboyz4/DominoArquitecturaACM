@@ -8,14 +8,19 @@ import javax.swing.JOptionPane;
 import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 /**
  *
- * @author Gabriel Mancinas,Julio Chon,Luis Ayon
+ * @author Gabriel Mancinas 233410, Julio Chon 233242, Luis Ayon 233145 y Daniel Peña 229185.
  */
 public class FrmMenu extends javax.swing.JFrame {
-    
+    /**
+     * Variable que representa el nombre del jugador.
+     */
     private String nombreJugador;
+    /**
+     * Variable que representa la ID del jugador.
+     */
     private int idJugador;
     /**
-     * Creates new form FrmPrincipal
+     * Método constructor por defecto que asigna el nombre del jugador y reinicia al jugador.
      */
     public FrmMenu() {
         this.nombreJugador = mediador.getJugador().getNombre();
@@ -25,6 +30,9 @@ public class FrmMenu extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
         mediador.reiniciarJugador();
     }
+    /**
+     * Método para mostrar un mensaje.
+     */
     public void mostrarMensaje(){
         JOptionPane.showMessageDialog(this,"Ya hay una partida creada.", "Alerta", JOptionPane.WARNING_MESSAGE);
     }
@@ -108,12 +116,18 @@ public class FrmMenu extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Método actionPerformed del btnRegresar para regresar a la pantalla principal.
+     * @param evt evento recibido.
+     */
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
     this.setVisible(false);
     mediador.abrirPantallaPrincipal();
     }//GEN-LAST:event_btnRegresarActionPerformed
-
+    /**
+     * Método actionPerformed del btnCrearPartida para crear la partida, abrir el frmLobby y exponer la partida a los demás jugadores.
+     * @param evt evento recibido..
+     */
     private void btnCrearPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPartidaActionPerformed
     this.setVisible(false);
     mediador.crearPartida(mediador.getJugador());
@@ -121,7 +135,10 @@ public class FrmMenu extends javax.swing.JFrame {
     mediador.exponerPartida();
     mediador.getFrmLobby().mostrarInformacion();
     }//GEN-LAST:event_btnCrearPartidaActionPerformed
-
+    /**
+     * Método actionPerformed del btnUnirse que abre el frmUnirse y recupera las partidas del servidor.
+     * @param evt evento recibido.
+     */
     private void btnUnirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirseActionPerformed
     this.setVisible(false);
     mediador.crearPartida();

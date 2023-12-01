@@ -29,7 +29,6 @@ public class TipoPaquete_RecibirPuntos implements IDesempaquetar{
             mediador.cerrarPantallaPartida();
         } else {
             this.siguiente.manejarSolicitud(paqueteReciboDatos);
-
         }
     }
 
