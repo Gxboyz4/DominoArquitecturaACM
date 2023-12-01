@@ -28,14 +28,6 @@ public class Ficha {
     ImageIcon imagenFicha;
     final int tamano=37; 
     
-    
-    public Ficha(JPanel panelFicha,int numeroSuperior, int numeroInferior,ImageIcon imagenFicha){
-        this.numeroSuperior=numeroSuperior;
-        this.numeroInferior=numeroInferior;
-        this.imagenFicha=imagenFicha;
-        this.panel=panelFicha;
-    }
-    
     public Ficha(FichaControlador fichaControlador, FichaModelo fichaModelo, FichaVista fichaVista){
         this.fichaControlador = fichaControlador;
         this.fichaModelo= fichaModelo;

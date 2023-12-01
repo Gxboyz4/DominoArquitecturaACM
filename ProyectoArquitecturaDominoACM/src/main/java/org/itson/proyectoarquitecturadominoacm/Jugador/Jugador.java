@@ -47,17 +47,7 @@ public class Jugador implements Serializable {
 
     }
 
-    public Jugador(JPanel panelFichas) {
-        this.panelFichas = panelFichas;
-        this.setearResponsabilidades();
-    }
-
-    public Jugador(JPanel panelFichas, List<Ficha> fichas) {
-        this.panelFichas = panelFichas;
-        this.fichas = fichas;
-        this.setearResponsabilidades();
-    }
-
+ 
     private void setearResponsabilidades() {
         this.modelo = new JugadorModelo(nombre, avatar);
         this.vista = new JugadorVista(modelo);

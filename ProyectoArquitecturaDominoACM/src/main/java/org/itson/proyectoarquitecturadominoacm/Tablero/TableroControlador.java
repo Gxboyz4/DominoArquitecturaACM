@@ -7,6 +7,7 @@ package org.itson.proyectoarquitecturadominoacm.Tablero;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 
 /**
@@ -27,6 +28,26 @@ public class TableroControlador {
     {
         modelo.agregarFichaDerecha(ficha);
         
+    }
+    public byte desplegarOpcion() {
+        int opcion = JOptionPane.showOptionDialog(
+                null,
+                "¿Qué opción prefieres?",
+                "Opciones",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new Object[]{"Izquierda", "Derecha"},
+                "Opción 1"
+        );
+
+        if (opcion == JOptionPane.YES_OPTION) {
+            return 1;
+        } else if (opcion == JOptionPane.NO_OPTION) {
+            return 2;
+        } else {
+            return 3;
+        }
     }
     
 

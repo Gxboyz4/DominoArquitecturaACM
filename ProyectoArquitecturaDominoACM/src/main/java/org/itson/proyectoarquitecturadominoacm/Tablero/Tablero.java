@@ -75,26 +75,9 @@ public class Tablero {
         return false;
     }
 
-    public byte desplegarOpcion() {
-        int opcion = JOptionPane.showOptionDialog(
-                null,
-                "¿Qué opción prefieres?",
-                "Opciones",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                new Object[]{"Izquierda", "Derecha"},
-                "Opción 1"
-        );
-
-        if (opcion == JOptionPane.YES_OPTION) {
-            return 1;
-        } else if (opcion == JOptionPane.NO_OPTION) {
-            return 2;
-        } else {
-            return 3;
-        }
-    }
+   public byte desplegarOpcion(){
+      return controlador.desplegarOpcion();
+   }
 
     public void agregarFichaDerecha(Ficha ficha) {
         modelo.agregarFichaDerecha(ficha);

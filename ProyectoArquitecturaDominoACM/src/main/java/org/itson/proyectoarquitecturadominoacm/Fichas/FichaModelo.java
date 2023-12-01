@@ -5,6 +5,7 @@
 package org.itson.proyectoarquitecturadominoacm.Fichas;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -29,28 +30,6 @@ public class FichaModelo {
         this.imagenFicha = imagen;
         this.alto = 45;
         this.ancho = 45;
-    }
-
-    public FichaModelo(int numeroSuperior, int numeroInferior, ImageIcon imagen, int posicionX, int posicionY) {
-        this.numeroSuperior = numeroSuperior;
-        this.numeroInferior = numeroInferior;
-        this.imagenFicha = imagen;
-        this.estado = "En pozo";
-        this.alto = 45;
-        this.ancho = 46;
-        this.posicionX = posicionX;
-        this.posicionY = posicionY;
-    }
-
-    public FichaModelo(int posicionX, int posiciony, int ancho, int alto, int numeroSuperior, int numeroInferior, String estado, ImageIcon ficha) {
-        this.posicionX = posicionX;
-        this.posicionY = posiciony;
-        this.ancho = 45;
-        this.alto = 45;
-        this.numeroSuperior = numeroSuperior;
-        this.numeroInferior = numeroInferior;
-        this.estado = estado;
-        this.imagenFicha = ficha;
     }
 
     public void escalado(int escala) {
@@ -125,4 +104,9 @@ public class FichaModelo {
     public Integer getPuntos() {
         return this.numeroInferior + this.numeroSuperior;
     }
+    
+    public Image getImage() {
+        return imagenFicha.getImage();
+    }
+    
 }

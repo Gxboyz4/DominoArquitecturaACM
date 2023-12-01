@@ -32,18 +32,9 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
     Tablero tablero;
     int numFichas;
     int numJugadores;
-
-    public Partida(List<Jugador> jugadores) {
-        this.jugadores = jugadores;
-    }
+    final int cantidadMax=7;
 
     public Partida(Jugador jugador, int numFichas) {
-        this.jugadorLocal = mediador.getJugador();
-        this.numFichas = numFichas;
-    }
-
-    //Nuevo
-    public Partida(int numFichas) {
         this.jugadorLocal = mediador.getJugador();
         this.numFichas = numFichas;
     }
@@ -52,19 +43,7 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
         this.jugadorLocal = jugador;
         this.jugadores.add(jugador);
     }
-
-    public Partida(Pozo pozo) {
-        this.pozo = pozo;
-    }
-
-    public Partida(Pozo pozo, Jugador jugador, Tablero tablero) {
-        this.pozo = pozo;
-        this.jugadorLocal = jugador;
-        this.tablero = tablero;
-        this.suscribirFichas();
-        this.suscribirPozo();
-    }
-
+    
     public Partida() {
         this.jugadorLocal = mediador.getJugador();
     }
@@ -115,14 +94,13 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
 
     public boolean finalizacionTablero(int numeroBuscado) {
         int cantidad = 0;
-
         for (Ficha ficha1 : tablero.getFichas()) {
             if (numeroBuscado == ficha1.getNumeroInferior() || numeroBuscado == ficha1.getNumeroSuperior()) {
                 cantidad++;
             }
 
         }
-        if (cantidad == 7) {
+        if (cantidad == cantidadMax) {
             return true;
         }
         return false;

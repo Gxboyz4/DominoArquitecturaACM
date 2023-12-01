@@ -33,29 +33,6 @@ public class JugadorModelo implements Serializable {
         this.avatar = avatar;
     }
 
-    public JugadorModelo(List<Ficha> fichas, JPanel panelFichas) {
-        this.fichas = fichas;
-        this.panelFichas = panelFichas;
-        x = 0;
-        y = 0;
-        if (!this.fichas.isEmpty()) {
-            for (Ficha ficha1 : fichas) {
-                this.dibujar(ficha1);
-            }
-        }
-    }
-
-    public JugadorModelo(JPanel panelFichas) {
-        this.panelFichas = panelFichas;
-        x = 0;
-        y = 0;
-        if (jugadorConFichas()) {
-            for (Ficha ficha1 : fichas) {
-                this.dibujar(ficha1);
-            }
-        }
-    }
-    
     public boolean jugadorConFichas(){
         return !this.fichas.isEmpty();
     }
