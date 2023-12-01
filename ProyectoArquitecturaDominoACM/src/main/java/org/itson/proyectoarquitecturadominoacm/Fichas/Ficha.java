@@ -26,7 +26,8 @@ public class Ficha {
     int numeroSuperior;
     int numeroInferior;
     ImageIcon imagenFicha;
-
+    final int tamano=37; 
+    
     
     public Ficha(JPanel panelFicha,int numeroSuperior, int numeroInferior,ImageIcon imagenFicha){
         this.numeroSuperior=numeroSuperior;
@@ -58,8 +59,8 @@ public class Ficha {
     }
     public void establecerTamano(){
         System.out.println("Entro a establecer");
-        fichaModelo.setAlto(37);
-        fichaModelo.setAncho(37);
+        fichaModelo.setAlto(tamano);
+        fichaModelo.setAncho(tamano);
     }
     
     public void dibujarEnPanel(){
@@ -73,7 +74,7 @@ public class Ficha {
     }
     
     public void agregarObservador(FichaObserver observador){
-        fichaControlador.getFichaObservable().agregarObservador(observador);
+        fichaControlador.agregarObservador(observador);
     }
 
     public JPanel getPanelFichas() {

@@ -64,7 +64,7 @@ public class TableroModelo {
         ficha.setPosicionY(y+desplazamientoY);
         
         fichas.addLast(ficha);
-        fichas.getLast().dibujarEnPanelRotada(grados);
+        ficha.dibujarEnPanelRotada(grados);
         
     }
 

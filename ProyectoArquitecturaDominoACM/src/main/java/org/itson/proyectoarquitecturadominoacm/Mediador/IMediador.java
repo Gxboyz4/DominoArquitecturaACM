@@ -5,7 +5,9 @@
 package org.itson.proyectoarquitecturadominoacm.Mediador;
 
 import java.util.List;
+import org.itson.libreriatiposdominoacmp.FichaDTO;
 import org.itson.libreriatiposdominoacmp.JugadorDTO;
+import org.itson.libreriatiposdominoacmp.PartidaDTO;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
@@ -15,6 +17,7 @@ import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPodio;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmUnirse;
+import org.itson.proyectoarquitecturadominoacm.contrincante.Contrincante;
 
 /**
  *
@@ -123,4 +126,10 @@ public interface IMediador {
     public void enviarFinalizarPartidaCerrarPartida();
     
     public void enviarSalirPartida();
+     public void modificarPartidaLocal(PartidaDTO partida) ;
+     public Ficha crearFicha(FichaDTO ficha);
+     public Contrincante obtenerContrincante(JugadorDTO jugador);
+      public Ficha crearFichaDireccion(FichaDTO ficha);
+      public void listaJugadorDTOJugador(List<JugadorDTO> jugadoresDTO);
+      public void recargarTablaFrmUnirse();
 }

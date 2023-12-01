@@ -34,6 +34,9 @@ public class FichaControlador implements MouseListener{
         this.fichaObservable = ficha;
     }
 
+    public void agregarObservador(FichaObserver observador){
+        this.fichaObservable.agregarObservador(observador);
+    }
     public void dibujarFicha(){
         this.fichaVista.dibujar();
     }

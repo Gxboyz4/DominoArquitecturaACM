@@ -104,10 +104,13 @@ public class Partida implements FichaObserver, PozoObserver, Serializable {
     }
 
     public boolean finalizacionJugador() {
-        if (mediador.getJugador().getFichas().size() == 0) {
+        if (jugadorActivoNoTieneFichas()) {
             return true;
         }
         return false;
+    }
+    public boolean jugadorActivoNoTieneFichas(){
+        return mediador.getJugador().getFichas().size() == 0;
     }
 
     public boolean finalizacionTablero(int numeroBuscado) {

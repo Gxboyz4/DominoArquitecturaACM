@@ -27,4 +27,6 @@ public class JugadorControlador implements Serializable{
     public void eliminarFicha(Ficha ficha){
         modelo.eliminarFicha(ficha);
     }
+    
+   
 }

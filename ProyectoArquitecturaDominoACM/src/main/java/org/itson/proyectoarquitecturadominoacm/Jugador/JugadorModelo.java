@@ -16,7 +16,8 @@ import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
  *
  * @author julio
  */
-public class JugadorModelo implements Serializable{
+public class JugadorModelo implements Serializable {
+
     int id;
     String nombre;
     ImageIcon avatar;
@@ -26,11 +27,12 @@ public class JugadorModelo implements Serializable{
     int y;
     boolean listo;
     boolean turno;
-    public JugadorModelo(String nombre, ImageIcon avatar){
-        this.nombre=nombre;
-        this.avatar=avatar;
+
+    public JugadorModelo(String nombre, ImageIcon avatar) {
+        this.nombre = nombre;
+        this.avatar = avatar;
     }
-    
+
     public JugadorModelo(List<Ficha> fichas, JPanel panelFichas) {
         this.fichas = fichas;
         this.panelFichas = panelFichas;
@@ -47,11 +49,15 @@ public class JugadorModelo implements Serializable{
         this.panelFichas = panelFichas;
         x = 0;
         y = 0;
-        if (!this.fichas.isEmpty()) {
+        if (jugadorConFichas()) {
             for (Ficha ficha1 : fichas) {
                 this.dibujar(ficha1);
             }
         }
+    }
+    
+    public boolean jugadorConFichas(){
+        return !this.fichas.isEmpty();
     }
 
     public void eliminarFicha(Ficha ficha) {
@@ -63,31 +69,46 @@ public class JugadorModelo implements Serializable{
         for (Ficha ficha1 : fichas) {
             this.dibujar(ficha1);
         }
-        
+
     }
 
     public void agregarFicha(Ficha ficha) {
-        if(fichas.isEmpty()){
+        if (fichas.isEmpty()) {
             panelFichas.removeAll();
             panelFichas.repaint();
-            x=0;
-            y=0;
+            x = 0;
+            y = 0;
         }
         fichas.add(ficha);
-        this.dibujar(ficha);    
+        this.dibujar(ficha);
     }
 
     public void dibujar(Ficha ficha) {
         ficha.escalado(37);
         ficha.setPanelFichas(panelFichas);
-        if(x+20>panelFichas.getWidth()){
-            y = y +42;
-            x=0;
-            
+        if (debeCambiarDeFila(ficha)) {
+            cambiarDeFila();
         }
+        establecerPosicionFicha(ficha);
+        ficha.dibujarEnPanel();
+        actualizarPosicionHorizontal();
+    }
+
+    private boolean debeCambiarDeFila(Ficha ficha) {
+        return x + 20 > panelFichas.getWidth();
+    }
+
+    private void cambiarDeFila() {
+        y = y + 42;
+        x = 0;
+    }
+
+    private void establecerPosicionFicha(Ficha ficha) {
         ficha.setPosicionY(y);
         ficha.setPosicionX(x);
-        ficha.dibujarEnPanel();
+    }
+
+    private void actualizarPosicionHorizontal() {
         x = x + 26;
     }
 
@@ -122,7 +143,8 @@ public class JugadorModelo implements Serializable{
     public void setPanelFichas(JPanel panelFichas) {
         this.panelFichas = panelFichas;
     }
-     public boolean getListo() {
+
+    public boolean getListo() {
         return listo;
     }
 
@@ -145,8 +167,8 @@ public class JugadorModelo implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
-    
-    public Integer getTotalPuntos(){
+
+    public Integer getTotalPuntos() {
         Integer totalPuntos = 0;
         for (Ficha ficha : fichas) {
             totalPuntos += ficha.getPuntos();

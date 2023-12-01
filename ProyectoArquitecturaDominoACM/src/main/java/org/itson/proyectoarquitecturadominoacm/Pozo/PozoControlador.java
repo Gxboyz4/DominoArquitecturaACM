@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 import org.itson.proyectoarquitecturadominoacm.Observadores.PozoObserver;
 
@@ -21,10 +22,13 @@ public class PozoControlador implements ActionListener{
     private PozoModelo pozoModelo;
     private PozoVista pozoVista;
     private PozoObservable pozoObservable = new PozoObservable();
+    private JButton botonPozo;
     
-    public PozoControlador(PozoModelo pozoModelo, PozoVista pozoVista){
+    public PozoControlador(PozoModelo pozoModelo, PozoVista pozoVista,JButton botonPozo){
         this.pozoModelo=pozoModelo;
         this.pozoVista=pozoVista;
+        this.botonPozo = botonPozo;
+        this.botonPozo.addActionListener(this);
     }
     public void mostrarPozo(){
         this.pozoVista.mostrarPozo();

@@ -88,6 +88,7 @@ public class Conexion implements IProxyServidor, Runnable {
 
     @Override
     public synchronized void desempaquetarDatos() {
+        System.out.println(paqueteReciboDatos.getTipo());
         if (paqueteReciboDatos.getTipo() == (TipoPaquete.PARTIDA)) {
             this.infoServer.setPartidaEnServidor((PartidaDTO) paqueteReciboDatos.getObjeto());
             empaquetarParametros(TipoPaquete.RECUPERAR_PARTIDA, infoServer.getPartidaEnServidor());
@@ -105,21 +106,22 @@ public class Conexion implements IProxyServidor, Runnable {
         } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.ELIMINAR_JUGADOR)) {
             JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
             infoServer.getPartidaEnServidor().eliminarJugador(jugadorDTO);
+            
             if (infoServer.getPartidaEnServidor().getJugadores().isEmpty()
                     && !infoServer.getPartidaEnServidor().getPartidaIniciada()) {
                 infoServer.eliminarPartida();
                 empaquetarParametros(TipoPaquete.PARTIDA, infoServer.getPartidaEnServidor());
             }
-            if (infoServer.getCantidadJugadores() == 1
+            else if (infoServer.getCantidadJugadores() == 1
                     && !infoServer.getPartidaEnServidor().getPartidaIniciada()) {
                 this.empaquetarParametros(TipoPaquete.PARTIDA, infoServer.getPartidaEnServidor());
             }
-            if (this.infoServer.getCantidadJugadores() > 1
+            else if (this.infoServer.getCantidadJugadores() > 1
                     && infoServer.getPartidaEnServidor().getPartidaIniciada()) {
                 infoServer.agregarFichasPozo(jugadorDTO.getFichas());
                 this.empaquetarParametros(TipoPaquete.SACAR_JUGADOR, jugadorDTO);
             }
-            if (infoServer.getCantidadJugadores() <= 1
+            else if (infoServer.getCantidadJugadores() <= 1
                     && infoServer.getPartidaEnServidor().getPartidaIniciada()) {
                 this.empaquetarParametros(TipoPaquete.NO_HAY_JUGADORES_EN_PARTIDA, null);
             }
@@ -173,27 +175,7 @@ public class Conexion implements IProxyServidor, Runnable {
             infoServer.getPartidaEnServidor().getJugadores()
                     .sort(Comparator.comparingInt(JugadorDTO::getTotalPuntos));
             this.empaquetarParametros(TipoPaquete.RECIBIR_PUNTOS, infoServer.getPartidaEnServidor().getJugadores());
-        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.ENVIAR_PUNTOS) {
-            infoServer.getPartidaEnServidor().getJugadores()
-                    .sort(Comparator.comparingInt(JugadorDTO::getTotalPuntos));
-            
-//            JugadorDTO jugadorPodio = (JugadorDTO) paqueteReciboDatos.getObjeto();
-//            this.infoServer.agregarJugadorPodio(jugadorPodio);
-//            int cantidadJugadoresPartida = this.infoServer.getCantidadJugadores();
-//            int cantidadJugadoresPodio = this.infoServer.getCantidadJugadoresPodio();
-//            if (cantidadJugadoresPartida == cantidadJugadoresPodio) {
-//                LinkedHashMap<JugadorDTO, Integer> podio = this.infoServer.getPodio();
-                this.empaquetarParametros(TipoPaquete.RECIBIR_PUNTOS, infoServer.getPartidaEnServidor().getJugadores());
-                infoServer.eliminarPartida();
-//            }
-        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.SALIR_PARTIDA) {
-            
-        } else if (paqueteReciboDatos.getTipo() == TipoPaquete.FINALIZO_PARTIDA) {
-            JugadorDTO jugadorDTO = (JugadorDTO) paqueteReciboDatos.getObjeto();
-            infoServer.getPartidaEnServidor().eliminarJugador(jugadorDTO);
-            if (infoServer.getCantidadJugadores() == 0) {
-                this.infoServer.eliminarPartida();
-            }
+
         }
     }
 
@@ -202,18 +184,18 @@ public class Conexion implements IProxyServidor, Runnable {
         Thread conexion = new Thread(this);
         conexion.start();
     }
-    
-    public void agregarFicha(FichaDTO fichaDTO){
+
+    public void agregarFicha(FichaDTO fichaDTO) {
         for (JugadorDTO jugadore : infoServer.getPartidaEnServidor().getJugadores()) {
-            if(jugadore.getTurno()==true){
+            if (jugadore.getTurno() == true) {
                 jugadore.agregarFicha(fichaDTO);
             }
         }
     }
-    
-    public void eliminarFicha(FichaDTO fichaDTO){
+
+    public void eliminarFicha(FichaDTO fichaDTO) {
         for (JugadorDTO jugadore : infoServer.getPartidaEnServidor().getJugadores()) {
-            if(jugadore.getTurno()==true){
+            if (jugadore.getTurno() == true) {
                 jugadore.eliminarFicha(fichaDTO);
             }
         }

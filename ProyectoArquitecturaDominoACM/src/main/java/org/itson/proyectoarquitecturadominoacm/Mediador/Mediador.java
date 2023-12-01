@@ -12,10 +12,14 @@ import org.itson.libreriatiposdominoacmp.JugadorDTO;
 import org.itson.libreriatiposdominoacmp.PartidaDTO;
 import org.itson.libreriatiposdominoacmp.TipoPaquete;
 import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
+import org.itson.proyectoarquitecturadominoacm.Fichas.FichaControlador;
+import org.itson.proyectoarquitecturadominoacm.Fichas.FichaModelo;
+import org.itson.proyectoarquitecturadominoacm.Fichas.FichaVista;
 import org.itson.proyectoarquitecturadominoacm.Jugador.Jugador;
 import org.itson.proyectoarquitecturadominoacm.Partida.Partida;
 import org.itson.proyectoarquitecturadominoacm.Pozo.Pozo;
 import org.itson.proyectoarquitecturadominoacm.Proxy.ProxyCliente;
+import static org.itson.proyectoarquitecturadominoacm.ProyectoArquitecturaDominoACM.mediador;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmLobby;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmMenu;
 import org.itson.proyectoarquitecturadominoacm.UI.FrmPartida;
@@ -29,7 +33,7 @@ import org.itson.proyectoarquitecturadominoacm.contrincante.Contrincante;
  * @author Gabriel Mancinas
  */
 public class Mediador implements IMediador {
-
+    
     Jugador jugador;
     FrmPrincipal frmPrincipal;
     FrmMenu frmMenu;
@@ -39,7 +43,7 @@ public class Mediador implements IMediador {
     Partida partida;
     FrmPodio frmPodio;
     ProxyCliente proxyCliente = new ProxyCliente();
-
+    
     @Override
     public void reiniciarJugador() {
         String nombre = this.jugador.getNombre();
@@ -50,139 +54,139 @@ public class Mediador implements IMediador {
         this.jugador.setId(id);
         this.frmPodio = FrmPodio.getInstance();
     }
-
+    
     @Override
     public void registrarJugador(Jugador jugador) {
         this.jugador = jugador;
     }
-
+    
     @Override
     public void abrirPantallaPartida() {
         this.frmPartida = new FrmPartida();
         frmPartida.setVisible(true);
     }
-
+    
     @Override
     public void iniciarPrograma() {
         FrmPrincipal frmPrincipal = new FrmPrincipal();
         frmPrincipal.setVisible(true);
     }
-
+    
     @Override
     public Jugador getJugador() {
         return jugador;
     }
-
+    
     @Override
     public void crearPartida(Jugador jugador, int fichas) {
         this.partida = new Partida(jugador, fichas);
     }
-
+    
     @Override
     public void crearPartida(Jugador jugador) {
         this.partida = new Partida(jugador);
     }
-
+    
     @Override
     public void crearPartida() {
         this.partida = new Partida();
     }
-
+    
     @Override
     public Partida getPartida() {
         return partida;
     }
-
+    
     @Override
     public void abrirPantallaPrincipal() {
         FrmPrincipal frmPrincipal = new FrmPrincipal();
         frmPrincipal.setVisible(true);
     }
-
+    
     @Override
     public void abrirPantallaMenu() {
         FrmMenu frmMenu = new FrmMenu();
         this.frmMenu = frmMenu;
     }
-
+    
     @Override
     public void abrirPantallaLobby() {
         FrmLobby frmLobby = new FrmLobby();
         this.frmLobby = frmLobby;
         //mediador.getFrmLobby().asignarInformacionJugadores();
     }
-
+    
     @Override
     public void abrirPantallaUnirse() {
         FrmUnirse frmUnirse = new FrmUnirse();
         this.frmUnirse = frmUnirse;
     }
-
+    
     @Override
     public void abrirPantallaPodio() {
         this.frmPodio.abrirVentanaPodio();
     }
-
+    
     @Override
     public void iniciarHiloConexion() {
         proxyCliente.iniciarHilo();
     }
-
+    
     @Override
     public ProxyCliente getProxyCliente() {
         return proxyCliente;
     }
-
+    
     @Override
     public FrmMenu getFrmMenu() {
         return frmMenu;
     }
-
+    
     @Override
     public FrmUnirse getFrmUnirse() {
         return frmUnirse;
     }
-
+    
     @Override
     public FrmLobby getFrmLobby() {
         return frmLobby;
     }
-
+    
     @Override
     public void cerrarPantallaLobby() {
         this.frmLobby.setVisible(false);
         this.frmLobby = null;
     }
-
+    
     @Override
     public void cerrarPantallaUnirse() {
         this.frmUnirse = null;
     }
-
+    
     @Override
     public void cerrarPantallaPartida() {
         this.frmPartida.setVisible(false);
         this.frmPartida = null;
     }
-
+    
     @Override
     public void cerrarPantallaMenu() {
         this.frmMenu = null;
     }
-
+    
     @Override
     public void cerrarPantallaPodio() {
         this.frmPodio.cerrarVentanaPodio();
     }
-
+    
     @Override
     public FrmPodio getFrmPodio() {
         return this.frmPodio;
     }
-
+    
     @Override
     public void exponerPartida() {
-
+        
         List<JugadorDTO> listaJugadores = new ArrayList<JugadorDTO>();
         JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(), jugador.getAvatar(), jugador.getId());
         listaJugadores.add(jugadorDTO);
@@ -191,7 +195,7 @@ public class Mediador implements IMediador {
         proxyCliente.empaquetarParametros(TipoPaquete.PARTIDA, partidaDTO);
         proxyCliente.enviarDatos();
     }
-
+    
     @Override
     public void recuperarPartidas() {
         //proxyCliente.iniciarSocket();
@@ -199,10 +203,10 @@ public class Mediador implements IMediador {
         proxyCliente.enviarDatos();
         //proxyCliente.iniciarHilo();
     }
-
+    
     @Override
     public void configuracionPartida() {
-
+        
         List<JugadorDTO> listaJugadores = new ArrayList<JugadorDTO>();
         JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(), jugador.getAvatar(), jugador.getId());
         listaJugadores.add(jugadorDTO);
@@ -211,17 +215,17 @@ public class Mediador implements IMediador {
         proxyCliente.empaquetarParametros(TipoPaquete.CONFIGURACION_PARTIDA, partidaDTO);
         proxyCliente.enviarDatos();
     }
-
+    
     @Override
     public void unirsePartida() {
         proxyCliente.empaquetarParametros(TipoPaquete.UNIRSE_PARTIDA, crearJugadorDTO());
         proxyCliente.enviarDatos();
     }
-
+    
     public void dibujarJugadoresLobby() {
         frmLobby.asignarInformacionJugadores();
     }
-
+    
     @Override
     public void jugadorListo() {
         JugadorDTO jugador;
@@ -229,101 +233,101 @@ public class Mediador implements IMediador {
         proxyCliente.empaquetarParametros(TipoPaquete.LISTO, jugador);
         proxyCliente.enviarDatos();
     }
-
+    
     @Override
     public void asignarIDJugadorLocal(int id) {
         jugador.setId(id);
     }
-
+    
     @Override
     public void generarIDJugador() {
         proxyCliente.empaquetarParametros(TipoPaquete.GENERAR_ID, null);
         proxyCliente.enviarDatos();
     }
-
+    
     @Override
     public void obtenerFichaPozo() {
         proxyCliente.empaquetarParametros(TipoPaquete.OBTENER_FICHA, crearJugadorDTO());
         proxyCliente.enviarDatos();
     }
-
+    
     @Override
     public Pozo obtenerPozo() {
         return partida.getPozo();
     }
-
+    
     public JugadorDTO crearJugadorDTO() {
         JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNombre(), jugador.getAvatar(), jugador.getId());
         return jugadorDTO;
     }
-
+    
     @Override
     public void enviarFicha(Ficha ficha) {
-
+        
         FichaDTO fichaEnviar = new FichaDTO(ficha.getNumeroInferior(), ficha.getNumeroSuperior(), ficha.getImagenFicha());
         proxyCliente.empaquetarParametros(TipoPaquete.AGREGAR_FICHA, fichaEnviar);
         proxyCliente.enviarDatos();
         this.enviarEliminarFichaContrincante();
     }
-
+    
     @Override
     public void enviarFichaIzquierda(Ficha ficha) {
-
+        
         FichaDTO fichaEnviar = new FichaDTO(ficha.getNumeroInferior(), ficha.getNumeroSuperior(), ficha.getImagenFicha());
         proxyCliente.empaquetarParametros(TipoPaquete.AGREGAR_FICHA_IZQUIERDA, fichaEnviar);
         proxyCliente.enviarDatos();
         this.enviarEliminarFichaContrincante();
     }
-
+    
     @Override
     public void enviarFichaDerecha(Ficha ficha) {
-
+        
         FichaDTO fichaEnviar = new FichaDTO(ficha.getNumeroInferior(), ficha.getNumeroSuperior(), ficha.getImagenFicha());
         proxyCliente.empaquetarParametros(TipoPaquete.AGREGAR_FICHA_DERECHA, fichaEnviar);
         proxyCliente.enviarDatos();
         this.enviarEliminarFichaContrincante();
     }
-
+    
     @Override
     public void enviarEliminarFichaContrincante() {
         proxyCliente.empaquetarParametros(TipoPaquete.ELIMINAR_FICHA_CONTRINCANTE, this.crearJugadorDTO());
         proxyCliente.enviarDatos();
     }
-
+    
     @Override
     public void agregarFichaDerechaTablero(Ficha ficha) {
         partida.getTablero().agregarFichaDerecha(ficha);
     }
-
+    
     @Override
     public void agregarFichaIzquierdaTablero(Ficha ficha) {
         partida.getTablero().agregarFichaIzquierda(ficha);
     }
-
+    
     @Override
     public void agregarFichaTablero(Ficha ficha) {
         partida.getTablero().agregarFicha(ficha, false);
     }
-
+    
     public void modificarTurno(List<JugadorDTO> jugadores) {
         for (JugadorDTO jugadore : jugadores) {
             if (jugadore.getId() == jugador.getId()) {
                 jugador.setTurno(jugadore.getTurno());
-
+                
             }
         }
         this.frmPartida.actualizarInfo();
     }
-
+    
     @Override
     public void pasarTurno() {
         jugador.setTurno(false);
         System.out.println("Entro pasarturnoMediador");
         proxyCliente.empaquetarParametros(TipoPaquete.PASAR_TURNO, null);
         proxyCliente.enviarDatos();
-
+        
     }
-
+    
     @Override
     public void enviarFinalizarPartida() {
         JugadorDTO jugadorPuntos = new JugadorDTO(
@@ -337,7 +341,7 @@ public class Mediador implements IMediador {
         );
         proxyCliente.enviarDatos();
     }
-
+    
     @Override
     public void enviarTotalPuntos() {
         JugadorDTO jugadorPuntos = new JugadorDTO(
@@ -349,7 +353,7 @@ public class Mediador implements IMediador {
         proxyCliente.empaquetarParametros(TipoPaquete.ENVIAR_PUNTOS, jugadorPuntos);
         proxyCliente.enviarDatos();
     }
-
+    
     @Override
     public void salirDurantePartida() {
         if (this.jugador.getTurno()) {
@@ -367,13 +371,13 @@ public class Mediador implements IMediador {
         );
         this.proxyCliente.enviarDatos();
     }
-
+    
     @Override
     public void sacarJugadorPartidaPorId(int idJugador) {
         this.partida.sacarJugadorPorId(idJugador);
         this.partida.sacarContrincantePorId(idJugador);
     }
-
+    
     @Override
     public void noHayJugadoresPartida() {
         this.cerrarPantallaPartida();
@@ -389,12 +393,12 @@ public class Mediador implements IMediador {
         );
         this.proxyCliente.enviarDatos();
     }
-
+    
     @Override
     public void recargarPantallaPartida() {
         this.frmPartida.cargarPartida();
     }
-
+    
     @Override
     public void enviarFinalizarPartidaCerrarPartida() {
         JugadorDTO jugador = new JugadorDTO(
@@ -408,10 +412,10 @@ public class Mediador implements IMediador {
         );
         proxyCliente.enviarDatos();
     }
-
+    
     private List<FichaDTO> convertirFichasDTO(List<Ficha> fichas) {
         List<FichaDTO> fichasDTO = new ArrayList<>();
-
+        
         for (Ficha ficha : fichas) {
             String rutaImagen = String.format("/imgFrmPartidaFichas/ficha%d_%d.png", ficha.getNumeroInferior(), ficha.getNumeroSuperior());
             FichaDTO fichaDTO = new FichaDTO(
@@ -419,12 +423,12 @@ public class Mediador implements IMediador {
                     ficha.getNumeroSuperior(),
                     rutaImagen
             );
-
+            
             fichasDTO.add(fichaDTO);
         }
         return fichasDTO;
     }
-
+    
     @Override
     public void enviarSalirPartida() {
         JugadorDTO jugadorSalir = new JugadorDTO(
@@ -437,5 +441,72 @@ public class Mediador implements IMediador {
                 jugadorSalir
         );
         proxyCliente.enviarDatos();
+    }
+
+    public void modificarPartidaLocal(PartidaDTO partida) {
+        if (partida != null) {
+            List<Jugador> jugadores = new ArrayList();
+            for (JugadorDTO jugadorDTO : partida.getJugadores()) {
+                Jugador jugador = new Jugador(jugadorDTO.getNombre(), jugadorDTO.getAvatar(), jugadorDTO.getListo(), jugadorDTO.getTurno(), jugadorDTO.getId());
+                jugadores.add(jugador);
+            }
+            this.getPartida().setJugadores(jugadores);
+        }
+    }
+
+    public Ficha crearFicha(FichaDTO ficha) {
+        FichaModelo fichaModelo = new FichaModelo(ficha.getNumeroSup(), ficha.getNumeroInf(), ficha.getImagen());
+        FichaVista fichaVista = new FichaVista(fichaModelo, null);
+        FichaControlador fichaControlador = new FichaControlador(fichaModelo, fichaVista);
+        Ficha fichaCreada = new Ficha(fichaControlador, fichaModelo, fichaVista);
+        
+        return fichaCreada;
+    }
+
+    public Contrincante obtenerContrincante(JugadorDTO jugador) {
+        for (Contrincante contrincante : mediador.getPartida().getContrincantes()) {
+            if (jugador.getId() == contrincante.obtenerID()) {
+                return contrincante;
+            }
+        }
+        return null;
+    }
+
+    public Ficha crearFichaDireccion(FichaDTO ficha) {
+        String rutaImagen = ficha.getDireccionImg();
+        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
+        FichaModelo fichaModelo = new FichaModelo(ficha.getNumeroSup(), ficha.getNumeroInf(), imagen);
+        FichaVista fichaVista = new FichaVista(fichaModelo, null);
+        FichaControlador fichaControlador = new FichaControlador(fichaModelo, fichaVista);
+        Ficha fichaCreada = new Ficha(fichaControlador, fichaModelo, fichaVista);
+        return fichaCreada;
+    }
+
+    public void listaJugadorDTOJugador(List<JugadorDTO> jugadoresDTO) {
+        for (int i = 0; i < jugadoresDTO.size(); i++) {
+            for (int ii = 0; ii < jugadoresDTO.size(); ii++) {
+                if (this.obtenerIdJugador(i) == this.obtnerIdJugadorLista(ii, jugadoresDTO)) {
+                    this.modificarTurnoJugador(jugadoresDTO.get(ii).getTurno(), i);
+                }
+            }
+        }
+        
+    }
+
+    public void modificarTurnoJugador(boolean turno,int i){
+        this.partida.getJugadores().get(i).setTurno(turno);
+    }
+    
+    public int obtenerIdJugador(int i) {
+        return this.partida.getJugadores().get(i).getId();
+    }
+
+    public int obtnerIdJugadorLista(int i, List<JugadorDTO> jugadoresDTO) {
+        return jugadoresDTO.get(i).getId();
+    }
+
+    public void recargarTablaFrmUnirse() {
+        this.frmUnirse.vaciarListaPartidas();
+        this.frmUnirse.cargarTabla();
     }
 }

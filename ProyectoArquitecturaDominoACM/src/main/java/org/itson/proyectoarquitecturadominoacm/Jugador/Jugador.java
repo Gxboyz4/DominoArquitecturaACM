@@ -60,7 +60,7 @@ public class Jugador implements Serializable {
 
     private void setearResponsabilidades() {
         this.modelo = new JugadorModelo(nombre, avatar);
-        this.vista = new JugadorVista();
+        this.vista = new JugadorVista(modelo);
         this.controlador = new JugadorControlador(modelo, vista);
     }
 

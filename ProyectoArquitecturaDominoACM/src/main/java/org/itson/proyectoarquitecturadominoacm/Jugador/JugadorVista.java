@@ -5,11 +5,28 @@
 package org.itson.proyectoarquitecturadominoacm.Jugador;
 
 import java.io.Serializable;
+import org.itson.proyectoarquitecturadominoacm.Fichas.Ficha;
 
 /**
  *
  * @author julio
  */
-public class JugadorVista implements Serializable{
-    
+public class JugadorVista implements Serializable {
+
+    JugadorModelo modelo;
+
+    public JugadorVista(JugadorModelo modelo) {
+        this.modelo = modelo;
+    }
+
+//    public void agregarFicha() {
+//        if (modelo.getFichas().isEmpty()) {
+//            modelo.limpiarPanel();
+//        }
+//    }
+//
+//    public void dibujarFicha(Ficha ficha) {
+//        ficha.escalado(37);
+//        modelo.getPanelFichas().add(ficha.getPanelFichas());
+//    }
 }

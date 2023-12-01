@@ -22,16 +22,12 @@ public class Pozo {
     public Pozo(JButton botonPozo){
         pozoModelo = new PozoModelo();
         pozoVista = new PozoVista(botonPozo,pozoModelo);
-        pozoControlador = new PozoControlador(pozoModelo, pozoVista);
-        this.botonPozo=botonPozo;
-        this.botonPozo.addActionListener(pozoControlador);
-        //devolverFicha();
+        pozoControlador = new PozoControlador(pozoModelo, pozoVista,botonPozo);
+        this.botonPozo=botonPozo;  
         mostrarPozo();
     
     }
-//    public Ficha devolverFicha(){
-//        return pozoControlador.devolverFicha();
-//    }
+
     public void mostrarPozo(){
         pozoControlador.mostrarPozo();
     }

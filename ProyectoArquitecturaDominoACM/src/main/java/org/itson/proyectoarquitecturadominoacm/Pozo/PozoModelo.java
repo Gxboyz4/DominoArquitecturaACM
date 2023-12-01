@@ -22,19 +22,6 @@ public class PozoModelo {
     Boolean estadoVisible=true;
 
     public PozoModelo() {
-//        listaFichas = new ArrayList();        
-//        for (int i = 0; i <= 6; i++) {
-//            for (int j = i; j <= 6; j++) {
-//                String rutaImagen = String.format("/imgFrmPartidaFichas/ficha%d_%d.png", i, j);
-//                ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
-//                FichaModelo fichaModelo = new FichaModelo(j, i, imagen);
-//                FichaVista fichaVista = new FichaVista(fichaModelo,null);
-//                FichaControlador fichaControlador = new FichaControlador(fichaModelo, fichaVista);
-//                Ficha ficha = new Ficha(fichaControlador, fichaModelo, fichaVista);
-//                listaFichas.add(ficha);
-//            }
-//            }
-        
 
     }
 
@@ -54,30 +41,5 @@ public class PozoModelo {
         this.estadoVisible = estadoVisible;
     }
 
-   
-//    public Ficha devolverFicha(){
-//     int numeroRandom = (int) (Math.random() * getListaFichas().size() + 0);
-//     return listaFichas.get(numeroRandom);
-//    }
-    
-//    public void eliminarFicha(Ficha ficha){
-//        listaFichas.remove(ficha);
-//        verificarNumFichas();
-//    }
-//    public void verificarNumFichas(){
-//        if(listaFichas.size()==0){
-//            this.estadoVisible=false;
-//        }
-//    }
-//    public List<Ficha> repartirFichas(int numFichas){
-//    List<Ficha> fichas = new ArrayList();
-//            for (int j = 0; j < numFichas; j++) {
-//                Ficha ficha;
-//                ficha=devolverFicha();
-//                eliminarFicha(ficha);
-//                fichas.add(ficha);
-//            }
-//            return fichas;
-//    }
 
 }
