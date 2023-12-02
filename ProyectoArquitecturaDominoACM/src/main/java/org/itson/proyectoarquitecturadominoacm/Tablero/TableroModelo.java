@@ -208,8 +208,17 @@ public class TableroModelo {
         if (fichas.getLast().equals(ficha)) {
             return falso;
         }
-
+        
         if (this.numeroDerecha == ficha.getNumeroInferior()) {
+            return coincideConInferiorDerecha(ficha);
+        }
+        if (this.numeroDerecha == ficha.getNumeroSuperior()) {
+            return coincideConSuperiorDerecha(ficha);
+        }
+        return falso;
+    }
+    public int coincideConInferiorDerecha(Ficha ficha)
+    {
             if (fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior()) {
                 if (ficha.getNumeroSuperior() == ficha.getNumeroInferior()) {
                     return quintoCaso;
@@ -220,8 +229,9 @@ public class TableroModelo {
                 return sextoCaso;
             }
             return cuartoCaso;
-        }
-        if (this.numeroDerecha == ficha.getNumeroSuperior()) {
+    }
+    public int coincideConSuperiorDerecha(Ficha ficha)
+    {
             if (fichas.getLast().getNumeroSuperior() == fichas.getLast().getNumeroInferior()) {
                 if (ficha.getNumeroSuperior() == ficha.getNumeroInferior()) {
                     return quintoCaso;
@@ -234,10 +244,7 @@ public class TableroModelo {
                 return sextoCaso;
             }
             return segundoCaso;
-        }
-        return falso;
     }
-
     public int validarColocacionIzquierda(Ficha ficha) {
         if (fichas.size() == 0) {
             return sextoCaso;
@@ -249,7 +256,16 @@ public class TableroModelo {
             return falso;
         }
         if (this.numeroIzquierda == ficha.getNumeroInferior()) {
-            if (fichas.getFirst().getNumeroSuperior() == fichas.getFirst().getNumeroInferior()) {
+            return coincideConInferiorIzquierda(ficha);
+        }
+        if (this.numeroIzquierda == ficha.getNumeroSuperior()) {
+            return coincideConSuperiorIzquierda(ficha);
+        }
+        return falso;
+    }
+    public int coincideConInferiorIzquierda(Ficha ficha)
+    {
+        if (fichas.getFirst().getNumeroSuperior() == fichas.getFirst().getNumeroInferior()) {
                 if (ficha.getNumeroSuperior() == ficha.getNumeroInferior()) {
                     return quintoCaso;
                 }
@@ -259,9 +275,9 @@ public class TableroModelo {
                 return sextoCaso;
             }
             return cuartoCaso;
-        }
-        if (this.numeroIzquierda == ficha.getNumeroSuperior()) {
-            if (fichas.getFirst().getNumeroSuperior() == fichas.getFirst().getNumeroInferior()) {
+    }
+    public int coincideConSuperiorIzquierda(Ficha ficha){
+        if (fichas.getFirst().getNumeroSuperior() == fichas.getFirst().getNumeroInferior()) {
                 if (ficha.getNumeroSuperior() == ficha.getNumeroInferior()) {
                     return quintoCaso;
                 }
@@ -273,8 +289,6 @@ public class TableroModelo {
                 return sextoCaso;
             }
             return segundoCaso;
-        }
-        return falso;
     }
 
 }
