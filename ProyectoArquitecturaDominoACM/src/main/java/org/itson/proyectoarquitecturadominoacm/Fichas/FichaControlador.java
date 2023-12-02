@@ -66,6 +66,7 @@ public class FichaControlador implements MouseListener{
     }
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.out.println("Se le hizo click a la ficha");
        this.fichaObservable.notificar(new Ficha(this));
     }
 

@@ -34,19 +34,20 @@ public class FichaVista extends JLabel {
     /**
      * Atributo que representa el panel donde se dibuja.
      */
-    JPanel panel;
+   // JPanel panel;
     /**
      * Constructor por defecto que inicializa el modelo y el panel.
      * @param modelo modelo de la ficha.
      * @param fichas panel de la ficha.
      */
-    public FichaVista(FichaModelo modelo, JPanel fichas) {
-        this.modelo = modelo;
-        this.panel = fichas;
+    public FichaVista(FichaModelo modelos) {
+        this.modelo = modelos;
+        //this.panel = fichas;
     }
    
     public void dibujar() {
-        panel.add(this);
+        //panel.add(this);
+        System.out.println("Entro al dibujar" + modelo);
         this.setBounds(modelo.getPosicionX(), modelo.getPosicionY(), this.modelo.getAncho(), this.modelo.getAlto());
         Image imagenModelo = modelo.getImage();
         Icon iconADibujar = new ImageIcon(imagenModelo.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
@@ -54,7 +55,7 @@ public class FichaVista extends JLabel {
     }
    
     public void dibujarRotada(int grados) {
-        panel.add(this);
+       // panel.add(this);
         this.setBounds(modelo.getPosicionX(), modelo.getPosicionY(), this.modelo.getAncho(), this.modelo.getAlto());
         Image imagenModelo = modelo.getImage();
         ImageIcon imagen = new ImageIcon(imagenModelo.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
@@ -62,6 +63,10 @@ public class FichaVista extends JLabel {
         Icon iconADibujar = imagen;
         this.setIcon(iconADibujar);
 
+    }
+
+    public FichaModelo getModelo() {
+        return modelo;
     }
     
     /*
@@ -164,12 +169,12 @@ public class FichaVista extends JLabel {
         return transformacion;
     }
 
-    public JPanel getPanel() {
-        return panel;
-    }
-
-    public void setPanel(JPanel fichas) {
-        this.panel = fichas;
-    }
+//    public JPanel getPanel() {
+//        return panel;
+//    }
+//
+//    public void setPanel(JPanel fichas) {
+//        this.panel = fichas;
+//    }
 
 }

@@ -36,56 +36,52 @@ public class JugadorModelo implements Serializable {
     public boolean jugadorConFichas(){
         return !this.fichas.isEmpty();
     }
+   
 
-    public void eliminarFicha(Ficha ficha) {
-        panelFichas.removeAll();
+    public void eliminarFicha(Ficha ficha) {     
         fichas.remove(ficha);
-        x = 0;
-        y = 0;
-        panelFichas.repaint();
-        for (Ficha ficha1 : fichas) {
-            this.dibujar(ficha1);
-        }
+        
 
     }
-
-    public void agregarFicha(Ficha ficha) {
-        if (fichas.isEmpty()) {
-            panelFichas.removeAll();
+    public void limpiarPanel(){
+        panelFichas.removeAll();
             panelFichas.repaint();
             x = 0;
             y = 0;
-        }
+    }
+
+    public void agregarFicha(Ficha ficha) {
+        System.out.println("Entro a aagregar fichas modelo");
         fichas.add(ficha);
-        this.dibujar(ficha);
+        //this.dibujar(ficha);
     }
 
     public void dibujar(Ficha ficha) {
-        ficha.escalado(37);
-        ficha.setPanelFichas(panelFichas);
+//        ficha.escalado(37);
+//        ficha.setPanelFichas(panelFichas);
         if (debeCambiarDeFila(ficha)) {
             cambiarDeFila();
         }
-        establecerPosicionFicha(ficha);
-        ficha.dibujarEnPanel();
-        actualizarPosicionHorizontal();
+//        establecerPosicionFicha(ficha);
+//        ficha.dibujarEnPanel();
+//        actualizarPosicionHorizontal();
     }
 
-    private boolean debeCambiarDeFila(Ficha ficha) {
+    public boolean debeCambiarDeFila(Ficha ficha) {
         return x + 20 > panelFichas.getWidth();
     }
 
-    private void cambiarDeFila() {
+    public void cambiarDeFila() {
         y = y + 42;
         x = 0;
     }
 
-    private void establecerPosicionFicha(Ficha ficha) {
+    public void establecerPosicionFicha(Ficha ficha) {
         ficha.setPosicionY(y);
         ficha.setPosicionX(x);
     }
 
-    private void actualizarPosicionHorizontal() {
+    public void actualizarPosicionHorizontal() {
         x = x + 26;
     }
 

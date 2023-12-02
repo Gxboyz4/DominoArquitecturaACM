@@ -22,10 +22,13 @@ public class JugadorControlador implements Serializable{
     
     public void agregarFicha(Ficha ficha){
         modelo.agregarFicha(ficha);
+        vista.agregarFicha();
+        vista.dibujarFicha(ficha);
     }
     
     public void eliminarFicha(Ficha ficha){
         modelo.eliminarFicha(ficha);
+        vista.eliminarFicha();
     }
     
    

@@ -22,7 +22,7 @@ public class Ficha {
     FichaControlador fichaControlador;
     FichaModelo fichaModelo;
     FichaVista fichaVista;
-    JPanel panel;
+    //JPanel panel;
     int numeroSuperior;
     int numeroInferior;
     ImageIcon imagenFicha;
@@ -50,12 +50,12 @@ public class Ficha {
         this.fichaModelo.escalado(escala);
     }
     public void establecerTamano(){
-        System.out.println("Entro a establecer");
         fichaModelo.setAlto(tamano);
         fichaModelo.setAncho(tamano);
     }
     
     public void dibujarEnPanel(){
+        System.out.println("Entro aqui" + fichaModelo);
         fichaControlador.dibujarFicha();  
         fichaVista.addMouseListener(fichaControlador);
     }
@@ -69,14 +69,14 @@ public class Ficha {
         fichaControlador.agregarObservador(observador);
     }
 
-    public JPanel getPanelFichas() {
-        return panel;
-    }
-
-    public void setPanelFichas(JPanel panelFichas) {
-        this.panel = panelFichas;
-        this.fichaVista.setPanel(panelFichas);;
-    }
+//    public JPanel getPanelFichas() {
+//        return panel;
+//    }
+//
+//    public void setPanelFichas(JPanel panelFichas) {
+//        this.panel = panelFichas;
+//        this.fichaVista.setPanel(panelFichas);;
+//    }
 
     public Ficha(ImageIcon imagenFicha) {
         this.fichaModelo.setImagenFicha(imagenFicha);
@@ -113,6 +113,10 @@ public class Ficha {
        this.fichaModelo.setPosicionY(posicionY);
     }
 
+    public FichaVista getFichaVista() {
+        return fichaVista;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

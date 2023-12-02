@@ -145,6 +145,7 @@ public class Conexion implements IProxyServidor, Runnable {
             empaquetarParametros(TipoPaquete.PASAR_TURNO, infoServer.getPartidaEnServidor());
         } else if (paqueteReciboDatos.getTipo() == (TipoPaquete.OBTENER_FICHA)) {
             if (logicaServidor.pozoEstaVacio(infoServer)) {
+                System.out.println("El pozo esta vacio");
                 empaquetarParametros(TipoPaquete.POZO_VACIO, null);
             } else {
                 FichaDTO ficha = logicaServidor.devolverFicha(infoServer);

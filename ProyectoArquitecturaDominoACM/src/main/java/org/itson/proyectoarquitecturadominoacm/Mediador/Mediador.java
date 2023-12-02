@@ -456,7 +456,7 @@ public class Mediador implements IMediador {
 
     public Ficha crearFicha(FichaDTO ficha) {
         FichaModelo fichaModelo = new FichaModelo(ficha.getNumeroSup(), ficha.getNumeroInf(), ficha.getImagen());
-        FichaVista fichaVista = new FichaVista(fichaModelo, null);
+        FichaVista fichaVista = new FichaVista(fichaModelo);
         FichaControlador fichaControlador = new FichaControlador(fichaModelo, fichaVista);
         Ficha fichaCreada = new Ficha(fichaControlador, fichaModelo, fichaVista);
         
@@ -476,9 +476,10 @@ public class Mediador implements IMediador {
         String rutaImagen = ficha.getDireccionImg();
         ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
         FichaModelo fichaModelo = new FichaModelo(ficha.getNumeroSup(), ficha.getNumeroInf(), imagen);
-        FichaVista fichaVista = new FichaVista(fichaModelo, null);
+        FichaVista fichaVista = new FichaVista(fichaModelo);
         FichaControlador fichaControlador = new FichaControlador(fichaModelo, fichaVista);
         Ficha fichaCreada = new Ficha(fichaControlador, fichaModelo, fichaVista);
+        System.out.println("La ficha creada " + fichaCreada.getFichaVista().getModelo());
         return fichaCreada;
     }
 

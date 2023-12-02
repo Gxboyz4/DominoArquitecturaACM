@@ -61,7 +61,8 @@ public class TableroModelo {
     public void colocarPosicionFichaDer(int desplazamientoX, int desplazamientoY, Ficha ficha, int grados) {
 
         ficha.establecerTamano();
-        ficha.setPanelFichas(lienzo);
+        this.lienzo.add(ficha.getFichaVista());
+        //ficha.setPanelFichas(lienzo);
         int x = fichas.getLast().getPosicionX();
         int y = fichas.getLast().getPosicionY();
         ficha.setPosicionX(x + desplazamientoX);
@@ -118,7 +119,7 @@ public class TableroModelo {
             ficha.establecerTamano();
             this.numeroDerecha = ficha.getNumeroSuperior();
             this.numeroIzquierda = ficha.getNumeroInferior();
-            ficha.setPanelFichas(lienzo);
+           this.lienzo.add(ficha.getFichaVista());
             ficha.setPosicionX((lienzo.getWidth() / 2) - 22);
             ficha.setPosicionY(120 - 22);
             fichas.addLast(ficha);
@@ -131,7 +132,7 @@ public class TableroModelo {
     public void colocarPosicionFichaIzq(int desplazamientoX, int desplazamientoY, Ficha ficha, int grados) {
 
         ficha.establecerTamano();
-        ficha.setPanelFichas(lienzo);
+        this.lienzo.add(ficha.getFichaVista());
         int x = fichas.getFirst().getPosicionX();
         int y = fichas.getFirst().getPosicionY();
         ficha.setPosicionX(x + desplazamientoX);
@@ -147,7 +148,7 @@ public class TableroModelo {
         if (!fichas.isEmpty()) {
             switch (validarColocacionIzquierda(ficha)) {
                 case primerCaso -> {
-                    ficha.setPanelFichas(lienzo);
+                   this.lienzo.add(ficha.getFichaVista());
                     colocarPosicionFichaIzq(-34, 0, ficha, 90);
                     this.numeroIzquierda = ficha.getNumeroInferior();
                     break;
@@ -158,7 +159,7 @@ public class TableroModelo {
                     break;
                 }
                 case tercerCaso -> {
-                    ficha.setPanelFichas(lienzo);
+                    this.lienzo.add(ficha.getFichaVista());
                     colocarPosicionFichaIzq(-34, 0, ficha, -90);
                     this.numeroIzquierda = ficha.getNumeroSuperior();
                     break;
@@ -188,7 +189,7 @@ public class TableroModelo {
         } else if (fichas.isEmpty()) {
             this.numeroDerecha = ficha.getNumeroSuperior();
             this.numeroIzquierda = ficha.getNumeroInferior();
-            ficha.setPanelFichas(lienzo);
+           this.lienzo.add(ficha.getFichaVista());
             ficha.setPosicionX((lienzo.getWidth() / 2) - 22);
             ficha.setPosicionY(98);
             fichas.addLast(ficha);

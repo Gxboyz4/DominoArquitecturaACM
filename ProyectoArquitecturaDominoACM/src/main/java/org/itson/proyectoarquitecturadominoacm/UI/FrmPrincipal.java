@@ -14,6 +14,7 @@ import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarControlador;
 import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarModelo;
 import org.itson.proyectoarquitecturadominoacm.Utileria.AvatarVista;
 import org.itson.proyectoarquitecturadominoacm.Utileria.Avatar;
+import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 
 /**
@@ -30,7 +31,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {  
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/imgFrmPrincipal/iconoGeneral.png")).getImage());
-        avatar = new Avatar(btnCambiarAvatar, jpnGeneral);
+        avatar = new Avatar(btnCambiarAvatar);
+        this.jpnGeneral.add(avatar.getVista(), new AbsoluteConstraints(480, 50, 240, 230), 0);
     }
     public void obtenerDatosJugador(){
         nombreJugador = txtApodo.getText();
