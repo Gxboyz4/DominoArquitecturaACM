@@ -141,7 +141,6 @@ public class FrmPartida extends javax.swing.JFrame {
         this.ocultarPanelesContrincantes();
         this.establecerDatosJugadorLocal();
         this.establecerContrincantes();
-        this.ocultarBotonesPartida();
     }
     
     public void crearPartida() {
@@ -164,9 +163,6 @@ public class FrmPartida extends javax.swing.JFrame {
         }
     }
     
-    private void ocultarBotonesPartida(){
-        this.btnPasarTurno.setVisible(false);
-    }
     
     private void ocultarPanelesContrincantes() {
         this.jpnFichasContrincante1.setVisible(false);

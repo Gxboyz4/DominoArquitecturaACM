@@ -185,10 +185,15 @@ public class FrmLobby extends javax.swing.JFrame {
         lblSlots = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dominó " + this.nombreJugador);
         setMinimumSize(new java.awt.Dimension(755, 540));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jpnFondo.setBackground(new java.awt.Color(255, 0, 0));
         jpnFondo.setMinimumSize(new java.awt.Dimension(736, 500));
@@ -313,6 +318,15 @@ public class FrmLobby extends javax.swing.JFrame {
                     mediador.configuracionPartida();
                 }
     }//GEN-LAST:event_cbxFichasPorJugadorItemStateChanged
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.dispose();
+        mediador.cerrarPantallaLobby();
+        mediador.getJugador().setListo(false);
+        JugadorDTO jugador = new JugadorDTO(mediador.getJugador().getNombre(), mediador.getJugador().getAvatar(),mediador.getJugador().getId());
+        mediador.getProxyCliente().eliminarJugador(jugador);
+        mediador.abrirPantallaMenu();
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

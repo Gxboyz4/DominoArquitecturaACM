@@ -87,7 +87,7 @@ public class BrokerCliente implements Runnable {
                 }
             } catch (IOException ex) {
 
-                ex.printStackTrace();
+           
                 this.eliminarConexion();
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
