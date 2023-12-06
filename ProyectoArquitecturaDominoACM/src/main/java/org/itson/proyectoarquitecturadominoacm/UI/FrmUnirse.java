@@ -120,17 +120,17 @@ public class FrmUnirse extends javax.swing.JFrame{
 
         tblPartidas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null},
+                {null},
+                {null},
+                {null}
             },
             new String [] {
-                "Creador", "Fichas Configuradas", "Cantidad Jugadores", "Unirse"
+                "Creador"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
